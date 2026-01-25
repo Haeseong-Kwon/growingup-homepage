@@ -1,0 +1,344 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Brand Colors - 로바블 톤 */
+  --color-brand-bg: #FCFBF8;
+  --color-brand-fg: #0B0B0F;
+  --color-brand-primary: #575ECF;
+  --color-brand-secondary: #0D9488;
+  --color-brand-hot1: #FE7B02;
+  --color-brand-hot2: #FE3F21;
+  --color-brand-hot3: #F858BC;
+  --color-brand-muted: rgba(11, 11, 15, 0.12);
+  --color-brand-muted-light: rgba(11, 11, 15, 0.06);
+  
+  /* Shadcn Theme Variables */
+  --color-background: var(--brand-bg);
+  --color-foreground: var(--brand-fg);
+  --color-card: var(--brand-bg);
+  --color-card-foreground: var(--brand-fg);
+  --color-popover: var(--brand-bg);
+  --color-popover-foreground: var(--brand-fg);
+  --color-primary: var(--brand-primary);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--brand-secondary);
+  --color-secondary-foreground: #ffffff;
+  --color-muted: var(--brand-muted-light);
+  --color-muted-foreground: rgba(11, 11, 15, 0.65);
+  --color-accent: var(--brand-primary);
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #dc2626;
+  --color-border: var(--brand-muted);
+  --color-input: var(--brand-muted);
+  --color-ring: var(--brand-primary);
+  
+  /* Font Families */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+  
+  /* Container */
+  --container-center: true;
+  --container-padding: 1rem;
+  --container-max-width-xl: 1320px;
+  
+  /* Sidebar (shadcn) */
+  --color-sidebar: var(--brand-bg);
+  --color-sidebar-foreground: var(--brand-fg);
+  --color-sidebar-primary: var(--brand-primary);
+  --color-sidebar-primary-foreground: #ffffff;
+  --color-sidebar-accent: var(--brand-muted-light);
+  --color-sidebar-accent-foreground: var(--brand-fg);
+  --color-sidebar-border: var(--brand-muted);
+  --color-sidebar-ring: var(--brand-primary);
+  
+  /* Chart colors */
+  --color-chart-1: var(--brand-primary);
+  --color-chart-2: var(--brand-secondary);
+  --color-chart-3: var(--brand-hot1);
+  --color-chart-4: var(--brand-hot2);
+  --color-chart-5: var(--brand-hot3);
+}
+
+:root {
+  --radius: 0.625rem;
+  --brand-bg: #FCFBF8;
+  --brand-fg: #0B0B0F;
+  --brand-primary: #575ECF;
+  --brand-secondary: #0D9488;
+  --brand-hot1: #FE7B02;
+  --brand-hot2: #FE3F21;
+  --brand-hot3: #F858BC;
+  --brand-muted: rgba(11, 11, 15, 0.12);
+  --brand-muted-light: rgba(11, 11, 15, 0.06);
+  
+  /* Header height */
+  --header-h: 64px; /* 기본: 64px (h-16) */
+  
+  /* Theme transition variables */
+  --theme-transition-duration: 300ms;
+  --theme-transition-timing: ease;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 80px; /* lg: 80px (h-20) */
+  }
+}
+
+.dark {
+  --brand-bg: #0B0B0F;
+  --brand-fg: #FCFBF8;
+  --color-background: var(--brand-bg);
+  --color-foreground: var(--brand-fg);
+  --color-card: rgba(252, 251, 248, 0.05);
+  --color-border: rgba(252, 251, 248, 0.12);
+}
+
+/* Theme zone classes */
+.theme-light {
+  --brand-bg: #FCFBF8;
+  --brand-fg: #0B0B0F;
+  --color-background: var(--brand-bg);
+  --color-foreground: var(--brand-fg);
+  --color-card: var(--brand-bg);
+  --color-card-foreground: var(--brand-fg);
+  --color-border: var(--brand-muted);
+}
+
+.theme-dark {
+  --brand-bg: #0F0F13;
+  --brand-fg: #F5F5F0;
+  --color-background: var(--brand-bg);
+  --color-foreground: var(--brand-fg);
+  --color-card: rgba(245, 245, 240, 0.05);
+  --color-card-foreground: var(--brand-fg);
+  --color-border: rgba(245, 245, 240, 0.15);
+}
+
+/* 안정화: html/body 전역 transition 제거 (렌더링 안정화) */
+/* Theme 전환은 AppShell의 data-theme으로 처리 (하위 호환성) */
+html.theme-light {
+  background-color: var(--brand-bg);
+  color: var(--brand-fg);
+}
+
+html.theme-dark {
+  background-color: var(--brand-bg);
+  color: var(--brand-fg);
+}
+
+/* AppShell 기반 블렌딩 컬러 엔진 */
+/* use-blended-theme 훅이 --bg, --fg, --surface, --border 변수를 직접 설정 */
+#app-shell {
+  /* 전역 transition 금지 유지 */
+  /* 미세한 부드러움만 허용 (180~220ms) */
+  transition: background-color 200ms ease, color 200ms ease;
+  background: var(--bg, var(--brand-bg));
+  color: var(--fg, var(--brand-fg));
+}
+
+/* 하위 호환성: data-theme 속성 (헤더/아이콘 스타일용) */
+#app-shell[data-theme="light"] {
+  /* 블렌딩 엔진이 우선, 이건 fallback */
+}
+
+#app-shell[data-theme="dark"] {
+  /* 블렌딩 엔진이 우선, 이건 fallback */
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  
+  body {
+    @apply antialiased;
+    background-color: var(--brand-bg);
+    color: var(--brand-fg);
+    font-feature-settings: "kern" 1, "liga" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Cheil 스타일 타이포그래피 */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    line-height: 0.95;
+    font-weight: 800;
+  }
+  
+  h2 {
+    font-size: clamp(1.75rem, 3vw, 2.75rem);
+    line-height: 1.05;
+    font-weight: 700;
+  }
+  
+  h3 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    line-height: 1.1;
+    font-weight: 700;
+  }
+  
+  /* Heading 계열 클래스 */
+  .heading {
+    font-weight: 700;
+  }
+  
+  /* 링크 스타일 - 미묘한 underline */
+  a {
+    @apply transition-colors duration-200;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    @apply text-[var(--brand-primary)];
+  }
+  
+  /* Selection */
+  ::selection {
+    background-color: rgba(87, 94, 207, 0.2);
+    color: var(--brand-fg);
+  }
+  
+  /* 스크롤바 미니멀 스타일 */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--brand-muted);
+    @apply rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--brand-muted);
+    opacity: 0.8;
+  }
+  
+  /* Horizontal slider scrollbar hide */
+  .horizontal-slider-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .horizontal-slider-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  /* 포커스 스타일 */
+  :focus-visible {
+    @apply outline-2 outline-offset-2;
+    outline-color: var(--brand-primary);
+  }
+  
+  /* 라인 스타일 */
+  hr {
+    border-color: var(--brand-muted);
+    @apply border-t;
+  }
+  
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Cheil 스타일 섹션 타이틀 */
+  .section-title {
+    font-size: clamp(1.75rem, 3vw, 2.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    @apply font-bold;
+    font-weight: 700;
+  }
+  
+  .section-subtitle {
+    font-size: clamp(0.9375rem, 1vw, 1rem);
+    line-height: 1.75;
+    color: rgba(11, 11, 15, 0.7);
+    max-width: 72ch;
+  }
+  
+  /* 풀블리드 비디오/히어로 */
+  .fullbleed {
+    width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Hover underline 애니메이션 */
+  .hover-underline {
+    @apply relative;
+  }
+  
+  .hover-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-[1px] bg-current transition-all duration-300;
+  }
+  
+  .hover-underline:hover::after {
+    @apply w-full;
+  }
+  
+  /* 텍스트 balance (긴 타이틀용) */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Marquee 애니메이션 */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .animate-marquee {
+    animation: marquee 45s linear infinite;
+  }
+  
+  .animate-marquee-slow {
+    animation: marquee 60s linear infinite;
+  }
+  
+  .animate-marquee-fast {
+    animation: marquee 30s linear infinite;
+  }
+  
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+  
+  /* 안정화: scroll-snap 유틸리티 제거 (렌더링 안정화) */
+}
