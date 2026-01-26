@@ -24,20 +24,14 @@ export function SplitTextReveal({
   delay = 0,
   className,
 }: SplitTextRevealProps) {
-  const { ref: inViewRef, inView } = useInView({ threshold: 0.2, triggerOnce: true });
+  const containerRef = useRef<HTMLElement>(null);
+  const { inView: isInView } = useInView({ 
+    amount: 0.4,
+    triggerOnce: true,
+    ref: containerRef 
+  });
   const prefersReducedMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
-  const containerRef = useRef<HTMLElement>(null);
-  
-  // ref 병합
-  const setRefs = (node: HTMLElement | null) => {
-    containerRef.current = node;
-    if (typeof inViewRef === "function") {
-      inViewRef(node);
-    } else if (inViewRef) {
-      (inViewRef as any).current = node;
-    }
-  };
 
   useEffect(() => {
     setMounted(true);
@@ -78,9 +72,9 @@ export function SplitTextReveal({
   if (prefersReducedMotion || !mounted) {
     return (
       <Component
-        ref={setRefs as any}
+        ref={containerRef as any}
         className={cn(className)}
-        style={{ opacity: inView ? 1 : 0, transition: "opacity 300ms ease" }}
+        style={{ opacity: isInView ? 1 : 0, transition: "opacity 300ms ease" }}
       >
         {text}
       </Component>
@@ -89,7 +83,7 @@ export function SplitTextReveal({
 
   return (
     <Component
-      ref={setRefs as any}
+      ref={containerRef as any}
       className={cn(
         "flex flex-wrap gap-x-1 gap-y-0",
         alignStyles[align],
@@ -98,7 +92,7 @@ export function SplitTextReveal({
     >
       {parts.map((part, index) => {
         const itemDelay = delay + index * staggerDelay;
-        const isVisible = inView;
+        const isVisible = isInView;
 
         return (
           <span
