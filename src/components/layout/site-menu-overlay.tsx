@@ -62,15 +62,18 @@ export function SiteMenuOverlay({ open, onOpenChange }: SiteMenuOverlayProps) {
         }}
       >
         <div className="min-h-screen bg-[var(--brand-bg)] p-6 md:p-8 lg:p-12">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-16 lg:mb-20">
+          {/* Header - PC에서는 GROWING UP 로고 제거 (헤더와 중복) */}
+          <div className="flex items-center justify-between mb-12 md:mb-16 lg:mb-20">
+            {/* 모바일에서만 로고 표시 */}
             <Link
               href="/"
-              className="text-xl font-medium tracking-tight"
+              className="text-xl font-medium tracking-tight lg:hidden"
               onClick={() => onOpenChange(false)}
             >
               GROWING UP
             </Link>
+            {/* PC에서는 플레이스홀더로 공간 유지 */}
+            <div className="hidden lg:block" />
             <Button
               variant="ghost"
               size="icon"
@@ -86,7 +89,7 @@ export function SiteMenuOverlay({ open, onOpenChange }: SiteMenuOverlayProps) {
           <div className="grid lg:grid-cols-[2fr,1fr] gap-12 lg:gap-20 max-w-[1320px] mx-auto">
             {/* Main Navigation */}
             <nav>
-              <ul className="space-y-2">
+              <ul className="space-y-4 md:space-y-5">
                 {mainLinks.map((link, index) => (
                   <li
                     key={link.href}
@@ -99,7 +102,7 @@ export function SiteMenuOverlay({ open, onOpenChange }: SiteMenuOverlayProps) {
                     <Link
                       href={link.href}
                       onClick={() => onOpenChange(false)}
-                      className="block py-3 text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium tracking-tight hover:text-[var(--brand-primary)] transition-colors duration-200"
+                      className="block py-2 md:py-3 text-3xl md:text-4xl font-medium tracking-tight leading-tight hover:text-[var(--brand-primary)] transition-colors duration-200"
                     >
                       {link.label}
                     </Link>

@@ -151,8 +151,10 @@ export function SiteHeader() {
   // 헤더 모드 결정 (2-state 고정: ON_HERO 또는 SURFACE)
   // Home 최상단에서만 ON_HERO, 그 외는 항상 SURFACE
   // 섹션 테마와 완전 분리하여 다크 섹션 진입해도 SURFACE 유지
+  // 메뉴 패널(오버레이/메가 메뉴)이 열려있으면 무조건 SURFACE
+  const isMenuPanelOpen = megaOpen || isMenuOpen;
   const headerMode: "ON_HERO" | "SURFACE" =
-    isHome && !isScrolled && !headerHovered && !megaOpen ? "ON_HERO" : "SURFACE";
+    isHome && !isScrolled && !headerHovered && !isMenuPanelOpen ? "ON_HERO" : "SURFACE";
 
   // 고정 색상 (CSS 변수 영향 차단)
   const SURFACE_BG = "#FCFBF8"; // 흰색 배경
@@ -271,18 +273,18 @@ export function SiteHeader() {
           }}
         >
           <Container>
-            <div className="py-8 lg:py-12">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="py-6 md:py-8 lg:py-10">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
                 <div className="lg:col-span-1">
-                  <h3 className="text-2xl font-bold mb-4 text-[var(--brand-fg)]">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-[var(--brand-fg)]">
                     {megaMenuData[activeMenu].title}
                   </h3>
-                  <p className="text-sm text-[var(--brand-fg)]/60">
+                  <p className="text-sm text-[var(--brand-fg)]/60 leading-relaxed">
                     {megaMenuData[activeMenu].items[0]?.description || ""}
                   </p>
                 </div>
                 <div className="lg:col-span-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-6">
                     {megaMenuData[activeMenu].items.map((item, index) => (
                       <Link
                         key={index}
@@ -290,11 +292,11 @@ export function SiteHeader() {
                         className="group p-4 rounded-lg hover:bg-[var(--brand-muted-light)] transition-colors"
                         onFocus={() => handleMenuMouseEnter(activeMenu)}
                       >
-                        <div className="font-bold text-base mb-1 text-[var(--brand-fg)] group-hover:text-[var(--brand-primary)] transition-colors">
+                        <div className="font-bold text-sm md:text-base mb-1 text-[var(--brand-fg)] group-hover:text-[var(--brand-primary)] transition-colors leading-tight">
                           {item.title}
                         </div>
                         {item.description && (
-                          <div className="text-sm text-[var(--brand-fg)]/60">
+                          <div className="text-xs md:text-sm text-[var(--brand-fg)]/60 leading-relaxed">
                             {item.description}
                           </div>
                         )}
