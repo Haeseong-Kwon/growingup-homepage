@@ -176,6 +176,7 @@ export default function HomePage() {
       <Section
         data-palette="light"
         data-theme="light"
+        data-section="why-growingup"
         data-band="160"
         theme="light"
         variant="default"
@@ -243,6 +244,7 @@ export default function HomePage() {
       <Section
         data-palette="light"
         data-theme="light"
+        data-section="performance"
         data-band="120"
         variant="default"
         divider="top"
@@ -309,6 +311,7 @@ export default function HomePage() {
       <Section
         data-palette="dark"
         data-theme="dark"
+        data-section="brand-creative"
         data-band="120"
         theme="dark"
         variant="ink"
@@ -395,6 +398,7 @@ export default function HomePage() {
       <Section
         data-palette="dark"
         data-theme="dark"
+        data-section="process"
         data-band="160"
         theme="dark"
         variant="ink"
@@ -443,6 +447,7 @@ export default function HomePage() {
       <Section
         data-palette="light"
         data-theme="light"
+        data-section="ongoing-projects"
         data-band="120"
         variant="default"
         divider="top"
@@ -503,6 +508,7 @@ export default function HomePage() {
       <Section
         data-palette="light"
         data-theme="light"
+        data-section="portfolio"
         data-band="120"
         variant="tinted"
         divider="top"
@@ -581,6 +587,7 @@ export default function HomePage() {
       <Section
         data-palette="light"
         data-theme="light"
+        data-section="partners"
         data-band="120"
         variant="default"
         divider="top"
@@ -600,6 +607,7 @@ export default function HomePage() {
       <Section
         data-palette="light"
         data-theme="light"
+        data-section="faq"
         data-band="160"
         variant="tinted"
         divider="top"
@@ -625,6 +633,7 @@ export default function HomePage() {
       <Section
         data-palette="dark"
         data-theme="dark"
+        data-section="final-cta"
         data-band="120"
         theme="dark"
         variant="ink"

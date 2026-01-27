@@ -3,6 +3,7 @@
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteShell } from "@/components/layout/site-shell";
+import { ThemeObserver } from "@/components/scroll/theme-observer";
 import { useBlendedTheme } from "@/hooks/use-blended-theme";
 import { useThemeZone } from "@/hooks/use-theme-zone";
 
@@ -19,6 +20,7 @@ export default function SiteLayout({
   
   return (
     <div className="flex min-h-screen flex-col">
+      <ThemeObserver />
       <SiteHeader />
       <SiteShell>{children}</SiteShell>
       <SiteFooter />

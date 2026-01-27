@@ -67,6 +67,7 @@ export function DeliverablesSection() {
     <Section
       data-palette="light"
       data-theme="light"
+      data-section="deliverables"
       data-band="120"
       variant="default"
       divider="top"

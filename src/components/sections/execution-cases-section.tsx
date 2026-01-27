@@ -49,6 +49,7 @@ export function ExecutionCasesSection() {
     <Section
       data-palette="light"
       data-theme="light"
+      data-section="execution-cases"
       data-band="120"
       variant="default"
       divider="top"

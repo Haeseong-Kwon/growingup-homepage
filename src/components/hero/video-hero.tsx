@@ -58,7 +58,8 @@ export function VideoHero({
 
   return (
     <section 
-      data-section="true"
+      data-theme="light"
+      data-section="hero"
       data-palette="brand"
       data-band="160"
       className="relative min-h-[100svh] w-full overflow-hidden bg-gradient-to-br from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-hot1)]"

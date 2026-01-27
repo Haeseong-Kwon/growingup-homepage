@@ -156,10 +156,19 @@ export function SiteHeader() {
   const headerMode: "ON_HERO" | "SURFACE" =
     isHome && !isScrolled && !headerHovered && !isMenuPanelOpen ? "ON_HERO" : "SURFACE";
 
-  // 고정 색상 (CSS 변수 영향 차단)
-  const SURFACE_BG = "#FCFBF8"; // 흰색 배경
-  const SURFACE_TEXT = "#0b0b0c"; // 검정 텍스트
-  const SURFACE_BORDER = "rgba(0, 0, 0, 0.08)"; // 얇은 테두리
+  // 메뉴 열린 상태를 html에 반영
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.documentElement.dataset.navOpen = "true";
+    } else {
+      document.documentElement.removeAttribute("data-nav-open");
+    }
+  }, [isMenuOpen]);
+
+  // CSS 변수 기반 색상 (전역 테마 변수 사용)
+  const SURFACE_BG = "var(--header-bg, rgba(255, 255, 255, 0.72))";
+  const SURFACE_TEXT = "var(--header-fg, #111111)";
+  const SURFACE_BORDER = "var(--border, rgba(0, 0, 0, 0.08))";
   const ON_HERO_TEXT = "#ffffff"; // 흰색 텍스트
 
   return (
@@ -170,23 +179,24 @@ export function SiteHeader() {
         onMouseLeave={handleHeaderMouseLeave}
         className={cn(
           "fixed top-0 left-0 right-0 w-full border-b transition-colors duration-200 isolate",
+          "sticky top-0 z-[100]",
           headerMode === "SURFACE"
             ? "shadow-sm"
             : ""
         )}
         style={{
-          // 배경색: SURFACE는 고정 흰색, ON_HERO는 투명
+          // 배경색: SURFACE는 CSS 변수, ON_HERO는 투명
           backgroundColor: headerMode === "SURFACE" ? SURFACE_BG : "transparent",
-          // 테두리: SURFACE는 얇은 검정, ON_HERO는 투명
+          // 테두리: SURFACE는 CSS 변수, ON_HERO는 투명
           borderColor: headerMode === "SURFACE" ? SURFACE_BORDER : "transparent",
-          // 텍스트 색상: SURFACE는 고정 검정, ON_HERO는 흰색 (CSS 변수 영향 차단)
+          // 텍스트 색상: SURFACE는 CSS 변수, ON_HERO는 흰색
           color: headerMode === "SURFACE" ? SURFACE_TEXT : ON_HERO_TEXT,
           // ON_HERO 모드에서 텍스트 가독성 보장 (text-shadow만 허용)
           textShadow: headerMode === "ON_HERO" ? "0 2px 14px rgba(0,0,0,0.35)" : "none",
           // 헤더가 항상 최상단에 보이도록 z-index 보장
-          zIndex: 999,
-          // 테마 블렌딩 변수 영향 차단
-          isolation: "isolate",
+          zIndex: 100,
+          // transform 적용 금지 (레이아웃 안정성)
+          transform: "none",
         }}
       >
         <Container>

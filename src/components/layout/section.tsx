@@ -47,6 +47,10 @@ interface SectionProps {
    * 하위 호환성을 위해 유지 (헤더/아이콘 스타일용)
    */
   "data-theme"?: "light" | "dark";
+  /**
+   * 섹션 ID (테마 관찰용)
+   */
+  "data-section"?: string;
 }
 
 export function Section({
@@ -67,6 +71,7 @@ export function Section({
   theme,
   edgeFade,
   "data-theme": dataTheme,
+  "data-section": dataSection,
 }: SectionProps) {
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -171,7 +176,7 @@ export function Section({
     <section
       ref={reveal ? ref : undefined}
       id={id}
-      data-section="true"
+      data-section={dataSection ?? "true"}
       data-palette={dataPalette}
       data-band={bandHeight}
       data-theme={dataTheme ?? theme}

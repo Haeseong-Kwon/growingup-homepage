@@ -89,12 +89,36 @@
   /* Theme transition variables */
   --theme-transition-duration: 300ms;
   --theme-transition-timing: ease;
+  
+  /* 전역 테마 변수 (ThemeObserver가 html[data-theme]로 설정) */
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #6b7280;
+  --border: rgba(0, 0, 0, 0.08);
+  --header-fg: #111111;
+  --header-bg: rgba(255, 255, 255, 0.72);
 }
 
 @media (min-width: 1024px) {
   :root {
     --header-h: 80px; /* lg: 80px (h-20) */
   }
+}
+
+/* 다크 테마 전역 변수 */
+html[data-theme="dark"] {
+  --bg: #0b0c0f;
+  --fg: #f8fafc;
+  --muted: rgba(248, 250, 252, 0.72);
+  --border: rgba(255, 255, 255, 0.10);
+  --header-fg: #f8fafc;
+  --header-bg: rgba(10, 10, 12, 0.55);
+}
+
+/* 메뉴 열린 상태에서는 강제로 라이트 테마 헤더 */
+html[data-nav-open="true"] {
+  --header-fg: #111111;
+  --header-bg: rgba(255, 255, 255, 0.92);
 }
 
 .dark {
@@ -165,8 +189,9 @@ html.theme-dark {
   
   body {
     @apply antialiased;
-    background-color: var(--brand-bg);
-    color: var(--brand-fg);
+    background: var(--bg, var(--brand-bg));
+    color: var(--fg, var(--brand-fg));
+    transition: background-color 260ms ease, color 260ms ease;
     font-feature-settings: "kern" 1, "liga" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -267,6 +292,11 @@ html.theme-dark {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+    }
+    
+    /* 테마 전환도 빠르게 */
+    body {
+      transition: background-color 0.01ms !important, color 0.01ms !important;
     }
   }
 }
