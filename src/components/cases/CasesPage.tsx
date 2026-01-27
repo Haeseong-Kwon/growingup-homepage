@@ -106,6 +106,7 @@ export function CasesPage() {
         theme="dark"
         variant="default"
         divider="top"
+        bleed={true}
         minHeight="auto"
         className="py-16 md:py-24"
       >
