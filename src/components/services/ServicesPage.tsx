@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { MediaReveal } from "@/components/motion/media-reveal";
+import { VideoHero } from "@/components/hero/video-hero";
 import { ServiceCard } from "./ServiceCard";
 import { servicesData } from "./servicesData";
 
@@ -12,31 +13,14 @@ export function ServicesPage() {
   return (
     <div className="w-full overflow-x-hidden">
       {/* Hero */}
-      <Section
-        data-palette="light"
-        data-theme="light"
-        data-section="services-hero"
-        variant="default"
-        divider="none"
-        minHeight="auto"
-        className="pt-24 md:pt-32"
-      >
-        <Container>
-          <MediaReveal intensity="subtle">
-            <div className="max-w-4xl">
-              <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
-                서비스
-              </div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-balance">
-                목표에 맞는 런칭 파트너십
-              </h1>
-              <p className="text-lg md:text-xl text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
-                빠른 검증이 필요한지, 체계적인 시스템 구축이 필요한지에 따라 최적의 협업 방식을 선택하세요.
-              </p>
-            </div>
-          </MediaReveal>
-        </Container>
-      </Section>
+      <VideoHero
+        title="목표에 맞는 런칭 파트너십"
+        subtitle="빠른 검증이 필요한지, 체계적인 시스템 구축이 필요한지에 따라 최적의 협업 방식을 선택하세요."
+        primaryCta={{
+          label: "진단 요청",
+          href: "/diagnosis",
+        }}
+      />
 
       {/* Services Grid */}
       <Section

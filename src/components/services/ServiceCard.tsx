@@ -14,7 +14,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
     <Card
       id={service.id}
       className={cn(
-        "group relative border-2 flex flex-col",
+        "group relative border-2 flex flex-col h-full",
         "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
         "hover:-translate-y-1 hover:border-[var(--brand-primary)]/20 hover:shadow-lg",
         "bg-[var(--color-card)] border-[var(--color-border)] shadow-sm"
@@ -29,7 +29,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         </p>
       </CardHeader>
 
-      <CardContent className="space-y-6 min-w-0">
+      <CardContent className="space-y-6 min-w-0 flex-1">
         {/* 적합한 경우 */}
         <div className="bg-[var(--brand-primary)]/5 border border-[var(--brand-primary)]/10 rounded-lg p-4 md:p-5">
           <div className="text-sm font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">

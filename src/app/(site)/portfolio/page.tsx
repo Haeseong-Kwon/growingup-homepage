@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { MediaReveal } from "@/components/motion/media-reveal";
+import { VideoHero } from "@/components/hero/video-hero";
 import { PortfolioFilterBar } from "@/components/portfolio/PortfolioFilterBar";
 import { PortfolioCard } from "@/components/portfolio/PortfolioCard";
 import { PortfolioDetailModal } from "@/components/portfolio/PortfolioDetailModal";
@@ -86,31 +87,14 @@ export default function PortfolioPage() {
   return (
     <div className="w-full overflow-x-clip">
       {/* Hero */}
-      <Section
-        data-palette="light"
-        data-theme="light"
-        data-section="portfolio-hero"
-        variant="default"
-        divider="none"
-        minHeight="auto"
-        className="pt-24 md:pt-32"
-      >
-        <Container>
-          <MediaReveal intensity="subtle">
-            <div className="max-w-4xl">
-              <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
-                포트폴리오
-              </div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-balance">
-                우리가 만든 결과물
-              </h1>
-              <p className="text-lg md:text-xl text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
-                아이디어가 실행으로 이어진 순간들. 업종/목표에 따라 필터링해 빠르게 레퍼런스를 찾으세요.
-              </p>
-            </div>
-          </MediaReveal>
-        </Container>
-      </Section>
+      <VideoHero
+        title="우리가 만든 결과물"
+        subtitle="아이디어가 실행으로 이어진 순간들. 업종/목표에 따라 필터링해 빠르게 레퍼런스를 찾으세요."
+        primaryCta={{
+          label: "진단 요청",
+          href: "/diagnosis",
+        }}
+      />
 
       {/* Filter Bar */}
       <PortfolioFilterBar

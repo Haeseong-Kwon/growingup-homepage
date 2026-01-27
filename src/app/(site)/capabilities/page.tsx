@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { MediaReveal } from "@/components/motion/media-reveal";
+import { VideoHero } from "@/components/hero/video-hero";
 import { 
   Search, 
   Target, 
@@ -167,45 +168,18 @@ export default function CapabilitiesPage() {
   return (
     <>
       {/* Hero */}
-      <Section
-        data-palette="light"
-        data-theme="light"
-        data-section="capabilities-hero"
-        variant="default"
-        divider="none"
-        minHeight="medium"
-        className="pt-24 md:pt-32"
-      >
-        <Container>
-          <MediaReveal intensity="subtle">
-            <div className="max-w-4xl">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-balance">
-                캠페인이 아닌 런칭 시스템을 설계하고 운영합니다
-              </h1>
-              <p className="text-lg md:text-xl text-[var(--brand-fg)]/70 leading-relaxed mb-10 max-w-3xl">
-                각 단계가 독립적으로 작동하면서도 유기적으로 연결되는 운영 프레임워크로, 측정 가능한 성과를 만듭니다.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-[var(--brand-primary)] hover:bg-[var(--brand-primary)]/90 text-white rounded-lg h-12 px-8 text-base font-bold"
-                >
-                  <Link href="/diagnosis">진단 요청</Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-2 border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)]/10 rounded-lg h-12 px-8 text-base font-bold"
-                >
-                  <Link href="/arena">진행 중인 프로젝트 보기</Link>
-                </Button>
-              </div>
-            </div>
-          </MediaReveal>
-        </Container>
-      </Section>
+      <VideoHero
+        title="캠페인이 아닌 런칭 시스템을 설계하고 운영합니다"
+        subtitle="각 단계가 독립적으로 작동하면서도 유기적으로 연결되는 운영 프레임워크로, 측정 가능한 성과를 만듭니다."
+        primaryCta={{
+          label: "진단 요청",
+          href: "/diagnosis",
+        }}
+        secondaryCta={{
+          label: "진행 중인 프로젝트 보기",
+          href: "/arena",
+        }}
+      />
 
       {/* Mission: OS로 운영되는 마케팅 */}
       <Section

@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { MediaReveal } from "@/components/motion/media-reveal";
+import { VideoHero } from "@/components/hero/video-hero";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { LeadMagnetCard } from "./LeadMagnetCard";
 import { SearchAndTags } from "./SearchAndTags";
@@ -47,33 +48,10 @@ export function InsightsPage() {
   return (
     <div className="w-full overflow-x-hidden">
       {/* Hero */}
-      <Section
-        data-palette="light"
-        data-theme="light"
-        data-section="insights-hero"
-        variant="default"
-        divider="none"
-        minHeight="auto"
-        className="pt-24 md:pt-32"
-      >
-        <Container>
-          <MediaReveal intensity="subtle">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
-                인사이트
-              </div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight mb-6 text-balance">
-                트렌드와 실행 기록
-              </h1>
-              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl">
-                마케팅 업계 주요 이슈와 우리의 실행 과정을 공유합니다.
-                <br className="hidden sm:block" />
-                정보 수집과 학습, 그리고 투명한 공유.
-              </p>
-            </div>
-          </MediaReveal>
-        </Container>
-      </Section>
+      <VideoHero
+        title="트렌드와 실행 기록"
+        subtitle="마케팅 업계 주요 이슈와 우리의 실행 과정을 공유합니다. 정보 수집과 학습, 그리고 투명한 공유."
+      />
 
       {/* Tabs */}
       <Section

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { MediaReveal } from "@/components/motion/media-reveal";
+import { VideoHero } from "@/components/hero/video-hero";
 import { CaseCard } from "./CaseCard";
 import { casesData, categories, CaseItem } from "./casesData";
 import { cn } from "@/lib/utils";
@@ -23,31 +24,14 @@ export function CasesPage() {
   return (
     <div className="w-full overflow-x-hidden">
       {/* Hero */}
-      <Section
-        data-palette="light"
-        data-theme="light"
-        data-section="cases-hero"
-        variant="default"
-        divider="none"
-        minHeight="auto"
-        className="pt-24 md:pt-32"
-      >
-        <Container>
-          <MediaReveal intensity="subtle">
-            <div className="max-w-4xl">
-              <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
-                실행 사례
-              </div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-balance">
-                결과로 증명한 런칭 사례
-              </h1>
-              <p className="text-lg md:text-xl text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
-                기획서가 아닌 실제 출시 결과로 검증된 케이스를 확인하세요. 문제 정의부터 성과 측정까지 전 과정을 공개합니다.
-              </p>
-            </div>
-          </MediaReveal>
-        </Container>
-      </Section>
+      <VideoHero
+        title="결과로 증명한 런칭 사례"
+        subtitle="기획서가 아닌 실제 출시 결과로 검증된 케이스를 확인하세요. 문제 정의부터 성과 측정까지 전 과정을 공개합니다."
+        primaryCta={{
+          label: "진단 요청",
+          href: "/diagnosis",
+        }}
+      />
 
       {/* Filter Bar & Cards Grid */}
       <Section

@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
+import { VideoHero } from "@/components/hero/video-hero";
 import {
   Calendar,
   Target,
@@ -264,27 +265,23 @@ export default function ArenaPage() {
   return (
     <div className="w-full overflow-x-hidden">
       {/* 1) Hero 섹션 */}
+      <VideoHero
+        title="실전 레퍼런스를 만드는 곳"
+        subtitle="반나절 단위 미션 기반 협업 프로그램. 고정 근무 없이, 포트폴리오에 바로 넣을 수 있는 결과물을 만듭니다."
+      />
+      
+      {/* 추가 정보 카드 */}
       <Section
         data-palette="light"
         data-theme="light"
-        data-section="arena-hero"
+        data-section="arena-info"
         variant="default"
         divider="none"
         minHeight="auto"
-        className="pt-24 md:pt-32 bg-[var(--brand-secondary)]/30"
+        className="py-8"
       >
         <Container>
           <div className="max-w-4xl">
-            <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-3 uppercase tracking-wide">
-              프로젝트 아레나
-            </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-balance">
-              실전 레퍼런스를 만드는 곳
-            </h1>
-            <p className="text-lg md:text-xl text-[var(--brand-fg)]/70 leading-relaxed mb-8 max-w-3xl">
-              반나절 단위 미션 기반 협업 프로그램. 고정 근무 없이, 포트폴리오에
-              바로 넣을 수 있는 결과물을 만듭니다.
-            </p>
             <div className="space-y-3">
               <Card className="border-2 bg-card">
                 <CardContent className="p-4 md:p-6">
