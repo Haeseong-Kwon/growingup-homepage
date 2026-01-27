@@ -13,14 +13,18 @@ interface SiteShellProps {
  */
 export function SiteShell({ children }: SiteShellProps) {
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  
+  // VideoHero가 있는 페이지들은 헤더 높이만큼 padding-top을 추가하지 않음
+  // (VideoHero가 -mt-[var(--header-h)]로 헤더까지 올라가야 하므로)
+  const pagesWithVideoHero = ["/", "/capabilities", "/arena", "/portfolio", "/services", "/cases", "/insights"];
+  const hasVideoHero = pagesWithVideoHero.includes(pathname);
 
   return (
     <main
       id="app-shell"
       className={cn(
         "flex-1",
-        !isHome && "pt-[var(--header-h)]"
+        !hasVideoHero && "pt-[var(--header-h)]"
       )}
     >
       {children}
