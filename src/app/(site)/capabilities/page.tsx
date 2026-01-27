@@ -7,6 +7,8 @@ import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { MediaReveal } from "@/components/motion/media-reveal";
 import { VideoHero } from "@/components/hero/video-hero";
+import { useInView } from "@/hooks/use-in-view";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { 
   Search, 
   Target, 
@@ -164,7 +166,7 @@ const sampleDeliverables = [
   },
 ];
 
-// Capabilities Map 섹션
+// Capabilities Map 섹션 - 최적화된 버전 (blur 제거, 안정적인 key 사용)
 function CapabilitiesMapSection() {
   return (
     <Section
@@ -190,58 +192,99 @@ function CapabilitiesMapSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 min-w-0 overflow-x-clip">
           {capabilitiesMap.map((capability, index) => (
-            <MediaReveal key={index} delay={index * 50} intensity="medium" className="min-w-0">
-              <Card
-                className={cn(
-                  "group relative border-2 flex flex-col h-full w-full min-w-0",
-                  "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
-                  "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40",
-                  "bg-[var(--brand-bg)] border-[var(--color-border)] shadow-sm",
-                  "overflow-hidden rounded-xl will-change-transform",
-                  "transform-gpu"
-                )}
-              >
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent pointer-events-none" />
-                
-                <CardHeader className="relative z-10 min-w-0">
-                  <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-2 break-words min-w-0">
-                    {capability.title}
-                  </CardTitle>
-                  <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4 break-words min-w-0">
-                    {capability.description}
-                  </p>
-                </CardHeader>
-                <CardContent className="relative z-10 flex-1 flex flex-col min-w-0">
-                  <div className="mb-4 min-w-0">
-                    <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-2">
-                      대표 산출물
-                    </div>
-                    <ul className="space-y-1.5">
-                      {capability.deliverables.map((item, itemIndex) => (
-                        <li key={itemIndex} className="flex items-start gap-2 min-w-0">
-                          <CheckCircle2 className="w-4 h-4 text-[var(--brand-primary)] mt-0.5 flex-shrink-0" />
-                          <span className="text-sm text-[var(--brand-fg)]/80 leading-relaxed break-words min-w-0">
-                            {item}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="mt-auto pt-4 border-t border-[var(--brand-muted)] min-w-0">
-                    <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-1">
-                      성공 기준
-                    </div>
-                    <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
-                      {capability.successCriteria}
+            <OptimizedMediaReveal
+              key={capability.title}
+              delay={index * 50}
+              className="min-w-0"
+            >
+                <Card
+                  className={cn(
+                    "group relative border-2 flex flex-col h-full w-full min-w-0",
+                    "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none motion-reduce:transform-none",
+                    "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40",
+                    "bg-[var(--brand-bg)] border-[var(--color-border)] shadow-sm",
+                    "overflow-hidden rounded-xl",
+                    "transform-gpu"
+                  )}
+                >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent pointer-events-none" />
+                  
+                  <CardHeader className="relative z-10 min-w-0">
+                    <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-2 break-words min-w-0">
+                      {capability.title}
+                    </CardTitle>
+                    <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4 break-words min-w-0">
+                      {capability.description}
                     </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </MediaReveal>
-          ))}
+                  </CardHeader>
+                  <CardContent className="relative z-10 flex-1 flex flex-col min-w-0">
+                    <div className="mb-4 min-w-0">
+                      <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-2">
+                        대표 산출물
+                      </div>
+                      <ul className="space-y-1.5">
+                        {capability.deliverables.map((item, itemIndex) => (
+                          <li key={itemIndex} className="flex items-start gap-2 min-w-0">
+                            <CheckCircle2 className="w-4 h-4 text-[var(--brand-primary)] mt-0.5 flex-shrink-0" />
+                            <span className="text-sm text-[var(--brand-fg)]/80 leading-relaxed break-words min-w-0">
+                              {item}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="mt-auto pt-4 border-t border-[var(--brand-muted)] min-w-0">
+                      <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-1">
+                        성공 기준
+                      </div>
+                      <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
+                        {capability.successCriteria}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </OptimizedMediaReveal>
+            ))}
         </div>
       </Container>
     </Section>
+  );
+}
+
+// 최적화된 MediaReveal (blur 제거, GPU 폭주 방지)
+function OptimizedMediaReveal({
+  children,
+  className,
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return (
+      <div ref={ref as any} className={className} style={{ opacity: inView ? 1 : 0, transition: "opacity 300ms ease" }}>
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <div
+      ref={ref as any}
+      className={className}
+      style={{
+        opacity: inView ? 1 : 0,
+        transform: inView ? "translateY(0) scale(1)" : "translateY(24px) scale(0.98)",
+        transition: `opacity 600ms ease ${delay}ms, transform 600ms ease ${delay}ms`,
+        willChange: inView ? "auto" : "transform, opacity",
+      }}
+    >
+      {children}
+    </div>
   );
 }
 
