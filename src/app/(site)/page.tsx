@@ -267,7 +267,7 @@ export default function HomePage() {
           </MediaReveal>
 
           {/* 성과 카드 3개 */}
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8 items-stretch">
             <PerformanceCard
               icon={TrendingUp}
               title="Great 포터블 스크린"

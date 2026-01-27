@@ -26,7 +26,7 @@ export function HorizontalSlider({
   items,
   className,
   autoplay = true,
-  intervalMs = 5200, // 안정화: 5200ms로 조정
+  intervalMs = 3500, // 슬라이드 속도 조정: 3500ms
   pauseOnHover = true,
   dark = false,
 }: HorizontalSliderProps) {

@@ -74,10 +74,10 @@ export function PerformanceCard({
 
   return (
     <MediaReveal delay={delay} intensity="medium">
-      <div ref={ref}>
+      <div ref={ref} className="h-full flex">
         <Card
           className={cn(
-            "group relative overflow-hidden border-2 transition-all duration-500",
+            "group relative overflow-hidden border-2 transition-all duration-500 flex flex-col w-full",
             "hover:-translate-y-2 hover:shadow-xl",
             colors.borderHover,
             "bg-gradient-to-br from-white to-[var(--brand-muted-light)]/30"
@@ -100,7 +100,7 @@ export function PerformanceCard({
           )}
         />
 
-        <CardHeader className="relative z-10">
+        <CardHeader className="relative z-10 flex-1 flex flex-col">
           <div className="flex items-center gap-3 mb-4">
             <div
               className={cn(
@@ -121,12 +121,12 @@ export function PerformanceCard({
             {numberSuffix}
           </div>
 
-          <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
+          <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
             {description}
           </p>
         </CardHeader>
 
-        <CardContent className="relative z-10">
+        <CardContent className="relative z-10 mt-auto">
           <div className="text-xs font-medium text-[var(--brand-fg)]/60 mb-3 uppercase tracking-wide">
             핵심 지표
           </div>
