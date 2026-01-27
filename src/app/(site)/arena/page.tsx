@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { VideoHero } from "@/components/hero/video-hero";
+import { MediaReveal } from "@/components/motion/media-reveal";
 import {
   Calendar,
   Target,
@@ -283,20 +284,24 @@ export default function ArenaPage() {
         <Container>
           <div className="max-w-4xl min-w-0">
             <div className="space-y-3">
-              <Card className="border-2 bg-card min-w-0">
-                <CardContent className="p-4 md:p-6 min-w-0">
-                  <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
-                    • 기여자 크레딧 표기는 참여자 선택
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 bg-card min-w-0">
-                <CardContent className="p-4 md:p-6 min-w-0">
-                  <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
-                    • 상위 기여자는 유료 전환 트랙 우선 제안 가능
-                  </p>
-                </CardContent>
-              </Card>
+              <MediaReveal intensity="subtle" delay={0}>
+                <Card className="border-2 bg-card min-w-0">
+                  <CardContent className="p-4 md:p-6 min-w-0">
+                    <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
+                      • 기여자 크레딧 표기는 참여자 선택
+                    </p>
+                  </CardContent>
+                </Card>
+              </MediaReveal>
+              <MediaReveal intensity="subtle" delay={100}>
+                <Card className="border-2 bg-card min-w-0">
+                  <CardContent className="p-4 md:p-6 min-w-0">
+                    <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
+                      • 상위 기여자는 유료 전환 트랙 우선 제안 가능
+                    </p>
+                  </CardContent>
+                </Card>
+              </MediaReveal>
             </div>
           </div>
         </Container>
@@ -346,45 +351,51 @@ export default function ArenaPage() {
       {/* 3) 진행 중인 캠페인 섹션 */}
       <section className="py-16 md:py-24 bg-[var(--brand-bg)] border-t border-[var(--brand-muted)]">
         <div className="mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 md:mb-12 min-w-0">
-            진행 중인 캠페인
-          </h2>
+          <MediaReveal intensity="subtle">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 md:mb-12 min-w-0">
+              진행 중인 캠페인
+            </h2>
+          </MediaReveal>
 
           <div className="grid gap-8 lg:grid-cols-12 items-start">
             {/* LEFT: 캠페인 리스트 */}
             <div className="lg:col-span-8 min-w-0">
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {campaigns.map((campaign) => (
-                  <div key={campaign.id} className="min-w-0">
-                    <CampaignCard
-                      campaign={campaign}
-                      onClick={handleCampaignClick}
-                    />
-                  </div>
+                {campaigns.map((campaign, index) => (
+                  <MediaReveal key={campaign.id} delay={index * 100} intensity="medium">
+                    <div className="min-w-0">
+                      <CampaignCard
+                        campaign={campaign}
+                        onClick={handleCampaignClick}
+                      />
+                    </div>
+                  </MediaReveal>
                 ))}
               </div>
             </div>
 
             {/* RIGHT: 신청 CTA */}
             <aside className="lg:col-span-4 min-w-0">
-              <div className="rounded-2xl bg-[var(--brand-primary)] text-white p-6 md:p-7 shadow-sm border-0">
-                <h3 className="text-xl md:text-2xl font-bold mb-3 text-white min-w-0">
-                  참여하고 싶으신가요?
-                </h3>
-                <p className="text-sm md:text-base text-white/90 leading-relaxed mb-4 break-words min-w-0">
-                  포트폴리오와 함께 신청해 주세요. 검토 후 연락드립니다.
-                </p>
-                <Button
-                  asChild
-                  variant="secondary"
-                  className="w-full bg-white text-[var(--brand-primary)] hover:bg-white/90"
-                >
-                  <Link href="/auth" className="min-w-0">
-                    <LogIn className="w-4 h-4" />
-                    로그인하고 신청하기
-                  </Link>
-                </Button>
-              </div>
+              <MediaReveal intensity="medium" delay={200}>
+                <div className="rounded-2xl bg-[var(--brand-primary)] text-white p-6 md:p-7 shadow-sm border-0">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3 text-white min-w-0">
+                    참여하고 싶으신가요?
+                  </h3>
+                  <p className="text-sm md:text-base text-white/90 leading-relaxed mb-4 break-words min-w-0">
+                    포트폴리오와 함께 신청해 주세요. 검토 후 연락드립니다.
+                  </p>
+                  <Button
+                    asChild
+                    variant="secondary"
+                    className="w-full bg-white text-[var(--brand-primary)] hover:bg-white/90"
+                  >
+                    <Link href="/auth" className="min-w-0">
+                      <LogIn className="w-4 h-4" />
+                      로그인하고 신청하기
+                    </Link>
+                  </Button>
+                </div>
+              </MediaReveal>
             </aside>
           </div>
         </div>
@@ -403,53 +414,62 @@ export default function ArenaPage() {
           <div className="space-y-12 min-w-0">
             {/* 진행 현황 */}
             <div className="min-w-0">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8 min-w-0">
-                진행 현황
-              </h2>
+              <MediaReveal intensity="subtle">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8 min-w-0">
+                  진행 현황
+                </h2>
+              </MediaReveal>
               <div className="space-y-4">
                 {timelineItems.map((item, index) => (
-                  <Card
-                    key={index}
-                    className="border-2 bg-card p-4 md:p-6 min-w-0"
-                  >
-                    <div className="flex flex-col sm:flex-row gap-4 min-w-0">
-                      <Badge
-                        variant="outline"
-                        className="w-fit bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] border-[var(--brand-primary)]/20 shrink-0"
-                      >
-                        {item.date}
-                      </Badge>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-lg md:text-xl font-bold mb-2 break-words min-w-0">
-                          {item.title}
-                        </h4>
-                        <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
-                          {item.desc}
-                        </p>
+                  <MediaReveal key={index} delay={index * 100} intensity="medium">
+                    <Card
+                      className="border-2 bg-card p-4 md:p-6 min-w-0"
+                    >
+                      <div className="flex flex-col sm:flex-row gap-4 min-w-0">
+                        <Badge
+                          variant="outline"
+                          className="w-fit bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] border-[var(--brand-primary)]/20 shrink-0"
+                        >
+                          {item.date}
+                        </Badge>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-lg md:text-xl font-bold mb-2 break-words min-w-0">
+                            {item.title}
+                          </h4>
+                          <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
+                            {item.desc}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </MediaReveal>
                 ))}
               </div>
             </div>
 
             {/* 미션 보드 */}
             <div className="min-w-0">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 min-w-0">
-                미션 보드
-              </h2>
-              <p className="text-base md:text-lg text-[var(--brand-fg)]/70 mb-6 md:mb-8 leading-relaxed break-words min-w-0">
-                반나절 단위 실전 과제. 완료 시 포트폴리오에 바로 활용
-                가능합니다.
-              </p>
+              <MediaReveal intensity="subtle">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 min-w-0">
+                  미션 보드
+                </h2>
+              </MediaReveal>
+              <MediaReveal intensity="subtle" delay={100}>
+                <p className="text-base md:text-lg text-[var(--brand-fg)]/70 mb-6 md:mb-8 leading-relaxed break-words min-w-0">
+                  반나절 단위 실전 과제. 완료 시 포트폴리오에 바로 활용
+                  가능합니다.
+                </p>
+              </MediaReveal>
               <div className="grid md:grid-cols-2 gap-4">
-                {missions.map((mission) => (
-                  <div key={mission.id} className="min-w-0">
-                    <MissionCard
-                      mission={mission}
-                      onClick={handleMissionClick}
-                    />
-                  </div>
+                {missions.map((mission, index) => (
+                  <MediaReveal key={mission.id} delay={index * 100} intensity="medium">
+                    <div className="min-w-0">
+                      <MissionCard
+                        mission={mission}
+                        onClick={handleMissionClick}
+                      />
+                    </div>
+                  </MediaReveal>
                 ))}
               </div>
             </div>

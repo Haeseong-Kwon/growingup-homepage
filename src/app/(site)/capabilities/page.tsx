@@ -245,7 +245,8 @@ export default function CapabilitiesPage() {
     <div className="w-full overflow-x-clip">
       {/* Hero */}
       <VideoHero
-        title="캠페인이 아닌 런칭 시스템을 설계하고 운영합니다"
+        title="캠페인이 아닌
+런칭 시스템을 설계하고 운영합니다"
         subtitle="각 단계가 독립적으로 작동하면서도 유기적으로 연결되는 운영 프레임워크로, 측정 가능한 성과를 만듭니다."
         primaryCta={{
           label: "진단 요청",

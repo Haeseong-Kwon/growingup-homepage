@@ -110,7 +110,7 @@ export function VideoHero({
           <div className="max-w-4xl">
             {/* Title with Typing Effect */}
             <h1
-              className="text-white font-medium tracking-tight mb-6 text-balance"
+              className="text-white font-medium tracking-tight mb-6 text-balance whitespace-pre-line"
               style={{
                 fontSize: "clamp(2.5rem, 6vw, 5.5rem)",
                 lineHeight: "0.95",

@@ -33,14 +33,14 @@ export function ServicesPage() {
         className="py-16 md:py-24"
       >
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-stretch">
             <MediaReveal intensity="medium">
-              <div id="sprint" className="scroll-mt-[calc(var(--header-h)+48px)]">
+              <div id="sprint" className="scroll-mt-[calc(var(--header-h)+48px)] h-full">
                 <ServiceCard service={servicesData[0]} />
               </div>
             </MediaReveal>
             <MediaReveal intensity="medium" delay={100}>
-              <div id="partner" className="scroll-mt-[calc(var(--header-h)+48px)]">
+              <div id="partner" className="scroll-mt-[calc(var(--header-h)+48px)] h-full">
                 <ServiceCard service={servicesData[1]} />
               </div>
             </MediaReveal>

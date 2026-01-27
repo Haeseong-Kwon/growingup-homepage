@@ -18,7 +18,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
         "hover:-translate-y-1 hover:border-[var(--brand-primary)]/20 hover:shadow-lg",
         "bg-[var(--color-card)] border-[var(--color-border)] shadow-sm",
-        "h-full min-h-[600px]"
+        "h-full"
       )}
     >
       <CardHeader className="pb-4">
