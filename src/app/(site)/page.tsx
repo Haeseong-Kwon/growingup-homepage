@@ -13,6 +13,7 @@ import { MediaReveal } from "@/components/motion/media-reveal";
 import { HorizontalSlider } from "@/components/sections/horizontal-slider";
 import { LogoMarquee } from "@/components/sections/logo-marquee";
 import { ExecutionCasesSection } from "@/components/sections/execution-cases-section";
+import { DeliverablesSection } from "@/components/sections/deliverables-section";
 import { Accordion } from "@/components/ui/accordion";
 import { KpiBadge } from "@/components/ui/kpi-badge";
 import { PerformanceCard } from "@/components/sections/performance-card";
@@ -434,6 +435,9 @@ export default function HomePage() {
         </div>
         </Container>
       </Section>
+
+      {/* [4-1] Deliverables Section - light */}
+      <DeliverablesSection />
 
       {/* [5] Ongoing Projects Preview - light로 전환 */}
       <Section
