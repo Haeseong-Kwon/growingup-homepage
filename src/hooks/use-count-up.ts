@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, RefObject } from "react";
 import { useInView } from "./use-in-view";
 
 interface UseCountUpOptions {
@@ -23,7 +23,12 @@ export function useCountUp({
   enabled = true,
 }: UseCountUpOptions) {
   const [count, setCount] = useState(start);
-  const { ref, inView } = useInView({ threshold: 0.3, triggerOnce: true });
+  const divRef = useRef<HTMLDivElement>(null);
+  const { inView } = useInView({ 
+    threshold: 0.3, 
+    triggerOnce: true,
+    ref: divRef as RefObject<HTMLElement | null>
+  });
   const hasAnimated = useRef(false);
 
   useEffect(() => {
@@ -63,6 +68,6 @@ export function useCountUp({
     return prefix + parts.join(".") + suffix;
   };
 
-  return { ref, count: formatNumber(count), rawCount: count };
+  return { ref: divRef, count: formatNumber(count), rawCount: count };
 }
 
