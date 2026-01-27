@@ -170,7 +170,74 @@ export default function HomePage() {
         }}
       />
 
-      {/* [1] 실행 결과 - 성과 섹션 */}
+      {/* [1] "Why GrowingUp" - light */}
+      <Section
+        data-palette="light"
+        data-theme="light"
+        data-band="160"
+        theme="light"
+        variant="default"
+        divider="top"
+        bleed={true}
+        minHeight="medium"
+      >
+        <Container>
+          <div className="mb-16 md:mb-20">
+            <SplitTextReveal
+              text="왜 GrowingUp인가"
+              as="h2"
+              align="left"
+              split="words"
+              direction="lr"
+              className="mb-6"
+            />
+            <p className="text-lg md:text-xl text-[var(--brand-fg)]/70 max-w-3xl leading-relaxed">
+              데이터 기반의 정확한 진단과 실행력으로 비즈니스의 본질적인 성장을 만들어갑니다.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            <Card className="border-2 hover:border-[var(--brand-primary)]/30 transition-all duration-300 hover:-translate-y-1">
+              <CardHeader>
+                <CardTitle className="text-xl md:text-2xl font-bold mb-3">
+                  데이터 기반 전략
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
+                  추측이 아닌 데이터로 의사결정합니다. 정확한 분석을 통해 최적의 솔루션을 제시합니다.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="border-2 hover:border-[var(--brand-primary)]/30 transition-all duration-300 hover:-translate-y-1">
+              <CardHeader>
+                <CardTitle className="text-xl md:text-2xl font-bold mb-3">
+                  크리에이티브 실행력
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
+                  아이디어를 현실로 만드는 실행력. 빠르고 정확한 구현으로 시장을 선도합니다.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="border-2 hover:border-[var(--brand-primary)]/30 transition-all duration-300 hover:-translate-y-1">
+              <CardHeader>
+                <CardTitle className="text-xl md:text-2xl font-bold mb-3">
+                  지속적인 최적화
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
+                  한 번의 성공으로 끝나지 않습니다. 지속적인 모니터링과 개선으로 성장을 이어갑니다.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </Container>
+      </Section>
+
+      {/* [2] 실행 결과 - 성과 섹션 */}
       <Section
         data-palette="light"
         data-theme="light"
@@ -304,75 +371,8 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* [1-1] 실행 사례 섹션 */}
+      {/* [2-1] 실행 사례 섹션 */}
       <ExecutionCasesSection />
-
-      {/* [2] "Why GrowingUp" - light */}
-      <Section
-        data-palette="light"
-        data-theme="light"
-        data-band="160"
-        theme="light"
-        variant="default"
-        divider="top"
-        bleed={true}
-        minHeight="medium"
-      >
-        <Container>
-          <div className="mb-16 md:mb-20">
-            <SplitTextReveal
-              text="왜 GrowingUp인가"
-              as="h2"
-              align="left"
-              split="words"
-              direction="lr"
-              className="mb-6"
-            />
-            <p className="text-lg md:text-xl text-[var(--brand-fg)]/70 max-w-3xl leading-relaxed">
-              데이터 기반의 정확한 진단과 실행력으로 비즈니스의 본질적인 성장을 만들어갑니다.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            <Card className="border-2 hover:border-[var(--brand-primary)]/30 transition-all duration-300 hover:-translate-y-1">
-              <CardHeader>
-                <CardTitle className="text-xl md:text-2xl font-bold mb-3">
-                  데이터 기반 전략
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
-                  추측이 아닌 데이터로 의사결정합니다. 정확한 분석을 통해 최적의 솔루션을 제시합니다.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="border-2 hover:border-[var(--brand-primary)]/30 transition-all duration-300 hover:-translate-y-1">
-              <CardHeader>
-                <CardTitle className="text-xl md:text-2xl font-bold mb-3">
-                  크리에이티브 실행력
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
-                  아이디어를 현실로 만드는 실행력. 빠르고 정확한 구현으로 시장을 선도합니다.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="border-2 hover:border-[var(--brand-primary)]/30 transition-all duration-300 hover:-translate-y-1">
-              <CardHeader>
-                <CardTitle className="text-xl md:text-2xl font-bold mb-3">
-                  지속적인 최적화
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
-                  한 번의 성공으로 끝나지 않습니다. 지속적인 모니터링과 개선으로 성장을 이어갑니다.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </Container>
-      </Section>
 
       {/* [3] Theme Switch Section - dark */}
       <Section
