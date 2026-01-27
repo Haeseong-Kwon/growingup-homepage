@@ -276,6 +276,16 @@ html.theme-dark {
     scrollbar-width: none;
   }
   
+  /* Filter bar scrollbar hide */
+  .filter-bar-scroll::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .filter-bar-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
   /* 포커스 스타일 */
   :focus-visible {
     @apply outline-2 outline-offset-2;

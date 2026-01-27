@@ -352,11 +352,11 @@ export default function CapabilitiesPage() {
                   
                   <CardHeader className="relative z-10">
                     <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-2">
-                      {capability.title}
+                  {capability.title}
                     </CardTitle>
                     <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
-                      {capability.description}
-                    </p>
+                  {capability.description}
+                </p>
                   </CardHeader>
                   <CardContent className="relative z-10 flex-1 flex flex-col">
                     <div className="mb-4">
@@ -398,6 +398,7 @@ export default function CapabilitiesPage() {
         theme="dark"
         variant="default"
         divider="top"
+        bleed={true}
         minHeight="auto"
         className="py-16 md:py-24"
       >
@@ -514,7 +515,7 @@ export default function CapabilitiesPage() {
                       )}>
                         {phase.status}
                       </span>
-                    </div>
+              </div>
                     <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)]">
                       {phase.title}
                     </CardTitle>
@@ -594,6 +595,7 @@ export default function CapabilitiesPage() {
         theme="dark"
         variant="default"
         divider="top"
+        bleed={true}
         minHeight="auto"
         className="py-16 md:py-24"
       >
