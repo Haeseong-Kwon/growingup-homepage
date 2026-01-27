@@ -99,16 +99,22 @@ export function DeliverablesSection() {
               <div key={index}>
                 <Card
                   className={cn(
-                    "relative border-2 flex flex-col",
+                    "group relative border-2 flex flex-col",
                     "bg-[var(--brand-bg)]",
                     "border-[var(--color-border)]",
-                    "h-full min-h-[280px]"
+                    "h-full min-h-[280px]",
+                    "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
+                    "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40",
+                    "shadow-sm"
                   )}
                 >
                   <CardHeader className="pb-4">
+                    {/* 배경 그라데이션 효과 */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
+                    
                     {/* 아이콘 + 타이틀 */}
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 flex items-center justify-center">
+                    <div className="flex items-center gap-3 mb-4 relative z-10">
+                      <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 flex items-center justify-center group-hover:bg-[var(--brand-primary)]/20 transition-colors duration-200 ease-out motion-reduce:transition-none">
                         <Icon className="w-5 h-5 text-[var(--brand-primary)]" />
                       </div>
                       <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)]">
@@ -117,7 +123,7 @@ export function DeliverablesSection() {
                     </div>
                   </CardHeader>
 
-                  <CardContent className="pt-0 flex-1 flex flex-col">
+                  <CardContent className="pt-0 flex-1 flex flex-col relative z-10">
                     {/* 리스트 항목들 */}
                     <ul className="space-y-3">
                       {group.items.map((item, itemIndex) => (
