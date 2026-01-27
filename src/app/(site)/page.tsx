@@ -6,11 +6,12 @@ import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { VideoHero } from "@/components/hero/video-hero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Sparkles, Zap, Target, TrendingUp, Store, Book } from "lucide-react";
+import { ArrowRight, Sparkles, Zap, Target, TrendingUp, Store, Book, Search, Palette, Share2, Users, RefreshCw } from "lucide-react";
 import { SplitTextReveal } from "@/components/motion/split-text-reveal";
 import { MediaReveal } from "@/components/motion/media-reveal";
 import { HorizontalSlider } from "@/components/sections/horizontal-slider";
 import { LogoMarquee } from "@/components/sections/logo-marquee";
+import { ExecutionCasesSection } from "@/components/sections/execution-cases-section";
 import { Accordion } from "@/components/ui/accordion";
 import { KpiBadge } from "@/components/ui/kpi-badge";
 
@@ -46,37 +47,32 @@ const ongoingProjects = [
   },
 ];
 
-// 프로세스 스텝
+// 프로세스 스텝 (GrowingUp Marketing OS)
 const processSteps = [
   {
-    title: "Discover",
-    description: "비즈니스 목표와 현재 상태를 정확히 파악합니다.",
-    detail: "외주 참여자와 함께 리서치 및 분석 진행",
+    title: "시장조사",
+    description: "경쟁 환경, 타겟 분석, 기회 영역 도출",
+    outputs: "3C 분석, 타겟 페르소나, 포지셔닝 맵",
   },
   {
-    title: "Strategy",
-    description: "데이터 기반 전략을 수립하고 실행 계획을 세웁니다.",
-    detail: "전략 수립 워크샵 및 로드맵 작성",
+    title: "전략 수립",
+    description: "채널 믹스, 메시지, KPI 설계",
+    outputs: "전략 문서, 크리에이티브 브리프, 예산 배분표",
   },
   {
-    title: "Creative",
-    description: "차별화된 크리에이티브 솔루션을 개발합니다.",
-    detail: "크리에이터와 협업하여 콘텐츠 제작",
+    title: "실행",
+    description: "콘텐츠 제작, 미디어 바잉, 채널 운영",
+    outputs: "콘텐츠 패키지, 진행 리포트, 성과 대시보드",
   },
   {
-    title: "Launch",
-    description: "전략을 실행에 옮기고 시장에 출시합니다.",
-    detail: "캠페인 런칭 및 초기 모니터링",
+    title: "인력 매칭",
+    description: "전문 인력 연결, 역할 분담, 협업 체계",
+    outputs: "파트너 리스트, SOP 문서, 커뮤니케이션 가이드",
   },
   {
-    title: "Optimize",
-    description: "실시간 데이터를 바탕으로 지속적으로 최적화합니다.",
-    detail: "성과 분석 및 A/B 테스트 진행",
-  },
-  {
-    title: "Report",
-    description: "명확한 성과 지표와 인사이트를 제공합니다.",
-    detail: "정기 리포트 및 개선 제안",
+    title: "피드백 학습",
+    description: "성과 분석, 가설 검증, 다음 실험 설계",
+    outputs: "인사이트 리포트, 학습 DB, 넥스트 액션 플랜",
   },
 ];
 
@@ -279,6 +275,9 @@ export default function HomePage() {
         </Container>
       </Section>
 
+      {/* [1-1] 실행 사례 섹션 */}
+      <ExecutionCasesSection />
+
       {/* [2] "Why GrowingUp" - light */}
       <Section
         data-palette="light"
@@ -446,17 +445,23 @@ export default function HomePage() {
       >
         <Container>
           <div className="mb-12 md:mb-16">
-            <SplitTextReveal
-              text="우리의 작업 방식"
-              as="h2"
-              align="center"
-              split="words"
-              direction="lr"
-              className="text-white mb-4"
-            />
-            <p className="text-center text-white/80 max-w-2xl mx-auto">
-              체계적인 프로세스로 프로젝트의 성공을 보장합니다.
-            </p>
+            <div className="text-center mb-4">
+              <div className="text-sm md:text-base font-medium text-white/60 mb-2 uppercase tracking-wide">
+                운영 프레임워크
+              </div>
+              <SplitTextReveal
+                text="GrowingUp Marketing OS"
+                as="h2"
+                align="center"
+                split="words"
+                direction="lr"
+                className="text-white mb-4"
+              />
+            </div>
+            <div className="text-center text-white/80 max-w-2xl mx-auto space-y-2">
+              <p>5단계 운영 루프로 런칭의 불확실성을 체계적으로 관리합니다.</p>
+              <p>각 단계마다 명확한 산출물과 의사결정 기준을 제공합니다.</p>
+            </div>
           </div>
           <HorizontalSlider items={processSteps} dark={true} />
           <div className="mt-12 text-center">

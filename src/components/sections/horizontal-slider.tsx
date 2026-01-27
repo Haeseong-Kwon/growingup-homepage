@@ -10,6 +10,7 @@ interface HorizontalSliderItem {
   title: string;
   description: string;
   detail?: string;
+  outputs?: string; // 산출물
 }
 
 interface HorizontalSliderProps {
@@ -197,12 +198,31 @@ export function HorizontalSlider({
                 </h3>
               </div>
               <p className={cn(
-                "text-sm md:text-base leading-relaxed mb-3",
+                "text-sm md:text-base leading-relaxed mb-4",
                 dark ? "text-white/80" : "text-[var(--brand-fg)]/70"
               )}>
                 {item.description}
               </p>
-              {item.detail && (
+              {item.outputs && (
+                <>
+                  <div className={cn(
+                    "h-px mb-3",
+                    dark ? "bg-white/10" : "bg-[var(--brand-muted)]"
+                  )} />
+                  <div className="text-xs font-medium uppercase tracking-wide mb-2" style={{
+                    color: dark ? "rgba(255,255,255,0.6)" : "var(--brand-fg, #0b0b0c)"
+                  }}>
+                    산출물
+                  </div>
+                  <p className={cn(
+                    "text-xs leading-relaxed",
+                    dark ? "text-white/60" : "text-[var(--brand-fg)]/50"
+                  )}>
+                    {item.outputs}
+                  </p>
+                </>
+              )}
+              {item.detail && !item.outputs && (
                 <p className={cn(
                   "text-xs leading-relaxed",
                   dark ? "text-white/60" : "text-[var(--brand-fg)]/50"
