@@ -6,7 +6,7 @@ import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { VideoHero } from "@/components/hero/video-hero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Sparkles, Zap, Target } from "lucide-react";
+import { ArrowRight, Sparkles, Zap, Target, TrendingUp, Store, Book } from "lucide-react";
 import { SplitTextReveal } from "@/components/motion/split-text-reveal";
 import { MediaReveal } from "@/components/motion/media-reveal";
 import { HorizontalSlider } from "@/components/sections/horizontal-slider";
@@ -145,7 +145,7 @@ export default function HomePage() {
         }}
       />
 
-      {/* [1] Metrics/Trust - light */}
+      {/* [1] 실행 결과 - 성과 섹션 */}
       <Section
         data-palette="light"
         data-theme="light"
@@ -156,74 +156,126 @@ export default function HomePage() {
         className="py-12 md:py-16"
       >
         <Container>
-          {/* 섹션 제목 추가 */}
+          {/* 섹션 제목 */}
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-[var(--brand-fg)] mb-2">
-              검증된 성과와 신뢰
+            <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
+              실행 결과
+            </div>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--brand-fg)] mb-2">
+              숫자로 검증된 런칭 성과
             </h2>
-            <p className="text-sm md:text-base text-[var(--brand-fg)]/60 max-w-2xl mx-auto">
-              데이터로 증명하는 성장의 결과
-            </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-              <div className="text-center group">
-                <div className="relative inline-block mb-2">
-                  <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--brand-primary)] mb-2 transition-transform group-hover:scale-110">
-                    200+
+          {/* 성과 카드 3개 */}
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            {/* 카드 1: Great 포터블 스크린 */}
+            <Card className="border-2 hover:border-[var(--brand-primary)]/30 transition-all duration-300 hover:-translate-y-1">
+              <CardHeader>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-lg bg-[var(--brand-primary)]/10 flex items-center justify-center">
+                    <TrendingUp className="w-6 h-6 text-[var(--brand-primary)]" />
                   </div>
-                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--brand-primary)]/20 group-hover:bg-[var(--brand-primary)]/40 transition-colors" />
+                  <CardTitle className="text-lg md:text-xl font-bold">
+                    Great 포터블 스크린
+                  </CardTitle>
                 </div>
-                <div className="text-sm md:text-base text-[var(--brand-fg)]/70 font-medium">
-                  누적 캠페인
+                <div className="text-3xl md:text-4xl font-bold text-[var(--brand-primary)] mb-3">
+                  3,500대 완판
                 </div>
-                <div className="text-xs text-[var(--brand-fg)]/50 mt-1">
-                  다양한 산업 분야 경험
+                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
+                  4주 집중 캠페인, 정식 런칭 1개월 내 완판 달성
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="text-xs font-medium text-[var(--brand-fg)]/60 mb-3 uppercase tracking-wide">
+                  핵심 지표
                 </div>
-              </div>
-              <div className="text-center group">
-                <div className="relative inline-block mb-2">
-                  <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--brand-secondary)] mb-2 transition-transform group-hover:scale-110">
-                    150+
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
+                    ROAS 320%
+                  </span>
+                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
+                    CPA 8,500원
+                  </span>
+                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
+                    CTR 4.2%
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* 카드 2: 글라소 프랜차이즈 */}
+            <Card className="border-2 hover:border-[var(--brand-secondary)]/30 transition-all duration-300 hover:-translate-y-1">
+              <CardHeader>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-lg bg-[var(--brand-secondary)]/10 flex items-center justify-center">
+                    <Store className="w-6 h-6 text-[var(--brand-secondary)]" />
                   </div>
-                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--brand-secondary)]/20 group-hover:bg-[var(--brand-secondary)]/40 transition-colors" />
+                  <CardTitle className="text-lg md:text-xl font-bold">
+                    글라소 프랜차이즈
+                  </CardTitle>
                 </div>
-                <div className="text-sm md:text-base text-[var(--brand-fg)]/70 font-medium">
-                  파트너 크리에이터
+                <div className="text-3xl md:text-4xl font-bold text-[var(--brand-secondary)] mb-3">
+                  3개월 20개 점포
                 </div>
-                <div className="text-xs text-[var(--brand-fg)]/50 mt-1">
-                  전문성과 신뢰성 확보
+                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
+                  SEO + 콘텐츠 마케팅으로 가맹 문의 월 50건 확보
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="text-xs font-medium text-[var(--brand-fg)]/60 mb-3 uppercase tracking-wide">
+                  핵심 지표
                 </div>
-              </div>
-              <div className="text-center group">
-                <div className="relative inline-block mb-2">
-                  <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--brand-hot1)] mb-2 transition-transform group-hover:scale-110">
-                    4.2x
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
+                    리드 전환율 12%
+                  </span>
+                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
+                    CAC 15만원
+                  </span>
+                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
+                    1페이지 키워드 23개
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* 카드 3: 와디즈 GPT 전자책 */}
+            <Card className="border-2 hover:border-[var(--brand-hot1)]/30 transition-all duration-300 hover:-translate-y-1">
+              <CardHeader>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-lg bg-[var(--brand-hot1)]/10 flex items-center justify-center">
+                    <Book className="w-6 h-6 text-[var(--brand-hot1)]" />
                   </div>
-                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--brand-hot1)]/20 group-hover:bg-[var(--brand-hot1)]/40 transition-colors" />
+                  <CardTitle className="text-lg md:text-xl font-bold">
+                    와디즈 GPT 전자책
+                  </CardTitle>
                 </div>
-                <div className="text-sm md:text-base text-[var(--brand-fg)]/70 font-medium">
-                  평균 ROAS
+                <div className="text-3xl md:text-4xl font-bold text-[var(--brand-hot1)] mb-3">
+                  3주 4억 펀딩
                 </div>
-                <div className="text-xs text-[var(--brand-fg)]/50 mt-1">
-                  지속적인 성과 개선
+                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
+                  한국 최초 GPT 활용 전자책, 펀딩률 4,000% 달성
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="text-xs font-medium text-[var(--brand-fg)]/60 mb-3 uppercase tracking-wide">
+                  핵심 지표
                 </div>
-              </div>
-              <div className="text-center group">
-                <div className="relative inline-block mb-2">
-                  <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--brand-primary)] mb-2 transition-transform group-hover:scale-110">
-                    95%
-                  </div>
-                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--brand-primary)]/20 group-hover:bg-[var(--brand-primary)]/40 transition-colors" />
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
+                    후원자 3,200명
+                  </span>
+                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
+                    평균 후원금 12.5만원
+                  </span>
+                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
+                    펀딩률 4,000%
+                  </span>
                 </div>
-                <div className="text-sm md:text-base text-[var(--brand-fg)]/70 font-medium">
-                  고객 만족도
-                </div>
-                <div className="text-xs text-[var(--brand-fg)]/50 mt-1">
-                  장기 파트너십 유지
-                </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
+          </div>
         </Container>
       </Section>
 
