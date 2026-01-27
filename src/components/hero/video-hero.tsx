@@ -63,14 +63,14 @@ export function VideoHero({
       data-palette="brand"
       data-band="160"
       className="relative min-h-[calc(100svh+var(--header-h))] w-full overflow-hidden bg-gradient-to-br from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-hot1)] -mt-[var(--header-h)]"
-      style={{ zIndex: 0 }}
+      style={{ zIndex: 1, position: "relative" }}
     >
       {/* Fallback Gradient (항상 표시, 검정 띠 방지) */}
       <div
         className="absolute inset-0"
         style={{
           background: `linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 50%, var(--brand-hot1) 100%)`,
-          zIndex: 0,
+          zIndex: 1,
         }}
       />
 
@@ -90,7 +90,7 @@ export function VideoHero({
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
             videoLoaded ? "opacity-100" : "opacity-0"
           }`}
-          style={{ zIndex: 1 }}
+          style={{ zIndex: 2 }}
         >
           <source src={videoSrc} type="video/mp4" />
         </video>
@@ -100,12 +100,12 @@ export function VideoHero({
       <div
         className="absolute inset-0 bg-black/40"
         style={{
-          zIndex: 2,
+          zIndex: 3,
         }}
       />
 
       {/* Content */}
-      <div className="relative z-10 min-h-[calc(100svh+var(--header-h))] flex items-center pt-[calc(var(--header-h)+32px)]" style={{ zIndex: 2 }}>
+      <div className="relative z-10 min-h-[calc(100svh+var(--header-h))] flex items-center pt-[calc(var(--header-h)+32px)]" style={{ zIndex: 4 }}>
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-4xl">
             {/* Title with Typing Effect */}
@@ -174,7 +174,7 @@ export function VideoHero({
         className={`absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:block transition-opacity duration-500 delay-500 ${
           isComplete ? "opacity-100" : "opacity-0"
         }`}
-        style={{ zIndex: 2 }}
+        style={{ zIndex: 4 }}
       >
         <div className="w-[1px] h-12 bg-white/30 animate-pulse" />
       </div>
