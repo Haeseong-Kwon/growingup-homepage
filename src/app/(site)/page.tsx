@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { VideoHero } from "@/components/hero/video-hero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Sparkles, Zap, Target, TrendingUp, Store, Book, Search, Palette, Share2, Users, RefreshCw } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Sparkles, Zap, Target, TrendingUp, Store, Book, Search, Palette, Share2, Users, RefreshCw } from "lucide-react";
 import { SplitTextReveal } from "@/components/motion/split-text-reveal";
 import { MediaReveal } from "@/components/motion/media-reveal";
 import { HorizontalSlider } from "@/components/sections/horizontal-slider";
@@ -122,6 +123,34 @@ const partnerLogos = [
   { name: "Partner 6", placeholder: "파트너사 F" },
   { name: "Partner 7", placeholder: "파트너사 G" },
   { name: "Partner 8", placeholder: "파트너사 H" },
+];
+
+// 포트폴리오 케이스
+const portfolioCases = [
+  {
+    category: "전자제품",
+    title: "Great 포터블 스크린",
+    summary: "무명 브랜드 30만원대 제품, 기존 마케팅 채널 포화 상태에서 신규 진입 필요",
+    result: "4주 만에 3,500대 완판",
+    href: "/portfolio/great-portable-screen",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop",
+  },
+  {
+    category: "프랜차이즈",
+    title: "글라소",
+    summary: "브랜드 인지도 0%, 가맹점 모집 광고 예산 제한, B2B 리드 확보 어려움",
+    result: "3개월 내 20개 점포 계약",
+    href: "/portfolio/glaso",
+    image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&h=600&fit=crop",
+  },
+  {
+    category: "크라우드펀딩",
+    title: "와디즈 GPT 전자책",
+    summary: "신규 카테고리(AI 전자책), 레퍼런스 부재, 3주라는 짧은 펀딩 기간",
+    result: "3주 만에 4억 펀딩 달성",
+    href: "/portfolio/wadiz-gpt-ebook",
+    image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=600&fit=crop",
+  },
 ];
 
 export default function HomePage() {
@@ -556,34 +585,47 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-            <Card className="border-2 overflow-hidden">
-              <div className="aspect-video bg-gradient-to-br from-[var(--brand-primary)] to-[var(--brand-secondary)]" />
-              <CardHeader>
-                <CardTitle className="text-xl md:text-2xl font-bold">
-                  브랜드 리뉴얼 프로젝트
-                  </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-[var(--brand-fg)]/70">
-                  디지털 시대에 맞는 새로운 브랜드 아이덴티티 구축으로 시장 재진입에 성공한 사례입니다.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="border-2 overflow-hidden">
-              <div className="aspect-video bg-gradient-to-br from-[var(--brand-secondary)] to-[var(--brand-hot1)]" />
-              <CardHeader>
-                <CardTitle className="text-xl md:text-2xl font-bold">
-                  마케팅 캠페인 최적화
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-[var(--brand-fg)]/70">
-                  데이터 기반 캠페인 최적화를 통해 ROI를 300% 향상시킨 성공 사례입니다.
-                </p>
-              </CardContent>
-            </Card>
-        </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {portfolioCases.map((caseItem, index) => (
+              <Link key={index} href={caseItem.href || "#"} className="group">
+                <Card className="h-full border-2 overflow-hidden hover:border-[var(--brand-primary)]/30 transition-all duration-300 hover:-translate-y-1">
+                  <div className="relative aspect-video overflow-hidden bg-[var(--brand-muted-light)]">
+                    <Image
+                      src={caseItem.image}
+                      alt={caseItem.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  </div>
+                  <CardHeader className="relative">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="px-3 py-1 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
+                        {caseItem.category}
+                      </span>
+                      <ArrowUpRight className="w-5 h-5 text-[var(--brand-fg)]/50 group-hover:text-[var(--brand-primary)] transition-colors" />
+                    </div>
+                    <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] leading-tight">
+                      {caseItem.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
+                      {caseItem.summary}
+                    </p>
+                    <div className="pt-4 border-t border-[var(--brand-muted)]">
+                      <div className="text-xs font-medium text-[var(--brand-fg)]/60 mb-2 uppercase tracking-wide">
+                        성과
+                      </div>
+                      <div className="text-lg md:text-xl font-bold text-[var(--brand-primary)]">
+                        {caseItem.result}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
 
           <div className="mt-12 text-center">
             <Button
