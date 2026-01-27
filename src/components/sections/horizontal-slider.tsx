@@ -245,7 +245,7 @@ export function HorizontalSlider({
           aria-label="이전으로 스크롤"
           className={cn(
             "rounded-full",
-            dark && "border-white/20 text-white hover:bg-white/10"
+            dark && "border-white/40 bg-white/10 text-white hover:bg-white/20 hover:border-white/60"
           )}
         >
           <ChevronLeft className="h-5 w-5" />
@@ -258,7 +258,7 @@ export function HorizontalSlider({
           aria-label="다음으로 스크롤"
           className={cn(
             "rounded-full",
-            dark && "border-white/20 text-white hover:bg-white/10"
+            dark && "border-white/40 bg-white/10 text-white hover:bg-white/20 hover:border-white/60"
           )}
         >
           <ChevronRight className="h-5 w-5" />
