@@ -13,7 +13,7 @@ interface UpdatesListProps {
 
 export function UpdatesList({ updates }: UpdatesListProps) {
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6 max-w-4xl mx-auto">
       {updates.map((update) => (
         <Link key={update.id} href={update.href} className="block w-full min-w-0">
           <Card

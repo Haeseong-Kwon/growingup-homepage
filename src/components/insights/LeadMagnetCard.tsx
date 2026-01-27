@@ -22,7 +22,7 @@ export function LeadMagnetCard() {
   };
 
   return (
-    <Card className="w-full border-2 bg-card border-border shadow-sm rounded-2xl hover:shadow-lg hover:border-primary/20 transition-all">
+    <Card className="w-full max-w-5xl mx-auto border-2 bg-card border-border shadow-sm rounded-2xl hover:shadow-lg hover:border-primary/20 transition-all">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* 왼쪽: 텍스트 영역 */}
         <div className="p-6 md:p-8 min-w-0">

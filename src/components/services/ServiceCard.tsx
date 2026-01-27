@@ -14,10 +14,11 @@ export function ServiceCard({ service }: ServiceCardProps) {
     <Card
       id={service.id}
       className={cn(
-        "group relative border-2 flex flex-col h-full",
+        "group relative border-2 flex flex-col",
         "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
         "hover:-translate-y-1 hover:border-[var(--brand-primary)]/20 hover:shadow-lg",
-        "bg-[var(--color-card)] border-[var(--color-border)] shadow-sm"
+        "bg-[var(--color-card)] border-[var(--color-border)] shadow-sm",
+        "h-full min-h-[600px]"
       )}
     >
       <CardHeader className="pb-4">

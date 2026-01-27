@@ -22,7 +22,7 @@ export function SearchAndTags({
   return (
     <div className="w-full bg-[color-mix(in_srgb,var(--brand-bg)_97%,var(--brand-fg)_3%)] rounded-2xl border border-border p-6 md:p-8 space-y-6">
       {/* 검색 */}
-      <div className="w-full max-w-xl mx-auto">
+      <div className="w-full max-w-2xl mx-auto">
         <Input
           type="search"
           placeholder="검색..."
@@ -33,7 +33,7 @@ export function SearchAndTags({
       </div>
 
       {/* 태그 필터 */}
-      <div className="flex flex-wrap gap-2 min-w-0">
+      <div className="flex flex-wrap gap-2 min-w-0 justify-center">
         {tags.map((tag) => (
           <button
             key={tag}

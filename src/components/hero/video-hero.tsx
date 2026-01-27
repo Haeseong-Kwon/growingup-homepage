@@ -105,7 +105,7 @@ export function VideoHero({
       />
 
       {/* Content */}
-      <div className="relative z-10 min-h-[calc(100svh+var(--header-h))] flex items-center pt-[calc(var(--header-h)+32px)]" style={{ zIndex: 4 }}>
+      <div className="relative z-10 min-h-[calc(100svh+var(--header-h))] flex items-center pt-[calc(var(--header-h)+32px)]" style={{ zIndex: 101 }}>
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-4xl">
             {/* Title with Typing Effect */}
@@ -174,7 +174,7 @@ export function VideoHero({
         className={`absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:block transition-opacity duration-500 delay-500 ${
           isComplete ? "opacity-100" : "opacity-0"
         }`}
-        style={{ zIndex: 4 }}
+        style={{ zIndex: 101 }}
       >
         <div className="w-[1px] h-12 bg-white/30 animate-pulse" />
       </div>

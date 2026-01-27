@@ -68,16 +68,18 @@ export function InsightsPage() {
             <Tabs
               value={activeTab}
               onValueChange={setActiveTab}
-              className="w-full max-w-md mx-auto"
+              className="w-full"
             >
-              <TabsList variant="line" className="w-full">
-                <TabsTrigger value="업데이트" className="flex-1">
-                  업데이트
-                </TabsTrigger>
-                <TabsTrigger value="트렌드" className="flex-1">
-                  트렌드
-                </TabsTrigger>
-              </TabsList>
+              <div className="flex justify-center mb-8">
+                <TabsList variant="line" className="w-full max-w-md">
+                  <TabsTrigger value="업데이트" className="flex-1">
+                    업데이트
+                  </TabsTrigger>
+                  <TabsTrigger value="트렌드" className="flex-1">
+                    트렌드
+                  </TabsTrigger>
+                </TabsList>
+              </div>
 
               {/* 업데이트 탭 */}
               <TabsContent value="업데이트" className="mt-12 space-y-10 sm:space-y-12">
