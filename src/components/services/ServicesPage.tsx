@@ -1,0 +1,112 @@
+"use client";
+
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Section } from "@/components/layout/section";
+import { Container } from "@/components/layout/container";
+import { MediaReveal } from "@/components/motion/media-reveal";
+import { ServiceCard } from "./ServiceCard";
+import { servicesData } from "./servicesData";
+
+export function ServicesPage() {
+  return (
+    <div className="w-full overflow-x-hidden">
+      {/* Hero */}
+      <Section
+        data-palette="light"
+        data-theme="light"
+        data-section="services-hero"
+        variant="default"
+        divider="none"
+        minHeight="auto"
+        className="pt-24 md:pt-32"
+      >
+        <Container>
+          <MediaReveal intensity="subtle">
+            <div className="max-w-4xl">
+              <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
+                서비스
+              </div>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-balance">
+                목표에 맞는 런칭 파트너십
+              </h1>
+              <p className="text-lg md:text-xl text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
+                빠른 검증이 필요한지, 체계적인 시스템 구축이 필요한지에 따라 최적의 협업 방식을 선택하세요.
+              </p>
+            </div>
+          </MediaReveal>
+        </Container>
+      </Section>
+
+      {/* Launch Sprint */}
+      <Section
+        id="sprint"
+        data-palette="light"
+        data-theme="light"
+        data-section="sprint"
+        variant="default"
+        divider="top"
+        minHeight="auto"
+        className="py-16 md:py-24"
+      >
+        <Container>
+          <MediaReveal intensity="medium">
+            <ServiceCard service={servicesData[0]} />
+          </MediaReveal>
+        </Container>
+      </Section>
+
+      {/* Launch Partner */}
+      <Section
+        id="partner"
+        data-palette="light"
+        data-theme="light"
+        data-section="partner"
+        variant="default"
+        divider="top"
+        minHeight="auto"
+        className="py-16 md:py-24"
+      >
+        <Container>
+          <MediaReveal intensity="medium">
+            <ServiceCard service={servicesData[1]} />
+          </MediaReveal>
+        </Container>
+      </Section>
+
+      {/* CTA */}
+      <Section
+        data-palette="dark"
+        data-theme="dark"
+        data-section="services-cta"
+        theme="dark"
+        variant="default"
+        divider="top"
+        bleed={true}
+        minHeight="auto"
+        className="py-16 md:py-24"
+      >
+        <Container>
+          <MediaReveal intensity="subtle">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-6 text-balance text-white">
+                어떤 서비스가 맞는지 모르겠다면?
+              </h2>
+              <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed">
+                3분 진단으로 현재 상태를 파악하고 맞춤 추천을 받으세요.
+              </p>
+              <Button
+                asChild
+                size="lg"
+                className="bg-white text-[var(--brand-primary)] hover:bg-white/90 rounded-lg h-12 px-8 text-base font-bold"
+              >
+                <Link href="/diagnosis">진단 요청</Link>
+              </Button>
+            </div>
+          </MediaReveal>
+        </Container>
+      </Section>
+    </div>
+  );
+}
+
