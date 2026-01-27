@@ -87,6 +87,7 @@ export function SiteHeader() {
     { href: "/capabilities", label: "역량", key: "capabilities" as MenuKey },
     { href: "/services", label: "서비스", key: "services" as MenuKey },
     { href: "/cases", label: "사례", key: "cases" as MenuKey },
+    { href: "/portfolio", label: "포트폴리오", key: null },
     { href: "/insights", label: "인사이트", key: "insights" as MenuKey },
     { href: "/arena", label: "아레나", key: "arena" as MenuKey },
   ];
@@ -215,20 +216,22 @@ export function SiteHeader() {
                 <div key={link.href} className="relative">
                   <Link
                     href={link.href}
-                    onMouseEnter={() => handleMenuMouseEnter(link.key)}
-                    onFocus={() => handleMenuMouseEnter(link.key)}
+                    onMouseEnter={() => link.key && handleMenuMouseEnter(link.key)}
+                    onFocus={() => link.key && handleMenuMouseEnter(link.key)}
                     className="text-sm font-bold hover-underline transition-colors flex items-center gap-1 text-inherit"
                   >
                     {link.label}
-                    <ChevronDown
-                      className={cn(
-                        "h-4 w-4 text-inherit",
-                        activeMenu === link.key && "rotate-180"
-                      )}
-                      style={{
-                        transition: "transform 0.2s ease",
-                      }}
-                    />
+                    {link.key && (
+                      <ChevronDown
+                        className={cn(
+                          "h-4 w-4 text-inherit",
+                          activeMenu === link.key && "rotate-180"
+                        )}
+                        style={{
+                          transition: "transform 0.2s ease",
+                        }}
+                      />
+                    )}
                   </Link>
                 </div>
               ))}

@@ -16,6 +16,7 @@ export function SiteMenuOverlay({ open, onOpenChange }: SiteMenuOverlayProps) {
     { href: "/capabilities", label: "역량" },
     { href: "/services", label: "서비스" },
     { href: "/cases", label: "사례" },
+    { href: "/portfolio", label: "포트폴리오" },
     { href: "/insights", label: "인사이트" },
     { href: "/arena", label: "아레나" },
     { href: "/diagnosis", label: "진단 요청" },
