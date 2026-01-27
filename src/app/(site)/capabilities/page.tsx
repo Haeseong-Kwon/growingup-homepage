@@ -164,6 +164,87 @@ const sampleDeliverables = [
   },
 ];
 
+// Capabilities Map 섹션
+function CapabilitiesMapSection() {
+  return (
+    <Section
+      data-palette="light"
+      data-theme="light"
+      data-section="capabilities-map"
+      variant="default"
+      divider="top"
+      minHeight="auto"
+      className="py-16 md:py-24 w-full overflow-x-clip"
+    >
+      <Container className="w-full overflow-x-clip">
+        <MediaReveal intensity="subtle">
+          <div className="mb-12 md:mb-16">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance">
+              Capabilities Map
+            </h2>
+            <p className="text-base md:text-lg text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
+              7개 영역에서 측정 가능한 성과를 만들어내는 체계적인 접근
+            </p>
+          </div>
+        </MediaReveal>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 min-w-0 overflow-x-clip">
+          {capabilitiesMap.map((capability, index) => (
+            <MediaReveal key={index} delay={index * 50} intensity="medium" className="min-w-0">
+              <Card
+                className={cn(
+                  "group relative border-2 flex flex-col h-full w-full min-w-0",
+                  "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
+                  "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40",
+                  "bg-[var(--brand-bg)] border-[var(--color-border)] shadow-sm",
+                  "overflow-hidden rounded-xl will-change-transform",
+                  "transform-gpu"
+                )}
+              >
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent pointer-events-none" />
+                
+                <CardHeader className="relative z-10 min-w-0">
+                  <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-2 break-words min-w-0">
+                    {capability.title}
+                  </CardTitle>
+                  <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4 break-words min-w-0">
+                    {capability.description}
+                  </p>
+                </CardHeader>
+                <CardContent className="relative z-10 flex-1 flex flex-col min-w-0">
+                  <div className="mb-4 min-w-0">
+                    <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-2">
+                      대표 산출물
+                    </div>
+                    <ul className="space-y-1.5">
+                      {capability.deliverables.map((item, itemIndex) => (
+                        <li key={itemIndex} className="flex items-start gap-2 min-w-0">
+                          <CheckCircle2 className="w-4 h-4 text-[var(--brand-primary)] mt-0.5 flex-shrink-0" />
+                          <span className="text-sm text-[var(--brand-fg)]/80 leading-relaxed break-words min-w-0">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="mt-auto pt-4 border-t border-[var(--brand-muted)] min-w-0">
+                    <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-1">
+                      성공 기준
+                    </div>
+                    <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
+                      {capability.successCriteria}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </MediaReveal>
+          ))}
+        </div>
+      </Container>
+    </Section>
+  );
+}
+
 export default function CapabilitiesPage() {
   return (
     <div className="w-full overflow-x-clip">
@@ -290,79 +371,7 @@ export default function CapabilitiesPage() {
       </Section>
 
       {/* Capabilities Map */}
-      <Section
-        data-palette="light"
-        data-theme="light"
-        data-section="capabilities-map"
-        variant="default"
-        divider="top"
-        minHeight="auto"
-        className="py-16 md:py-24"
-      >
-        <Container>
-          <MediaReveal intensity="subtle">
-            <div className="mb-12 md:mb-16">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance">
-                Capabilities Map
-              </h2>
-              <p className="text-base md:text-lg text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
-                7개 영역에서 측정 가능한 성과를 만들어내는 체계적인 접근
-              </p>
-            </div>
-          </MediaReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {capabilitiesMap.map((capability, index) => (
-              <MediaReveal key={index} delay={index * 50} intensity="medium">
-                <Card
-                  className={cn(
-                    "group relative border-2 flex flex-col h-full",
-                    "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
-                    "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40",
-                    "bg-[var(--brand-bg)] border-[var(--color-border)] shadow-sm"
-                  )}
-                >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
-                  
-                  <CardHeader className="relative z-10">
-                    <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-2">
-                  {capability.title}
-                    </CardTitle>
-                    <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
-                  {capability.description}
-                </p>
-                  </CardHeader>
-                  <CardContent className="relative z-10 flex-1 flex flex-col min-w-0">
-                    <div className="mb-4 min-w-0">
-                      <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-2">
-                        대표 산출물
-                      </div>
-                      <ul className="space-y-1.5">
-                        {capability.deliverables.map((item, itemIndex) => (
-                          <li key={itemIndex} className="flex items-start gap-2 min-w-0">
-                            <CheckCircle2 className="w-4 h-4 text-[var(--brand-primary)] mt-0.5 flex-shrink-0" />
-                            <span className="text-sm text-[var(--brand-fg)]/80 leading-relaxed break-words min-w-0">
-                              {item}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="mt-auto pt-4 border-t border-[var(--brand-muted)] min-w-0">
-                      <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-1">
-                        성공 기준
-                      </div>
-                      <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
-                        {capability.successCriteria}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </MediaReveal>
-            ))}
-          </div>
-        </Container>
-      </Section>
+      <CapabilitiesMapSection />
 
       {/* Working Model */}
       <Section

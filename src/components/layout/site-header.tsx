@@ -80,6 +80,10 @@ export function SiteHeader() {
   const megaMenuRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   
+  // VideoHero가 있는 페이지 목록 (최상단에 영상 배경이 있는 페이지)
+  const pagesWithVideoHero = ["/", "/capabilities", "/arena", "/portfolio", "/services", "/cases", "/insights"];
+  const hasVideoHero = pagesWithVideoHero.includes(pathname);
+  
   // 파생 값: mega 메뉴가 열리는 조건
   const megaOpen = (headerHovered || megaHovered) && !!activeMenu;
 
@@ -150,12 +154,12 @@ export function SiteHeader() {
   }, []);
 
   // 헤더 모드 결정 (2-state 고정: ON_HERO 또는 SURFACE)
-  // Home 최상단에서만 ON_HERO, 그 외는 항상 SURFACE
+  // VideoHero가 있는 페이지 최상단에서만 ON_HERO, 그 외는 항상 SURFACE
   // 섹션 테마와 완전 분리하여 다크 섹션 진입해도 SURFACE 유지
   // 메뉴 패널(오버레이/메가 메뉴)이 열려있으면 무조건 SURFACE
   const isMenuPanelOpen = megaOpen || isMenuOpen;
   const headerMode: "ON_HERO" | "SURFACE" =
-    isHome && !isScrolled && !headerHovered && !isMenuPanelOpen ? "ON_HERO" : "SURFACE";
+    hasVideoHero && !isScrolled && !headerHovered && !isMenuPanelOpen ? "ON_HERO" : "SURFACE";
 
   // 메뉴 열린 상태를 html에 반영
   useEffect(() => {
