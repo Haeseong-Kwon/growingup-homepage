@@ -11,7 +11,6 @@ import { ArrowRight, ArrowUpRight, Sparkles, Zap, Target, TrendingUp, Store, Boo
 import { SplitTextReveal } from "@/components/motion/split-text-reveal";
 import { MediaReveal } from "@/components/motion/media-reveal";
 import { HorizontalSlider } from "@/components/sections/horizontal-slider";
-import { LogoMarquee } from "@/components/sections/logo-marquee";
 import { ExecutionCasesSection } from "@/components/sections/execution-cases-section";
 import { DeliverablesSection } from "@/components/sections/deliverables-section";
 import { Accordion } from "@/components/ui/accordion";
@@ -115,17 +114,6 @@ const faqItems = [
   },
 ];
 
-// 파트너 로고 (더미)
-const partnerLogos = [
-  { name: "Partner 1", placeholder: "파트너사 A" },
-  { name: "Partner 2", placeholder: "파트너사 B" },
-  { name: "Partner 3", placeholder: "파트너사 C" },
-  { name: "Partner 4", placeholder: "파트너사 D" },
-  { name: "Partner 5", placeholder: "파트너사 E" },
-  { name: "Partner 6", placeholder: "파트너사 F" },
-  { name: "Partner 7", placeholder: "파트너사 G" },
-  { name: "Partner 8", placeholder: "파트너사 H" },
-];
 
 // 포트폴리오 케이스
 const portfolioCases = [
@@ -580,26 +568,6 @@ export default function HomePage() {
           </Link>
             </Button>
         </div>
-        </Container>
-      </Section>
-
-      {/* [7] Partner Logos (LogoMarquee) - light */}
-      <Section
-        data-palette="light"
-        data-theme="light"
-        data-section="partners"
-        data-band="120"
-        variant="default"
-        divider="top"
-        minHeight="short"
-      >
-        <Container>
-          <div className="mb-8 text-center">
-            <h3 className="text-lg md:text-xl font-bold text-[var(--brand-fg)]/60">
-              신뢰받는 파트너사
-            </h3>
-          </div>
-          <LogoMarquee logos={partnerLogos} speed="normal" />
         </Container>
       </Section>
 
