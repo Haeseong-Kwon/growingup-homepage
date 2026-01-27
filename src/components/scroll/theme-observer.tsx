@@ -66,8 +66,8 @@ export function ThemeObserver() {
         const viewportHeight = window.innerHeight;
         const centerY = viewportHeight / 2;
 
-        sectionStates.forEach((entry) => {
-          if (!entry.isIntersecting) return;
+        for (const entry of sectionStates.values()) {
+          if (!entry.isIntersecting) continue;
 
           const rect = entry.boundingClientRect;
           const entryCenterY = rect.top + rect.height / 2;
@@ -83,7 +83,7 @@ export function ThemeObserver() {
             bestScore = totalScore;
             bestEntry = entry;
           }
-        });
+        }
 
         if (bestEntry !== null) {
           const target = bestEntry.target as HTMLElement;
