@@ -9,6 +9,7 @@ import { SiteMenuOverlay } from "./site-menu-overlay";
 import { useScroll } from "@/hooks/use-scroll";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { hasVideoHero } from "@/lib/constants";
 
 type MenuKey = "capabilities" | "services" | "cases" | "insights" | "arena" | null;
 
@@ -80,9 +81,8 @@ export function SiteHeader() {
   const megaMenuRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   
-  // VideoHero가 있는 페이지 목록 (최상단에 영상 배경이 있는 페이지)
-  const pagesWithVideoHero = ["/", "/capabilities", "/arena", "/portfolio", "/services", "/cases", "/insights"];
-  const hasVideoHero = pagesWithVideoHero.includes(pathname);
+  // VideoHero가 있는 페이지인지 확인 (경로 기반)
+  const hasVideoHeroPage = hasVideoHero(pathname);
   
   // 파생 값: mega 메뉴가 열리는 조건
   const megaOpen = (headerHovered || megaHovered) && !!activeMenu;
@@ -159,7 +159,7 @@ export function SiteHeader() {
   // 메뉴 패널(오버레이/메가 메뉴)이 열려있으면 무조건 SURFACE
   const isMenuPanelOpen = megaOpen || isMenuOpen;
   const headerMode: "ON_HERO" | "SURFACE" =
-    hasVideoHero && !isScrolled && !headerHovered && !isMenuPanelOpen ? "ON_HERO" : "SURFACE";
+    hasVideoHeroPage && !isScrolled && !headerHovered && !isMenuPanelOpen ? "ON_HERO" : "SURFACE";
 
   // 메뉴 열린 상태를 html에 반영
   useEffect(() => {
@@ -184,7 +184,7 @@ export function SiteHeader() {
         onMouseLeave={handleHeaderMouseLeave}
         className={cn(
           "fixed top-0 left-0 right-0 w-full border-b transition-colors duration-200 isolate",
-          "sticky top-0 z-[100]",
+          "z-[100]",
           headerMode === "SURFACE"
             ? "shadow-sm"
             : ""
