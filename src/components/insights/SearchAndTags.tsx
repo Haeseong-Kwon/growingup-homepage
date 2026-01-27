@@ -20,9 +20,9 @@ export function SearchAndTags({
   onTagChange,
 }: SearchAndTagsProps) {
   return (
-    <div className="bg-[color-mix(in_srgb,var(--brand-bg)_97%,var(--brand-fg)_3%)] rounded-xl p-6 md:p-8 space-y-6">
+    <div className="w-full bg-[color-mix(in_srgb,var(--brand-bg)_97%,var(--brand-fg)_3%)] rounded-2xl border border-border p-6 md:p-8 space-y-6">
       {/* 검색 */}
-      <div>
+      <div className="w-full max-w-xl mx-auto">
         <Input
           type="search"
           placeholder="검색..."

@@ -15,62 +15,62 @@ export function UpdatesList({ updates }: UpdatesListProps) {
   return (
     <div className="grid gap-6">
       {updates.map((update) => (
-        <Link key={update.id} href={update.href} className="block min-w-0">
+        <Link key={update.id} href={update.href} className="block w-full min-w-0">
           <Card
             className={cn(
-              "group relative border-2 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6",
-              "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
-              "hover:-translate-y-1 hover:border-[var(--brand-primary)]/20 hover:shadow-lg",
-              "bg-[var(--color-card)] border-[var(--color-border)] shadow-sm",
-              "py-0 gap-0"
+              "group relative w-full border-2 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6",
+              "transition-all duration-200 ease-out [contain:paint] motion-reduce:transition-none",
+              "hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg",
+              "bg-card border-border shadow-sm",
+              "p-0"
             )}
           >
             <div className="flex-1 min-w-0 p-6">
               <div className="space-y-3 min-w-0">
-              {/* 헤더: pinned + badges */}
-              <div className="flex items-center gap-2 flex-wrap">
-                {update.pinned && (
-                  <Badge
-                    variant="secondary"
-                    className="bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] flex items-center gap-1"
-                  >
-                    <Pin className="w-3 h-3" />
-                    고정
-                  </Badge>
+                {/* 헤더: pinned + badges */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  {update.pinned && (
+                    <Badge
+                      variant="secondary"
+                      className="bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] flex items-center gap-1"
+                    >
+                      <Pin className="w-3 h-3" />
+                      고정
+                    </Badge>
+                  )}
+                  {update.badges.map((badge) => (
+                    <Badge
+                      key={badge}
+                      variant="secondary"
+                      className="bg-[var(--brand-muted-light)] text-[var(--brand-fg)]/70"
+                    >
+                      {badge}
+                    </Badge>
+                  ))}
+                </div>
+
+                {/* 제목 */}
+                <h3 className="text-lg md:text-xl font-semibold tracking-tight text-[var(--brand-fg)] group-hover:text-[var(--brand-primary)] transition-colors duration-200 ease-out motion-reduce:transition-none break-words">
+                  {update.title}
+                </h3>
+
+                {/* 요약 */}
+                {update.excerpt && (
+                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 break-words">
+                    {update.excerpt}
+                  </p>
                 )}
-                {update.badges.map((badge) => (
-                  <Badge
-                    key={badge}
-                    variant="secondary"
-                    className="bg-[var(--brand-muted-light)] text-[var(--brand-fg)]/70"
-                  >
-                    {badge}
-                  </Badge>
-                ))}
+
+                {/* 메타 정보 */}
+                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                  <span>{update.date}</span>
+                  {update.meta && (
+                    <span className="font-mono bg-[var(--brand-muted-light)] px-2 py-1 rounded text-[var(--brand-fg)]/70">
+                      {update.meta}
+                    </span>
+                  )}
+                </div>
               </div>
-
-              {/* 제목 */}
-              <h3 className="text-lg md:text-xl font-bold text-[var(--brand-fg)] group-hover:text-[var(--brand-primary)] transition-colors duration-200 ease-out motion-reduce:transition-none break-words">
-                {update.title}
-              </h3>
-
-              {/* 요약 */}
-              {update.excerpt && (
-                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed line-clamp-2 break-words">
-                  {update.excerpt}
-                </p>
-              )}
-
-              {/* 메타 정보 */}
-              <div className="flex items-center gap-4 text-xs text-[var(--brand-fg)]/50">
-                <span>{update.date}</span>
-                {update.meta && (
-                  <span className="font-mono bg-[var(--brand-muted-light)] px-2 py-1 rounded text-[var(--brand-fg)]/70">
-                    {update.meta}
-                  </span>
-                )}
-              </div>
-            </div>
             </div>
 
             {/* 화살표 아이콘 */}

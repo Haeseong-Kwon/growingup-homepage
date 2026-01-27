@@ -22,24 +22,24 @@ export function LeadMagnetCard() {
   };
 
   return (
-    <Card className="border-2 bg-[var(--color-card)] border-[var(--color-border)] shadow-sm rounded-xl">
-      <div className="flex flex-col lg:flex-row">
+    <Card className="w-full border-2 bg-card border-border shadow-sm rounded-2xl hover:shadow-lg hover:border-primary/20 transition-all">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* 왼쪽: 텍스트 영역 */}
-        <div className="flex-1 p-6 md:p-8 lg:pr-8 min-w-0">
+        <div className="p-6 md:p-8 min-w-0">
           <CardHeader className="p-0 mb-4">
             <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-2 break-words">
               런칭 체크리스트 PDF 받기
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-            <p className="text-sm md:text-base text-[var(--brand-fg)]/70 leading-relaxed break-words">
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed break-words">
               신규 브랜드 런칭 시 놓치기 쉬운 50가지 체크포인트
             </p>
           </CardContent>
         </div>
 
         {/* 오른쪽: 폼 영역 */}
-        <div className="flex-shrink-0 lg:w-80 p-6 md:p-8 lg:pl-8 lg:border-l border-[var(--brand-muted)] min-w-0">
+        <div className="p-6 md:p-8 lg:border-l border-border min-w-0">
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
               type="email"
@@ -65,7 +65,7 @@ export function LeadMagnetCard() {
               />
               <label
                 htmlFor="privacy-agree"
-                className="text-sm text-[var(--brand-fg)]/70 cursor-pointer leading-relaxed break-words min-w-0"
+                className="text-sm text-muted-foreground cursor-pointer leading-relaxed break-words min-w-0"
               >
                 [필수]{" "}
                 <Link
