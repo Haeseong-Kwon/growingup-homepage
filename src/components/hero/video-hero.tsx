@@ -62,7 +62,8 @@ export function VideoHero({
       data-section="hero"
       data-palette="brand"
       data-band="160"
-      className="relative min-h-[100svh] w-full overflow-hidden bg-gradient-to-br from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-hot1)]"
+      className="relative min-h-[calc(100svh+var(--header-h))] w-full overflow-hidden bg-gradient-to-br from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-hot1)] -mt-[var(--header-h)]"
+      style={{ zIndex: 0 }}
     >
       {/* Fallback Gradient (항상 표시, 검정 띠 방지) */}
       <div
@@ -104,7 +105,7 @@ export function VideoHero({
       />
 
       {/* Content */}
-      <div className="relative z-10 min-h-[100svh] flex items-center pt-[calc(var(--header-h)+32px)]" style={{ zIndex: 2 }}>
+      <div className="relative z-10 min-h-[calc(100svh+var(--header-h))] flex items-center pt-[calc(var(--header-h)+32px)]" style={{ zIndex: 2 }}>
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-4xl">
             {/* Title with Typing Effect */}
