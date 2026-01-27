@@ -85,7 +85,7 @@ export function ThemeObserver() {
           }
         });
 
-        if (bestEntry) {
+        if (bestEntry !== null) {
           const target = bestEntry.target as HTMLElement;
           const newTheme = target.dataset.theme;
 
