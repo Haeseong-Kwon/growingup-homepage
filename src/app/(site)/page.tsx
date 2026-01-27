@@ -344,8 +344,8 @@ export default function HomePage() {
                 {/* 브랜드 */}
                 <div className="group relative p-6 md:p-8 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-colors duration-200 ease-out [contain:paint] motion-reduce:transition-none">
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-primary)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none" />
-                  <div className="mb-4">
-                    <div className="w-12 h-12 rounded-lg bg-[var(--brand-primary)]/20 flex items-center justify-center mb-4 group-hover:bg-[var(--brand-primary)]/30 transition-colors">
+                  <div className="mb-4 text-center">
+                    <div className="w-12 h-12 rounded-lg bg-[var(--brand-primary)]/20 flex items-center justify-center mb-4 mx-auto group-hover:bg-[var(--brand-primary)]/30 transition-colors">
                       <Sparkles className="w-6 h-6 text-[var(--brand-primary)]" />
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
@@ -360,8 +360,8 @@ export default function HomePage() {
                 {/* 크리에이티브 */}
                 <div className="group relative p-6 md:p-8 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-colors duration-200 ease-out [contain:paint] motion-reduce:transition-none">
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-secondary)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none" />
-                  <div className="mb-4">
-                    <div className="w-12 h-12 rounded-lg bg-[var(--brand-secondary)]/20 flex items-center justify-center mb-4 group-hover:bg-[var(--brand-secondary)]/30 transition-colors">
+                  <div className="mb-4 text-center">
+                    <div className="w-12 h-12 rounded-lg bg-[var(--brand-secondary)]/20 flex items-center justify-center mb-4 mx-auto group-hover:bg-[var(--brand-secondary)]/30 transition-colors">
                       <Zap className="w-6 h-6 text-[var(--brand-secondary)]" />
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
@@ -376,8 +376,8 @@ export default function HomePage() {
                 {/* 실행력 */}
                 <div className="group relative p-6 md:p-8 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-colors duration-200 ease-out [contain:paint] motion-reduce:transition-none">
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-hot1)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none" />
-                  <div className="mb-4">
-                    <div className="w-12 h-12 rounded-lg bg-[var(--brand-hot1)]/20 flex items-center justify-center mb-4 group-hover:bg-[var(--brand-hot1)]/30 transition-colors">
+                  <div className="mb-4 text-center">
+                    <div className="w-12 h-12 rounded-lg bg-[var(--brand-hot1)]/20 flex items-center justify-center mb-4 mx-auto group-hover:bg-[var(--brand-hot1)]/30 transition-colors">
                       <Target className="w-6 h-6 text-[var(--brand-hot1)]" />
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
@@ -427,7 +427,7 @@ export default function HomePage() {
               <p>각 단계마다 명확한 산출물과 의사결정 기준을 제공합니다.</p>
             </div>
           </div>
-          <HorizontalSlider items={processSteps} dark={true} />
+          <HorizontalSlider items={processSteps} dark={true} intervalMs={3000} />
           <div className="mt-12 text-center">
             <Button
               asChild
