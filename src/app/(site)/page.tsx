@@ -342,7 +342,7 @@ export default function HomePage() {
               {/* 핵심 가치 카드 그리드 */}
               <div className="grid md:grid-cols-3 gap-6 md:gap-8 mt-12">
                 {/* 브랜드 */}
-                <div className="group relative p-6 md:p-8 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+                <div className="group relative p-6 md:p-8 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300">
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-primary)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="mb-4">
                     <div className="w-12 h-12 rounded-lg bg-[var(--brand-primary)]/20 flex items-center justify-center mb-4 group-hover:bg-[var(--brand-primary)]/30 transition-colors">
@@ -358,7 +358,7 @@ export default function HomePage() {
                 </div>
 
                 {/* 크리에이티브 */}
-                <div className="group relative p-6 md:p-8 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+                <div className="group relative p-6 md:p-8 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300">
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-secondary)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="mb-4">
                     <div className="w-12 h-12 rounded-lg bg-[var(--brand-secondary)]/20 flex items-center justify-center mb-4 group-hover:bg-[var(--brand-secondary)]/30 transition-colors">
@@ -374,7 +374,7 @@ export default function HomePage() {
                 </div>
 
                 {/* 실행력 */}
-                <div className="group relative p-6 md:p-8 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+                <div className="group relative p-6 md:p-8 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-300">
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-hot1)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="mb-4">
                     <div className="w-12 h-12 rounded-lg bg-[var(--brand-hot1)]/20 flex items-center justify-center mb-4 group-hover:bg-[var(--brand-hot1)]/30 transition-colors">
@@ -669,7 +669,7 @@ export default function HomePage() {
               asChild
               variant="outline"
               size="lg"
-                className="border-2 border-white/30 bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm rounded-lg h-12 px-8 text-base font-bold"
+                className="border-2 border-white/30 bg-white/10 hover:bg-white/20 text-white rounded-lg h-12 px-8 text-base font-bold"
             >
                 <Link href="/proposal">마케팅 제안 요청</Link>
             </Button>

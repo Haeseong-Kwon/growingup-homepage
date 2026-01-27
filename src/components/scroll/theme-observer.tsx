@@ -9,36 +9,13 @@ import { useEffect, useRef } from "react";
  * 
  * - 쿨다운: 마지막 변경 후 200ms 내에는 변경하지 않음
  * - 성능: scroll 이벤트 리스너 사용 금지, IntersectionObserver만 사용
- * - 크로스페이드: 테마 변경 시 이전 배경색 오버레이로 부드러운 전환
+ * - 안정성: 오버레이/필터/transform 사용 금지, dataset.theme만 변경
  */
 export function ThemeObserver() {
   const lastChangeTimeRef = useRef<number>(0);
   const currentThemeRef = useRef<string | null>(null);
-  const overlayRef = useRef<HTMLDivElement | null>(null);
-  const prefersReducedMotionRef = useRef<boolean>(false);
 
   useEffect(() => {
-    // prefers-reduced-motion 체크
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    prefersReducedMotionRef.current = mediaQuery.matches;
-    
-    const handleChange = () => {
-      prefersReducedMotionRef.current = mediaQuery.matches;
-    };
-    mediaQuery.addEventListener("change", handleChange);
-
-    // 크로스페이드 오버레이 생성 (한 번만)
-    const overlay = document.createElement("div");
-    overlay.style.cssText = `
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 240ms ease-out;
-    `;
-    document.body.appendChild(overlay);
-    overlayRef.current = overlay;
 
     // 모든 섹션의 intersection 상태를 추적
     const sectionStates = new Map<HTMLElement, IntersectionObserverEntry>();
@@ -90,31 +67,9 @@ export function ThemeObserver() {
           const newTheme = target.dataset.theme;
 
           if (newTheme && newTheme !== currentThemeRef.current) {
-            const previousTheme = currentThemeRef.current;
             currentThemeRef.current = newTheme;
 
-            // 크로스페이드: 이전 배경색을 오버레이에 설정
-            if (overlayRef.current && previousTheme && !prefersReducedMotionRef.current) {
-              const previousBg = previousTheme === "dark" ? "#0b0c0f" : "#ffffff";
-              overlayRef.current.style.backgroundColor = previousBg;
-              overlayRef.current.style.opacity = "1";
-
-              // 페이드아웃
-              requestAnimationFrame(() => {
-                if (overlayRef.current) {
-                  overlayRef.current.style.opacity = "0";
-                }
-              });
-
-              // 애니메이션 완료 후 오버레이 제거 (재사용을 위해 유지)
-              setTimeout(() => {
-                if (overlayRef.current) {
-                  overlayRef.current.style.opacity = "0";
-                }
-              }, 240);
-            }
-
-            // 테마 변경
+            // 테마 변경 (오버레이/필터 없이 dataset만 변경)
             document.documentElement.dataset.theme = newTheme;
             lastChangeTimeRef.current = now;
           }
@@ -146,10 +101,6 @@ export function ThemeObserver() {
     // cleanup
     return () => {
       observer.disconnect();
-      mediaQuery.removeEventListener("change", handleChange);
-      if (overlayRef.current && overlayRef.current.parentNode) {
-        overlayRef.current.parentNode.removeChild(overlayRef.current);
-      }
     };
   }, []);
 

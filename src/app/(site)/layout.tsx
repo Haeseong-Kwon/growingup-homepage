@@ -12,11 +12,9 @@ export default function SiteLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // 블렌딩 기반 컬러 엔진 (배경/글자색)
-  useBlendedTheme();
-  
-  // 기존 테마 훅은 헤더/아이콘 스타일용으로만 사용 (최소화)
-  useThemeZone();
+  // 안정화: scroll 이벤트 리스너 기반 훅 비활성화
+  // useBlendedTheme(); // scroll 이벤트 사용으로 인한 뭉개짐 방지를 위해 비활성화
+  // useThemeZone(); // scroll 이벤트 사용으로 인한 뭉개짐 방지를 위해 비활성화
   
   return (
     <div className="flex min-h-screen flex-col">

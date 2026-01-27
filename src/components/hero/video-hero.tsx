@@ -157,7 +157,7 @@ export function VideoHero({
                     asChild
                     variant="outline"
                     size="lg"
-                    className="border-2 border-white/30 bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm rounded-lg h-12 px-8 text-base"
+                    className="border-2 border-white/30 bg-white/10 hover:bg-white/20 text-white rounded-lg h-12 px-8 text-base"
                   >
                     <Link href={secondaryCta.href}>{secondaryCta.label}</Link>
                   </Button>

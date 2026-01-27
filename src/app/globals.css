@@ -166,9 +166,8 @@ html.theme-dark {
 /* AppShell 기반 블렌딩 컬러 엔진 */
 /* use-blended-theme 훅이 --bg, --fg, --surface, --border 변수를 직접 설정 */
 #app-shell {
-  /* 전역 transition 금지 유지 */
-  /* 미세한 부드러움만 허용 (180~220ms) */
-  transition: background-color 200ms ease, color 200ms ease;
+  /* 안정화: transition 최소화 (180ms) */
+  transition: background-color 180ms ease, color 180ms ease;
   background: var(--bg, var(--brand-bg));
   color: var(--fg, var(--brand-fg));
 }
@@ -191,10 +190,15 @@ html.theme-dark {
     @apply antialiased;
     background: var(--bg, var(--brand-bg));
     color: var(--fg, var(--brand-fg));
-    transition: background-color 260ms ease, color 260ms ease;
+    transition: background-color 180ms ease, color 180ms ease;
     font-feature-settings: "kern" 1, "liga" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* html도 동일한 transition 적용 */
+  html {
+    transition: background-color 180ms ease, color 180ms ease;
   }
   
   /* Cheil 스타일 타이포그래피 */
