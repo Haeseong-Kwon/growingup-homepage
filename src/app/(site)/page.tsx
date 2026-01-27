@@ -160,7 +160,7 @@ export default function HomePage() {
     <>
       {/* [0] Video Hero - brand palette */}
       <VideoHero
-        title="성장을 위한 진단과 솔루션"
+        title="런칭을 기획서가 아닌 매출과 데이터로 증명합니다"
         subtitle="데이터 기반의 정확한 진단으로 비즈니스의 본질적인 성장을 만듭니다."
         primaryCta={{
           label: "진행 중인 프로젝트 보기",

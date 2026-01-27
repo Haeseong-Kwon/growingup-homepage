@@ -12,7 +12,7 @@ export function SiteFooter() {
           <div>
             <h3 className="text-lg font-medium mb-4 tracking-tight text-[var(--brand-fg)]">GROWING UP</h3>
             <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
-              성장을 위한 진단과 솔루션
+              런칭을 기획서가 아닌 매출과 데이터로 증명합니다
             </p>
           </div>
 
