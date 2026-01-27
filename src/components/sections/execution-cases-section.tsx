@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
+import { MediaReveal } from "@/components/motion/media-reveal";
 
 interface ExecutionCase {
   category: string;
@@ -54,46 +55,59 @@ export function ExecutionCasesSection() {
       minHeight="auto"
       className="py-12 md:py-16"
     >
-      <Container>
+      <Container className="relative">
+        {/* 배경 장식 요소 */}
+        <div className="absolute top-0 left-0 w-64 h-64 md:w-96 md:h-96 rounded-full bg-[var(--brand-primary)]/5 blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-64 h-64 md:w-96 md:h-96 rounded-full bg-[var(--brand-secondary)]/5 blur-3xl pointer-events-none translate-x-1/2 translate-y-1/2" />
+
         {/* 섹션 헤더 */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 md:gap-8 mb-12 md:mb-16">
-          <div>
-            <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
-              실행 사례
+        <MediaReveal intensity="subtle">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 md:gap-8 mb-12 md:mb-16 relative z-10">
+            <div>
+              <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
+                실행 사례
+              </div>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--brand-fg)] leading-tight">
+                문제 정의 → 가설 수립 → 실행 → 결과
+              </h2>
             </div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--brand-fg)] leading-tight">
-              문제 정의 → 가설 수립 → 실행 → 결과
-            </h2>
+            <Link
+              href="/cases"
+              className="inline-flex items-center gap-2 text-sm md:text-base font-medium text-[var(--brand-primary)] hover:text-[var(--brand-primary)]/80 transition-colors group/link"
+            >
+              전체 사례 보기
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
+            </Link>
           </div>
-          <Link
-            href="/cases"
-            className="inline-flex items-center gap-2 text-sm md:text-base font-medium text-[var(--brand-primary)] hover:text-[var(--brand-primary)]/80 transition-colors"
-          >
-            전체 사례 보기
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
-        </div>
+        </MediaReveal>
 
         {/* 카드 그리드 */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {executionCases.map((caseItem, index) => (
-            <Card
-              key={index}
-              className={cn(
-                "group relative border-2 transition-all duration-300 hover:-translate-y-1 flex flex-col h-full",
-                "bg-[var(--color-card)] border-[var(--color-border)]",
-                "hover:border-[var(--brand-primary)]/30 hover:shadow-lg"
-              )}
-            >
-              {/* 우상단 아이콘 */}
-              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                <ArrowUpRight className="w-5 h-5 text-[var(--brand-primary)]" />
-              </div>
+            <MediaReveal key={index} delay={index * 100} intensity="medium">
+              <Card
+                className={cn(
+                  "group relative border-2 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full overflow-hidden",
+                  "bg-gradient-to-br from-white to-[var(--brand-muted-light)]/30",
+                  "border-[var(--color-border)]",
+                  "hover:border-[var(--brand-primary)]/40 hover:shadow-xl"
+                )}
+              >
+                {/* 배경 그라데이션 효과 */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
 
-              <CardHeader className="pb-4 flex-1">
+                {/* 상단 액센트 바 */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-primary)]/50 via-[var(--brand-secondary)]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* 우상단 아이콘 */}
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 group-hover:rotate-12">
+                  <ArrowUpRight className="w-5 h-5 text-[var(--brand-primary)]" />
+                </div>
+
+              <CardHeader className="pb-4 flex-1 relative z-10">
                 {/* 카테고리 칩 */}
                 <div className="mb-3">
-                  <span className="inline-block px-3 py-1 rounded-full bg-[var(--brand-primary)]/10 text-xs font-medium text-[var(--brand-primary)]">
+                  <span className="inline-block px-3 py-1.5 rounded-full bg-[var(--brand-primary)]/10 text-xs font-medium text-[var(--brand-primary)] transition-all duration-300 group-hover:bg-[var(--brand-primary)]/20 group-hover:scale-105">
                     {caseItem.category}
                   </span>
                 </div>
@@ -134,18 +148,19 @@ export function ExecutionCasesSection() {
                 </div>
               </CardHeader>
 
-              <CardContent className="pt-0 mt-auto">
+              <CardContent className="pt-0 mt-auto relative z-10">
                 {/* 성과 (하단 강조) */}
-                <div className="border-t border-[var(--color-border)] pt-4">
+                <div className="border-t border-[var(--color-border)] pt-4 group-hover:border-[var(--brand-primary)]/20 transition-colors duration-300">
                   <div className="text-xs font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
                     성과
                   </div>
-                  <p className="text-lg md:text-xl font-bold text-[var(--brand-primary)] leading-tight">
+                  <p className="text-lg md:text-xl font-bold text-[var(--brand-primary)] leading-tight transition-all duration-300 group-hover:scale-105">
                     {caseItem.result}
                   </p>
                 </div>
               </CardContent>
             </Card>
+            </MediaReveal>
           ))}
         </div>
       </Container>

@@ -15,6 +15,7 @@ import { LogoMarquee } from "@/components/sections/logo-marquee";
 import { ExecutionCasesSection } from "@/components/sections/execution-cases-section";
 import { Accordion } from "@/components/ui/accordion";
 import { KpiBadge } from "@/components/ui/kpi-badge";
+import { PerformanceCard } from "@/components/sections/performance-card";
 
 // 더미 데이터 - 진행 중인 프로젝트
 const ongoingProjects = [
@@ -245,128 +246,57 @@ export default function HomePage() {
         variant="default"
         divider="top"
         minHeight="auto"
-        className="py-12 md:py-16"
+        className="py-12 md:py-16 relative overflow-hidden"
       >
-        <Container>
+        {/* 배경 장식 요소 */}
+        <div className="absolute top-0 left-0 w-64 h-64 md:w-96 md:h-96 rounded-full bg-[var(--brand-primary)]/5 blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-64 h-64 md:w-96 md:h-96 rounded-full bg-[var(--brand-secondary)]/5 blur-3xl pointer-events-none translate-x-1/2 translate-y-1/2" />
+
+        <Container className="relative z-10">
           {/* 섹션 제목 */}
-          <div className="text-center mb-8 md:mb-12">
-            <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
-              실행 결과
+          <MediaReveal intensity="subtle">
+            <div className="text-center mb-8 md:mb-12">
+              <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
+                실행 결과
+              </div>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--brand-fg)] mb-2">
+                숫자로 검증된 런칭 성과
+              </h2>
             </div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--brand-fg)] mb-2">
-              숫자로 검증된 런칭 성과
-            </h2>
-          </div>
+          </MediaReveal>
 
           {/* 성과 카드 3개 */}
           <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            {/* 카드 1: Great 포터블 스크린 */}
-            <Card className="border-2 hover:border-[var(--brand-primary)]/30 transition-all duration-300 hover:-translate-y-1">
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-[var(--brand-primary)]/10 flex items-center justify-center">
-                    <TrendingUp className="w-6 h-6 text-[var(--brand-primary)]" />
-                  </div>
-                  <CardTitle className="text-lg md:text-xl font-bold">
-                    Great 포터블 스크린
-                  </CardTitle>
-                </div>
-                <div className="text-3xl md:text-4xl font-bold text-[var(--brand-primary)] mb-3">
-                  3,500대 완판
-                </div>
-                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
-                  4주 집중 캠페인, 정식 런칭 1개월 내 완판 달성
-                </p>
-              </CardHeader>
-              <CardContent>
-                <div className="text-xs font-medium text-[var(--brand-fg)]/60 mb-3 uppercase tracking-wide">
-                  핵심 지표
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
-                    ROAS 320%
-                  </span>
-                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
-                    CPA 8,500원
-                  </span>
-                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
-                    CTR 4.2%
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* 카드 2: 글라소 프랜차이즈 */}
-            <Card className="border-2 hover:border-[var(--brand-secondary)]/30 transition-all duration-300 hover:-translate-y-1">
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-[var(--brand-secondary)]/10 flex items-center justify-center">
-                    <Store className="w-6 h-6 text-[var(--brand-secondary)]" />
-                  </div>
-                  <CardTitle className="text-lg md:text-xl font-bold">
-                    글라소 프랜차이즈
-                  </CardTitle>
-                </div>
-                <div className="text-3xl md:text-4xl font-bold text-[var(--brand-secondary)] mb-3">
-                  3개월 20개 점포
-                </div>
-                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
-                  SEO + 콘텐츠 마케팅으로 가맹 문의 월 50건 확보
-                </p>
-              </CardHeader>
-              <CardContent>
-                <div className="text-xs font-medium text-[var(--brand-fg)]/60 mb-3 uppercase tracking-wide">
-                  핵심 지표
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
-                    리드 전환율 12%
-                  </span>
-                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
-                    CAC 15만원
-                  </span>
-                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
-                    1페이지 키워드 23개
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* 카드 3: 와디즈 GPT 전자책 */}
-            <Card className="border-2 hover:border-[var(--brand-hot1)]/30 transition-all duration-300 hover:-translate-y-1">
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-[var(--brand-hot1)]/10 flex items-center justify-center">
-                    <Book className="w-6 h-6 text-[var(--brand-hot1)]" />
-                  </div>
-                  <CardTitle className="text-lg md:text-xl font-bold">
-                    와디즈 GPT 전자책
-                  </CardTitle>
-                </div>
-                <div className="text-3xl md:text-4xl font-bold text-[var(--brand-hot1)] mb-3">
-                  3주 4억 펀딩
-                </div>
-                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
-                  한국 최초 GPT 활용 전자책, 펀딩률 4,000% 달성
-                </p>
-              </CardHeader>
-              <CardContent>
-                <div className="text-xs font-medium text-[var(--brand-fg)]/60 mb-3 uppercase tracking-wide">
-                  핵심 지표
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
-                    후원자 3,200명
-                  </span>
-                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
-                    평균 후원금 12.5만원
-                  </span>
-                  <span className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
-                    펀딩률 4,000%
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
+            <PerformanceCard
+              icon={TrendingUp}
+              title="Great 포터블 스크린"
+              number={3500}
+              numberSuffix="대 완판"
+              description="4주 집중 캠페인, 정식 런칭 1개월 내 완판 달성"
+              metrics={["ROAS 320%", "CPA 8,500원", "CTR 4.2%"]}
+              color="primary"
+              delay={0}
+            />
+            <PerformanceCard
+              icon={Store}
+              title="글라소 프랜차이즈"
+              number={20}
+              numberSuffix="개 점포"
+              description="SEO + 콘텐츠 마케팅으로 가맹 문의 월 50건 확보"
+              metrics={["리드 전환율 12%", "CAC 15만원", "1페이지 키워드 23개"]}
+              color="secondary"
+              delay={100}
+            />
+            <PerformanceCard
+              icon={Book}
+              title="와디즈 GPT 전자책"
+              number={400000000}
+              numberSuffix=" 펀딩"
+              description="한국 최초 GPT 활용 전자책, 펀딩률 4,000% 달성"
+              metrics={["후원자 3,200명", "평균 후원금 12.5만원", "펀딩률 4,000%"]}
+              color="hot1"
+              delay={200}
+            />
           </div>
         </Container>
       </Section>
