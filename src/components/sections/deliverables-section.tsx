@@ -95,20 +95,19 @@ export function DeliverablesSection() {
           {deliverableGroups.map((group, index) => {
             const Icon = group.icon;
             return (
-              <MediaReveal key={index} delay={index * 100} intensity="medium">
+              <div key={index}>
                 <Card
                   className={cn(
-                    "group relative border-2 transition-all duration-300 flex flex-col",
+                    "relative border-2 flex flex-col",
                     "bg-[var(--brand-bg)]",
                     "border-[var(--color-border)]",
-                    "hover:border-[var(--brand-primary)]/40 hover:-translate-y-0.5 hover:shadow-lg",
                     "h-full min-h-[280px]"
                   )}
                 >
                   <CardHeader className="pb-4">
                     {/* 아이콘 + 타이틀 */}
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 flex items-center justify-center group-hover:bg-[var(--brand-primary)]/20 transition-colors duration-300">
+                      <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 flex items-center justify-center">
                         <Icon className="w-5 h-5 text-[var(--brand-primary)]" />
                       </div>
                       <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)]">
@@ -134,7 +133,7 @@ export function DeliverablesSection() {
                     </ul>
                   </CardContent>
                 </Card>
-              </MediaReveal>
+              </div>
             );
           })}
         </div>
