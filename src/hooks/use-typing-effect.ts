@@ -35,7 +35,9 @@ export function useTypingEffect({
 
       const typingInterval = setInterval(() => {
         if (currentIndex <= text.length) {
-          setDisplayedText(text.slice(0, currentIndex));
+          // 줄바꿈 문자를 포함한 텍스트를 올바르게 표시
+          const currentText = text.slice(0, currentIndex);
+          setDisplayedText(currentText);
           currentIndex++;
         } else {
           setIsComplete(true);
