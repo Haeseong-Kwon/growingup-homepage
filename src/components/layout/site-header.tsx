@@ -5,7 +5,7 @@ import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "./container";
 import { useState, useRef, useEffect } from "react";
-import { SiteMenuOverlay } from "./site-menu-overlay";
+import { MegaMenuOverlay } from "./mega-menu-overlay";
 import { useScroll } from "@/hooks/use-scroll";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -327,7 +327,7 @@ export function SiteHeader() {
         </div>
       )}
 
-      <SiteMenuOverlay open={isMenuOpen} onOpenChange={setIsMenuOpen} />
+      <MegaMenuOverlay open={isMenuOpen} onOpenChange={setIsMenuOpen} />
     </>
   );
 }
