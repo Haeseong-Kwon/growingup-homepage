@@ -38,39 +38,29 @@ export function ServicesPage() {
         </Container>
       </Section>
 
-      {/* Launch Sprint */}
+      {/* Services Grid */}
       <Section
-        id="sprint"
         data-palette="light"
         data-theme="light"
-        data-section="sprint"
+        data-section="services-grid"
         variant="default"
         divider="top"
         minHeight="auto"
         className="py-16 md:py-24"
       >
         <Container>
-          <MediaReveal intensity="medium">
-            <ServiceCard service={servicesData[0]} />
-          </MediaReveal>
-        </Container>
-      </Section>
-
-      {/* Launch Partner */}
-      <Section
-        id="partner"
-        data-palette="light"
-        data-theme="light"
-        data-section="partner"
-        variant="default"
-        divider="top"
-        minHeight="auto"
-        className="py-16 md:py-24"
-      >
-        <Container>
-          <MediaReveal intensity="medium">
-            <ServiceCard service={servicesData[1]} />
-          </MediaReveal>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+            <MediaReveal intensity="medium">
+              <div id="sprint" className="scroll-mt-[calc(var(--header-h)+48px)]">
+                <ServiceCard service={servicesData[0]} />
+              </div>
+            </MediaReveal>
+            <MediaReveal intensity="medium" delay={100}>
+              <div id="partner" className="scroll-mt-[calc(var(--header-h)+48px)]">
+                <ServiceCard service={servicesData[1]} />
+              </div>
+            </MediaReveal>
+          </div>
         </Container>
       </Section>
 
