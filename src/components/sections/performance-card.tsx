@@ -77,16 +77,19 @@ export function PerformanceCard({
       <div ref={ref} className="h-full flex">
         <Card
           className={cn(
-            "group relative overflow-hidden border-2 transition-all duration-500 flex flex-col w-full",
-            "hover:-translate-y-2 hover:shadow-xl",
+            "group relative overflow-hidden border-2 flex flex-col w-full",
+            "transition-transform duration-200 ease-out [contain:paint]",
+            "hover:-translate-y-1.5 motion-reduce:transition-none",
             colors.borderHover,
-            "bg-gradient-to-br from-white to-[var(--brand-muted-light)]/30"
+            "bg-gradient-to-br from-white to-[var(--brand-muted-light)]/30",
+            "shadow-sm"
           )}
         >
         {/* 배경 그라데이션 효과 */}
         <div
           className={cn(
-            "absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500",
+            "absolute inset-0 opacity-0 transition-opacity duration-200 ease-out motion-reduce:transition-none",
+            "group-hover:opacity-100",
             "bg-gradient-to-br",
             colors.gradient
           )}
@@ -95,7 +98,8 @@ export function PerformanceCard({
         {/* 상단 액센트 바 */}
         <div
           className={cn(
-            "absolute top-0 left-0 right-0 h-1 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-500",
+            "absolute top-0 left-0 right-0 h-1 bg-gradient-to-r opacity-0 transition-opacity duration-200 ease-out motion-reduce:transition-none",
+            "group-hover:opacity-100",
             colors.gradient
           )}
         />
@@ -104,7 +108,7 @@ export function PerformanceCard({
           <div className="flex items-center gap-3 mb-4">
             <div
               className={cn(
-                "w-14 h-14 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3",
+                "w-14 h-14 rounded-xl flex items-center justify-center",
                 colors.iconBg
               )}
             >
@@ -115,7 +119,7 @@ export function PerformanceCard({
             </CardTitle>
           </div>
 
-          <div className={cn("text-3xl md:text-4xl lg:text-5xl font-bold mb-3 transition-all duration-300", colors.numberColor)}>
+          <div className={cn("text-3xl md:text-4xl lg:text-5xl font-bold mb-3", colors.numberColor)}>
             {count}
             {suffix && <span className="text-2xl md:text-3xl">{suffix}</span>}
             {numberSuffix}
@@ -134,7 +138,7 @@ export function PerformanceCard({
             {metrics.map((metric, index) => (
               <span
                 key={index}
-                className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)] transition-all duration-300 hover:scale-105"
+                className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]"
               >
                 {metric}
               </span>

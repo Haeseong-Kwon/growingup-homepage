@@ -88,27 +88,29 @@ export function ExecutionCasesSection() {
             <MediaReveal key={index} delay={index * 100} intensity="medium">
               <Card
                 className={cn(
-                  "group relative border-2 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full overflow-hidden",
+                  "group relative border-2 flex flex-col h-full overflow-hidden",
+                  "transition-transform duration-200 ease-out [contain:paint]",
+                  "hover:-translate-y-1.5 motion-reduce:transition-none",
                   "bg-gradient-to-br from-white to-[var(--brand-muted-light)]/30",
                   "border-[var(--color-border)]",
-                  "hover:border-[var(--brand-primary)]/40 hover:shadow-xl"
+                  "hover:border-[var(--brand-primary)]/40 shadow-sm"
                 )}
               >
                 {/* 배경 그라데이션 효과 */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
 
                 {/* 상단 액센트 바 */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-primary)]/50 via-[var(--brand-secondary)]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-primary)]/50 via-[var(--brand-secondary)]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none" />
 
                 {/* 우상단 아이콘 */}
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 group-hover:rotate-12">
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none z-10">
                   <ArrowUpRight className="w-5 h-5 text-[var(--brand-primary)]" />
                 </div>
 
               <CardHeader className="pb-4 flex-1 relative z-10">
                 {/* 카테고리 칩 */}
                 <div className="mb-3">
-                  <span className="inline-block px-3 py-1.5 rounded-full bg-[var(--brand-primary)]/10 text-xs font-medium text-[var(--brand-primary)] transition-all duration-300 group-hover:bg-[var(--brand-primary)]/20 group-hover:scale-105">
+                  <span className="inline-block px-3 py-1.5 rounded-full bg-[var(--brand-primary)]/10 text-xs font-medium text-[var(--brand-primary)] transition-colors duration-200 ease-out motion-reduce:transition-none group-hover:bg-[var(--brand-primary)]/20">
                     {caseItem.category}
                   </span>
                 </div>
@@ -151,11 +153,11 @@ export function ExecutionCasesSection() {
 
               <CardContent className="pt-0 mt-auto relative z-10">
                 {/* 성과 (하단 강조) */}
-                <div className="border-t border-[var(--color-border)] pt-4 group-hover:border-[var(--brand-primary)]/20 transition-colors duration-300">
+                <div className="border-t border-[var(--color-border)] pt-4 group-hover:border-[var(--brand-primary)]/20 transition-colors duration-200 ease-out motion-reduce:transition-none">
                   <div className="text-xs font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
                     성과
                   </div>
-                  <p className="text-lg md:text-xl font-bold text-[var(--brand-primary)] leading-tight transition-all duration-300 group-hover:scale-105">
+                  <p className="text-lg md:text-xl font-bold text-[var(--brand-primary)] leading-tight">
                     {caseItem.result}
                   </p>
                 </div>

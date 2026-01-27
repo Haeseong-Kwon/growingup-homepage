@@ -375,4 +375,25 @@ html.theme-dark {
   }
   
   /* 안정화: scroll-snap 유틸리티 제거 (렌더링 안정화) */
+  
+  /* 안전한 카드 hover 스타일 - transform + opacity만 사용 */
+  .card-hover-safe {
+    transform: translate3d(0, 0, 0);
+    transition: transform 200ms ease-out, opacity 200ms ease-out;
+    contain: paint;
+  }
+  
+  /* PC에서만 hover 적용 (모바일 영향 없음) */
+  @media (hover: hover) and (pointer: fine) {
+    .card-hover-safe:hover {
+      transform: translate3d(0, -6px, 0);
+    }
+  }
+  
+  /* Reduced motion 대응 */
+  @media (prefers-reduced-motion: reduce) {
+    .card-hover-safe {
+      transition: none;
+    }
+  }
 }

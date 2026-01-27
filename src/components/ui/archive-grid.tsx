@@ -41,7 +41,7 @@ export function ArchiveGrid({ items, className }: ArchiveGridProps) {
           href={item.href}
           className="group block h-full"
         >
-          <Card className="h-full border overflow-hidden transition-all duration-300 hover:border-[var(--brand-primary)]/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-[var(--brand-primary)]/5">
+          <Card className="h-full border overflow-hidden transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none hover:border-[var(--brand-primary)]/30 hover:-translate-y-1 shadow-sm">
             {/* 썸네일 */}
             <div className="aspect-[16/10] relative overflow-hidden">
               {item.thumbnail ? (
@@ -49,7 +49,7 @@ export function ArchiveGrid({ items, className }: ArchiveGridProps) {
                   src={item.thumbnail}
                   alt={item.title}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover group-hover:scale-105 transition-transform duration-200 ease-out motion-reduce:transition-none"
                 />
               ) : (
                 <div
