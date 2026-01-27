@@ -209,13 +209,10 @@ export function Section({
       {bleed && (bleedBg || inkGradientStyle) && (
         <div
           aria-hidden
-          className="absolute inset-0 -z-10 isolate"
+          className="absolute inset-x-0 top-0 bottom-0 -z-10 isolate"
           style={{
             ...(bleedBg ? { backgroundColor: bleedBg } : {}),
             ...(inkGradientStyle || {}),
-            width: "100vw",
-            left: "50%",
-            transform: "translateX(-50%)",
           }}
         />
       )}
@@ -227,15 +224,12 @@ export function Section({
           {(effectiveEdgeFade === "both" || effectiveEdgeFade === "top") && (
             <div
               aria-hidden
-              className="pointer-events-none absolute top-0 left-0 right-0 z-10"
+              className="pointer-events-none absolute top-0 inset-x-0 z-10"
               style={{
                 height: `${Number(bandHeight)}px`,
                 background: `linear-gradient(to bottom, ${
                   bleedBg || (theme === "dark" ? darkBg : lightBg)
                 }, transparent)`,
-                width: "100vw",
-                left: "50%",
-                transform: "translateX(-50%)",
               }}
             />
           )}
@@ -243,15 +237,12 @@ export function Section({
           {(effectiveEdgeFade === "both" || effectiveEdgeFade === "bottom") && (
             <div
               aria-hidden
-              className="pointer-events-none absolute bottom-0 left-0 right-0 z-10"
+              className="pointer-events-none absolute bottom-0 inset-x-0 z-10"
               style={{
                 height: `${Number(bandHeight)}px`,
                 background: `linear-gradient(to top, ${
                   bleedBg || (theme === "dark" ? darkBg : lightBg)
                 }, transparent)`,
-                width: "100vw",
-                left: "50%",
-                transform: "translateX(-50%)",
               }}
             />
           )}

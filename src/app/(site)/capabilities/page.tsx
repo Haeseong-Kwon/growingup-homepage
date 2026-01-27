@@ -166,7 +166,7 @@ const sampleDeliverables = [
 
 export default function CapabilitiesPage() {
   return (
-    <>
+    <div className="w-full overflow-x-clip">
       {/* Hero */}
       <VideoHero
         title="캠페인이 아닌 런칭 시스템을 설계하고 운영합니다"
@@ -332,27 +332,27 @@ export default function CapabilitiesPage() {
                   {capability.description}
                 </p>
                   </CardHeader>
-                  <CardContent className="relative z-10 flex-1 flex flex-col">
-                    <div className="mb-4">
+                  <CardContent className="relative z-10 flex-1 flex flex-col min-w-0">
+                    <div className="mb-4 min-w-0">
                       <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-2">
                         대표 산출물
                       </div>
                       <ul className="space-y-1.5">
                         {capability.deliverables.map((item, itemIndex) => (
-                          <li key={itemIndex} className="flex items-start gap-2">
+                          <li key={itemIndex} className="flex items-start gap-2 min-w-0">
                             <CheckCircle2 className="w-4 h-4 text-[var(--brand-primary)] mt-0.5 flex-shrink-0" />
-                            <span className="text-sm text-[var(--brand-fg)]/80 leading-relaxed">
+                            <span className="text-sm text-[var(--brand-fg)]/80 leading-relaxed break-words min-w-0">
                               {item}
                             </span>
                           </li>
                         ))}
                       </ul>
                     </div>
-                    <div className="mt-auto pt-4 border-t border-[var(--brand-muted)]">
+                    <div className="mt-auto pt-4 border-t border-[var(--brand-muted)] min-w-0">
                       <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-1">
                         성공 기준
                       </div>
-                      <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
+                      <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
                         {capability.successCriteria}
                       </p>
                     </div>
@@ -416,20 +416,20 @@ export default function CapabilitiesPage() {
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="relative z-10 flex-1 flex flex-col md:flex-row gap-6 pt-0">
-                    <div className="flex-1">
+                  <CardContent className="relative z-10 flex-1 flex flex-col md:flex-row gap-6 pt-0 min-w-0">
+                    <div className="flex-1 min-w-0">
                       <div className="text-xs font-medium uppercase tracking-wide text-white/60 mb-2">
                         산출물
                       </div>
-                      <p className="text-sm text-white/80 leading-relaxed">
+                      <p className="text-sm text-white/80 leading-relaxed break-words min-w-0">
                         {step.deliverables}
                       </p>
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <div className="text-xs font-medium uppercase tracking-wide text-white/60 mb-2">
                         의사결정
                       </div>
-                      <p className="text-sm text-white/80 leading-relaxed">
+                      <p className="text-sm text-white/80 leading-relaxed break-words min-w-0">
                         {step.decision}
                       </p>
                     </div>
@@ -593,6 +593,6 @@ export default function CapabilitiesPage() {
           </MediaReveal>
         </Container>
       </Section>
-    </>
+    </div>
   );
 }

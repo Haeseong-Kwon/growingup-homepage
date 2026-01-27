@@ -124,40 +124,40 @@ function CampaignCard({
 }) {
   return (
     <Card
-      className="h-full border-2 hover:border-[var(--brand-primary)]/30 transition-all cursor-pointer group"
+      className="h-full border-2 hover:border-[var(--brand-primary)]/30 transition-all cursor-pointer group min-w-0"
       onClick={onClick}
     >
-      <CardHeader className="pb-4">
-        <div className="flex items-start justify-between gap-4 mb-3">
-          <CardTitle className="text-xl md:text-2xl font-bold leading-tight break-words">
+      <CardHeader className="pb-4 min-w-0">
+        <div className="flex items-start justify-between gap-4 mb-3 min-w-0">
+          <CardTitle className="text-xl md:text-2xl font-bold leading-tight break-words flex-1 min-w-0">
             {campaign.title}
           </CardTitle>
-          <div className="flex flex-col gap-2 shrink-0">
+          <div className="flex flex-col gap-2 shrink-0 min-w-0">
             <Badge
               variant="outline"
-              className="bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] border-[var(--brand-primary)]/20"
+              className="bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] border-[var(--brand-primary)]/20 whitespace-nowrap"
             >
               종료
             </Badge>
             <Badge
               variant="secondary"
-              className="bg-[var(--brand-secondary)]/20 text-[var(--brand-secondary)]"
+              className="bg-[var(--brand-secondary)]/20 text-[var(--brand-secondary)] whitespace-nowrap"
             >
               {campaign.status}
             </Badge>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex items-center gap-2 text-sm text-[var(--brand-fg)]/70">
+      <CardContent className="space-y-4 min-w-0">
+        <div className="flex items-center gap-2 text-sm text-[var(--brand-fg)]/70 min-w-0">
           <Calendar className="w-4 h-4 shrink-0" />
-          <span className="break-words">{campaign.date}</span>
+          <span className="break-words min-w-0">{campaign.date}</span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-[var(--brand-fg)]/70">
+        <div className="flex items-center gap-2 text-sm text-[var(--brand-fg)]/70 min-w-0">
           <Target className="w-4 h-4 shrink-0" />
-          <span className="break-words">{campaign.objective}</span>
+          <span className="break-words min-w-0">{campaign.objective}</span>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 min-w-0">
           <div className="flex justify-between text-sm">
             <span className="text-[var(--brand-fg)]/70">진행률</span>
             <span className="font-medium">{campaign.progress}%</span>
@@ -169,19 +169,19 @@ function CampaignCard({
             />
           </div>
         </div>
-        <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed line-clamp-2 break-words">
+        <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed line-clamp-2 break-words min-w-0">
           {campaign.description}
         </p>
         <Button
           variant="ghost"
-          className="w-full justify-between group-hover:text-[var(--brand-primary)]"
+          className="w-full justify-between group-hover:text-[var(--brand-primary)] min-w-0"
           onClick={(e) => {
             e.stopPropagation();
             onClick();
           }}
         >
-          <span>상세 보기</span>
-          <ChevronRight className="w-4 h-4" />
+          <span className="min-w-0">상세 보기</span>
+          <ChevronRight className="w-4 h-4 shrink-0" />
         </Button>
       </CardContent>
     </Card>
@@ -198,38 +198,38 @@ function MissionCard({
 }) {
   return (
     <Card
-      className="h-full border-2 hover:border-[var(--brand-primary)]/30 transition-all cursor-pointer"
+      className="h-full border-2 hover:border-[var(--brand-primary)]/30 transition-all cursor-pointer min-w-0"
       onClick={onClick}
     >
-      <CardHeader className="pb-3">
-        <div className="flex items-start justify-between gap-3 mb-2">
+      <CardHeader className="pb-3 min-w-0">
+        <div className="flex items-start justify-between gap-3 mb-2 min-w-0">
           <CardTitle className="text-lg md:text-xl font-bold leading-tight break-words flex-1 min-w-0">
             {mission.title}
           </CardTitle>
           <Badge
             variant="outline"
-            className="bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] border-[var(--brand-primary)]/20 shrink-0"
+            className="bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] border-[var(--brand-primary)]/20 shrink-0 whitespace-nowrap"
           >
             참여 가능
           </Badge>
         </div>
       </CardHeader>
-      <CardContent className="space-y-3">
-        <div className="flex items-center gap-4 flex-wrap">
-          <div className="flex items-center gap-1">
+      <CardContent className="space-y-3 min-w-0">
+        <div className="flex items-center gap-4 flex-wrap min-w-0">
+          <div className="flex items-center gap-1 shrink-0">
             {Array.from({ length: mission.stars }).map((_, i) => (
               <Star
                 key={i}
-                className="w-4 h-4 fill-[var(--brand-primary)] text-[var(--brand-primary)]"
+                className="w-4 h-4 fill-[var(--brand-primary)] text-[var(--brand-primary)] shrink-0"
               />
             ))}
           </div>
-          <div className="flex items-center gap-1.5 text-sm text-[var(--brand-fg)]/70">
-            <Clock className="w-4 h-4" />
-            <span>반나절</span>
+          <div className="flex items-center gap-1.5 text-sm text-[var(--brand-fg)]/70 shrink-0">
+            <Clock className="w-4 h-4 shrink-0" />
+            <span className="whitespace-nowrap">반나절</span>
           </div>
         </div>
-        <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words">
+        <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
           {mission.deliver}
         </p>
       </CardContent>
@@ -263,7 +263,7 @@ export default function ArenaPage() {
   };
 
   return (
-    <div className="w-full overflow-x-hidden">
+    <div className="w-full overflow-x-clip">
       {/* 1) Hero 섹션 */}
       <VideoHero
         title="실전 레퍼런스를 만드는 곳"
@@ -281,18 +281,18 @@ export default function ArenaPage() {
         className="py-8"
       >
         <Container>
-          <div className="max-w-4xl">
+          <div className="max-w-4xl min-w-0">
             <div className="space-y-3">
-              <Card className="border-2 bg-card">
-                <CardContent className="p-4 md:p-6">
-                  <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
+              <Card className="border-2 bg-card min-w-0">
+                <CardContent className="p-4 md:p-6 min-w-0">
+                  <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
                     • 기여자 크레딧 표기는 참여자 선택
                   </p>
                 </CardContent>
               </Card>
-              <Card className="border-2 bg-card">
-                <CardContent className="p-4 md:p-6">
-                  <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
+              <Card className="border-2 bg-card min-w-0">
+                <CardContent className="p-4 md:p-6 min-w-0">
+                  <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
                     • 상위 기여자는 유료 전환 트랙 우선 제안 가능
                   </p>
                 </CardContent>
@@ -303,37 +303,27 @@ export default function ArenaPage() {
       </Section>
 
       {/* 2) 초대코드 바 */}
-      <Section
-        data-palette="light"
-        data-theme="light"
-        variant="default"
-        divider="none"
-        minHeight="auto"
-        className="py-8 border-b"
-      >
-        <Container>
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-            <div className="flex-1 min-w-0">
-              <p className="text-sm md:text-base text-[var(--brand-fg)]/70 mb-2 sm:mb-0 sm:mr-4 break-words">
-                초대코드가 있으신가요?
-              </p>
-            </div>
-            <div className="flex flex-1 sm:flex-initial items-center gap-3 min-w-0">
-              <div className="flex-1 min-w-0">
-                <Input
-                  type="text"
-                  placeholder="초대코드 입력"
-                  value={inviteCode}
-                  onChange={(e) => setInviteCode(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      handleInviteSubmit();
-                    }
-                  }}
-                  className="min-w-0"
-                />
-              </div>
-              <Button onClick={handleInviteSubmit} className="shrink-0">
+      <section className="py-8 border-b bg-[var(--brand-bg)]">
+        <div className="mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <p className="text-sm md:text-base text-[var(--brand-fg)]/70 min-w-0">
+              초대코드가 있으신가요?
+            </p>
+
+            <div className="w-full md:w-auto md:max-w-[520px] flex flex-col sm:flex-row gap-3 min-w-0">
+              <Input
+                type="text"
+                placeholder="초대코드 입력"
+                value={inviteCode}
+                onChange={(e) => setInviteCode(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleInviteSubmit();
+                  }
+                }}
+                className="w-full sm:flex-1 min-w-0"
+              />
+              <Button onClick={handleInviteSubmit} className="w-full sm:w-auto shrink-0">
                 확인
               </Button>
             </div>
@@ -341,7 +331,7 @@ export default function ArenaPage() {
           {inviteMessage && (
             <div
               className={cn(
-                "mt-3 text-sm",
+                "mt-3 text-sm min-w-0",
                 inviteMessage.includes("확인되었습니다")
                   ? "text-[var(--brand-primary)]"
                   : "text-destructive"
@@ -350,33 +340,55 @@ export default function ArenaPage() {
               {inviteMessage}
             </div>
           )}
-        </Container>
-      </Section>
+        </div>
+      </section>
 
       {/* 3) 진행 중인 캠페인 섹션 */}
-      <Section
-        data-palette="light"
-        data-theme="light"
-        data-section="campaigns"
-        variant="default"
-        divider="top"
-        minHeight="auto"
-      >
-        <Container>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 md:mb-12">
+      <section className="py-16 md:py-24 bg-[var(--brand-bg)] border-t border-[var(--brand-muted)]">
+        <div className="mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 md:mb-12 min-w-0">
             진행 중인 캠페인
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {campaigns.map((campaign) => (
-              <CampaignCard
-                key={campaign.id}
-                campaign={campaign}
-                onClick={handleCampaignClick}
-              />
-            ))}
+
+          <div className="grid gap-8 lg:grid-cols-12 items-start">
+            {/* LEFT: 캠페인 리스트 */}
+            <div className="lg:col-span-8 min-w-0">
+              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {campaigns.map((campaign) => (
+                  <div key={campaign.id} className="min-w-0">
+                    <CampaignCard
+                      campaign={campaign}
+                      onClick={handleCampaignClick}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* RIGHT: 신청 CTA */}
+            <aside className="lg:col-span-4 min-w-0">
+              <div className="rounded-2xl bg-[var(--brand-primary)] text-white p-6 md:p-7 shadow-sm border-0">
+                <h3 className="text-xl md:text-2xl font-bold mb-3 text-white min-w-0">
+                  참여하고 싶으신가요?
+                </h3>
+                <p className="text-sm md:text-base text-white/90 leading-relaxed mb-4 break-words min-w-0">
+                  포트폴리오와 함께 신청해 주세요. 검토 후 연락드립니다.
+                </p>
+                <Button
+                  asChild
+                  variant="secondary"
+                  className="w-full bg-white text-[var(--brand-primary)] hover:bg-white/90"
+                >
+                  <Link href="/auth" className="min-w-0">
+                    <LogIn className="w-4 h-4" />
+                    로그인하고 신청하기
+                  </Link>
+                </Button>
+              </div>
+            </aside>
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
       {/* 4) 진행 현황 + 미션 보드 섹션 */}
       <Section
@@ -388,86 +400,58 @@ export default function ArenaPage() {
         minHeight="auto"
       >
         <Container>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* 좌측: 진행 현황 + 미션 보드 */}
-            <div className="lg:col-span-2 space-y-12 min-w-0">
-              {/* 진행 현황 */}
-              <div>
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8">
-                  진행 현황
-                </h2>
-                <div className="space-y-4">
-                  {timelineItems.map((item, index) => (
-                    <Card
-                      key={index}
-                      className="border-2 bg-card p-4 md:p-6"
-                    >
-                      <div className="flex flex-col sm:flex-row gap-4">
-                        <Badge
-                          variant="outline"
-                          className="w-fit bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] border-[var(--brand-primary)]/20 shrink-0"
-                        >
-                          {item.date}
-                        </Badge>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="text-lg md:text-xl font-bold mb-2 break-words">
-                            {item.title}
-                          </h4>
-                          <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words">
-                            {item.desc}
-                          </p>
-                        </div>
+          <div className="space-y-12 min-w-0">
+            {/* 진행 현황 */}
+            <div className="min-w-0">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8 min-w-0">
+                진행 현황
+              </h2>
+              <div className="space-y-4">
+                {timelineItems.map((item, index) => (
+                  <Card
+                    key={index}
+                    className="border-2 bg-card p-4 md:p-6 min-w-0"
+                  >
+                    <div className="flex flex-col sm:flex-row gap-4 min-w-0">
+                      <Badge
+                        variant="outline"
+                        className="w-fit bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] border-[var(--brand-primary)]/20 shrink-0"
+                      >
+                        {item.date}
+                      </Badge>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-lg md:text-xl font-bold mb-2 break-words min-w-0">
+                          {item.title}
+                        </h4>
+                        <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
+                          {item.desc}
+                        </p>
                       </div>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-
-              {/* 미션 보드 */}
-              <div className="mt-12">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
-                  미션 보드
-                </h2>
-                <p className="text-base md:text-lg text-[var(--brand-fg)]/70 mb-6 md:mb-8 leading-relaxed">
-                  반나절 단위 실전 과제. 완료 시 포트폴리오에 바로 활용
-                  가능합니다.
-                </p>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {missions.map((mission) => (
-                    <MissionCard
-                      key={mission.id}
-                      mission={mission}
-                      onClick={handleMissionClick}
-                    />
-                  ))}
-                </div>
+                    </div>
+                  </Card>
+                ))}
               </div>
             </div>
 
-            {/* 우측: CTA 카드 */}
-            <div className="lg:col-span-1 min-w-0">
-              <Card className="border-0 bg-[var(--brand-primary)] text-white h-full">
-                <CardHeader>
-                  <CardTitle className="text-xl md:text-2xl font-bold mb-3 text-white">
-                    참여하고 싶으신가요?
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-sm md:text-base text-white/90 leading-relaxed break-words">
-                    포트폴리오와 함께 신청해 주세요. 검토 후 연락드립니다.
-                  </p>
-                  <Button
-                    asChild
-                    variant="secondary"
-                    className="w-full bg-white text-[var(--brand-primary)] hover:bg-white/90"
-                  >
-                    <Link href="/auth">
-                      <LogIn className="w-4 h-4" />
-                      로그인하고 신청하기
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
+            {/* 미션 보드 */}
+            <div className="min-w-0">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 min-w-0">
+                미션 보드
+              </h2>
+              <p className="text-base md:text-lg text-[var(--brand-fg)]/70 mb-6 md:mb-8 leading-relaxed break-words min-w-0">
+                반나절 단위 실전 과제. 완료 시 포트폴리오에 바로 활용
+                가능합니다.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4">
+                {missions.map((mission) => (
+                  <div key={mission.id} className="min-w-0">
+                    <MissionCard
+                      mission={mission}
+                      onClick={handleMissionClick}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </Container>
