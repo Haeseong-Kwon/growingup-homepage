@@ -4,10 +4,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState, ReactElement } from "react";
 import { useTypingEffect } from "@/hooks/use-typing-effect";
-import { normalizeNewlines } from "@/lib/text-utils";
 
 interface VideoHeroProps {
-  title: string;
+  line1: string;
+  line2: string;
   subtitle: string;
   highlightText?: string;
   videoSrc?: string;
@@ -22,7 +22,8 @@ interface VideoHeroProps {
 }
 
 export function VideoHero({
-  title,
+  line1,
+  line2,
   subtitle,
   highlightText,
   videoSrc = "/hero.mp4",
@@ -34,61 +35,76 @@ export function VideoHero({
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // 타이핑 입력 텍스트 정규화 (줄바꿈 문자 처리)
-  const normalizedTitle = normalizeNewlines(title);
-
-  // 타이핑 효과
-  const { displayedText: typedTitle, isComplete } = useTypingEffect({
-    text: normalizedTitle,
+  // Line1 타이핑 효과
+  const { displayedText: typedLine1, isComplete: isLine1Complete } = useTypingEffect({
+    text: line1,
     speed: 80,
     delay: 500,
   });
 
-  // 타이핑 결과에서 하이라이트 텍스트를 찾아서 색상 적용
-  const renderTitleWithHighlight = (text: string, highlight?: string) => {
-    // 줄바꿈을 기준으로 분리
-    const lines = text.split('\n');
+  // Line2 타이핑 효과 (line1이 완료된 후 시작)
+  // line1이 완료되면 line2를 시작하기 위해 text를 동적으로 변경
+  const [line2Text, setLine2Text] = useState("");
+  
+  useEffect(() => {
+    if (isLine1Complete) {
+      // line1 완료 후 300ms 딜레이 후 line2 시작
+      const timer = setTimeout(() => {
+        setLine2Text(line2);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isLine1Complete, line2]);
+
+  const { displayedText: typedLine2, isComplete: isLine2Complete } = useTypingEffect({
+    text: line2Text,
+    speed: 80,
+    delay: 0, // line2Text가 설정되면 즉시 시작
+  });
+
+  // Line2에서 하이라이트 텍스트를 찾아서 색상 적용
+  const renderLine2WithHighlight = (text: string, highlight?: string): ReactElement[] => {
+    if (!highlight) {
+      return [<span key="line2-text">{text}</span>];
+    }
+
+    const parts: ReactElement[] = [];
+    const highlightIndex = text.indexOf(highlight);
     
-    return lines.map((line, lineIndex) => {
-      const parts: (string | ReactElement)[] = [];
-      
-      if (!highlight) {
-        // 하이라이트가 없으면 그냥 텍스트만
-        parts.push(line);
-      } else {
-        // 하이라이트 텍스트를 찾아서 색상 적용
-        const highlightIndex = line.indexOf(highlight);
-        
-        if (highlightIndex !== -1) {
-          // 하이라이트 전 텍스트
-          if (highlightIndex > 0) {
-            parts.push(line.substring(0, highlightIndex));
-          }
-          // 하이라이트 텍스트 (타이핑 중일 수도 있으므로 실제로 표시된 부분만)
-          const highlightedPart = line.substring(highlightIndex, Math.min(highlightIndex + highlight.length, line.length));
-          parts.push(
-            <span key={`highlight-${lineIndex}`} className="text-[var(--brand-primary)]">
-              {highlightedPart}
-            </span>
-          );
-          // 하이라이트 후 텍스트
-          if (highlightIndex + highlight.length < line.length) {
-            parts.push(line.substring(highlightIndex + highlight.length));
-          }
-        } else {
-          // 하이라이트 텍스트가 아직 타이핑되지 않았거나 없는 경우
-          parts.push(line);
-        }
+    if (highlightIndex !== -1) {
+      // 하이라이트 전 텍스트
+      if (highlightIndex > 0) {
+        parts.push(
+          <span key="line2-before">{text.substring(0, highlightIndex)}</span>
+        );
       }
-      
-      // 각 줄을 블록 요소로 만들어 강제 줄바꿈
-      return (
-        <div key={`line-${lineIndex}`} className="block">
-          {parts}
-        </div>
+      // 하이라이트 텍스트 (타이핑 중일 수도 있으므로 실제로 표시된 부분만)
+      const highlightedPart = text.substring(
+        highlightIndex,
+        Math.min(highlightIndex + highlight.length, text.length)
       );
-    });
+      parts.push(
+        <span key="line2-highlight" className="text-[var(--brand-primary)]">
+          {highlightedPart}
+        </span>
+      );
+      // 하이라이트 후 텍스트
+      if (highlightIndex + highlight.length < text.length) {
+        parts.push(
+          <span key="line2-after">
+            {text.substring(highlightIndex + highlight.length)}
+          </span>
+        );
+      }
+    } else {
+      // 하이라이트 텍스트가 아직 타이핑되지 않았거나 없는 경우
+      parts.push(<span key="line2-text">{text}</span>);
+    }
+    
+    return parts;
   };
+
+  const isComplete = isLine1Complete && isLine2Complete;
 
   useEffect(() => {
     // 마운트 완료 표시
@@ -157,23 +173,28 @@ export function VideoHero({
       />
 
       {/* Content */}
-      <div className="relative z-10 min-h-[calc(100svh+var(--header-h))] flex items-center pt-[calc(var(--header-h)+32px)]" style={{ zIndex: 101 }}>
+      <div className="relative z-10 min-h-[calc(100svh+var(--header-h))] flex items-center pt-[calc(var(--header-h)+32px)]" style={{ zIndex: 10 }}>
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="max-w-4xl">
+          <div className="max-w-[1100px] min-w-0">
             {/* Title with Typing Effect */}
             <h1
-              className="text-white font-medium tracking-tight mb-6 leading-tight"
+              className="text-white font-medium tracking-tight mb-6 w-full"
               style={{
                 fontSize: "clamp(2.5rem, 6vw, 5.5rem)",
-                lineHeight: "1.1",
                 letterSpacing: "-0.02em",
-                minHeight: "1em",
               }}
             >
-              {renderTitleWithHighlight(typedTitle, highlightText)}
-              {!isComplete && (
-                <span className="inline-block w-1 h-[0.9em] bg-white ml-1 animate-pulse" />
-              )}
+              {/* Line 1 */}
+              <span className="block leading-[0.95] whitespace-nowrap">
+                {typedLine1}
+              </span>
+              {/* Line 2 */}
+              <span className="block leading-[0.95] whitespace-nowrap">
+                {renderLine2WithHighlight(typedLine2, highlightText)}
+                {!isLine2Complete && (
+                  <span className="inline-block w-1 h-[0.9em] bg-white ml-1 animate-pulse" />
+                )}
+              </span>
             </h1>
 
             {/* Subtitle - fade in after typing complete */}

@@ -186,6 +186,13 @@ html.theme-dark {
     @apply border-border outline-ring/50;
   }
   
+  /* 가로 스크롤 방지 (모바일 헤더 안정화) */
+  html,
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
   body {
     @apply antialiased;
     background: var(--bg, var(--brand-bg));

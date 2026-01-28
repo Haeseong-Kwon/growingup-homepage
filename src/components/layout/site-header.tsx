@@ -184,7 +184,7 @@ export function SiteHeader() {
         onMouseLeave={handleHeaderMouseLeave}
         className={cn(
           "fixed top-0 left-0 right-0 w-full border-b transition-colors duration-200 isolate",
-          "z-[100]",
+          "overflow-x-clip pointer-events-auto",
           headerMode === "SURFACE"
             ? "shadow-sm"
             : ""
@@ -198,18 +198,18 @@ export function SiteHeader() {
           color: headerMode === "SURFACE" ? SURFACE_TEXT : ON_HERO_TEXT,
           // ON_HERO 모드에서 텍스트 가독성 보장 (text-shadow만 허용)
           textShadow: headerMode === "ON_HERO" ? "0 2px 14px rgba(0,0,0,0.35)" : "none",
-          // 헤더가 항상 최상단에 보이도록 z-index 보장
-          zIndex: 100,
+          // 헤더가 항상 최상단에 보이도록 z-index 보장 (1000 이상)
+          zIndex: 1000,
           // transform 적용 금지 (레이아웃 안정성)
           transform: "none",
         }}
       >
         <Container>
-          <div className="flex items-center justify-between" style={{ height: "var(--header-h)" }}>
+          <div className="flex items-center justify-between min-w-0" style={{ height: "var(--header-h)" }}>
             {/* 로고 - text-inherit로 헤더 root 색상 상속 (고정 색상 보장) */}
             <Link
               href="/"
-              className="text-lg lg:text-xl font-bold tracking-tight text-inherit transition-colors"
+              className="text-lg lg:text-xl font-bold tracking-tight text-inherit transition-colors flex-shrink-0"
             >
               GROWING UP
             </Link>
@@ -242,7 +242,7 @@ export function SiteHeader() {
             </nav>
 
             {/* 우측 CTA + 메뉴 버튼 */}
-            <div className="flex items-center gap-3 lg:gap-4">
+            <div className="flex items-center gap-3 lg:gap-4 flex-shrink-0 ml-auto">
               <Button
                 asChild
                 size="sm"
@@ -261,7 +261,7 @@ export function SiteHeader() {
                 onClick={() => setIsMenuOpen(true)}
                 aria-label="메뉴 열기"
                 className={cn(
-                  "rounded-lg transition-colors text-inherit",
+                  "rounded-lg transition-colors text-inherit flex-shrink-0",
                   headerMode === "SURFACE"
                     ? "hover:bg-[var(--brand-muted-light)]"
                     : "hover:bg-white/10"
@@ -281,12 +281,12 @@ export function SiteHeader() {
           onMouseEnter={handleMegaMenuMouseEnter}
           onMouseLeave={handleMegaMenuMouseLeave}
           className={cn(
-            "fixed left-0 right-0 z-40 bg-[var(--brand-bg)] border-b border-[var(--brand-muted)] shadow-lg",
-            "transition-colors duration-200"
+            "fixed left-0 right-0 bg-[var(--brand-bg)] border-b border-[var(--brand-muted)] shadow-lg",
+            "transition-colors duration-200 overflow-x-clip"
           )}
           style={{ 
             top: "var(--header-h)",
-            zIndex: 998, // 헤더 바로 아래
+            zIndex: 999, // 헤더 바로 아래
           }}
         >
           <Container>
