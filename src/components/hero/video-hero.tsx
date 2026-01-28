@@ -104,7 +104,7 @@ export function VideoHero({
     return parts;
   };
 
-  const isComplete = isLine1Complete && isLine2Complete;
+  const isComplete = isLine1Complete && (line2 ? isLine2Complete : true);
 
   useEffect(() => {
     // 마운트 완료 표시
@@ -188,13 +188,15 @@ export function VideoHero({
               <span className="block leading-[0.95] whitespace-nowrap">
                 {typedLine1}
               </span>
-              {/* Line 2 */}
-              <span className="block leading-[0.95] whitespace-nowrap">
-                {renderLine2WithHighlight(typedLine2, highlightText)}
-                {!isLine2Complete && (
-                  <span className="inline-block w-1 h-[0.9em] bg-white ml-1 animate-pulse" />
-                )}
-              </span>
+              {/* Line 2 - line2가 있을 때만 렌더링 */}
+              {line2 && (
+                <span className="block leading-[0.95] whitespace-nowrap">
+                  {renderLine2WithHighlight(typedLine2, highlightText)}
+                  {!isLine2Complete && (
+                    <span className="inline-block w-1 h-[0.9em] bg-white ml-1 animate-pulse" />
+                  )}
+                </span>
+              )}
             </h1>
 
             {/* Subtitle - fade in after typing complete */}

@@ -88,7 +88,8 @@ export default function PortfolioPage() {
     <div className="w-full overflow-x-clip">
       {/* Hero */}
       <VideoHero
-        title="우리가 만든 결과물"
+        line1="우리가 만든 결과물"
+        line2=""
         subtitle="아이디어가 실행으로 이어진 순간들. 업종/목표에 따라 필터링해 빠르게 레퍼런스를 찾으세요."
         primaryCta={{
           label: "진단 요청",

@@ -267,7 +267,8 @@ export default function ArenaPage() {
     <div className="w-full overflow-x-clip">
       {/* 1) Hero 섹션 */}
       <VideoHero
-        title="실전 레퍼런스를 만드는 곳"
+        line1="실전 레퍼런스를 만드는 곳"
+        line2=""
         subtitle="반나절 단위 미션 기반 협업 프로그램. 고정 근무 없이, 포트폴리오에 바로 넣을 수 있는 결과물을 만듭니다."
       />
       
