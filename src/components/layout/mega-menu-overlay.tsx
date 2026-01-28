@@ -117,144 +117,78 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
 
       {/* 메뉴 컨텐츠 */}
       <div className="h-full overflow-y-auto min-h-screen">
-        <div className="mx-auto w-full max-w-6xl px-6 sm:px-10 pt-20 lg:pt-24 pb-16">
+        {/* 중앙 컨테이너 */}
+        <div
+          className="mx-auto w-full max-w-5xl px-6 sm:px-10 pt-20 lg:pt-24 pb-16 text-center"
+          style={{
+            animation: open ? "slideUp 200ms ease-out" : "none",
+          }}
+        >
+          {/* 타이틀 영역 */}
           <div
-            className={cn(
-              "grid grid-cols-12 gap-y-12 gap-x-10",
-              "items-start"
-            )}
             style={{
-              animation: open ? "slideUp 200ms ease-out" : "none",
+              animation: open ? "fadeInUp 300ms ease-out 0ms both" : "none",
             }}
           >
-            {/* 브랜드 타이틀 영역 - 좌측 */}
-            <div
-              className="col-span-12 lg:col-span-4 min-w-0"
-              style={{
-                animation: open ? "fadeInUp 300ms ease-out 0ms both" : "none",
-              }}
+            {/* 큰 타이틀: GROWING / UP */}
+            <h2
+              className={cn(
+                "font-black tracking-tight",
+                "text-6xl sm:text-7xl",
+                "leading-[0.9]"
+              )}
             >
-              {/* 큰 타이틀: GROWING / UP */}
-              <h2
+              GROWING
+              <br />
+              UP
+            </h2>
+            {/* 작은 라벨: MENU */}
+            <div className="text-xs uppercase tracking-[0.35em] opacity-60 mt-2">
+              MENU
+            </div>
+            {/* 홈 링크 - 타이틀 아래 작은 pill 링크 */}
+            <div className="mt-6">
+              <Link
+                ref={firstLinkRef}
+                href="/"
+                onClick={handleLinkClick}
                 className={cn(
-                  "font-black tracking-tight mb-2",
-                  "text-5xl sm:text-6xl lg:text-7xl",
-                  "leading-[0.9]"
+                  "group relative inline-block",
+                  "px-4 py-2",
+                  "rounded-full border border-white/20 bg-white/10",
+                  "text-sm font-medium",
+                  "opacity-80 hover:opacity-100 hover:bg-white/15 hover:border-white/30",
+                  "transition-all duration-200",
+                  "focus:outline-none focus:opacity-100",
+                  "focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black"
                 )}
               >
-                GROWING
-                <br />
-                UP
-              </h2>
-              {/* 작은 라벨: MENU + 홈 링크 묶음 */}
-              <div className="flex flex-col gap-3 mt-4">
-                <div className="text-xs tracking-[0.3em] uppercase opacity-70">
-                  MENU
-                </div>
-                {/* 홈 링크 - 텍스트 링크 형태 */}
-                <Link
-                  ref={firstLinkRef}
-                  href="/"
-                  onClick={handleLinkClick}
-                  className={cn(
-                    "group relative inline-block w-fit",
-                    "text-lg font-medium",
-                    "opacity-80 hover:opacity-100",
-                    "transition-opacity duration-200",
-                    "focus:outline-none focus:opacity-100",
-                    "focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded"
-                  )}
-                >
-                  → 홈
-                  {/* Hover underline 효과 */}
-                  <span
-                    className={cn(
-                      "absolute bottom-0 left-0 h-[1px] bg-white",
-                      "w-0 group-hover:w-full",
-                      "transition-all duration-300 ease-out"
-                    )}
-                  />
-                </Link>
-              </div>
+                → 홈
+              </Link>
             </div>
+          </div>
 
-            {/* MENU 컬럼 */}
-            <div
-              className="col-span-12 sm:col-span-6 lg:col-span-3 min-w-0"
-              style={{
-                animation: open ? "fadeInUp 300ms ease-out 50ms both" : "none",
-              }}
-            >
+          {/* 메뉴 영역 - 타이틀 아래 40~56px 간격 */}
+          <div
+            className="mt-10 sm:mt-14"
+            style={{
+              animation: open ? "fadeInUp 300ms ease-out 100ms both" : "none",
+            }}
+          >
+            {/* 그리드: mobile 1열, md 3열 */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+              {/* MENU 컬럼 */}
               <div className="flex flex-col">
-                {/* 섹션 타이틀 */}
                 <h3
                   className={cn(
-                    "text-5xl font-extrabold leading-none tracking-tight"
+                    "text-3xl sm:text-4xl font-extrabold leading-none tracking-tight"
                   )}
                 >
                   {menuColumns[0].title}
                 </h3>
-                {/* 링크 리스트 */}
-                <nav className="mt-8">
-                  <ul className="space-y-5 min-w-0">
+                <nav className="mt-6">
+                  <ul className="space-y-4">
                     {menuColumns[0].links.map((link, linkIndex) => (
-                      <li
-                        key={link.href}
-                        style={{
-                          animation: open
-                            ? `fadeInUp 300ms ease-out ${(100 + linkIndex * 50)}ms both`
-                            : "none",
-                        }}
-                      >
-                        <Link
-                          href={link.href}
-                          onClick={handleLinkClick}
-                          className={cn(
-                            "group relative inline-block min-w-0",
-                            "text-lg font-medium",
-                            "opacity-80 hover:opacity-100",
-                            "transition-opacity duration-200",
-                            "focus:outline-none focus:opacity-100",
-                            "focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded"
-                          )}
-                        >
-                          {link.label}
-                          {/* Hover underline 효과 */}
-                          <span
-                            className={cn(
-                              "absolute bottom-0 left-0 h-[1px] bg-white",
-                              "w-0 group-hover:w-full",
-                              "transition-all duration-300 ease-out"
-                            )}
-                          />
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              </div>
-            </div>
-
-            {/* WORK 컬럼 */}
-            <div
-              className="col-span-12 sm:col-span-6 lg:col-span-3 min-w-0"
-              style={{
-                animation: open ? "fadeInUp 300ms ease-out 100ms both" : "none",
-              }}
-            >
-              <div className="flex flex-col">
-                {/* 섹션 타이틀 */}
-                <h3
-                  className={cn(
-                    "text-5xl font-extrabold leading-none tracking-tight"
-                  )}
-                >
-                  {menuColumns[1].title}
-                </h3>
-                {/* 링크 리스트 */}
-                <nav className="mt-8">
-                  <ul className="space-y-5 min-w-0">
-                    {menuColumns[1].links.map((link, linkIndex) => (
                       <li
                         key={link.href}
                         style={{
@@ -267,7 +201,7 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
                           href={link.href}
                           onClick={handleLinkClick}
                           className={cn(
-                            "group relative inline-block min-w-0",
+                            "group relative inline-block",
                             "text-lg font-medium",
                             "opacity-80 hover:opacity-100",
                             "transition-opacity duration-200",
@@ -276,7 +210,7 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
                           )}
                         >
                           {link.label}
-                          {/* Hover underline 효과 */}
+                          {/* Hover underline 효과 (선택) */}
                           <span
                             className={cn(
                               "absolute bottom-0 left-0 h-[1px] bg-white",
@@ -290,39 +224,79 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
                   </ul>
                 </nav>
               </div>
-            </div>
 
-            {/* REQUEST 컬럼 - 우측 정렬 */}
-            <div
-              className="col-span-12 lg:col-span-2 min-w-0 lg:justify-self-end"
-              style={{
-                animation: open ? "fadeInUp 300ms ease-out 150ms both" : "none",
-              }}
-            >
+              {/* WORK 컬럼 */}
               <div className="flex flex-col">
-                {/* 섹션 타이틀 */}
                 <h3
                   className={cn(
-                    "text-5xl font-extrabold leading-none tracking-tight"
+                    "text-3xl sm:text-4xl font-extrabold leading-none tracking-tight"
+                  )}
+                >
+                  {menuColumns[1].title}
+                </h3>
+                <nav className="mt-6">
+                  <ul className="space-y-4">
+                    {menuColumns[1].links.map((link, linkIndex) => (
+                      <li
+                        key={link.href}
+                        style={{
+                          animation: open
+                            ? `fadeInUp 300ms ease-out ${(200 + linkIndex * 50)}ms both`
+                            : "none",
+                        }}
+                      >
+                        <Link
+                          href={link.href}
+                          onClick={handleLinkClick}
+                          className={cn(
+                            "group relative inline-block",
+                            "text-lg font-medium",
+                            "opacity-80 hover:opacity-100",
+                            "transition-opacity duration-200",
+                            "focus:outline-none focus:opacity-100",
+                            "focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded"
+                          )}
+                        >
+                          {link.label}
+                          {/* Hover underline 효과 (선택) */}
+                          <span
+                            className={cn(
+                              "absolute bottom-0 left-0 h-[1px] bg-white",
+                              "w-0 group-hover:w-full",
+                              "transition-all duration-300 ease-out"
+                            )}
+                          />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </div>
+
+              {/* REQUEST 컬럼 */}
+              <div className="flex flex-col">
+                <h3
+                  className={cn(
+                    "text-3xl sm:text-4xl font-extrabold leading-none tracking-tight"
                   )}
                 >
                   {menuColumns[2].title}
                 </h3>
-                {/* 버튼 - 타이틀 아래 */}
-                <nav className="mt-8 min-w-0">
+                <nav className="mt-6">
                   {menuColumns[2].links.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       onClick={handleLinkClick}
                       className={cn(
-                        "inline-block w-full sm:w-auto",
+                        "inline-block",
                         "px-7 py-3",
                         "rounded-full border border-white/25 bg-white/10",
                         "text-lg font-medium",
-                        "hover:bg-white/10 hover:border-white/40",
+                        "opacity-80 hover:opacity-100 hover:bg-white/15 hover:border-white/40",
                         "transition-all duration-200",
-                        "focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black"
+                        "focus:outline-none focus:opacity-100",
+                        "focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black"
                       )}
                     >
                       {link.label}
