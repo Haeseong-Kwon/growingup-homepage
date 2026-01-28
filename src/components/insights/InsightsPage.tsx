@@ -49,7 +49,8 @@ export function InsightsPage() {
     <div className="w-full overflow-x-hidden">
       {/* Hero */}
       <VideoHero
-        title="트렌드와 실행 기록"
+        line1="트렌드와 실행 기록"
+        line2=""
         subtitle="마케팅 업계 주요 이슈와 우리의 실행 과정을 공유합니다. 정보 수집과 학습, 그리고 투명한 공유."
       />
 

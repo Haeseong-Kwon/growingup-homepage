@@ -14,7 +14,8 @@ export function ServicesPage() {
     <div className="w-full overflow-x-hidden">
       {/* Hero */}
       <VideoHero
-        title="목표에 맞는 런칭 파트너십"
+        line1="목표에 맞는 런칭 파트너십"
+        line2=""
         subtitle="빠른 검증이 필요한지, 체계적인 시스템 구축이 필요한지에 따라 최적의 협업 방식을 선택하세요."
         primaryCta={{
           label: "진단 요청",

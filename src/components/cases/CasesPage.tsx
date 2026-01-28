@@ -25,7 +25,8 @@ export function CasesPage() {
     <div className="w-full overflow-x-hidden">
       {/* Hero */}
       <VideoHero
-        title="결과로 증명한 런칭 사례"
+        line1="결과로 증명한 런칭 사례"
+        line2=""
         subtitle="기획서가 아닌 실제 출시 결과로 검증된 케이스를 확인하세요. 문제 정의부터 성과 측정까지 전 과정을 공개합니다."
         primaryCta={{
           label: "진단 요청",
