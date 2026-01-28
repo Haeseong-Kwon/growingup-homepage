@@ -46,51 +46,46 @@ export function VideoHero({
 
   // 타이핑 결과에서 하이라이트 텍스트를 찾아서 색상 적용
   const renderTitleWithHighlight = (text: string, highlight?: string) => {
-    if (!highlight) {
-      // 하이라이트가 없으면 줄바꿈만 처리
-      return text.split('\n').map((line, index, array) => (
-        <span key={`line-${index}`}>
-          {line}
-          {index < array.length - 1 && <br />}
-        </span>
-      ));
-    }
-
     // 줄바꿈을 기준으로 분리
     const lines = text.split('\n');
     
     return lines.map((line, lineIndex) => {
       const parts: (string | ReactElement)[] = [];
       
-      // 하이라이트 텍스트를 찾아서 색상 적용
-      const highlightIndex = line.indexOf(highlight);
-      
-      if (highlightIndex !== -1) {
-        // 하이라이트 전 텍스트
-        if (highlightIndex > 0) {
-          parts.push(line.substring(0, highlightIndex));
-        }
-        // 하이라이트 텍스트 (타이핑 중일 수도 있으므로 실제로 표시된 부분만)
-        const highlightedPart = line.substring(highlightIndex, Math.min(highlightIndex + highlight.length, line.length));
-        parts.push(
-          <span key={`highlight-${lineIndex}`} className="text-[var(--brand-primary)]">
-            {highlightedPart}
-          </span>
-        );
-        // 하이라이트 후 텍스트
-        if (highlightIndex + highlight.length < line.length) {
-          parts.push(line.substring(highlightIndex + highlight.length));
-        }
-      } else {
-        // 하이라이트 텍스트가 아직 타이핑되지 않았거나 없는 경우
+      if (!highlight) {
+        // 하이라이트가 없으면 그냥 텍스트만
         parts.push(line);
+      } else {
+        // 하이라이트 텍스트를 찾아서 색상 적용
+        const highlightIndex = line.indexOf(highlight);
+        
+        if (highlightIndex !== -1) {
+          // 하이라이트 전 텍스트
+          if (highlightIndex > 0) {
+            parts.push(line.substring(0, highlightIndex));
+          }
+          // 하이라이트 텍스트 (타이핑 중일 수도 있으므로 실제로 표시된 부분만)
+          const highlightedPart = line.substring(highlightIndex, Math.min(highlightIndex + highlight.length, line.length));
+          parts.push(
+            <span key={`highlight-${lineIndex}`} className="text-[var(--brand-primary)]">
+              {highlightedPart}
+            </span>
+          );
+          // 하이라이트 후 텍스트
+          if (highlightIndex + highlight.length < line.length) {
+            parts.push(line.substring(highlightIndex + highlight.length));
+          }
+        } else {
+          // 하이라이트 텍스트가 아직 타이핑되지 않았거나 없는 경우
+          parts.push(line);
+        }
       }
       
+      // 각 줄을 블록 요소로 만들어 강제 줄바꿈
       return (
-        <span key={`line-${lineIndex}`}>
+        <div key={`line-${lineIndex}`} className="block">
           {parts}
-          {lineIndex < lines.length - 1 && <br />}
-        </span>
+        </div>
       );
     });
   };
@@ -167,7 +162,7 @@ export function VideoHero({
           <div className="max-w-4xl">
             {/* Title with Typing Effect */}
             <h1
-              className="text-white font-medium tracking-tight mb-6 whitespace-pre-line leading-tight"
+              className="text-white font-medium tracking-tight mb-6 leading-tight"
               style={{
                 fontSize: "clamp(2.5rem, 6vw, 5.5rem)",
                 lineHeight: "1.1",
