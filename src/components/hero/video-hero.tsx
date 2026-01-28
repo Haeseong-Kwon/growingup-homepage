@@ -175,7 +175,7 @@ export function VideoHero({
       data-section="hero"
       data-palette="brand"
       data-band="160"
-      className="relative z-0 w-full overflow-hidden bg-gradient-to-br from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-hot1)] -mt-[var(--header-h)] min-h-[60vh] lg:min-h-[calc(100svh+var(--header-h))]"
+      className="relative z-0 w-full overflow-x-clip overflow-y-visible bg-gradient-to-br from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-hot1)] -mt-[var(--header-h)] min-h-[60vh] lg:min-h-[calc(100svh+var(--header-h))]"
     >
       {/* Fallback Gradient (항상 표시, 검정 띠 방지) */}
       <div
@@ -202,6 +202,7 @@ export function VideoHero({
           className={`absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-1000 ${
             videoLoaded ? "opacity-100" : "opacity-0"
           }`}
+          style={{ display: "block" }}
         >
           <source src={videoSrc} type="video/mp4" />
         </video>
@@ -213,7 +214,7 @@ export function VideoHero({
       />
 
       {/* Content */}
-      <div className="relative z-20 flex items-center pt-24 pb-12 min-h-[60vh] lg:min-h-[calc(100svh+var(--header-h))] lg:pt-[calc(var(--header-h)+32px)] lg:pb-0">
+      <div className="relative z-20 flex flex-col justify-between pt-24 pb-4 min-h-[60vh] lg:flex lg:items-center lg:min-h-[calc(100svh+var(--header-h))] lg:pt-[calc(var(--header-h)+32px)] lg:pb-0">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-[92vw] lg:max-w-[1100px]">
             {/* Title with Typing Effect */}
@@ -237,10 +238,15 @@ export function VideoHero({
                 </span>
               )}
             </h1>
+          </div>
+        </div>
 
+        {/* 모바일에서 하단에 배치되는 영역 */}
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full lg:max-w-[1100px]">
+          <div className="max-w-[92vw] lg:max-w-[1100px]">
             {/* Subtitle - fade in after typing complete */}
             <p
-              className={`text-white/90 mb-10 max-w-2xl text-balance transition-opacity duration-500 text-[clamp(0.875rem,1.2vw,1rem)] lg:text-[clamp(1rem,1.5vw,1.25rem)] ${
+              className={`text-white/90 mb-6 lg:mb-10 max-w-2xl text-balance transition-opacity duration-500 text-[clamp(0.875rem,1.2vw,1rem)] lg:text-[clamp(1rem,1.5vw,1.25rem)] ${
                 isComplete ? "opacity-100" : "opacity-0"
               }`}
               style={{
@@ -284,10 +290,13 @@ export function VideoHero({
 
       {/* Scroll Indicator */}
       <div
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:block transition-opacity duration-500 delay-500 ${
+        className={`absolute bottom-8 left-1/2 hidden lg:block transition-opacity duration-500 delay-500 ${
           isComplete ? "opacity-100" : "opacity-0"
         }`}
-        style={{ zIndex: 30 }}
+        style={{ 
+          zIndex: 30,
+          transform: "translateX(-50%)",
+        }}
       >
         <div className="w-[1px] h-12 bg-white/30 animate-pulse" />
       </div>

@@ -16,6 +16,7 @@ import { DeliverablesSection } from "@/components/sections/deliverables-section"
 import { Accordion } from "@/components/ui/accordion";
 import { KpiBadge } from "@/components/ui/kpi-badge";
 import { PerformanceCard } from "@/components/sections/performance-card";
+import { useEffect } from "react";
 
 // 더미 데이터 - 진행 중인 프로젝트
 const ongoingProjects = [
@@ -144,8 +145,43 @@ const portfolioCases = [
 ];
 
 export default function HomePage() {
+  // 개발 환경에서만 폭 초과 요소 찾기
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      const checkOverflow = () => {
+        const root = document.documentElement;
+        const vw = root.clientWidth;
+        const offenders = [...document.querySelectorAll("*")]
+          .filter((el) => el instanceof HTMLElement)
+          .filter((el) => el.scrollWidth > vw + 1)
+          .slice(0, 20)
+          .map((el) => ({
+            tag: el.tagName,
+            cls: el.className,
+            scrollWidth: el.scrollWidth,
+            clientWidth: el.clientWidth,
+            offsetWidth: el.offsetWidth,
+          }));
+        if (offenders.length > 0) {
+          console.log("[overflow offenders]", { vw, offenders });
+        }
+      };
+
+      // 초기 체크
+      checkOverflow();
+
+      // 리사이즈 시에도 체크
+      const resizeObserver = new ResizeObserver(checkOverflow);
+      resizeObserver.observe(document.body);
+
+      return () => {
+        resizeObserver.disconnect();
+      };
+    }
+  }, []);
+
   return (
-    <>
+    <div className="relative overflow-x-clip md:overflow-visible">
       {/* [0] Video Hero - brand palette */}
       <VideoHero
         line1="런칭을 기획서가 아닌"
@@ -647,6 +683,6 @@ export default function HomePage() {
         </div>
         </Container>
       </Section>
-    </>
+    </div>
   );
 }
