@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Container } from "./container";
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
@@ -27,10 +26,6 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
 
   // 메뉴 그룹 정의
   const menuColumns: MenuColumn[] = [
-    {
-      title: "GROWING UP",
-      links: [{ href: "/", label: "홈" }],
-    },
     {
       title: "MENU",
       links: [
@@ -107,113 +102,225 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
         animation: open ? "fadeIn 200ms ease-out" : "none",
       }}
     >
-      {/* 닫기 버튼 - 우측 상단 */}
-      <div className="absolute top-6 right-6 md:top-8 md:right-8 lg:top-12 lg:right-12 z-10">
+      {/* 닫기 버튼 - 우측 상단 (터치 영역 개선) */}
+      <div className="fixed top-6 right-6 z-[1000]">
         <Button
           variant="ghost"
           size="icon"
           onClick={() => onOpenChange(false)}
           aria-label="메뉴 닫기"
-          className="h-12 w-12 md:h-14 md:w-14 rounded-full hover:bg-white/10 transition-opacity hover:opacity-80"
+          className="h-12 w-12 p-3 rounded-full hover:bg-white/10 transition-opacity hover:opacity-80"
         >
-          <X className="h-6 w-6 md:h-7 md:w-7" />
+          <X className="h-6 w-6" />
         </Button>
       </div>
 
       {/* 메뉴 컨텐츠 */}
-      <div className="h-full overflow-y-auto">
-        <Container className="py-10 sm:py-16 lg:py-24">
+      <div className="h-full overflow-y-auto min-h-screen">
+        <div className="mx-auto w-full max-w-6xl px-6 sm:px-10 py-16 sm:py-20">
           <div
             className={cn(
-              "grid gap-y-10",
-              "md:grid-cols-2 md:gap-10",
-              "lg:grid-cols-4 lg:gap-12"
+              "grid grid-cols-12 gap-y-12 gap-x-10",
+              "items-start"
             )}
             style={{
               animation: open ? "slideUp 200ms ease-out" : "none",
             }}
           >
-            {menuColumns.map((column, columnIndex) => (
-              <div key={column.title} className="min-w-0">
-                {/* 큰 타이틀 */}
-                <h2
-                  className={cn(
-                    "font-bold tracking-tight mb-6 md:mb-8",
-                    "text-4xl sm:text-5xl md:text-6xl lg:text-7xl",
-                    "leading-[0.9]"
-                  )}
-                  style={{
-                    animation: open
-                      ? `fadeInUp 300ms ease-out ${columnIndex * 50}ms both`
-                      : "none",
-                  }}
-                >
-                  {column.title}
-                </h2>
-
-                {/* 링크 리스트 */}
-                <ul className="space-y-3 md:space-y-4">
-                  {column.links.map((link, linkIndex) => {
-                    const isFirstLink = columnIndex === 0 && linkIndex === 0;
-                    return (
-                      <li
-                        key={link.href}
-                        style={{
-                          animation: open
-                            ? `fadeInUp 300ms ease-out ${(columnIndex * 50 + 100 + linkIndex * 50)}ms both`
-                            : "none",
-                        }}
-                      >
-                        {link.isButton ? (
-                          <Link
-                            ref={isFirstLink ? firstLinkRef : undefined}
-                            href={link.href}
-                            onClick={handleLinkClick}
-                            className={cn(
-                              "inline-block px-6 py-3 md:px-8 md:py-4",
-                              "rounded-full border border-white/30 bg-white/10",
-                              "text-base md:text-lg font-medium",
-                              "hover:bg-white/15 hover:border-white/50",
-                              "transition-all duration-200",
-                              "focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black"
-                            )}
-                          >
-                            {link.label}
-                          </Link>
-                        ) : (
-                          <Link
-                            ref={isFirstLink ? firstLinkRef : undefined}
-                            href={link.href}
-                            onClick={handleLinkClick}
-                            className={cn(
-                              "group relative inline-block",
-                              "text-base md:text-lg lg:text-xl",
-                              "font-medium",
-                              "hover:opacity-100 opacity-80",
-                              "transition-opacity duration-200",
-                              "focus:outline-none focus:opacity-100",
-                              "focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded"
-                            )}
-                          >
-                            {link.label}
-                            {/* Hover underline 효과 */}
-                            <span
-                              className={cn(
-                                "absolute bottom-0 left-0 h-[1px] bg-white",
-                                "w-0 group-hover:w-full",
-                                "transition-all duration-300 ease-out"
-                              )}
-                            />
-                          </Link>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
+            {/* 브랜드 타이틀 영역 - 좌측 */}
+            <div
+              className="col-span-12 lg:col-span-4 min-w-0"
+              style={{
+                animation: open ? "fadeInUp 300ms ease-out 0ms both" : "none",
+              }}
+            >
+              {/* 큰 타이틀: GROWING / UP */}
+              <h2
+                className={cn(
+                  "font-black tracking-tight mb-2",
+                  "text-5xl sm:text-6xl lg:text-7xl",
+                  "leading-[0.9]"
+                )}
+              >
+                GROWING
+                <br />
+                UP
+              </h2>
+              {/* 작은 라벨: MENU */}
+              <div className="text-xs tracking-[0.3em] uppercase opacity-70 mb-6">
+                MENU
               </div>
-            ))}
+              {/* 홈 링크 - 작은 pill 버튼 */}
+              <Link
+                ref={firstLinkRef}
+                href="/"
+                onClick={handleLinkClick}
+                className={cn(
+                  "inline-block px-4 py-2",
+                  "rounded-full border border-white/30 bg-white/10",
+                  "text-sm font-medium",
+                  "hover:bg-white/15 hover:border-white/50",
+                  "transition-all duration-200",
+                  "focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black"
+                )}
+              >
+                홈
+              </Link>
+            </div>
+
+            {/* MENU 컬럼 */}
+            <div
+              className="col-span-12 sm:col-span-6 lg:col-span-3 min-w-0"
+              style={{
+                animation: open ? "fadeInUp 300ms ease-out 50ms both" : "none",
+              }}
+            >
+              {/* 섹션 타이틀 */}
+              <h3
+                className={cn(
+                  "font-extrabold tracking-tight mb-6",
+                  "text-4xl lg:text-5xl",
+                  "leading-[0.9]"
+                )}
+              >
+                {menuColumns[0].title}
+              </h3>
+              {/* 링크 리스트 */}
+              <ul className="mt-6 space-y-4 min-w-0">
+                {menuColumns[0].links.map((link, linkIndex) => (
+                  <li
+                    key={link.href}
+                    style={{
+                      animation: open
+                        ? `fadeInUp 300ms ease-out ${(100 + linkIndex * 50)}ms both`
+                        : "none",
+                    }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={handleLinkClick}
+                      className={cn(
+                        "group relative inline-block min-w-0",
+                        "text-base lg:text-lg",
+                        "font-medium",
+                        "hover:opacity-100 opacity-80",
+                        "transition-opacity duration-200",
+                        "focus:outline-none focus:opacity-100",
+                        "focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded"
+                      )}
+                    >
+                      {link.label}
+                      {/* Hover underline 효과 */}
+                      <span
+                        className={cn(
+                          "absolute bottom-0 left-0 h-[1px] bg-white",
+                          "w-0 group-hover:w-full",
+                          "transition-all duration-300 ease-out"
+                        )}
+                      />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* WORK 컬럼 */}
+            <div
+              className="col-span-12 sm:col-span-6 lg:col-span-3 min-w-0"
+              style={{
+                animation: open ? "fadeInUp 300ms ease-out 100ms both" : "none",
+              }}
+            >
+              {/* 섹션 타이틀 */}
+              <h3
+                className={cn(
+                  "font-extrabold tracking-tight mb-6",
+                  "text-4xl lg:text-5xl",
+                  "leading-[0.9]"
+                )}
+              >
+                {menuColumns[1].title}
+              </h3>
+              {/* 링크 리스트 */}
+              <ul className="mt-6 space-y-4 min-w-0">
+                {menuColumns[1].links.map((link, linkIndex) => (
+                  <li
+                    key={link.href}
+                    style={{
+                      animation: open
+                        ? `fadeInUp 300ms ease-out ${(150 + linkIndex * 50)}ms both`
+                        : "none",
+                    }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={handleLinkClick}
+                      className={cn(
+                        "group relative inline-block min-w-0",
+                        "text-base lg:text-lg",
+                        "font-medium",
+                        "hover:opacity-100 opacity-80",
+                        "transition-opacity duration-200",
+                        "focus:outline-none focus:opacity-100",
+                        "focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded"
+                      )}
+                    >
+                      {link.label}
+                      {/* Hover underline 효과 */}
+                      <span
+                        className={cn(
+                          "absolute bottom-0 left-0 h-[1px] bg-white",
+                          "w-0 group-hover:w-full",
+                          "transition-all duration-300 ease-out"
+                        )}
+                      />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* REQUEST 컬럼 - 우측 정렬 */}
+            <div
+              className="col-span-12 lg:col-span-2 min-w-0 lg:justify-self-end"
+              style={{
+                animation: open ? "fadeInUp 300ms ease-out 150ms both" : "none",
+              }}
+            >
+              {/* 섹션 타이틀 */}
+              <h3
+                className={cn(
+                  "font-extrabold tracking-tight mb-6",
+                  "text-4xl lg:text-5xl",
+                  "leading-[0.9]"
+                )}
+              >
+                {menuColumns[2].title}
+              </h3>
+              {/* 버튼 - 타이틀 아래 24~32px */}
+              <div className="mt-6 lg:mt-8 min-w-0">
+                {menuColumns[2].links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={handleLinkClick}
+                    className={cn(
+                      "inline-block w-full sm:w-auto",
+                      "px-6 py-3 md:px-8 md:py-4",
+                      "rounded-full border border-white/30 bg-white/10",
+                      "text-base md:text-lg font-medium",
+                      "hover:bg-white/15 hover:border-white/50",
+                      "transition-all duration-200",
+                      "focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
-        </Container>
+        </div>
       </div>
 
       {/* 애니메이션 스타일 */}
