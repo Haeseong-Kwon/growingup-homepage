@@ -175,8 +175,68 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
               animation: open ? "fadeInUp 300ms ease-out 100ms both" : "none",
             }}
           >
-            {/* 그리드: mobile 1열, md 3열 */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+            {/* 모바일 전용: 중앙 정렬 1열 레이아웃 */}
+            <nav className="md:hidden">
+              <ul className="space-y-5 text-lg">
+                {[
+                  { href: "/", label: "홈" },
+                  { href: "/capabilities", label: "역량" },
+                  { href: "/services", label: "서비스" },
+                  { href: "/cases", label: "사례" },
+                  { href: "/portfolio", label: "포트폴리오" },
+                  { href: "/insights", label: "인사이트" },
+                  { href: "/arena", label: "아레나" },
+                ].map((link, index) => (
+                  <li
+                    key={link.href}
+                    style={{
+                      animation: open
+                        ? `fadeInUp 300ms ease-out ${(150 + index * 50)}ms both`
+                        : "none",
+                    }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={handleLinkClick}
+                      className={cn(
+                        "inline-block",
+                        "font-medium",
+                        "opacity-80 hover:opacity-100",
+                        "transition-opacity duration-200"
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+                {/* 진단 요청 버튼 */}
+                <li
+                  style={{
+                    animation: open
+                      ? `fadeInUp 300ms ease-out ${150 + 7 * 50}ms both`
+                      : "none",
+                  }}
+                >
+                  <Link
+                    href="/diagnosis"
+                    onClick={handleLinkClick}
+                    className={cn(
+                      "inline-block",
+                      "px-7 py-3",
+                      "rounded-full border border-white/25 bg-white/10",
+                      "text-lg font-medium",
+                      "opacity-80 hover:opacity-100 hover:bg-white/15 hover:border-white/40",
+                      "transition-all duration-200"
+                    )}
+                  >
+                    진단 요청
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+
+            {/* 데스크톱/태블릿: 기존 3열 그리드 유지 */}
+            <div className="hidden md:grid md:grid-cols-3 gap-8 md:gap-12">
               {/* MENU 컬럼 */}
               <div className="flex flex-col">
                 <h3

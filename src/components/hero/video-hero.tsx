@@ -175,7 +175,7 @@ export function VideoHero({
       data-section="hero"
       data-palette="brand"
       data-band="160"
-      className="relative z-0 min-h-[calc(100svh+var(--header-h))] w-full overflow-hidden bg-gradient-to-br from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-hot1)] -mt-[var(--header-h)]"
+      className="relative z-0 w-full overflow-hidden bg-gradient-to-br from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-hot1)] -mt-[var(--header-h)] min-h-[72vh] lg:min-h-[calc(100svh+var(--header-h))]"
     >
       {/* Fallback Gradient (항상 표시, 검정 띠 방지) */}
       <div
@@ -213,24 +213,24 @@ export function VideoHero({
       />
 
       {/* Content */}
-      <div className="relative z-20 min-h-[calc(100svh+var(--header-h))] flex items-center pt-[calc(var(--header-h)+32px)]">
+      <div className="relative z-20 flex items-center pt-24 pb-12 min-h-[72vh] lg:min-h-[calc(100svh+var(--header-h))] lg:pt-[calc(var(--header-h)+32px)] lg:pb-0">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="max-w-[1100px] min-w-0">
+          <div className="max-w-[92vw] lg:max-w-[1100px]">
             {/* Title with Typing Effect */}
             <h1
-              className="text-white font-medium tracking-tight mb-6 w-full"
+              className="text-white font-medium tracking-tight mb-6 w-full leading-[1.05]"
               style={{
                 fontSize: "clamp(2.5rem, 6vw, 5.5rem)",
                 letterSpacing: "-0.02em",
               }}
             >
               {/* Line 1 */}
-              <span className="block leading-[0.95] whitespace-nowrap">
+              <span className="block">
                 {typedLine1}
               </span>
               {/* Line 2 - line2가 있을 때만 렌더링 */}
               {line2 && (
-                <span className="block leading-[0.95] whitespace-nowrap">
+                <span className="block">
                   {renderLine2WithHighlight(typedLine2, highlightText)}
                   {!isLine2Complete && (
                     <span className="inline-block w-1 h-[0.9em] bg-white ml-1 animate-pulse" />

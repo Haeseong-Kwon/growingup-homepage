@@ -185,27 +185,42 @@ export function SiteHeader() {
         className={cn(
           "fixed top-0 left-0 right-0 w-full border-b transition-colors duration-200 isolate",
           "overflow-x-clip pointer-events-auto",
-          headerMode === "SURFACE"
-            ? "shadow-sm"
-            : ""
+          headerMode === "SURFACE" ? "shadow-sm" : ""
         )}
         style={{
           // 배경색: SURFACE는 CSS 변수, ON_HERO는 투명
-          backgroundColor: headerMode === "SURFACE" ? SURFACE_BG : "transparent",
+          backgroundColor:
+            headerMode === "SURFACE"
+              ? SURFACE_BG
+              : "transparent",
           // 테두리: SURFACE는 CSS 변수, ON_HERO는 투명
-          borderColor: headerMode === "SURFACE" ? SURFACE_BORDER : "transparent",
+          borderColor:
+            headerMode === "SURFACE"
+              ? SURFACE_BORDER
+              : "transparent",
           // 텍스트 색상: SURFACE는 CSS 변수, ON_HERO는 흰색
           color: headerMode === "SURFACE" ? SURFACE_TEXT : ON_HERO_TEXT,
           // ON_HERO 모드에서 텍스트 가독성 보장 (text-shadow만 허용)
-          textShadow: headerMode === "ON_HERO" ? "0 2px 14px rgba(0,0,0,0.35)" : "none",
+          textShadow:
+            headerMode === "ON_HERO"
+              ? "0 2px 14px rgba(0,0,0,0.35)"
+              : "none",
           // 헤더가 항상 최상단에 보이도록 z-index 보장 (1000 이상)
           zIndex: 1000,
           // transform 적용 금지 (레이아웃 안정성)
           transform: "none",
         }}
       >
+        {/* 모바일에서는 그라디언트 배경으로 가독성 보강 */}
+        {headerMode === "ON_HERO" && (
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/45 to-transparent lg:hidden" />
+        )}
+
         <Container>
-          <div className="flex items-center justify-between min-w-0" style={{ height: "var(--header-h)" }}>
+          <div
+            className="mx-auto w-full max-w-[1280px] px-4 flex items-center justify-between min-w-0"
+            style={{ height: "var(--header-h)" }}
+          >
             {/* 로고 - text-inherit로 헤더 root 색상 상속 (고정 색상 보장) */}
             <Link
               href="/"
@@ -214,7 +229,7 @@ export function SiteHeader() {
               GROWING UP
             </Link>
 
-            {/* 데스크톱 메뉴 (중앙) */}
+            {/* 데스크톱 메뉴 (중앙) - 모바일에서는 완전히 숨김 */}
             <nav className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
               {navLinks.map((link) => (
                 <div key={link.href} className="relative">
@@ -261,7 +276,23 @@ export function SiteHeader() {
                 onClick={() => setIsMenuOpen(true)}
                 aria-label="메뉴 열기"
                 className={cn(
-                  "rounded-lg transition-colors text-inherit flex-shrink-0",
+                  "flex lg:hidden h-12 w-12 p-3 rounded-full transition-colors text-inherit flex-shrink-0",
+                  headerMode === "SURFACE"
+                    ? "hover:bg-[var(--brand-muted-light)]"
+                    : "hover:bg-white/10"
+                )}
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+
+              {/* 데스크톱 햄버거(옵션) - 필요 시 유지 */}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsMenuOpen(true)}
+                aria-label="메뉴 열기"
+                className={cn(
+                  "hidden lg:flex h-10 w-10 rounded-lg transition-colors text-inherit flex-shrink-0",
                   headerMode === "SURFACE"
                     ? "hover:bg-[var(--brand-muted-light)]"
                     : "hover:bg-white/10"
