@@ -218,9 +218,8 @@ export function VideoHero({
           <div className="max-w-[92vw] lg:max-w-[1100px]">
             {/* Title with Typing Effect */}
             <h1
-              className="text-white font-medium tracking-tight mb-6 w-full leading-[1.05]"
+              className="text-white font-medium tracking-tight mb-6 w-full leading-[1.05] text-[clamp(1.75rem,4.5vw,2.5rem)] lg:text-[clamp(2.5rem,6vw,5.5rem)]"
               style={{
-                fontSize: "clamp(2.5rem, 6vw, 5.5rem)",
                 letterSpacing: "-0.02em",
               }}
             >
@@ -241,11 +240,10 @@ export function VideoHero({
 
             {/* Subtitle - fade in after typing complete */}
             <p
-              className={`text-white/90 mb-10 max-w-2xl text-balance transition-opacity duration-500 ${
+              className={`text-white/90 mb-10 max-w-2xl text-balance transition-opacity duration-500 text-[clamp(0.875rem,1.2vw,1rem)] lg:text-[clamp(1rem,1.5vw,1.25rem)] ${
                 isComplete ? "opacity-100" : "opacity-0"
               }`}
               style={{
-                fontSize: "clamp(1rem, 1.5vw, 1.25rem)",
                 lineHeight: "1.6",
               }}
             >

@@ -218,7 +218,7 @@ export function SiteHeader() {
 
         <Container>
           <div
-            className="mx-auto w-full max-w-[1280px] px-4 flex items-center justify-between min-w-0"
+            className="w-full flex items-center justify-between min-w-0"
             style={{ height: "var(--header-h)" }}
           >
             {/* 로고 - text-inherit로 헤더 root 색상 상속 (고정 색상 보장) */}
