@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { useTypingEffect } from "@/hooks/use-typing-effect";
+import { normalizeNewlines } from "@/lib/text-utils";
 
 interface VideoHeroProps {
   title: string;
@@ -31,9 +32,12 @@ export function VideoHero({
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  // 타이핑 입력 텍스트 정규화 (줄바꿈 문자 처리)
+  const normalizedTitle = normalizeNewlines(title);
+
   // 타이핑 효과
   const { displayedText: typedTitle, isComplete } = useTypingEffect({
-    text: title,
+    text: normalizedTitle,
     speed: 80,
     delay: 500,
   });
