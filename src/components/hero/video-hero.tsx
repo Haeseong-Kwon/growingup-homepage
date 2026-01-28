@@ -214,12 +214,12 @@ export function VideoHero({
       />
 
       {/* Content */}
-      <div className="relative z-20 flex flex-col justify-between pt-24 pb-4 min-h-[60vh] lg:flex lg:items-center lg:min-h-[calc(100svh+var(--header-h))] lg:pt-[calc(var(--header-h)+32px)] lg:pb-0">
+      <div className="relative z-20 flex flex-col justify-between pt-32 pb-4 min-h-[60vh] lg:flex lg:items-center lg:min-h-[calc(100svh+var(--header-h))] lg:pt-[calc(var(--header-h)+32px)] lg:pb-0">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="max-w-[92vw] lg:max-w-[1100px]">
+          <div className="max-w-[92vw] lg:max-w-[1100px] flex flex-col lg:block min-h-[60vh] lg:min-h-0 justify-between lg:justify-start">
             {/* Title with Typing Effect */}
             <h1
-              className="text-white font-medium tracking-tight mb-6 w-full leading-[1.05] text-[clamp(1.75rem,4.5vw,2.5rem)] lg:text-[clamp(2.5rem,6vw,5.5rem)]"
+              className="text-white font-medium tracking-tight mb-6 lg:mb-6 w-full leading-[1.05] text-[clamp(1.75rem,4.5vw,2.5rem)] lg:text-[clamp(2.5rem,6vw,5.5rem)]"
               style={{
                 letterSpacing: "-0.02em",
               }}
@@ -238,15 +238,59 @@ export function VideoHero({
                 </span>
               )}
             </h1>
+
+            {/* 모바일에서만 하단에 배치되는 영역 */}
+            <div className="lg:hidden">
+              {/* Subtitle - fade in after typing complete */}
+              <p
+                className={`text-white/90 mb-6 max-w-2xl text-balance transition-opacity duration-500 text-[clamp(0.875rem,1.2vw,1rem)] ${
+                  isComplete ? "opacity-100" : "opacity-0"
+                }`}
+                style={{
+                  lineHeight: "1.6",
+                }}
+              >
+                {subtitle}
+              </p>
+
+              {/* CTAs - fade in after subtitle */}
+              {(primaryCta || secondaryCta) && (
+                <div
+                  className={`flex flex-col gap-4 transition-opacity duration-500 delay-200 ${
+                    isComplete ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  {primaryCta && (
+                    <Button
+                      asChild
+                      size="lg"
+                      className="bg-[var(--brand-primary)] hover:bg-[var(--brand-primary)]/90 text-white rounded-lg h-12 px-8 text-base"
+                    >
+                      <Link href={primaryCta.href}>{primaryCta.label}</Link>
+                    </Button>
+                  )}
+                  {secondaryCta && (
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="lg"
+                      className="border-2 border-white/30 bg-white/10 hover:bg-white/20 text-white rounded-lg h-12 px-8 text-base"
+                    >
+                      <Link href={secondaryCta.href}>{secondaryCta.label}</Link>
+                    </Button>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* 모바일에서 하단에 배치되는 영역 */}
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full lg:max-w-[1100px]">
-          <div className="max-w-[92vw] lg:max-w-[1100px]">
+        {/* PC에서만 표시되는 영역 (기존 레이아웃 유지) */}
+        <div className="hidden lg:block max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="max-w-[1100px]">
             {/* Subtitle - fade in after typing complete */}
             <p
-              className={`text-white/90 mb-6 lg:mb-10 max-w-2xl text-balance transition-opacity duration-500 text-[clamp(0.875rem,1.2vw,1rem)] lg:text-[clamp(1rem,1.5vw,1.25rem)] ${
+              className={`text-white/90 mb-10 max-w-2xl text-balance transition-opacity duration-500 text-[clamp(1rem,1.5vw,1.25rem)] ${
                 isComplete ? "opacity-100" : "opacity-0"
               }`}
               style={{
