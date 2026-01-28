@@ -175,7 +175,7 @@ export function VideoHero({
       data-section="hero"
       data-palette="brand"
       data-band="160"
-      className="relative z-0 w-full overflow-hidden bg-gradient-to-br from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-hot1)] -mt-[var(--header-h)] min-h-[72vh] lg:min-h-[calc(100svh+var(--header-h))]"
+      className="relative z-0 w-full overflow-hidden bg-gradient-to-br from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-hot1)] -mt-[var(--header-h)] min-h-[60vh] lg:min-h-[calc(100svh+var(--header-h))]"
     >
       {/* Fallback Gradient (항상 표시, 검정 띠 방지) */}
       <div
@@ -213,7 +213,7 @@ export function VideoHero({
       />
 
       {/* Content */}
-      <div className="relative z-20 flex items-center pt-24 pb-12 min-h-[72vh] lg:min-h-[calc(100svh+var(--header-h))] lg:pt-[calc(var(--header-h)+32px)] lg:pb-0">
+      <div className="relative z-20 flex items-center pt-24 pb-12 min-h-[60vh] lg:min-h-[calc(100svh+var(--header-h))] lg:pt-[calc(var(--header-h)+32px)] lg:pb-0">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-[92vw] lg:max-w-[1100px]">
             {/* Title with Typing Effect */}

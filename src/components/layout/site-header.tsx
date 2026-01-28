@@ -216,9 +216,9 @@ export function SiteHeader() {
           <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/45 to-transparent lg:hidden" />
         )}
 
-        <Container>
+        <div className="w-full">
           <div
-            className="w-full flex items-center justify-between min-w-0"
+            className="mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8 flex items-center justify-between min-w-0"
             style={{ height: "var(--header-h)" }}
           >
             {/* 로고 - text-inherit로 헤더 root 색상 상속 (고정 색상 보장) */}
@@ -302,7 +302,7 @@ export function SiteHeader() {
               </Button>
             </div>
           </div>
-        </Container>
+        </div>
       </header>
 
       {/* Mega Menu */}
