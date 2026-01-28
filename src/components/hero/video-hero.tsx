@@ -11,6 +11,7 @@ interface VideoHeroProps {
   subtitle: string;
   highlightText?: string;
   videoSrc?: string;
+  posterSrc?: string;
   primaryCta?: {
     label: string;
     href: string;
@@ -27,6 +28,7 @@ export function VideoHero({
   subtitle,
   highlightText,
   videoSrc = "/hero.mp4",
+  posterSrc = "/hero-poster.svg",
   primaryCta,
   secondaryCta,
 }: VideoHeroProps) {
@@ -34,6 +36,7 @@ export function VideoHero({
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [autoplayTried, setAutoplayTried] = useState(false);
 
   // Line1 타이핑 효과
   const { displayedText: typedLine1, isComplete: isLine1Complete } = useTypingEffect({
@@ -124,21 +127,61 @@ export function VideoHero({
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
+  // 가능한 경우 자동 재생을 한 번 시도하고, 실패하면 사용자 인터랙션 시 재시도
+  useEffect(() => {
+    if (!mounted || prefersReducedMotion || autoplayTried) return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    const tryPlay = () => {
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.then === "function") {
+        playPromise.catch(() => {
+          // autoplay가 막힌 경우: 이후 사용자 인터랙션에서 재시도
+        });
+      }
+      setAutoplayTried(true);
+    };
+
+    tryPlay();
+
+    const handleUserInteract = () => {
+      if (!video.paused) return;
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.then === "function") {
+        playPromise.catch(() => {
+          // 여전히 재생이 안 되면 조용히 실패 (poster + gradient로 유지)
+        });
+      }
+      window.removeEventListener("click", handleUserInteract);
+      window.removeEventListener("touchstart", handleUserInteract);
+      window.removeEventListener("scroll", handleUserInteract);
+    };
+
+    window.addEventListener("click", handleUserInteract, { once: true });
+    window.addEventListener("touchstart", handleUserInteract, { once: true });
+    window.addEventListener("scroll", handleUserInteract, { once: true });
+
+    return () => {
+      window.removeEventListener("click", handleUserInteract);
+      window.removeEventListener("touchstart", handleUserInteract);
+      window.removeEventListener("scroll", handleUserInteract);
+    };
+  }, [mounted, prefersReducedMotion, autoplayTried]);
+
   return (
     <section 
       data-theme="light"
       data-section="hero"
       data-palette="brand"
       data-band="160"
-      className="relative min-h-[calc(100svh+var(--header-h))] w-full overflow-hidden bg-gradient-to-br from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-hot1)] -mt-[var(--header-h)]"
-      style={{ zIndex: 1, position: "relative" }}
+      className="relative z-0 min-h-[calc(100svh+var(--header-h))] w-full overflow-hidden bg-gradient-to-br from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-hot1)] -mt-[var(--header-h)]"
     >
       {/* Fallback Gradient (항상 표시, 검정 띠 방지) */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 z-0"
         style={{
           background: `linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 50%, var(--brand-hot1) 100%)`,
-          zIndex: 1,
         }}
       />
 
@@ -150,15 +193,15 @@ export function VideoHero({
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
+          poster={posterSrc}
           onLoadedData={() => setVideoLoaded(true)}
           onError={() => {
             setVideoLoaded(false);
           }}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+          className={`absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-1000 ${
             videoLoaded ? "opacity-100" : "opacity-0"
           }`}
-          style={{ zIndex: 2 }}
         >
           <source src={videoSrc} type="video/mp4" />
         </video>
@@ -166,14 +209,11 @@ export function VideoHero({
 
       {/* Overlay */}
       <div
-        className="absolute inset-0 bg-black/40"
-        style={{
-          zIndex: 3,
-        }}
+        className="absolute inset-0 z-10 bg-black/40"
       />
 
       {/* Content */}
-      <div className="relative z-10 min-h-[calc(100svh+var(--header-h))] flex items-center pt-[calc(var(--header-h)+32px)]" style={{ zIndex: 10 }}>
+      <div className="relative z-20 min-h-[calc(100svh+var(--header-h))] flex items-center pt-[calc(var(--header-h)+32px)]">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-[1100px] min-w-0">
             {/* Title with Typing Effect */}
@@ -249,7 +289,7 @@ export function VideoHero({
         className={`absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:block transition-opacity duration-500 delay-500 ${
           isComplete ? "opacity-100" : "opacity-0"
         }`}
-        style={{ zIndex: 101 }}
+        style={{ zIndex: 30 }}
       >
         <div className="w-[1px] h-12 bg-white/30 animate-pulse" />
       </div>

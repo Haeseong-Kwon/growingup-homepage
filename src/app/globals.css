@@ -3,6 +3,25 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Pretendard 웹폰트: 맥/윈도우 동일 렌더링을 위해 CDN 기반으로 고정 로드 */
+@font-face {
+  font-family: "Pretendard Variable";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/woff2/PretendardVariable.woff2")
+    format("woff2-variations");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2")
+    format("woff2");
+}
+
 @theme inline {
   /* Brand Colors - 로바블 톤 */
   --color-brand-bg: #FCFBF8;
@@ -35,8 +54,9 @@
   --color-input: var(--brand-muted);
   --color-ring: var(--brand-primary);
   
-  /* Font Families */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Font Families - Pretendard 우선, 맥/윈도우 동일 체인 */
+  --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   
   /* Radius */
@@ -193,6 +213,12 @@ html.theme-dark {
     width: 100%;
   }
   
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: geometricPrecision;
+    transition: background-color 180ms ease, color 180ms ease;
+  }
+  
   body {
     @apply antialiased;
     background: var(--bg, var(--brand-bg));
@@ -201,11 +227,8 @@ html.theme-dark {
     font-feature-settings: "kern" 1, "liga" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-  
-  /* html도 동일한 transition 적용 */
-  html {
-    transition: background-color 180ms ease, color 180ms ease;
+    font-family: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont,
+      "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
   }
   
   /* Cheil 스타일 타이포그래피 */
