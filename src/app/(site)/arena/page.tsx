@@ -361,10 +361,10 @@ export default function ArenaPage() {
           <div className="grid gap-8 lg:grid-cols-12 items-start">
             {/* LEFT: 캠페인 리스트 */}
             <div className="lg:col-span-8 min-w-0">
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3 items-stretch auto-rows-fr">
                 {campaigns.map((campaign, index) => (
                   <MediaReveal key={campaign.id} delay={index * 100} intensity="medium">
-                    <div className="min-w-0">
+                    <div className="min-w-0 h-full">
                       <CampaignCard
                         campaign={campaign}
                         onClick={handleCampaignClick}
