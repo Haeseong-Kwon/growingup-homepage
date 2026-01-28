@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, ReactElement } from "react";
 import { useTypingEffect } from "@/hooks/use-typing-effect";
 import { normalizeNewlines } from "@/lib/text-utils";
 
@@ -60,7 +60,7 @@ export function VideoHero({
     const lines = text.split('\n');
     
     return lines.map((line, lineIndex) => {
-      const parts: (string | JSX.Element)[] = [];
+      const parts: (string | ReactElement)[] = [];
       
       // 하이라이트 텍스트를 찾아서 색상 적용
       const highlightIndex = line.indexOf(highlight);
