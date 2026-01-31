@@ -220,7 +220,7 @@ export function VideoHero({
             {/* 타이틀 - 세로 중앙에 배치 */}
             <div className="flex-1 flex items-center justify-center lg:justify-start">
               <h1
-                className="text-white font-medium tracking-tight w-full leading-[1.05] text-[clamp(1.75rem,4.5vw,2.5rem)] lg:text-[clamp(2.5rem,6vw,5.5rem)]"
+                className="text-white font-medium tracking-tight w-full leading-[1.05] text-[clamp(1.65rem,4.2vw,2.4rem)] lg:text-[clamp(2.5rem,6vw,5.5rem)]"
                 style={{
                   letterSpacing: "-0.02em",
                 }}
