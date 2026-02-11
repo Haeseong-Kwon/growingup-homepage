@@ -339,7 +339,8 @@ html.theme-dark {
     
     /* 테마 전환도 빠르게 */
     body {
-      transition: background-color 0.01ms !important, color 0.01ms !important;
+      transition-property: background-color, color !important;
+      transition-duration: 0.01ms !important;
     }
   }
 }

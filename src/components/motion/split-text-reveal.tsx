@@ -1,9 +1,9 @@
 "use client";
 
-import { useInView } from "@/hooks/use-in-view";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
-import { useEffect, useRef, useState } from "react";
+import { motion, useInView, Variants } from "framer-motion";
+import { useRef } from "react";
 
 interface SplitTextRevealProps {
   text: string;
@@ -13,6 +13,7 @@ interface SplitTextRevealProps {
   direction?: "lr" | "ud";
   delay?: number;
   className?: string;
+  viewportMargin?: string;
 }
 
 export function SplitTextReveal({
@@ -23,19 +24,11 @@ export function SplitTextReveal({
   direction = "lr",
   delay = 0,
   className,
+  viewportMargin = "-10% 0px -10% 0px", // 기본적으로 화면에 타이트하게 들어왔을 때 실행
 }: SplitTextRevealProps) {
-  const containerRef = useRef<HTMLElement>(null);
-  const { inView: isInView } = useInView({ 
-    amount: 0.4,
-    triggerOnce: true,
-    ref: containerRef 
-  });
   const prefersReducedMotion = useReducedMotion();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: viewportMargin as any });
 
   // 텍스트 분할
   const splitText = () => {
@@ -47,7 +40,6 @@ export function SplitTextReveal({
   };
 
   const parts = splitText();
-  const staggerDelay = 20; // ms
 
   const alignStyles = {
     left: "justify-start",
@@ -55,61 +47,74 @@ export function SplitTextReveal({
     right: "justify-end",
   };
 
-  const directionStyles = {
-    lr: {
-      initial: direction === "lr" ? "translate-x-[-8px]" : "translate-x-[8px]",
-      final: "translate-x-0",
-    },
-    ud: {
-      initial: direction === "ud" ? "translate-y-[-8px]" : "translate-y-[8px]",
-      final: "translate-y-0",
+  // Framer Motion Variants
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+        delayChildren: delay / 1000,
+      },
     },
   };
 
-  const style = directionStyles[direction];
+  const itemVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      x: direction === "lr" ? -10 : 0,
+      y: direction === "ud" ? 10 : 0,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 20,
+        stiffness: 100,
+        duration: 0.4,
+      },
+    },
+  };
 
-  // Reduced motion이면 분할 없이 표시
-  if (prefersReducedMotion || !mounted) {
+  // Reduced Motion 대응
+  if (prefersReducedMotion) {
     return (
       <Component
-        ref={containerRef as any}
         className={cn(className)}
-        style={{ opacity: isInView ? 1 : 0, transition: "opacity 300ms ease" }}
+        style={{ opacity: 1 }} // 기본적으로 보임
       >
         {text}
       </Component>
     );
   }
 
+  // Motion Component 생성
+  const MotionComponent = motion(Component as any);
+
   return (
-    <Component
-      ref={containerRef as any}
+    <MotionComponent
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={containerVariants}
       className={cn(
-        "flex flex-wrap gap-x-1 gap-y-0",
+        "flex flex-wrap gap-x-[0.25em] gap-y-0", // word spacing 보정
         alignStyles[align],
         className
       )}
     >
-      {parts.map((part, index) => {
-        const itemDelay = delay + index * staggerDelay;
-        const isVisible = isInView;
-
-        return (
-          <span
-            key={index}
-            className="inline-block"
-            style={{
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? style.final : style.initial,
-              transition: `opacity 600ms ease ${itemDelay}ms, transform 600ms ease ${itemDelay}ms`,
-            }}
-          >
-            {part}
-            {split === "words" && index < parts.length - 1 && "\u00A0"}
-          </span>
-        );
-      })}
-    </Component>
+      {parts.map((part, index) => (
+        <motion.span
+          key={index}
+          className="inline-block whitespace-pre" // 공백 유지
+          variants={itemVariants}
+        >
+          {part}
+          {/* words 모드일 때 스페이스 추가 로직은 gap-x로 대체하거나 필요시 추가 */}
+        </motion.span>
+      ))}
+    </MotionComponent>
   );
 }
-

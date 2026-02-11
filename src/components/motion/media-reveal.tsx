@@ -1,15 +1,16 @@
 "use client";
 
-import { useInView } from "@/hooks/use-in-view";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
+import { motion, useInView, Variants } from "framer-motion";
+import { ReactNode, useRef } from "react";
 
 interface MediaRevealProps {
   children: ReactNode;
   className?: string;
   delay?: number;
   intensity?: "subtle" | "medium" | "strong";
+  viewportMargin?: string;
 }
 
 export function MediaReveal({
@@ -17,51 +18,47 @@ export function MediaReveal({
   className,
   delay = 0,
   intensity = "subtle",
+  viewportMargin = "-50px" // 약간의 여유
 }: MediaRevealProps) {
-  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
   const prefersReducedMotion = useReducedMotion();
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: viewportMargin as any });
 
-  const intensityStyles = {
+  const intensityVariants: Record<string, Variants> = {
     subtle: {
-      initial: { opacity: 0, transform: "translateY(12px) scale(0.98)", filter: "blur(2px)" },
-      final: { opacity: 1, transform: "translateY(0) scale(1)", filter: "blur(0)" },
-      duration: 600,
+      hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
+      visible: { opacity: 1, y: 0, filter: "blur(0px)" },
     },
     medium: {
-      initial: { opacity: 0, transform: "translateY(24px) scale(0.95)", filter: "blur(4px)" },
-      final: { opacity: 1, transform: "translateY(0) scale(1)", filter: "blur(0)" },
-      duration: 700,
+      hidden: { opacity: 0, y: 40, filter: "blur(8px)" },
+      visible: { opacity: 1, y: 0, filter: "blur(0px)" },
     },
     strong: {
-      initial: { opacity: 0, transform: "translateY(40px) scale(0.92)", filter: "blur(6px)" },
-      final: { opacity: 1, transform: "translateY(0) scale(1)", filter: "blur(0)" },
-      duration: 800,
+      hidden: { opacity: 0, y: 60, scale: 0.95, filter: "blur(10px)" },
+      visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
     },
   };
 
-  const style = intensityStyles[intensity];
+  const variants = intensityVariants[intensity];
 
   if (prefersReducedMotion) {
-    return (
-      <div ref={ref as any} className={className} style={{ opacity: inView ? 1 : 0, transition: "opacity 300ms ease" }}>
-        {children}
-      </div>
-    );
+    return <div className={className}>{children}</div>;
   }
 
   return (
-    <div
-      ref={ref as any}
-      className={className}
-      style={{
-        opacity: inView ? style.final.opacity : style.initial.opacity,
-        transform: inView ? style.final.transform : style.initial.transform,
-        filter: inView ? style.final.filter : style.initial.filter,
-        transition: `opacity ${style.duration}ms ease ${delay}ms, transform ${style.duration}ms ease ${delay}ms, filter ${style.duration}ms ease ${delay}ms`,
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={variants}
+      transition={{
+        duration: 0.6,
+        ease: "easeOut",
+        delay: delay / 1000,
       }}
+      className={cn(className, "will-change-transform")} // 힌트 제공
     >
       {children}
-    </div>
+    </motion.div>
   );
 }
-

@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
@@ -37,23 +37,40 @@ export function HorizontalSlider({
   const [isFocused, setIsFocused] = useState(false);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const prefersReducedMotion = useReducedMotion();
+
+  // 상태 변경을 최소화하기 위한 ref
+  const scrollStateRef = useRef({ canLeft: false, canRight: true });
+
   const shouldAutoplay = autoplay && !prefersReducedMotion && !isHovered && !isFocused;
 
-  const checkScrollability = () => {
+  // Throttled Scroll Check
+  const checkScrollability = useCallback(() => {
     if (!scrollContainerRef.current) return;
-    
+
     const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-    setCanScrollLeft(scrollLeft > 0);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
-  };
+
+    // 약간의 여유를 두어 계산 오차 방지
+    const canLeft = scrollLeft > 5;
+    const canRight = scrollLeft < scrollWidth - clientWidth - 5;
+
+    if (scrollStateRef.current.canLeft !== canLeft) {
+      setCanScrollLeft(canLeft);
+      scrollStateRef.current.canLeft = canLeft;
+    }
+
+    if (scrollStateRef.current.canRight !== canRight) {
+      setCanScrollRight(canRight);
+      scrollStateRef.current.canRight = canRight;
+    }
+  }, []);
 
   const scroll = (direction: "left" | "right", resetAutoplayTimer = true) => {
     if (!scrollContainerRef.current) return;
-    
+
     const container = scrollContainerRef.current;
     const itemWidth = container.querySelector<HTMLElement>(".snap-item")?.offsetWidth || 0;
     const scrollAmount = itemWidth + 24; // gap 포함
-    
+
     container.scrollBy({
       left: direction === "left" ? -scrollAmount : scrollAmount,
       behavior: "smooth",
@@ -63,7 +80,7 @@ export function HorizontalSlider({
     if (resetAutoplayTimer && autoplayIntervalRef.current) {
       clearInterval(autoplayIntervalRef.current);
       autoplayIntervalRef.current = null;
-      
+
       // shouldAutoplay가 true면 다시 시작
       if (shouldAutoplay) {
         setTimeout(() => {
@@ -77,12 +94,12 @@ export function HorizontalSlider({
     }
   };
 
-  const scrollToNext = () => {
+  const scrollToNext = useCallback(() => {
     if (!scrollContainerRef.current) return;
-    
+
     const container = scrollContainerRef.current;
     const { scrollLeft, scrollWidth, clientWidth } = container;
-    
+
     // 마지막 슬라이드면 첫 슬라이드로 loop
     if (scrollLeft >= scrollWidth - clientWidth - 10) {
       container.scrollTo({
@@ -91,9 +108,15 @@ export function HorizontalSlider({
       });
     } else {
       // autoplay로 인한 스크롤이므로 타이머 리셋하지 않음
-      scroll("right", false);
+      const itemWidth = container.querySelector<HTMLElement>(".snap-item")?.offsetWidth || 0;
+      const scrollAmount = itemWidth + 24; // gap 포함
+
+      container.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth"
+      });
     }
-  };
+  }, []);
 
   // Autoplay 설정
   useEffect(() => {
@@ -102,7 +125,7 @@ export function HorizontalSlider({
       if (autoplayIntervalRef.current) {
         clearInterval(autoplayIntervalRef.current);
       }
-      
+
       // 새 interval 시작
       autoplayIntervalRef.current = setInterval(() => {
         scrollToNext();
@@ -119,21 +142,30 @@ export function HorizontalSlider({
         clearInterval(autoplayIntervalRef.current);
       }
     };
-  }, [shouldAutoplay, intervalMs]);
+  }, [shouldAutoplay, intervalMs, scrollToNext]);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
     checkScrollability();
-    container.addEventListener("scroll", checkScrollability);
-    window.addEventListener("resize", checkScrollability);
+
+    // Scroll Event Throttling (using requestAnimationFrame)
+    let rafId: number;
+    const onScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(checkScrollability);
+    };
+
+    container.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
 
     return () => {
-      container.removeEventListener("scroll", checkScrollability);
-      window.removeEventListener("resize", checkScrollability);
+      container.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(rafId);
     };
-  }, [items]);
+  }, [items, checkScrollability]);
 
   return (
     <div
@@ -155,7 +187,7 @@ export function HorizontalSlider({
         style={{
           WebkitOverflowScrolling: "touch",
         }}
-        onScroll={checkScrollability}
+      // onScroll is handled by useEffect for passive: true
       >
         {items.map((item, index) => (
           <div
@@ -170,13 +202,13 @@ export function HorizontalSlider({
             )}>
               {/* 포인트컬러 하이라이트 - 상단 액센트 바 */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-hot1)]" />
-              
+
               <div className="flex items-center gap-3 mb-4 relative z-10">
                 {/* 번호에 포인트컬러 배경 */}
                 <span className={cn(
                   "text-2xl md:text-3xl font-bold relative",
-                  dark 
-                    ? "text-white" 
+                  dark
+                    ? "text-white"
                     : "text-[var(--brand-primary)]"
                 )}>
                   <span className="relative z-10">
@@ -185,8 +217,8 @@ export function HorizontalSlider({
                   {/* 번호 배경 포인트컬러 원형 */}
                   <span className={cn(
                     "absolute -z-10 -inset-2 rounded-full opacity-10",
-                    dark 
-                      ? "bg-white" 
+                    dark
+                      ? "bg-white"
                       : "bg-[var(--brand-primary)]"
                   )} />
                 </span>
@@ -268,4 +300,3 @@ export function HorizontalSlider({
     </div>
   );
 }
-
