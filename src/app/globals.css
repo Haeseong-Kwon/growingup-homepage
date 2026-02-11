@@ -9,8 +9,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/woff2/PretendardVariable.woff2")
-    format("woff2-variations");
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/woff2/PretendardVariable.woff2") format("woff2-variations");
 }
 
 @font-face {
@@ -18,22 +17,29 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2")
-    format("woff2");
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2") format("woff2");
 }
 
 @theme inline {
-  /* Brand Colors - 로바블 톤 */
+  /* Brand Colors - Cheil Style Expansion */
   --color-brand-bg: #FCFBF8;
-  --color-brand-fg: #0B0B0F;
-  --color-brand-primary: #575ECF;
+  --color-brand-fg: #050505;
+  /* Deep Black for Text */
+
+  /* Artistic Palette */
+  --color-brand-primary: #3B4CCA;
+  /* Deep Electric Blue */
   --color-brand-secondary: #0D9488;
-  --color-brand-hot1: #FE7B02;
+  --color-brand-hot1: #FF3B30;
+  /* International Orange */
   --color-brand-hot2: #FE3F21;
-  --color-brand-hot3: #F858BC;
-  --color-brand-muted: rgba(11, 11, 15, 0.12);
-  --color-brand-muted-light: rgba(11, 11, 15, 0.06);
-  
+  --color-brand-hot3: #FF00FF;
+  /* Magenta for Art */
+
+  --color-brand-muted: rgba(5, 5, 5, 0.08);
+  /* Lighter touch */
+  --color-brand-muted-light: rgba(5, 5, 5, 0.03);
+
   /* Shadcn Theme Variables */
   --color-background: var(--brand-bg);
   --color-foreground: var(--brand-fg);
@@ -46,33 +52,35 @@
   --color-secondary: var(--brand-secondary);
   --color-secondary-foreground: #ffffff;
   --color-muted: var(--brand-muted-light);
-  --color-muted-foreground: rgba(11, 11, 15, 0.65);
+  --color-muted-foreground: rgba(5, 5, 5, 0.6);
   --color-accent: var(--brand-primary);
   --color-accent-foreground: #ffffff;
   --color-destructive: #dc2626;
   --color-border: var(--brand-muted);
   --color-input: var(--brand-muted);
   --color-ring: var(--brand-primary);
-  
-  /* Font Families - Pretendard 우선, 맥/윈도우 동일 체인 */
+
+  /* Font Families */
   --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont,
     "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  
+  --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+
   /* Radius */
-  --radius-sm: 0.375rem;
+  --radius-sm: 0.25rem;
+  /* Sharper */
   --radius-md: 0.5rem;
-  --radius-lg: 0.625rem;
-  --radius-xl: 0.75rem;
-  --radius-2xl: 1rem;
-  --radius-3xl: 1.5rem;
-  --radius-4xl: 2rem;
-  
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  --radius-4xl: 3rem;
+
   /* Container */
   --container-center: true;
-  --container-padding: 1rem;
-  --container-max-width-xl: 1320px;
-  
+  --container-padding: 1.5rem;
+  --container-max-width-xl: 1440px;
+  /* Wider standard */
+
   /* Sidebar (shadcn) */
   --color-sidebar: var(--brand-bg);
   --color-sidebar-foreground: var(--brand-fg);
@@ -82,7 +90,7 @@
   --color-sidebar-accent-foreground: var(--brand-fg);
   --color-sidebar-border: var(--brand-muted);
   --color-sidebar-ring: var(--brand-primary);
-  
+
   /* Chart colors */
   --color-chart-1: var(--brand-primary);
   --color-chart-2: var(--brand-secondary);
@@ -92,68 +100,83 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.5rem;
   --brand-bg: #FCFBF8;
-  --brand-fg: #0B0B0F;
-  --brand-primary: #575ECF;
+  --brand-fg: #050505;
+  --brand-primary: #3B4CCA;
   --brand-secondary: #0D9488;
-  --brand-hot1: #FE7B02;
+  --brand-hot1: #FF3B30;
   --brand-hot2: #FE3F21;
-  --brand-hot3: #F858BC;
-  --brand-muted: rgba(11, 11, 15, 0.12);
-  --brand-muted-light: rgba(11, 11, 15, 0.06);
-  
+  --brand-hot3: #FF00FF;
+  --brand-muted: rgba(5, 5, 5, 0.08);
+  --brand-muted-light: rgba(5, 5, 5, 0.03);
+
   /* Header height */
-  --header-h: 64px; /* 기본: 64px (h-16) */
-  
+  --header-h: 70px;
+
   /* Theme transition variables */
-  --theme-transition-duration: 300ms;
-  --theme-transition-timing: ease;
-  
-  /* 전역 테마 변수 (ThemeObserver가 html[data-theme]로 설정) */
-  --bg: #ffffff;
-  --fg: #111111;
-  --muted: #6b7280;
-  --border: rgba(0, 0, 0, 0.08);
-  --header-fg: #111111;
-  --header-bg: rgba(255, 255, 255, 0.72);
+  --theme-transition-duration: 400ms;
+  --theme-transition-timing: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Global Theme Props */
+  --bg: #FCFBF8;
+  --fg: #050505;
+  --muted: #888888;
+  --border: rgba(0, 0, 0, 0.06);
+  --header-fg: #050505;
+  --header-bg: rgba(252, 251, 248, 0.6);
 }
 
 @media (min-width: 1024px) {
   :root {
-    --header-h: 80px; /* lg: 80px (h-20) */
+    --header-h: 100px;
+    /* Cheil Style: Large Header area */
+  }
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 /* 다크 테마 전역 변수 */
 html[data-theme="dark"] {
-  --bg: #0b0c0f;
-  --fg: #f8fafc;
-  --muted: rgba(248, 250, 252, 0.72);
-  --border: rgba(255, 255, 255, 0.10);
-  --header-fg: #f8fafc;
-  --header-bg: rgba(10, 10, 12, 0.55);
+  --bg: #050505;
+  /* Deep Black */
+  --fg: #F2F2F2;
+  /* Stark White/Light Gray */
+  --muted: rgba(255, 255, 255, 0.6);
+  --border: rgba(255, 255, 255, 0.08);
+  --header-fg: #FFFFFF;
+  --header-bg: rgba(5, 5, 5, 0.6);
+
+  --brand-bg: #050505;
+  --brand-fg: #F2F2F2;
+  --brand-muted: rgba(255, 255, 255, 0.1);
+  --brand-muted-light: rgba(255, 255, 255, 0.05);
 }
 
 /* 메뉴 열린 상태에서는 강제로 라이트 테마 헤더 */
 html[data-nav-open="true"] {
-  --header-fg: #111111;
-  --header-bg: rgba(255, 255, 255, 0.92);
+  --header-fg: #050505;
+  --header-bg: rgba(252, 251, 248, 0.95);
 }
 
 .dark {
-  --brand-bg: #0B0B0F;
-  --brand-fg: #FCFBF8;
+  --brand-bg: #050505;
+  --brand-fg: #F2F2F2;
   --color-background: var(--brand-bg);
   --color-foreground: var(--brand-fg);
-  --color-card: rgba(252, 251, 248, 0.05);
-  --color-border: rgba(252, 251, 248, 0.12);
+  --color-card: rgba(255, 255, 255, 0.03);
+  --color-border: rgba(255, 255, 255, 0.08);
 }
 
 /* Theme zone classes */
 .theme-light {
   --brand-bg: #FCFBF8;
-  --brand-fg: #0B0B0F;
+  --brand-fg: #050505;
   --color-background: var(--brand-bg);
   --color-foreground: var(--brand-fg);
   --color-card: var(--brand-bg);
@@ -162,17 +185,15 @@ html[data-nav-open="true"] {
 }
 
 .theme-dark {
-  --brand-bg: #0F0F13;
-  --brand-fg: #F5F5F0;
+  --brand-bg: #050505;
+  --brand-fg: #F2F2F2;
   --color-background: var(--brand-bg);
   --color-foreground: var(--brand-fg);
-  --color-card: rgba(245, 245, 240, 0.05);
+  --color-card: rgba(255, 255, 255, 0.03);
   --color-card-foreground: var(--brand-fg);
-  --color-border: rgba(245, 245, 240, 0.15);
+  --color-border: rgba(255, 255, 255, 0.08);
 }
 
-/* 안정화: html/body 전역 transition 제거 (렌더링 안정화) */
-/* Theme 전환은 AppShell의 data-theme으로 처리 (하위 호환성) */
 html.theme-light {
   background-color: var(--brand-bg);
   color: var(--brand-fg);
@@ -183,273 +204,286 @@ html.theme-dark {
   color: var(--brand-fg);
 }
 
-/* AppShell 기반 블렌딩 컬러 엔진 */
-/* use-blended-theme 훅이 --bg, --fg, --surface, --border 변수를 직접 설정 */
 #app-shell {
-  /* 안정화: transition 최소화 (180ms) */
-  transition: background-color 180ms ease, color 180ms ease;
+  transition: background-color 400ms cubic-bezier(0.16, 1, 0.3, 1), color 400ms cubic-bezier(0.16, 1, 0.3, 1);
   background: var(--bg, var(--brand-bg));
   color: var(--fg, var(--brand-fg));
 }
 
-/* 하위 호환성: data-theme 속성 (헤더/아이콘 스타일용) */
-#app-shell[data-theme="light"] {
-  /* 블렌딩 엔진이 우선, 이건 fallback */
-}
+#app-shell[data-theme="light"] {}
 
-#app-shell[data-theme="dark"] {
-  /* 블렌딩 엔진이 우선, 이건 fallback */
-}
+#app-shell[data-theme="dark"] {}
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  
-  /* 기본은 오버플로우 허용, 모바일에서만 가로 스크롤 방지 */
+
   html,
   body {
     width: 100%;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll globally */
   }
-  
+
   html {
     -webkit-text-size-adjust: 100%;
     text-rendering: geometricPrecision;
-    transition: background-color 180ms ease, color 180ms ease;
   }
-  
+
   body {
     @apply antialiased;
     background: var(--bg, var(--brand-bg));
     color: var(--fg, var(--brand-fg));
-    transition: background-color 180ms ease, color 180ms ease;
-    font-feature-settings: "kern" 1, "liga" 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     font-family: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont,
       "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    /* Cheil Style Craft */
+    letter-spacing: -0.01em;
+    font-feature-settings: "ss01", "ss02", "salt";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Global Noise Overlay */
+    position: relative;
   }
-  
-  /* Cheil 스타일 타이포그래피 */
-  h1, h2, h3, h4, h5, h6 {
+
+  /* Noise Texture Pseudo-element */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+  }
+
+  /* Cheil Massive Typography */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-bold tracking-tight;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    /* Very tight for impact */
     font-weight: 700;
   }
-  
+
   h1 {
-    font-size: clamp(2.5rem, 6vw, 5.5rem);
-    line-height: 0.95;
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    /* Massive Scale */
+    line-height: 0.9;
     font-weight: 800;
   }
-  
+
   h2 {
-    font-size: clamp(1.75rem, 3vw, 2.75rem);
-    line-height: 1.05;
-    font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.0;
+    font-weight: 800;
   }
-  
+
   h3 {
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-size: clamp(1.75rem, 4vw, 3rem);
     line-height: 1.1;
     font-weight: 700;
   }
-  
-  /* Heading 계열 클래스 */
+
+  h4 {
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  /* Heading Helper */
   .heading {
     font-weight: 700;
+    letter-spacing: -0.03em;
   }
-  
-  /* 링크 스타일 - 미묘한 underline */
+
+  /* Link Styles */
   a {
-    @apply transition-colors duration-200;
+    @apply transition-colors duration-300 ease-out;
     text-decoration: none;
   }
-  
+
   a:hover {
     @apply text-[var(--brand-primary)];
   }
-  
+
   /* Selection */
   ::selection {
-    background-color: rgba(87, 94, 207, 0.2);
-    color: var(--brand-fg);
+    background-color: var(--brand-primary);
+    color: #ffffff;
   }
-  
-  /* 스크롤바 미니멀 스타일 */
+
+  /* Scrollbar Minimal */
   ::-webkit-scrollbar {
-    @apply w-2;
+    @apply w-1.5;
   }
-  
+
   ::-webkit-scrollbar-track {
     @apply bg-transparent;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background-color: var(--brand-muted);
+    /* Darker thumb */
     @apply rounded-full;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--brand-muted);
-    opacity: 0.8;
+    background-color: var(--brand-fg);
   }
-  
-  /* Horizontal slider scrollbar hide */
-  .horizontal-slider-container::-webkit-scrollbar {
+
+  /* Hide scrollbars for specific containers */
+  .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-  
-  .horizontal-slider-container {
+
+  .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
-  /* Filter bar scrollbar hide */
-  .filter-bar-scroll::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .filter-bar-scroll {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  
-  /* 포커스 스타일 */
-  :focus-visible {
-    @apply outline-2 outline-offset-2;
-    outline-color: var(--brand-primary);
-  }
-  
-  /* 라인 스타일 */
-  hr {
-    border-color: var(--brand-muted);
-    @apply border-t;
-  }
-  
+
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
-    
-    /* 테마 전환도 빠르게 */
-    body {
-      transition-property: background-color, color !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-}
-
-/* 모바일 전용: 헤더/히어로 안정화를 위한 가로 스크롤 방지 */
-@media (max-width: 768px) {
-  html,
-  body {
-    overflow-x: hidden;
   }
 }
 
 @layer utilities {
-  /* Cheil 스타일 섹션 타이틀 */
+
+  /* Cheil Style Section Title */
   .section-title {
-    font-size: clamp(1.75rem, 3vw, 2.75rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
     @apply font-bold;
-    font-weight: 700;
+    font-weight: 800;
   }
-  
+
   .section-subtitle {
-    font-size: clamp(0.9375rem, 1vw, 1rem);
-    line-height: 1.75;
-    color: rgba(11, 11, 15, 0.7);
-    max-width: 72ch;
+    font-size: clamp(1rem, 1.2vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--brand-fg);
+    opacity: 0.7;
+    max-width: 60ch;
   }
-  
-  /* 풀블리드 비디오/히어로 */
-  .fullbleed {
+
+  /* Container Fluid - Wider, expansive */
+  .container-fluid {
     width: 100%;
-    margin-left: 0;
-    transform: none;
+    max-width: 1800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(1rem, 4vw, 3rem);
+    padding-right: clamp(1rem, 4vw, 3rem);
   }
-  
-  @media (min-width: 1024px) {
-    .fullbleed {
-      width: 100vw;
-      margin-left: 50%;
-      transform: translateX(-50%);
-    }
+
+  /* Container Offset - Asymmetrical Logic */
+  .container-offset {
+    width: 100%;
+    margin-left: auto;
+    padding-left: clamp(1rem, 15vw, 20vw);
+    /* Significant left padding */
+    padding-right: clamp(1rem, 4vw, 3rem);
   }
-  
-  /* Hover underline 애니메이션 */
+
+  /* Fullbleed */
+  .fullbleed {
+    width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Artistic Gradients */
+  .bg-aurora {
+    background:
+      radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+      radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+  }
+
+  .dark .bg-aurora {
+    background:
+      radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+      radial-gradient(at 50% 0%, hsla(225, 39%, 20%, 1) 0, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(339, 49%, 20%, 1) 0, transparent 50%);
+  }
+
+  /* Hover Underline - Bold */
   .hover-underline {
-    @apply relative;
+    position: relative;
+    display: inline-block;
   }
-  
+
   .hover-underline::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-0 h-[1px] bg-current transition-all duration-300;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: currentColor;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  
+
   .hover-underline:hover::after {
-    @apply w-full;
+    width: 100%;
   }
-  
-  /* 텍스트 balance (긴 타이틀용) */
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  /* Marquee 애니메이션 */
+
+  /* Marquee */
   @keyframes marquee {
     0% {
       transform: translateX(0);
     }
+
     100% {
       transform: translateX(-50%);
     }
   }
-  
+
   .animate-marquee {
     animation: marquee 45s linear infinite;
   }
-  
+
   .animate-marquee-slow {
-    animation: marquee 60s linear infinite;
+    animation: marquee 80s linear infinite;
   }
-  
+
   .animate-marquee-fast {
-    animation: marquee 30s linear infinite;
+    animation: marquee 25s linear infinite;
   }
-  
+
   .animate-marquee:hover {
     animation-play-state: paused;
   }
-  
-  /* 안정화: scroll-snap 유틸리티 제거 (렌더링 안정화) */
-  
-  /* 안전한 카드 hover 스타일 - transform + opacity만 사용 */
+
+  /* Card Hover Effect - Safe transform */
   .card-hover-safe {
-    transform: translate3d(0, 0, 0);
-    transition: transform 200ms ease-out, opacity 200ms ease-out;
-    contain: paint;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    will-change: transform;
   }
-  
-  /* PC에서만 hover 적용 (모바일 영향 없음) */
-  @media (hover: hover) and (pointer: fine) {
+
+  @media (hover: hover) {
     .card-hover-safe:hover {
-      transform: translate3d(0, -6px, 0);
-    }
-  }
-  
-  /* Reduced motion 대응 */
-  @media (prefers-reduced-motion: reduce) {
-    .card-hover-safe {
-      transition: none;
+      transform: translateY(-8px) scale(1.01);
     }
   }
 }

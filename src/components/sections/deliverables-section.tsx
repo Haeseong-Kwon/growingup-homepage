@@ -1,12 +1,12 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Search, 
-  Target, 
-  FileText, 
+import {
+  Search,
+  Target,
+  FileText,
   BarChart3,
-  CheckCircle2 
+  CheckCircle2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Section } from "@/components/layout/section";
@@ -17,11 +17,13 @@ interface DeliverableItem {
   title: string;
   items: string[];
   icon: typeof Search;
+  description: string;
 }
 
 const deliverableGroups: DeliverableItem[] = [
   {
     title: "조사/분석",
+    description: "시장의 기회를 발견하는 데이터 분석",
     items: [
       "3C 분석 (고객/경쟁/자사)",
       "타겟 페르소나 카드",
@@ -32,6 +34,7 @@ const deliverableGroups: DeliverableItem[] = [
   },
   {
     title: "전략/기획",
+    description: "성공 확률을 높이는 정교한 설계",
     items: [
       "채널별 KPI 설정",
       "미디어믹스 플랜",
@@ -42,6 +45,7 @@ const deliverableGroups: DeliverableItem[] = [
   },
   {
     title: "제작/실행",
+    description: "고객의 마음을 움직이는 크리에이티브",
     items: [
       "크리에이티브 가이드",
       "숏폼/롱폼 콘텐츠",
@@ -52,6 +56,7 @@ const deliverableGroups: DeliverableItem[] = [
   },
   {
     title: "측정/학습",
+    description: "지속적 성장을 위한 데이터 자산화",
     items: [
       "주간 성과 리포트",
       "월간 인사이트 리뷰",
@@ -68,71 +73,75 @@ export function DeliverablesSection() {
       data-palette="light"
       data-theme="light"
       data-section="deliverables"
-      data-band="120"
-      variant="default"
-      divider="top"
-      minHeight="auto"
-      className="py-12 md:py-16"
+      className="py-32 bg-[#F8F9FA]"
     >
       <Container>
         {/* 섹션 헤더 */}
         <MediaReveal intensity="subtle">
-          <div className="mb-12 md:mb-16">
-            <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
-              산출물
+          <div className="mb-20 text-center max-w-3xl mx-auto">
+            <div className="text-sm font-bold text-[var(--brand-primary)] mb-4 uppercase tracking-widest border-2 border-[var(--brand-primary)] rounded-full px-4 py-1 inline-block">
+              Deliverables
             </div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--brand-fg)] mb-4 leading-tight">
-              협업 시 제공되는 산출물
+            <h2 className="text-4xl md:text-5xl font-black text-black mb-6 leading-[0.95] tracking-tighter">
+              WHAT YOU<br />ACTUALLY GET
             </h2>
-            <div className="space-y-2 text-base md:text-lg text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
-              <p>모든 산출물은 재사용 가능한 형태로 DB화됩니다.</p>
-              <p>프로젝트 종료 후에도 내부 자산으로 활용할 수 있습니다.</p>
-            </div>
+            <p className="text-lg text-black/60 leading-relaxed">
+              모호한 조언이 아닌, 실체 있는 결과물을 제공합니다.<br className="hidden md:block" />
+              모든 산출물은 귀사의 영구적인 자산이 됩니다.
+            </p>
           </div>
         </MediaReveal>
 
-        {/* 카드 그리드 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8">
+        {/* 카드 그리드 - Floating Glass Style */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {deliverableGroups.map((group, index) => {
             const Icon = group.icon;
             return (
-              <div key={index}>
+              <div
+                key={index}
+                className="group relative h-full"
+                style={{ marginTop: index % 2 === 1 ? '3rem' : '0' }} // Staggered grid effect
+              >
+                {/* Shadow blob */}
+                <div className="absolute inset-x-4 bottom-0 h-4 bg-black/20 blur-xl rounded-[100%] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
                 <Card
                   className={cn(
-                    "group relative border-2 flex flex-col",
-                    "bg-[var(--brand-bg)]",
-                    "border-[var(--color-border)]",
-                    "h-full min-h-[280px]",
-                    "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
-                    "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40",
-                    "shadow-sm"
+                    "relative h-full border-none overflow-visible",
+                    "bg-white",
+                    "transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]",
+                    "hover:-translate-y-4 hover:shadow-2xl",
+                    "flex flex-col rounded-3xl"
                   )}
                 >
-                  <CardHeader className="pb-4">
-                    {/* 배경 그라데이션 효과 */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
-                    
-                    {/* 아이콘 + 타이틀 */}
-                    <div className="flex items-center gap-3 mb-4 relative z-10">
-                      <div className="w-10 h-10 rounded-lg bg-[var(--brand-primary)]/10 flex items-center justify-center group-hover:bg-[var(--brand-primary)]/20 transition-colors duration-200 ease-out motion-reduce:transition-none">
-                        <Icon className="w-5 h-5 text-[var(--brand-primary)]" />
+                  <CardHeader className="pt-8 pb-4 px-8 relative z-10">
+                    <div className="mb-6 flex justify-between items-start">
+                      <div className="w-14 h-14 rounded-2xl bg-[#F2F2F2] flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                        <Icon className="w-7 h-7 text-black group-hover:text-[var(--brand-primary)] transition-colors duration-300" />
                       </div>
-                      <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)]">
-                        {group.title}
-                      </CardTitle>
+                      <span className="text-6xl font-black text-black/5 select-none absolute top-4 right-4 leading-none">
+                        0{index + 1}
+                      </span>
                     </div>
+
+                    <CardTitle className="text-2xl font-bold text-black mb-2">
+                      {group.title}
+                    </CardTitle>
+                    <p className="text-sm text-black/50 font-medium">
+                      {group.description}
+                    </p>
                   </CardHeader>
 
-                  <CardContent className="pt-0 flex-1 flex flex-col relative z-10">
-                    {/* 리스트 항목들 */}
-                    <ul className="space-y-3">
+                  <CardContent className="px-8 pb-8 pt-2 flex-1 relative z-10">
+                    <div className="w-full h-px bg-black/5 mb-6" />
+                    <ul className="space-y-4">
                       {group.items.map((item, itemIndex) => (
                         <li
                           key={itemIndex}
-                          className="flex items-start gap-2.5"
+                          className="flex items-start gap-3 group/item"
                         >
-                          <CheckCircle2 className="w-4 h-4 text-[var(--brand-primary)] mt-0.5 flex-shrink-0" />
-                          <span className="text-sm text-[var(--brand-fg)]/80 leading-relaxed">
+                          <CheckCircle2 className="w-5 h-5 text-[var(--brand-primary)]/40 group-hover/item:text-[var(--brand-primary)] mt-0.5 flex-shrink-0 transition-colors" />
+                          <span className="text-sm font-medium text-black/70 group-hover/item:text-black transition-colors">
                             {item}
                           </span>
                         </li>

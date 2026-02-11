@@ -7,16 +7,18 @@ import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { VideoHero } from "@/components/hero/video-hero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, ArrowUpRight, Sparkles, Zap, Target, TrendingUp, Store, Book, Search, Palette, Share2, Users, RefreshCw } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Sparkles, Zap, Target, TrendingUp, Store, Book, Palette } from "lucide-react";
 import { SplitTextReveal } from "@/components/motion/split-text-reveal";
 import { MediaReveal } from "@/components/motion/media-reveal";
+import { SkewScroll } from "@/components/motion/skew-scroll";
+import { Magnetic } from "@/components/motion/magnetic";
 import { HorizontalSlider } from "@/components/sections/horizontal-slider";
 import { ExecutionCasesSection } from "@/components/sections/execution-cases-section";
 import { DeliverablesSection } from "@/components/sections/deliverables-section";
 import { Accordion } from "@/components/ui/accordion";
-import { KpiBadge } from "@/components/ui/kpi-badge";
 import { PerformanceCard } from "@/components/sections/performance-card";
 import { useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 // 더미 데이터 - 진행 중인 프로젝트
 const ongoingProjects = [
@@ -97,22 +99,6 @@ const faqItems = [
     question: "정산은 언제 이루어지나요?",
     answer: "프로젝트 단계별 마일스톤 완료 시 정산이 이루어집니다. 계약서에 명시된 조건에 따라 진행됩니다.",
   },
-  {
-    question: "작업물 검수는 어떻게 하나요?",
-    answer: "각 단계별로 작업물을 공유하며 피드백을 받습니다. 최종 검수는 프로젝트 완료 전에 진행됩니다.",
-  },
-  {
-    question: "어떤 분야의 외주를 모집하나요?",
-    answer: "마케팅, 디자인, 개발, 콘텐츠 제작, 데이터 분석 등 다양한 분야의 전문가를 모집하고 있습니다.",
-  },
-  {
-    question: "프로젝트 참여 시 필요한 자격은 무엇인가요?",
-    answer: "관련 분야 경력과 포트폴리오가 필요합니다. 자세한 사항은 외주 파트너 등록 페이지를 참고해주세요.",
-  },
-  {
-    question: "비용은 어떻게 책정되나요?",
-    answer: "프로젝트 규모, 기간, 난이도에 따라 차등 책정됩니다. 무료 상담을 통해 정확한 견적을 받아보실 수 있습니다.",
-  },
 ];
 
 
@@ -145,43 +131,8 @@ const portfolioCases = [
 ];
 
 export default function HomePage() {
-  // 개발 환경에서만 폭 초과 요소 찾기
-  useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
-      const checkOverflow = () => {
-        const root = document.documentElement;
-        const vw = root.clientWidth;
-        const offenders = [...document.querySelectorAll("*")]
-          .filter((el) => el instanceof HTMLElement)
-          .filter((el) => el.scrollWidth > vw + 1)
-          .slice(0, 20)
-          .map((el) => ({
-            tag: el.tagName,
-            cls: el.className,
-            scrollWidth: el.scrollWidth,
-            clientWidth: el.clientWidth,
-            offsetWidth: el.offsetWidth,
-          }));
-        if (offenders.length > 0) {
-          console.log("[overflow offenders]", { vw, offenders });
-        }
-      };
-
-      // 초기 체크
-      checkOverflow();
-
-      // 리사이즈 시에도 체크
-      const resizeObserver = new ResizeObserver(checkOverflow);
-      resizeObserver.observe(document.body);
-
-      return () => {
-        resizeObserver.disconnect();
-      };
-    }
-  }, []);
-
   return (
-    <div className="relative overflow-x-clip md:overflow-visible">
+    <div className="relative overflow-x-hidden md:overflow-visible">
       {/* [0] Video Hero - brand palette */}
       <VideoHero
         line1="런칭을 기획서가 아닌"
@@ -198,489 +149,274 @@ export default function HomePage() {
         }}
       />
 
-      {/* [1] "Why GrowingUp" - light */}
+      {/* [1] "Why GrowingUp" - Broken Grid & Massive Typography */}
       <Section
         data-palette="light"
         data-theme="light"
         data-section="why-growingup"
-        data-band="160"
-        theme="light"
-        variant="default"
-        divider="top"
+        className="py-32 lg:py-48"
         bleed={true}
-        minHeight="medium"
+        withContainer={false}
       >
-        <Container>
-          <div className="mb-16 md:mb-20">
-            <SplitTextReveal
-              text="왜 GrowingUp인가"
-              as="h2"
-              align="left"
-              split="words"
-              direction="lr"
-              className="mb-6"
-            />
-            <p className="text-lg md:text-xl text-[var(--brand-fg)]/70 max-w-3xl leading-relaxed">
-              데이터 기반의 정확한 진단과 실행력으로 비즈니스의 본질적인 성장을 만들어갑니다.
-            </p>
-          </div>
+        <Container variant="fluid" className="px-6 lg:px-24">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-32 items-start mb-24 lg:mb-32">
+            <div className="lg:w-1/3 sticky top-32">
+              <SplitTextReveal
+                text="왜 GrowingUp인가"
+                as="h2"
+                align="left"
+                className="text-6xl lg:text-8xl font-black leading-[0.9] tracking-tighter mb-8 text-black"
+              />
+              <p className="text-xl text-black/60 leading-relaxed max-w-sm">
+                데이터 기반의 정확한 진단과 실행력으로 비즈니스의 본질적인 성장을 만들어갑니다.
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            <Card className="border-2 hover:border-[var(--brand-primary)]/30 transition-transform transition-colors duration-200 ease-out [contain:paint] motion-reduce:transition-none hover:-translate-y-1 shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-xl md:text-2xl font-bold mb-3">
-                  데이터 기반 전략
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
-                  추측이 아닌 데이터로 의사결정합니다. 정확한 분석을 통해 최적의 솔루션을 제시합니다.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="border-2 hover:border-[var(--brand-primary)]/30 transition-transform transition-colors duration-200 ease-out [contain:paint] motion-reduce:transition-none hover:-translate-y-1 shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-xl md:text-2xl font-bold mb-3">
-                  크리에이티브 실행력
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
-                  아이디어를 현실로 만드는 실행력. 빠르고 정확한 구현으로 시장을 선도합니다.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="border-2 hover:border-[var(--brand-primary)]/30 transition-transform transition-colors duration-200 ease-out [contain:paint] motion-reduce:transition-none hover:-translate-y-1 shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-xl md:text-2xl font-bold mb-3">
-                  지속적인 최적화
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
-                  한 번의 성공으로 끝나지 않습니다. 지속적인 모니터링과 개선으로 성장을 이어갑니다.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+              {/* Broken Grid: Staggered Cards */}
+              <div className="space-y-8 lg:space-y-12 lg:mt-24">
+                <Card className="border-none bg-[#F2F2F2] rounded-3xl p-8 hover:bg-black hover:text-white transition-colors duration-500 group min-h-[320px] flex flex-col justify-between">
+                  <CardHeader className="p-0">
+                    <div className="text-4xl lg:text-5xl font-bold mb-4">01</div>
+                    <CardTitle className="text-2xl font-bold">데이터 기반 전략</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-0 mt-4">
+                    <p className="text-lg opacity-70 group-hover:opacity-90">추측이 아닌 데이터로 의사결정합니다. 정확한 분석을 통해 최적의 솔루션을 제시합니다.</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-none bg-[#F2F2F2] rounded-3xl p-8 hover:bg-black hover:text-white transition-colors duration-500 group min-h-[320px] flex flex-col justify-between">
+                  <CardHeader className="p-0">
+                    <div className="text-4xl lg:text-5xl font-bold mb-4">02</div>
+                    <CardTitle className="text-2xl font-bold">크리에이티브 실행력</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-0 mt-4">
+                    <p className="text-lg opacity-70 group-hover:opacity-90">아이디어를 현실로 만드는 실행력. 빠르고 정확한 구현으로 시장을 선도합니다.</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="space-y-8 lg:space-y-12">
+                <Card className="border-none bg-[#F2F2F2] rounded-3xl p-8 hover:bg-black hover:text-white transition-colors duration-500 group min-h-[320px] flex flex-col justify-between">
+                  <CardHeader className="p-0">
+                    <div className="text-4xl lg:text-5xl font-bold mb-4">03</div>
+                    <CardTitle className="text-2xl font-bold">지속적인 최적화</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-0 mt-4">
+                    <p className="text-lg opacity-70 group-hover:opacity-90">한 번의 성공으로 끝나지 않습니다. 지속적인 모니터링과 개선으로 성장을 이어갑니다.</p>
+                  </CardContent>
+                </Card>
+                {/* Abstract Decorative Element */}
+                <div className="hidden md:block h-[320px] rounded-3xl bg-[var(--brand-primary)]/10 flex items-center justify-center overflow-hidden relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[var(--brand-primary)]/20 to-transparent mix-blend-multiply" />
+                  <TrendingUp className="w-32 h-32 text-[var(--brand-primary)] opacity-20" />
+                </div>
+              </div>
+            </div>
           </div>
         </Container>
       </Section>
 
-      {/* [2] 실행 결과 - 성과 섹션 */}
+      {/* [2] 실행 결과 - Horizontal Staggered Layout */}
       <Section
-        data-palette="light"
-        data-theme="light"
-        data-section="performance"
-        data-band="120"
-        variant="default"
-        divider="top"
-        minHeight="auto"
-        className="py-12 md:py-16 relative overflow-hidden"
+        data-palette="dark"
+        data-theme="dark"
+        variant="ink"
+        className="py-32 lg:py-40 relative overflow-hidden"
+        withContainer={false}
       >
-        {/* 배경 장식 요소 */}
-        <div className="absolute top-0 left-0 w-64 h-64 md:w-96 md:h-96 rounded-full bg-[var(--brand-primary)]/5 blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-64 h-64 md:w-96 md:h-96 rounded-full bg-[var(--brand-secondary)]/5 blur-3xl pointer-events-none translate-x-1/2 translate-y-1/2" />
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[var(--brand-primary)]/20 via-transparent to-transparent opacity-50 blur-3xl pointer-events-none" />
 
-        <Container className="relative z-10">
-          {/* 섹션 제목 */}
-          <MediaReveal intensity="subtle">
-            <div className="text-center mb-8 md:mb-12">
-              <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
-                실행 결과
-              </div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--brand-fg)] mb-2">
-                숫자로 검증된 런칭 성과
+        <Container variant="fluid" className="px-6 lg:px-24">
+          <div className="grid lg:grid-cols-12 gap-12 items-end mb-20">
+            <div className="lg:col-span-5">
+              <div className="text-sm font-bold text-[var(--brand-primary)] mb-4 uppercase tracking-widest border-l-2 border-[var(--brand-primary)] pl-4">Proven Results</div>
+              <h2 className="text-5xl lg:text-7xl font-black text-white leading-[0.9] tracking-tighter">
+                NUMBERS<br /><span className="text-[var(--brand-primary)]">NEVER LIE</span>
               </h2>
             </div>
-          </MediaReveal>
-
-          {/* 성과 카드 3개 */}
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8 items-stretch">
-            <PerformanceCard
-              icon={TrendingUp}
-              title="Great 포터블 스크린"
-              number={3500}
-              numberSuffix="대 완판"
-              description="4주 집중 캠페인, 정식 런칭 1개월 내 완판 달성"
-              metrics={["ROAS 320%", "CPA 8,500원", "CTR 4.2%"]}
-              color="primary"
-              delay={0}
-            />
-            <PerformanceCard
-              icon={Store}
-              title="글라소 프랜차이즈"
-              number={20}
-              numberSuffix="개 점포"
-              description="SEO + 콘텐츠 마케팅으로 가맹 문의 월 50건 확보"
-              metrics={["리드 전환율 12%", "CAC 15만원", "1페이지 키워드 23개"]}
-              color="secondary"
-              delay={100}
-            />
-            <PerformanceCard
-              icon={Book}
-              title="와디즈 GPT 전자책"
-              number={400000000}
-              numberSuffix=" 펀딩"
-              description="한국 최초 GPT 활용 전자책, 펀딩률 4,000% 달성"
-              metrics={["후원자 3,200명", "평균 후원금 12.5만원", "펀딩률 4,000%"]}
-              color="hot1"
-              delay={200}
-            />
+            <div className="lg:col-span-7">
+              <p className="text-xl text-white/70 max-w-2xl leading-relaxed">
+                우리의 퍼포먼스는 단순한 수치가 아닌, 비즈니스 성장의 증거입니다.
+              </p>
+            </div>
           </div>
         </Container>
+
+        <div className="flex flex-col md:flex-row gap-6 lg:gap-8 px-6 lg:px-24 overflow-x-auto pb-12 snap-x snap-mandatory scrollbar-hide">
+          {[
+            { icon: TrendingUp, title: "Great 포터블 스크린", num: "3,500", suffix: "대 완판", desc: "4주 집중 캠페인", tag: "ROAS 320%" },
+            { icon: Store, title: "글라소 프랜차이즈", num: "20", suffix: "개 점포", desc: "SEO + 콘텐츠 마케팅", tag: "리드 월 50건" },
+            { icon: Book, title: "와디즈 GPT 전자책", num: "4.0", suffix: "억 펀딩", desc: "한국 최초 사례", tag: "펀딩률 4,000%" }
+          ].map((item, idx) => (
+            <div key={idx} className="min-w-[300px] md:min-w-[400px] snap-center">
+              <PerformanceCard
+                icon={item.icon}
+                title={item.title}
+                number={parseInt(item.num.replace(/,/g, ''))} // A bit hacky, but consistent with component
+                numberSuffix={item.suffix}
+                description={item.desc}
+                metrics={[item.tag]}
+                color={idx === 0 ? "primary" : idx === 1 ? "secondary" : "hot1"}
+                delay={idx * 100}
+              />
+            </div>
+          ))}
+        </div>
       </Section>
 
-      {/* [2-1] 실행 사례 섹션 */}
+      {/* [3] Execution Cases - Keep existing component but check its style later */}
       <ExecutionCasesSection />
 
-      {/* [3] Theme Switch Section - dark */}
+      {/* [4] Process - Dark Mode with Large Typography */}
       <Section
         data-palette="dark"
         data-theme="dark"
-        data-section="brand-creative"
-        data-band="120"
-        theme="dark"
         variant="ink"
-        divider="none"
-        bleed={true}
-        minHeight="medium"
-        edgeFade="both"
+        className="py-32"
+        withContainer={false}
       >
         <Container>
-          <div className="max-w-4xl mx-auto text-center relative">
-            {/* 여백 장식 요소 - 포인트컬러 원형 그라데이션 */}
-            <div className="absolute -top-8 -left-8 w-32 h-32 md:w-48 md:h-48 rounded-full bg-[var(--brand-primary)]/20 blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-8 -right-8 w-32 h-32 md:w-48 md:h-48 rounded-full bg-[var(--brand-secondary)]/20 blur-3xl pointer-events-none" />
-            
-            <div className="relative z-10">
-              <SplitTextReveal
-                text="브랜드와 크리에이티브, 실행력의 완벽한 조화"
-                as="h2"
-                align="center"
-                split="words"
-                direction="lr"
-                className="text-white mb-8"
-              />
-              <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto mb-12 md:mb-16">
-                단순한 실행이 아닌, 전략적 사고와 창의적 솔루션이 만나는 지점에서 진정한 성장이 시작됩니다.
-              </p>
-
-              {/* 핵심 가치 카드 그리드 */}
-              <div className="grid md:grid-cols-3 gap-6 md:gap-8 mt-12">
-                {/* 브랜드 */}
-                <div className="group relative p-6 md:p-8 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-colors duration-200 ease-out [contain:paint] motion-reduce:transition-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-primary)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none" />
-                  <div className="mb-4 text-center">
-                    <div className="w-12 h-12 rounded-lg bg-[var(--brand-primary)]/20 flex items-center justify-center mb-4 mx-auto group-hover:bg-[var(--brand-primary)]/30 transition-colors">
-                      <Sparkles className="w-6 h-6 text-[var(--brand-primary)]" />
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
-                      브랜드
-                    </h3>
-                  </div>
-                  <p className="text-sm md:text-base text-white/70 leading-relaxed">
-                    차별화된 브랜드 아이덴티티로 시장에서 독보적인 위치를 확보합니다.
-                  </p>
-                </div>
-
-                {/* 크리에이티브 */}
-                <div className="group relative p-6 md:p-8 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-colors duration-200 ease-out [contain:paint] motion-reduce:transition-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-secondary)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none" />
-                  <div className="mb-4 text-center">
-                    <div className="w-12 h-12 rounded-lg bg-[var(--brand-secondary)]/20 flex items-center justify-center mb-4 mx-auto group-hover:bg-[var(--brand-secondary)]/30 transition-colors">
-                      <Zap className="w-6 h-6 text-[var(--brand-secondary)]" />
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
-                      크리에이티브
-                    </h3>
-                  </div>
-                  <p className="text-sm md:text-base text-white/70 leading-relaxed">
-                    혁신적인 아이디어와 창의적 솔루션으로 고객의 니즈를 뛰어넘습니다.
-                  </p>
-                </div>
-
-                {/* 실행력 */}
-                <div className="group relative p-6 md:p-8 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-colors duration-200 ease-out [contain:paint] motion-reduce:transition-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-hot1)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none" />
-                  <div className="mb-4 text-center">
-                    <div className="w-12 h-12 rounded-lg bg-[var(--brand-hot1)]/20 flex items-center justify-center mb-4 mx-auto group-hover:bg-[var(--brand-hot1)]/30 transition-colors">
-                      <Target className="w-6 h-6 text-[var(--brand-hot1)]" />
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
-                      실행력
-                    </h3>
-                  </div>
-                  <p className="text-sm md:text-base text-white/70 leading-relaxed">
-                    빠르고 정확한 실행으로 전략을 현실로 만들어 성과를 창출합니다.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* [4] Process / How we work - dark 유지 */}
-      <Section
-        data-palette="dark"
-        data-theme="dark"
-        data-section="process"
-        data-band="160"
-        theme="dark"
-        variant="ink"
-        divider="none"
-        bleed={true}
-        minHeight="medium"
-        edgeFade="both"
-      >
-        <Container>
-          <div className="mb-12 md:mb-16">
-            <div className="text-center mb-4">
-              <div className="text-sm md:text-base font-medium text-white/60 mb-2 uppercase tracking-wide">
-                운영 프레임워크
-              </div>
-              <SplitTextReveal
-                text="GrowingUp Marketing OS"
-                as="h2"
-                align="center"
-                split="words"
-                direction="lr"
-                className="text-white mb-4"
-              />
-            </div>
-            <div className="text-center text-white/80 max-w-2xl mx-auto space-y-2">
-              <p>5단계 운영 루프로 런칭의 불확실성을 체계적으로 관리합니다.</p>
-              <p>각 단계마다 명확한 산출물과 의사결정 기준을 제공합니다.</p>
-            </div>
+          <div className="text-center mb-24">
+            <h2 className="text-4xl lg:text-6xl font-black text-white mb-6 tracking-tight">
+              GrowingUp <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--brand-primary)] to-[var(--brand-secondary)]">Marketing OS</span>
+            </h2>
+            <p className="text-xl text-white/60 max-w-3xl mx-auto">
+              5단계 운영 루프로 런칭의 불확실성을 체계적으로 관리하며,<br className="hidden md:block" />
+              각 단계마다 명확한 산출물과 의사결정 기준을 제공합니다.
+            </p>
           </div>
           <HorizontalSlider items={processSteps} dark={true} intervalMs={3000} />
-          <div className="mt-12 text-center">
+
+          <div className="mt-20 text-center">
             <Button
               asChild
               size="lg"
-              className="bg-white text-[var(--brand-primary)] hover:bg-white/90 rounded-lg h-12 px-8 text-base font-bold"
+              className="rounded-full bg-white text-black hover:bg-white/90 px-12 h-16 text-lg font-bold transition-all hover:scale-105"
             >
               <Link href="/apply">외주 파트너 등록</Link>
             </Button>
-        </div>
+          </div>
         </Container>
       </Section>
 
-      {/* [4-1] Deliverables Section - light */}
       <DeliverablesSection />
 
-      {/* [5] Ongoing Projects Preview - light로 전환 */}
+      {/* [5] Ongoing Projects - Masonry-ish List */}
       <Section
         data-palette="light"
         data-theme="light"
-        data-section="ongoing-projects"
-        data-band="120"
-        variant="default"
-        divider="top"
-        minHeight="medium"
-        edgeFade="both"
+        className="py-32 lg:py-48 bg-white"
+        withContainer={false}
       >
-        <Container>
-          <div className="mb-12 md:mb-16">
-            <h2 className="section-title text-balance mb-4">
-              진행 중인 프로젝트
-            </h2>
-            <p className="text-lg text-[var(--brand-fg)]/70 max-w-2xl">
-              현재 진행 중인 다양한 프로젝트를 확인하세요.
-              </p>
+        <Container variant="fluid" className="px-6 lg:px-24">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 border-b border-black/10 pb-8">
+            <div>
+              <h2 className="text-5xl lg:text-7xl font-black tracking-tighter mb-4">ONGOING<br />PROJECTS</h2>
+              <p className="text-xl text-black/60">현재 진행 중인 다양한 프로젝트</p>
             </div>
-
-          <MediaReveal>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {ongoingProjects.map((project) => (
-                <Link key={project.id} href={project.href || "/projects"}>
-                  <Card className="h-full border-2 hover:border-[var(--brand-primary)]/30 transition-transform transition-colors duration-200 ease-out [contain:paint] motion-reduce:transition-none hover:-translate-y-1 cursor-pointer shadow-sm">
-                    <CardHeader>
-                      <div className="text-xs font-bold text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
-                        {project.category}
-                      </div>
-                      <CardTitle className="text-xl md:text-2xl font-bold mb-3">
-                        {project.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
-                        {project.description}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </Link>
-          ))}
-        </div>
-          </MediaReveal>
-
-          <div className="mt-12 text-center">
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="rounded-lg h-12 px-8 text-base font-bold"
-            >
-              <Link href="/projects">
-                전체 프로젝트 보기
-                <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
+            <Button asChild variant="outline" className="rounded-full px-8 h-12 border-black/20 hover:bg-black hover:text-white transition-colors">
+              <Link href="/projects">VIEW ALL PROJECTS <ArrowRight className="ml-2 w-4 h-4" /></Link>
             </Button>
-        </div>
+          </div>
+
+          <SkewScroll skewIntensity={0.5}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+              {ongoingProjects.map((project, i) => (
+                <Link key={project.id} href={project.href} className={cn("group block", i % 2 !== 0 ? "md:mt-24" : "")}>
+                  <div className="aspect-[4/3] bg-[#F2F2F2] mb-6 rounded-2xl overflow-hidden relative">
+                    <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
+                    <div className="absolute top-6 left-6 px-4 py-2 bg-white rounded-full text-xs font-bold uppercase tracking-wider">{project.category}</div>
+                    {/* Placeholder for project image */}
+                    <div className="w-full h-full flex items-center justify-center text-black/20 group-hover:scale-105 transition-transform duration-700">
+                      <Palette className="w-16 h-16" />
+                    </div>
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2 group-hover:text-[var(--brand-primary)] transition-colors">{project.title}</h3>
+                  <p className="text-black/60 leading-relaxed">{project.description}</p>
+                </Link>
+              ))}
+            </div>
+          </SkewScroll>
         </Container>
       </Section>
 
-      {/* [6] Portfolio / Case Highlights - light */}
+      {/* [6] Portfolio - Parallax/Big Cards */}
       <Section
         data-palette="light"
         data-theme="light"
-        data-section="portfolio"
-        data-band="120"
         variant="tinted"
-        divider="top"
-        bleed={true}
-        minHeight="medium"
+        className="py-32"
+        withContainer={false}
       >
         <Container>
-          <div className="mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              포트폴리오 하이라이트
-            </h2>
-            <p className="text-lg text-[var(--brand-fg)]/70 max-w-2xl">
-              성공적인 프로젝트 사례를 통해 우리의 역량을 확인하세요.
-            </p>
+          <div className="mb-20">
+            <h2 className="text-4xl lg:text-6xl font-black tracking-tighter mb-6">SELECTED<br />WORKS</h2>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="flex flex-col gap-32">
             {portfolioCases.map((caseItem, index) => (
-              <Link key={index} href={caseItem.href || "#"} className="group">
-                <Card className="h-full border-2 overflow-hidden hover:border-[var(--brand-primary)]/30 transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none hover:-translate-y-1 shadow-sm">
-                  <div className="relative aspect-video overflow-hidden bg-[var(--brand-muted-light)]">
-                    <Image
-                      src={caseItem.image}
-                      alt={caseItem.title}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
+              <div key={index} className="group grid md:grid-cols-2 gap-12 lg:gap-24 items-center">
+                <div className={cn("relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl", index % 2 !== 0 ? "md:order-2" : "")}>
+                  <Image
+                    src={caseItem.image}
+                    alt={caseItem.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                </div>
+                <div className={cn("space-y-8", index % 2 !== 0 ? "md:order-1 text-right" : "")}>
+                  <div className="inline-block px-4 py-2 rounded-full border border-black/10 text-sm font-bold uppercase tracking-wider">
+                    {caseItem.category}
                   </div>
-                  <CardHeader className="relative">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="px-3 py-1 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]">
-                        {caseItem.category}
-                      </span>
-                      <ArrowUpRight className="w-5 h-5 text-[var(--brand-fg)]/50 group-hover:text-[var(--brand-primary)] transition-colors" />
-                    </div>
-                    <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] leading-tight">
-                      {caseItem.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
-                      {caseItem.summary}
-                    </p>
-                    <div className="pt-4 border-t border-[var(--brand-muted)]">
-                      <div className="text-xs font-medium text-[var(--brand-fg)]/60 mb-2 uppercase tracking-wide">
-                        성과
-                      </div>
-                      <div className="text-lg md:text-xl font-bold text-[var(--brand-primary)]">
-                        {caseItem.result}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
+                  <h3 className="text-4xl lg:text-5xl font-bold leading-tight decoration-2 group-hover:underline decoration-[var(--brand-primary)] underline-offset-8 transition-all">
+                    {caseItem.title}
+                  </h3>
+                  <p className="text-xl text-black/60 leading-relaxed">{caseItem.summary}</p>
+
+                  <div className={cn("flex flex-col", index % 2 !== 0 ? "items-end" : "items-start")}>
+                    <div className="text-sm text-black/40 font-bold uppercase tracking-widest mb-1">Result</div>
+                    <div className="text-3xl lg:text-4xl font-black text-[var(--brand-primary)]">{caseItem.result}</div>
+                  </div>
+
+                  <Button asChild variant="link" className="p-0 text-lg font-bold hover:text-[var(--brand-primary)]">
+                    <Link href={caseItem.href}>View Case Study <ArrowUpRight className="ml-2 w-5 h-5" /></Link>
+                  </Button>
+                </div>
+              </div>
             ))}
           </div>
-
-          <div className="mt-12 text-center">
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="rounded-lg h-12 px-8 text-base font-bold"
-            >
-              <Link href="/portfolio">
-                포트폴리오 보기
-                <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-            </Button>
-        </div>
         </Container>
       </Section>
 
-      {/* [8] FAQ - light */}
-      <Section
-        data-palette="light"
-        data-theme="light"
-        data-section="faq"
-        data-band="160"
-        variant="tinted"
-        divider="top"
-        bleed={true}
-        minHeight="medium"
-      >
+      {/* FAQ & CTA */}
+      <Section className="py-32 bg-white">
         <Container>
-          <div className="mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-              자주 묻는 질문
-            </h2>
-            <p className="text-center text-[var(--brand-fg)]/70 max-w-2xl mx-auto">
-              프로젝트 참여와 서비스 이용에 대한 궁금증을 해결해드립니다.
-            </p>
+          <div className="grid lg:grid-cols-2 gap-20">
+            <div>
+              <h2 className="text-4xl font-black mb-8">FAQ</h2>
+              <Accordion items={faqItems} />
+            </div>
+            <div className="bg-black text-white rounded-3xl p-12 flex flex-col justify-between min-h-[400px]">
+              <div>
+                <h2 className="text-4xl lg:text-5xl font-black mb-6 leading-[0.9]">READY TO<br />GROW UP?</h2>
+                <p className="text-white/70 text-lg">프로젝트 참여 신청 또는 마케팅 제안 요청을 통해 성장의 첫 걸음을 내딛어보세요.</p>
+              </div>
+              <div className="flex flex-col gap-4 mt-12">
+                <Magnetic strength={0.2}>
+                  <Button asChild size="lg" className="h-16 text-lg font-bold bg-white text-black hover:bg-white/90 rounded-full w-full">
+                    <Link href="/apply">Start a Project</Link>
+                  </Button>
+                </Magnetic>
+                <Magnetic strength={0.2}>
+                  <Button asChild size="lg" variant="outline" className="h-16 text-lg font-bold border-white/20 text-white hover:bg-white/10 rounded-full w-full">
+                    <Link href="/proposal">Request Proposal</Link>
+                  </Button>
+                </Magnetic>
+              </div>
+            </div>
           </div>
-          <div className="max-w-3xl mx-auto">
-            <Accordion items={faqItems} />
-          </div>
-        </Container>
-      </Section>
-
-      {/* [9] Final CTA - dark */}
-      <Section
-        data-palette="dark"
-        data-theme="dark"
-        data-section="final-cta"
-        data-band="120"
-        theme="dark"
-        variant="ink"
-        divider="none"
-        bleed={true}
-        minHeight="medium"
-        edgeFade="both"
-      >
-        <Container>
-        <div className="max-w-3xl mx-auto text-center">
-          <h2
-              className="font-bold tracking-tight mb-6 text-balance text-white"
-            style={{
-              fontSize: "clamp(2rem, 4vw, 3.5rem)",
-              lineHeight: "1.05",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            지금 바로 시작하세요
-          </h2>
-          <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed">
-              프로젝트 참여 신청 또는 마케팅 제안 요청을 통해 성장의 첫 걸음을 내딛어보세요.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              asChild
-              size="lg"
-                className="bg-white text-[var(--brand-primary)] hover:bg-white/90 rounded-lg h-12 px-8 text-base font-bold"
-            >
-                <Link href="/apply">프로젝트 참여 신청</Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-                className="border-2 border-white/30 bg-white/10 hover:bg-white/20 text-white rounded-lg h-12 px-8 text-base font-bold"
-            >
-                <Link href="/proposal">마케팅 제안 요청</Link>
-            </Button>
-          </div>
-        </div>
         </Container>
       </Section>
     </div>
