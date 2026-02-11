@@ -1,9 +1,5 @@
 "use client";
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Trophy } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { PortfolioItem } from "@/data/portfolio";
 
 interface PortfolioCardProps {
@@ -13,81 +9,65 @@ interface PortfolioCardProps {
 
 export function PortfolioCard({ portfolioItem, onClick }: PortfolioCardProps) {
   return (
-    <Card
+    <div
       onClick={onClick}
-      className={cn(
-        "group relative border-2 flex flex-col h-full overflow-hidden min-w-0 cursor-pointer",
-        "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
-        "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40",
-        "bg-[var(--brand-bg)] border-[var(--color-border)] shadow-sm"
-      )}
+      className="group relative cursor-pointer"
     >
-      {/* 배경 그라데이션 효과 */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent z-0" />
-
-      {/* 썸네일 */}
-      <div className="aspect-[16/10] relative overflow-hidden bg-[var(--brand-muted-light)]">
-        {portfolioItem.thumbnailUrl ? (
-          <div className="w-full h-full bg-gradient-to-br from-[var(--brand-primary)]/20 via-[var(--brand-secondary)]/20 to-[var(--brand-hot1)]/20" />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--brand-primary)]/10 via-[var(--brand-secondary)]/10 to-[var(--brand-hot1)]/10 transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none">
-            <span className="text-sm text-[var(--brand-fg)]/40 font-medium px-4 text-center">
-              {portfolioItem.title}
-            </span>
-          </div>
-        )}
-      </div>
-
-      <CardHeader className="relative z-10 pb-4 min-w-0">
-        {/* 카테고리 & 어워드 배지 */}
-        <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-          <Badge
-            variant="secondary"
-            className="uppercase tracking-wide bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] hover:bg-[var(--brand-primary)]/20"
-          >
-            {portfolioItem.category}
-          </Badge>
-          {portfolioItem.awards && portfolioItem.awards.length > 0 && (
-            <div className="flex items-center gap-1 text-xs font-medium text-[var(--brand-primary)]">
-              <Trophy className="h-3 w-3" />
-              <span>Awarded {portfolioItem.awards.length}</span>
+      {/* 이미지 컨테이너 - 모던한 비율과 둥근 모서리 */}
+      <div className="aspect-[4/3] relative overflow-hidden rounded-2xl bg-[var(--brand-muted-light)] mb-6">
+        {/* 호버 시 이미지 스케일 효과 */}
+        <div className="w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105">
+          {portfolioItem.thumbnailUrl ? (
+            <div className="w-full h-full bg-slate-200" /> // 실제 이미지 로직이 있다면 여기에 img 태그 사용
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--brand-muted)] to-[var(--brand-muted-light)]">
+              <span className="text-lg font-bold text-[var(--brand-fg)]/20 uppercase tracking-widest">
+                {portfolioItem.category}
+              </span>
             </div>
           )}
         </div>
 
-        {/* 제목 */}
-        <h3 className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-2 leading-tight break-words line-clamp-2">
+        {/* 오버레이 - 호버 시 등장 */}
+        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        {/* 우측 상단 화살표 아이콘 */}
+        <div className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out shadow-lg">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-black">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </div>
+      </div>
+
+      {/* 텍스트 정보 */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-3 text-xs uppercase tracking-wider font-bold text-[var(--brand-fg)]/40">
+          <span>{portfolioItem.category}</span>
+          <span className="w-1 h-1 rounded-full bg-[var(--brand-fg)]/20" />
+          <span>{portfolioItem.year}</span>
+        </div>
+
+        <h3 className="text-2xl md:text-3xl font-bold text-[var(--brand-fg)] leading-tight group-hover:text-[var(--brand-primary)] transition-colors duration-300">
           {portfolioItem.title}
         </h3>
 
-        {/* 클라이언트 */}
-        <p className="text-sm text-[var(--brand-fg)]/60 mb-3">
-          {portfolioItem.client}
+        <p className="text-[var(--brand-fg)]/60 line-clamp-2 leading-relaxed">
+          {portfolioItem.summary}
         </p>
 
-        {/* 메타: 연도 · 산업 */}
-        <div className="flex items-center gap-2 text-xs text-[var(--brand-fg)]/50 mb-3">
-          <span>{portfolioItem.year}</span>
-          <span>·</span>
-          <span>{portfolioItem.industry}</span>
-        </div>
-
-        {/* 태그 chips (최대 3개) */}
+        {/* 태그 */}
         {portfolioItem.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 min-w-0">
+          <div className="flex flex-wrap gap-2 pt-2">
             {portfolioItem.tags.slice(0, 3).map((tag, index) => (
-              <Badge
-                key={index}
-                variant="outline"
-                className="text-xs bg-[var(--brand-muted-light)] border-[var(--brand-muted)] text-[var(--brand-fg)]/70"
-              >
-                {tag}
-              </Badge>
+              <span key={index} className="text-xs px-2 py-1 rounded-md bg-[var(--brand-muted-light)] text-[var(--brand-fg)]/60">
+                #{tag}
+              </span>
             ))}
           </div>
         )}
-      </CardHeader>
-    </Card>
+      </div>
+    </div>
   );
 }
 

@@ -51,15 +51,15 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[999] bg-[#050505]/95 backdrop-blur-xl text-white flex flex-col"
+          className="fixed inset-0 z-[1001] bg-[#050505]/95 backdrop-blur-xl text-white flex flex-col"
         >
           {/* Close Button */}
-          <div className="absolute top-8 right-8 z-[1000]">
+          <div className="absolute top-6 right-6 md:top-8 md:right-8 z-[1002]">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => onOpenChange(false)}
-              className="rounded-full w-14 h-14 bg-white/5 hover:bg-white/20 text-white transition-all duration-300"
+              className="rounded-full w-12 h-12 md:w-14 md:h-14 bg-white/10 hover:bg-white/20 text-white transition-all duration-300 backdrop-blur-md"
             >
               <X className="w-6 h-6" />
             </Button>

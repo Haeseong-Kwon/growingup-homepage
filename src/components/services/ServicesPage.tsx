@@ -9,13 +9,15 @@ import { VideoHero } from "@/components/hero/video-hero";
 import { ServiceCard } from "./ServiceCard";
 import { servicesData } from "./servicesData";
 
+import { SplitTextReveal } from "@/components/motion/split-text-reveal";
+
 export function ServicesPage() {
   return (
     <div className="w-full overflow-x-hidden">
       {/* Hero */}
       <VideoHero
-        line1="목표에 맞는 런칭 파트너십"
-        line2=""
+        line1="목표에 맞는"
+        line2="런칭 파트너십"
         subtitle="빠른 검증이 필요한지, 체계적인 시스템 구축이 필요한지에 따라 최적의 협업 방식을 선택하세요."
         primaryCta={{
           label: "진단 요청",
@@ -31,17 +33,28 @@ export function ServicesPage() {
         variant="default"
         divider="top"
         minHeight="auto"
-        className="py-16 md:py-24"
+        className="py-24 md:py-32"
       >
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-stretch">
+          <div className="mb-20">
+            <SplitTextReveal
+              text="Our Services"
+              as="h2"
+              className="text-5xl md:text-7xl font-black tracking-tighter mb-8 text-[var(--brand-fg)]"
+            />
+            <p className="text-xl md:text-2xl text-[var(--brand-fg)]/60 max-w-2xl leading-relaxed">
+              비즈니스 단계와 목표에 최적화된 두 가지 핵심 솔루션을 제안합니다.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-stretch">
             <MediaReveal intensity="medium">
               <div id="sprint" className="scroll-mt-[calc(var(--header-h)+48px)] h-full">
                 <ServiceCard service={servicesData[0]} />
               </div>
             </MediaReveal>
             <MediaReveal intensity="medium" delay={100}>
-              <div id="partner" className="scroll-mt-[calc(var(--header-h)+48px)] h-full">
+              <div id="partner" className="scroll-mt-[calc(var(--header-h)+48px)] h-full lg:mt-24">
                 <ServiceCard service={servicesData[1]} />
               </div>
             </MediaReveal>
