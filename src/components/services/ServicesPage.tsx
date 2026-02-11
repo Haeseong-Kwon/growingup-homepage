@@ -27,22 +27,22 @@ export function ServicesPage() {
 
       {/* Services Grid */}
       <Section
-        data-palette="light"
-        data-theme="light"
+        data-palette="dark"
+        data-theme="dark"
         data-section="services-grid"
-        variant="default"
+        variant="ink"
         divider="top"
         minHeight="auto"
-        className="py-24 md:py-32"
+        className="py-24 md:py-32 bg-[#050505]"
       >
         <Container>
           <div className="mb-20">
             <SplitTextReveal
               text="Our Services"
               as="h2"
-              className="text-5xl md:text-7xl font-black tracking-tighter mb-8 text-[var(--brand-fg)]"
+              className="text-5xl md:text-7xl font-black tracking-tighter mb-8 text-white"
             />
-            <p className="text-xl md:text-2xl text-[var(--brand-fg)]/60 max-w-2xl leading-relaxed">
+            <p className="text-xl md:text-2xl text-white/60 max-w-2xl leading-relaxed">
               비즈니스 단계와 목표에 최적화된 두 가지 핵심 솔루션을 제안합니다.
             </p>
           </div>
@@ -68,11 +68,11 @@ export function ServicesPage() {
         data-theme="dark"
         data-section="services-cta"
         theme="dark"
-        variant="default"
+        variant="ink"
         divider="top"
         bleed={true}
         minHeight="auto"
-        className="py-16 md:py-24"
+        className="py-16 md:py-24 bg-[#050505]"
       >
         <Container>
           <MediaReveal intensity="subtle">

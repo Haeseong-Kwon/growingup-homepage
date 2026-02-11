@@ -18,26 +18,40 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <Section className="pt-24 md:pt-32 lg:pt-40 border-b">
+      <Section
+        className="pt-24 md:pt-32 lg:pt-40 border-b border-white/10"
+        data-palette="dark"
+        data-theme="dark"
+        variant="ink"
+      >
         <Container>
-          <h1 className="text-balance mb-6">문의하기</h1>
-          <p className="section-subtitle">
-            궁금하신 점이 있으시면 언제든지 연락주세요.
-          </p>
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-white text-balance">
+              문의하기
+            </h1>
+            <p className="text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl">
+              궁금하신 점이 있으시면 언제든지 연락주세요.
+            </p>
+          </div>
         </Container>
       </Section>
 
       {/* Contact Info & Form */}
-      <Section>
+      <Section
+        data-palette="dark"
+        data-theme="dark"
+        variant="ink"
+        className="py-16 md:py-24"
+      >
         <Container>
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             {/* Contact Info */}
             <div className="space-y-10">
               <div>
-                <h3 className="text-xl md:text-2xl font-medium tracking-tight mb-5">
+                <h3 className="text-xl md:text-2xl font-bold tracking-tight mb-5 text-white">
                   연락처
                 </h3>
-                <div className="space-y-3 text-[var(--brand-fg)]/60 leading-relaxed">
+                <div className="space-y-3 text-white/60 leading-relaxed">
                   <p>이메일: contact@growingup.com</p>
                   <p>전화: 02-1234-5678</p>
                   <p>주소: 서울특별시 강남구</p>
@@ -45,10 +59,10 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <h3 className="text-xl md:text-2xl font-medium tracking-tight mb-5">
+                <h3 className="text-xl md:text-2xl font-bold tracking-tight mb-5 text-white">
                   운영 시간
                 </h3>
-                <div className="space-y-2 text-[var(--brand-fg)]/60 leading-relaxed">
+                <div className="space-y-2 text-white/60 leading-relaxed">
                   <p>평일: 09:00 - 18:00</p>
                   <p>주말 및 공휴일: 휴무</p>
                 </div>
@@ -59,7 +73,7 @@ export default function ContactPage() {
             <div>
               <form className="space-y-6">
                 <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium">
+                  <label htmlFor="name" className="text-sm font-medium text-white/80">
                     이름 *
                   </label>
                   <Input
@@ -67,12 +81,12 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="이름을 입력하세요"
-                    className="h-12 rounded-lg"
+                    className="h-12 rounded-lg bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-white/30"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium">
+                  <label htmlFor="email" className="text-sm font-medium text-white/80">
                     이메일 *
                   </label>
                   <Input
@@ -81,12 +95,12 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="example@email.com"
-                    className="h-12 rounded-lg"
+                    className="h-12 rounded-lg bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-white/30"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="subject" className="text-sm font-medium">
+                  <label htmlFor="subject" className="text-sm font-medium text-white/80">
                     제목 *
                   </label>
                   <Input
@@ -94,12 +108,12 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder="문의 제목"
-                    className="h-12 rounded-lg"
+                    className="h-12 rounded-lg bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-white/30"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium">
+                  <label htmlFor="message" className="text-sm font-medium text-white/80">
                     내용 *
                   </label>
                   <Textarea
@@ -108,12 +122,12 @@ export default function ContactPage() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="문의 내용을 입력하세요"
                     rows={6}
-                    className="rounded-lg"
+                    className="rounded-lg bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-white/30"
                   />
                 </div>
 
                 <Button
-                  className="w-full h-12 rounded-lg bg-[var(--brand-primary)] hover:bg-[var(--brand-primary)]/90"
+                  className="w-full h-12 rounded-lg bg-white text-[var(--brand-primary)] hover:bg-white/90 font-bold"
                   size="lg"
                   type="button"
                 >

@@ -90,7 +90,7 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
                     </span>
                     <span
                       className={cn(
-                        "font-bold text-[clamp(3.5rem,7vw,8rem)] leading-[0.85] tracking-tight uppercase",
+                        "font-bold text-[clamp(2.5rem,7vw,8rem)] leading-[0.85] tracking-tight uppercase",
                         "text-white/90 group-hover:text-white transition-all duration-500",
                         "group-hover:translate-x-4",
                         "origin-left transform"

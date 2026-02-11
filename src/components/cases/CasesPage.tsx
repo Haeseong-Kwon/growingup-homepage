@@ -36,10 +36,10 @@ export function CasesPage() {
 
       {/* Filter Bar & Cards Grid */}
       <Section
-        data-palette="light"
-        data-theme="light"
+        data-palette="dark"
+        data-theme="dark"
         data-section="cases-grid"
-        variant="default"
+        variant="ink"
         divider="top"
         minHeight="auto"
         className="py-16 md:py-24"
@@ -49,7 +49,7 @@ export function CasesPage() {
           <MediaReveal intensity="subtle">
             <div className="mb-10 lg:mb-12">
               <div className="flex items-center gap-4 overflow-x-auto pb-2 filter-bar-scroll">
-                <span className="text-sm font-medium text-[var(--brand-fg)] whitespace-nowrap flex-shrink-0">
+                <span className="text-sm font-medium text-white whitespace-nowrap flex-shrink-0">
                   필터:
                 </span>
                 <div className="flex gap-2 min-w-0">
@@ -60,8 +60,8 @@ export function CasesPage() {
                       className={cn(
                         "px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors duration-200 ease-out motion-reduce:transition-none flex-shrink-0",
                         activeCategory === category
-                          ? "bg-[var(--brand-primary)] text-white hover:bg-[var(--brand-primary)]/90"
-                          : "bg-[var(--brand-muted-light)] text-[var(--brand-fg)]/70 hover:bg-[var(--brand-primary)]/10 hover:text-[var(--brand-primary)]"
+                          ? "bg-white text-[var(--brand-primary)] hover:bg-white/90"
+                          : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
                       )}
                     >
                       {category}
@@ -89,11 +89,11 @@ export function CasesPage() {
         data-theme="dark"
         data-section="cases-cta"
         theme="dark"
-        variant="default"
+        variant="ink"
         divider="top"
         bleed={true}
         minHeight="auto"
-        className="py-16 md:py-24"
+        className="py-16 md:py-24 bg-[#050505]"
       >
         <Container>
           <MediaReveal intensity="subtle">

@@ -56,7 +56,7 @@ export function PortfolioFilterBar({
   return (
     <div
       className={cn(
-        "w-full bg-[var(--brand-bg)] border-b border-[var(--brand-muted)]",
+        "w-full bg-[#050505] border-b border-white/10",
         "md:sticky md:top-[var(--header-h)] z-30"
       )}
     >
@@ -64,18 +64,18 @@ export function PortfolioFilterBar({
         <div className="space-y-4">
           {/* 검색 바 */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--brand-fg)]/40" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
             <Input
               type="text"
               placeholder="프로젝트/클라이언트/키워드 검색"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="pl-10 pr-10 h-11 w-full"
+              className="pl-10 pr-10 h-11 w-full bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-white/30 focus-visible:border-white/30"
             />
             {searchQuery && (
               <button
                 onClick={() => onSearchChange("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--brand-fg)]/40 hover:text-[var(--brand-fg)]/70 transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/70 transition-colors"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -86,13 +86,13 @@ export function PortfolioFilterBar({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             {/* 연도 */}
             <Select value={selectedYear} onValueChange={onYearChange}>
-              <SelectTrigger className="w-full h-11">
+              <SelectTrigger className="w-full h-11 bg-white/5 border-white/10 text-white hover:bg-white/10 focus:ring-offset-0 focus:ring-1 focus:ring-white/30">
                 <SelectValue placeholder="연도" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="전체">전체</SelectItem>
+              <SelectContent className="bg-[#1a1a1a] border-white/10 text-white">
+                <SelectItem value="전체" className="focus:bg-white/10 focus:text-white">전체</SelectItem>
                 {portfolioYears.map((year) => (
-                  <SelectItem key={year} value={year.toString()}>
+                  <SelectItem key={year} value={year.toString()} className="focus:bg-white/10 focus:text-white">
                     {year}
                   </SelectItem>
                 ))}
@@ -101,12 +101,12 @@ export function PortfolioFilterBar({
 
             {/* 카테고리 */}
             <Select value={selectedCategory} onValueChange={onCategoryChange}>
-              <SelectTrigger className="w-full h-11">
+              <SelectTrigger className="w-full h-11 bg-white/5 border-white/10 text-white hover:bg-white/10 focus:ring-offset-0 focus:ring-1 focus:ring-white/30">
                 <SelectValue placeholder="카테고리" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-[#1a1a1a] border-white/10 text-white">
                 {portfolioCategories.map((category) => (
-                  <SelectItem key={category} value={category}>
+                  <SelectItem key={category} value={category} className="focus:bg-white/10 focus:text-white">
                     {category}
                   </SelectItem>
                 ))}
@@ -115,12 +115,12 @@ export function PortfolioFilterBar({
 
             {/* 산업 */}
             <Select value={selectedIndustry} onValueChange={onIndustryChange}>
-              <SelectTrigger className="w-full h-11">
+              <SelectTrigger className="w-full h-11 bg-white/5 border-white/10 text-white hover:bg-white/10 focus:ring-offset-0 focus:ring-1 focus:ring-white/30">
                 <SelectValue placeholder="산업" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-[#1a1a1a] border-white/10 text-white">
                 {portfolioIndustries.map((industry) => (
-                  <SelectItem key={industry} value={industry}>
+                  <SelectItem key={industry} value={industry} className="focus:bg-white/10 focus:text-white">
                     {industry}
                   </SelectItem>
                 ))}
@@ -129,12 +129,12 @@ export function PortfolioFilterBar({
 
             {/* 정렬 */}
             <Select value={selectedSort} onValueChange={onSortChange}>
-              <SelectTrigger className="w-full h-11">
+              <SelectTrigger className="w-full h-11 bg-white/5 border-white/10 text-white hover:bg-white/10 focus:ring-offset-0 focus:ring-1 focus:ring-white/30">
                 <SelectValue placeholder="정렬" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-[#1a1a1a] border-white/10 text-white">
                 {sortOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
+                  <SelectItem key={option.value} value={option.value} className="focus:bg-white/10 focus:text-white">
                     {option.label}
                   </SelectItem>
                 ))}
@@ -149,7 +149,7 @@ export function PortfolioFilterBar({
                 variant="outline"
                 size="sm"
                 onClick={onReset}
-                className="h-9 gap-2"
+                className="h-9 gap-2 bg-transparent border-white/30 text-white/70 hover:bg-white/10 hover:text-white"
               >
                 <RefreshCw className="h-4 w-4" />
                 필터 초기화

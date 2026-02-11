@@ -154,7 +154,7 @@ export default function HomePage() {
         data-palette="light"
         data-theme="light"
         data-section="why-growingup"
-        className="py-32 lg:py-48"
+        className="py-16 md:py-32 lg:py-48"
         bleed={true}
         withContainer={false}
       >
@@ -165,7 +165,7 @@ export default function HomePage() {
                 text="왜 GrowingUp인가"
                 as="h2"
                 align="left"
-                className="text-6xl lg:text-8xl font-black leading-[0.9] tracking-tighter mb-8 text-black"
+                className="text-4xl md:text-6xl lg:text-8xl font-black leading-[0.9] tracking-tighter mb-8 text-black"
               />
               <p className="text-xl text-black/60 leading-relaxed max-w-sm">
                 데이터 기반의 정확한 진단과 실행력으로 비즈니스의 본질적인 성장을 만들어갑니다.
@@ -222,7 +222,7 @@ export default function HomePage() {
         data-palette="dark"
         data-theme="dark"
         variant="ink"
-        className="py-32 lg:py-40 relative overflow-hidden"
+        className="py-16 md:py-32 lg:py-40 relative overflow-hidden"
         withContainer={false}
       >
         <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[var(--brand-primary)]/20 via-transparent to-transparent opacity-50 blur-3xl pointer-events-none" />
@@ -231,7 +231,7 @@ export default function HomePage() {
           <div className="grid lg:grid-cols-12 gap-12 items-end mb-20">
             <div className="lg:col-span-5">
               <div className="text-sm font-bold text-[var(--brand-primary)] mb-4 uppercase tracking-widest border-l-2 border-[var(--brand-primary)] pl-4">Proven Results</div>
-              <h2 className="text-5xl lg:text-7xl font-black text-white leading-[0.9] tracking-tighter">
+              <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-white leading-[0.9] tracking-tighter">
                 NUMBERS<br /><span className="text-[var(--brand-primary)]">NEVER LIE</span>
               </h2>
             </div>

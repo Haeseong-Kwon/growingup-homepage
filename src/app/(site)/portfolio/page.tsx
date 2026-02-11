@@ -114,10 +114,10 @@ export default function PortfolioPage() {
 
       {/* Portfolio Grid */}
       <Section
-        data-palette="light"
-        data-theme="light"
+        data-palette="dark"
+        data-theme="dark"
         data-section="portfolio-grid"
-        variant="default"
+        variant="ink"
         divider="top"
         minHeight="auto"
         className="py-16 md:py-24"
@@ -140,14 +140,14 @@ export default function PortfolioPage() {
             </div>
           ) : (
             <div className="text-center py-16 md:py-24">
-              <p className="text-lg text-[var(--brand-fg)]/70 mb-6">
+              <p className="text-lg text-white/70 mb-6">
                 조건에 맞는 포트폴리오가 없습니다. 필터를 초기화해보세요.
               </p>
               <Button
                 variant="outline"
                 size="lg"
                 onClick={handleReset}
-                className="rounded-lg h-12 px-8 text-base font-bold"
+                className="rounded-lg h-12 px-8 text-base font-bold bg-transparent text-white border-white/30 hover:bg-white/10 hover:text-white"
               >
                 필터 초기화
               </Button>
@@ -162,11 +162,11 @@ export default function PortfolioPage() {
         data-theme="dark"
         data-section="portfolio-cta"
         theme="dark"
-        variant="default"
+        variant="ink"
         divider="top"
         bleed={true}
         minHeight="auto"
-        className="py-16 md:py-24"
+        className="py-16 md:py-24 bg-[#050505]"
       >
         <Container>
           <MediaReveal intensity="subtle">

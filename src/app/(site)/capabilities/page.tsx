@@ -7,11 +7,11 @@ import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { MediaReveal } from "@/components/motion/media-reveal";
 import { VideoHero } from "@/components/hero/video-hero";
-import { 
-  Search, 
-  Target, 
-  Zap, 
-  Users, 
+import {
+  Search,
+  Target,
+  Zap,
+  Users,
   RefreshCw,
   FileText,
   BarChart3,
@@ -168,20 +168,20 @@ const sampleDeliverables = [
 function CapabilitiesMapSection() {
   return (
     <Section
-      data-palette="light"
-      data-theme="light"
+      data-palette="dark"
+      data-theme="dark"
       data-section="capabilities-map"
-      variant="default"
+      variant="ink"
       divider="top"
       minHeight="auto"
       className="py-16 md:py-24"
     >
       <Container>
         <div className="mb-12 md:mb-16">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance text-white">
             Capabilities Map
           </h2>
-          <p className="text-base md:text-lg text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
+          <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-3xl">
             7개 영역에서 측정 가능한 성과를 만들어내는 체계적인 접근
           </p>
         </div>
@@ -193,40 +193,40 @@ function CapabilitiesMapSection() {
               className={cn(
                 "border-2 flex flex-col h-full",
                 "transition-all duration-200 ease-out",
-                "hover:-translate-y-1 hover:shadow-md hover:border-[var(--brand-primary)]/40",
-                "bg-[var(--brand-bg)] border-[var(--color-border)] shadow-sm",
+                "hover:-translate-y-1 hover:shadow-md hover:border-white/40",
+                "bg-white/5 border-white/10 shadow-sm",
                 "motion-reduce:transition-none motion-reduce:transform-none"
               )}
             >
               <CardHeader>
-                <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-2">
+                <CardTitle className="text-xl md:text-2xl font-bold text-white mb-2">
                   {capability.title}
                 </CardTitle>
-                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
+                <p className="text-sm text-white/70 leading-relaxed mb-4">
                   {capability.description}
                 </p>
               </CardHeader>
               <CardContent className="flex-1 flex flex-col">
                 <div className="mb-4">
-                  <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-2">
+                  <div className="text-xs font-medium uppercase tracking-wide text-white/60 mb-2">
                     대표 산출물
                   </div>
                   <ul className="space-y-1.5">
                     {capability.deliverables.map((item, itemIndex) => (
                       <li key={itemIndex} className="flex items-start gap-2">
                         <CheckCircle2 className="w-4 h-4 text-[var(--brand-primary)] mt-0.5 flex-shrink-0" />
-                        <span className="text-sm text-[var(--brand-fg)]/80 leading-relaxed">
+                        <span className="text-sm text-white/80 leading-relaxed">
                           {item}
                         </span>
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div className="mt-auto pt-4 border-t border-[var(--brand-muted)]">
-                  <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-1">
+                <div className="mt-auto pt-4 border-t border-white/10">
+                  <div className="text-xs font-medium uppercase tracking-wide text-white/60 mb-1">
                     성공 기준
                   </div>
-                  <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
+                  <p className="text-sm text-white/70 leading-relaxed">
                     {capability.successCriteria}
                   </p>
                 </div>
@@ -261,10 +261,10 @@ export default function CapabilitiesPage() {
 
       {/* Mission: OS로 운영되는 마케팅 */}
       <Section
-        data-palette="light"
-        data-theme="light"
+        data-palette="dark"
+        data-theme="dark"
         data-section="mission"
-        variant="default"
+        variant="ink"
         divider="top"
         minHeight="auto"
         className="py-16 md:py-24"
@@ -272,10 +272,10 @@ export default function CapabilitiesPage() {
         <Container>
           <MediaReveal intensity="subtle">
             <div className="mb-12 md:mb-16">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance text-white">
                 OS로 운영되는 마케팅
               </h2>
-              <p className="text-base md:text-lg text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
+              <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-3xl">
                 각 단계가 독립적으로 작동하면서도 유기적으로 연결됩니다. 각 모듈은 독립 실행 가능하며, 전체 사이클을 통해 지속적으로 최적화됩니다.
               </p>
             </div>
@@ -290,20 +290,20 @@ export default function CapabilitiesPage() {
                     className={cn(
                       "group relative border-2 flex flex-col h-full",
                       "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
-                      "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40",
-                      "bg-[var(--brand-bg)] border-[var(--color-border)] shadow-sm"
+                      "hover:-translate-y-1.5 hover:border-white/40",
+                      "bg-white/5 border-white/10 shadow-sm"
                     )}
                   >
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
-                    
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/20 via-transparent to-transparent" />
+
                     <CardHeader className="relative z-10 text-center">
-                      <div className="w-12 h-12 rounded-lg bg-[var(--brand-primary)]/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-[var(--brand-primary)]/20 transition-colors duration-200 ease-out motion-reduce:transition-none">
-                        <Icon className="w-6 h-6 text-[var(--brand-primary)]" />
+                      <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-white/20 transition-colors duration-200 ease-out motion-reduce:transition-none">
+                        <Icon className="w-6 h-6 text-white" />
                       </div>
-                      <CardTitle className="text-lg md:text-xl font-bold text-[var(--brand-fg)] mb-1">
+                      <CardTitle className="text-lg md:text-xl font-bold text-white mb-1">
                         {step.title}
                       </CardTitle>
-                      <p className="text-sm text-[var(--brand-fg)]/60 font-medium">
+                      <p className="text-sm text-white/60 font-medium">
                         {step.en}
                       </p>
                     </CardHeader>
@@ -317,10 +317,10 @@ export default function CapabilitiesPage() {
 
       {/* Operating Principles */}
       <Section
-        data-palette="light"
-        data-theme="light"
+        data-palette="dark"
+        data-theme="dark"
         data-section="principles"
-        variant="default"
+        variant="ink"
         divider="top"
         minHeight="auto"
         className="py-16 md:py-24"
@@ -328,10 +328,10 @@ export default function CapabilitiesPage() {
         <Container>
           <MediaReveal intensity="subtle">
             <div className="mb-12 md:mb-16">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance text-white">
                 Operating Principles
               </h2>
-              <p className="text-base md:text-lg text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
+              <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-3xl">
                 모든 프로젝트에 일관되게 적용되는 운영 원칙
               </p>
             </div>
@@ -344,19 +344,19 @@ export default function CapabilitiesPage() {
                   className={cn(
                     "group relative border-2 flex flex-col h-full",
                     "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
-                    "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40",
-                    "bg-[var(--brand-bg)] border-[var(--color-border)] shadow-sm"
+                    "hover:-translate-y-1.5 hover:border-white/40",
+                    "bg-white/5 border-white/10 shadow-sm"
                   )}
                 >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
-                  
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/20 via-transparent to-transparent" />
+
                   <CardHeader className="relative z-10">
-                    <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-3">
+                    <CardTitle className="text-xl md:text-2xl font-bold text-white mb-3">
                       {principle.title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="relative z-10">
-                    <p className="text-sm md:text-base text-[var(--brand-fg)]/70 leading-relaxed">
+                    <p className="text-sm md:text-base text-white/70 leading-relaxed">
                       {principle.description}
                     </p>
                   </CardContent>
@@ -376,11 +376,11 @@ export default function CapabilitiesPage() {
         data-theme="dark"
         data-section="working-model"
         theme="dark"
-        variant="default"
+        variant="ink"
         divider="top"
         bleed={true}
         minHeight="auto"
-        className="py-16 md:py-24"
+        className="py-16 md:py-24 bg-[#050505]"
       >
         <Container>
           <MediaReveal intensity="subtle">
@@ -401,12 +401,12 @@ export default function CapabilitiesPage() {
                   className={cn(
                     "group relative border-2 flex flex-col md:flex-row",
                     "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
-                    "hover:-translate-y-1.5 hover:border-white/30",
+                    "hover:-translate-y-1.5 hover:border-white/40",
                     "bg-white/5 border-white/10 shadow-sm"
                   )}
                 >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-white/5 via-transparent to-transparent" />
-                  
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-white/10 via-transparent to-transparent" />
+
                   <CardHeader className="relative z-10 flex-shrink-0 md:w-48 pb-4 md:pb-6">
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center text-white font-bold text-lg">
@@ -449,10 +449,10 @@ export default function CapabilitiesPage() {
 
       {/* Roadmap */}
       <Section
-        data-palette="light"
-        data-theme="light"
+        data-palette="dark"
+        data-theme="dark"
         data-section="roadmap"
-        variant="default"
+        variant="ink"
         divider="top"
         minHeight="auto"
         className="py-16 md:py-24"
@@ -460,10 +460,10 @@ export default function CapabilitiesPage() {
         <Container>
           <MediaReveal intensity="subtle">
             <div className="mb-12 md:mb-16">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance text-white">
                 Roadmap
               </h2>
-              <p className="text-base md:text-lg text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
+              <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-3xl">
                 체계적인 성장 경로
               </p>
             </div>
@@ -476,27 +476,27 @@ export default function CapabilitiesPage() {
                   className={cn(
                     "group relative border-2 flex flex-col",
                     "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
-                    "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40",
-                    "bg-[var(--brand-bg)] border-[var(--color-border)] shadow-sm"
+                    "hover:-translate-y-1.5 hover:border-white/40",
+                    "bg-white/5 border-white/10 shadow-sm"
                   )}
                 >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
-                  
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/20 via-transparent to-transparent" />
+
                   <CardHeader className="relative z-10">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-[var(--brand-fg)]/60">
+                      <span className="text-sm font-medium text-white/60">
                         Phase {phase.phase}
                       </span>
                       <span className={cn(
                         "text-xs font-medium px-2 py-1 rounded-full",
-                        phase.status === "완료" && "bg-[var(--brand-primary)]/10 text-[var(--brand-primary)]",
-                        phase.status === "진행 중" && "bg-[var(--brand-hot1)]/10 text-[var(--brand-hot1)]",
-                        phase.status === "예정" && "bg-[var(--brand-muted-light)] text-[var(--brand-fg)]/60"
+                        phase.status === "완료" && "bg-[var(--brand-primary)]/20 text-[var(--brand-primary)]",
+                        phase.status === "진행 중" && "bg-[var(--brand-hot1)]/20 text-[var(--brand-hot1)]",
+                        phase.status === "예정" && "bg-white/10 text-white/60"
                       )}>
                         {phase.status}
                       </span>
-              </div>
-                    <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)]">
+                    </div>
+                    <CardTitle className="text-xl md:text-2xl font-bold text-white">
                       {phase.title}
                     </CardTitle>
                   </CardHeader>
@@ -509,10 +509,10 @@ export default function CapabilitiesPage() {
 
       {/* Sample Deliverables */}
       <Section
-        data-palette="light"
-        data-theme="light"
+        data-palette="dark"
+        data-theme="dark"
         data-section="sample-deliverables"
-        variant="default"
+        variant="ink"
         divider="top"
         minHeight="auto"
         className="py-16 md:py-24"
@@ -520,10 +520,10 @@ export default function CapabilitiesPage() {
         <Container>
           <MediaReveal intensity="subtle">
             <div className="mb-12 md:mb-16">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance text-white">
                 Sample Deliverables
               </h2>
-              <p className="text-base md:text-lg text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
+              <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-3xl">
                 실제로 클라이언트에게 전달하는 산출물 샘플을 확인하세요
               </p>
             </div>
@@ -536,26 +536,26 @@ export default function CapabilitiesPage() {
                   className={cn(
                     "group relative border-2 flex flex-col h-full",
                     "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
-                    "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40",
-                    "bg-[var(--brand-bg)] border-[var(--color-border)] shadow-sm"
+                    "hover:-translate-y-1.5 hover:border-white/40",
+                    "bg-white/5 border-white/10 shadow-sm"
                   )}
                 >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
-                  
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/20 via-transparent to-transparent" />
+
                   <CardHeader className="relative z-10">
-                    <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-3">
+                    <CardTitle className="text-xl md:text-2xl font-bold text-white mb-3">
                       {deliverable.title}
                     </CardTitle>
-                    <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
+                    <p className="text-sm text-white/70 leading-relaxed mb-4">
                       {deliverable.description}
                     </p>
                   </CardHeader>
                   <CardContent className="relative z-10 mt-auto pt-0">
-                    <div className="flex items-center justify-between pt-4 border-t border-[var(--brand-muted)]">
-                      <div className="text-xs font-medium text-[var(--brand-fg)]/60">
+                    <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                      <div className="text-xs font-medium text-white/60">
                         버전: {deliverable.version}
                       </div>
-                      <span className="text-xs font-medium px-2 py-1 rounded-full bg-[var(--brand-muted-light)] text-[var(--brand-fg)]/60">
+                      <span className="text-xs font-medium px-2 py-1 rounded-full bg-white/10 text-white/60">
                         {deliverable.status}
                       </span>
                     </div>
