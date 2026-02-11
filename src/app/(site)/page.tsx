@@ -175,41 +175,41 @@ export default function HomePage() {
             <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
               {/* Broken Grid: Staggered Cards */}
               <div className="space-y-8 lg:space-y-12 lg:mt-24">
-                <Card className="border-none bg-[#F2F2F2] rounded-3xl p-8 hover:bg-black hover:text-white transition-colors duration-500 group min-h-[320px] flex flex-col justify-between">
+                <Card className="border border-black/5 bg-white shadow-sm rounded-3xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group min-h-[320px] flex flex-col justify-between">
                   <CardHeader className="p-0">
-                    <div className="text-4xl lg:text-5xl font-bold mb-4">01</div>
+                    <div className="text-4xl lg:text-5xl font-bold mb-4 text-[var(--brand-primary)]">01</div>
                     <CardTitle className="text-2xl font-bold">데이터 기반 전략</CardTitle>
                   </CardHeader>
                   <CardContent className="p-0 mt-4">
-                    <p className="text-lg opacity-70 group-hover:opacity-90">추측이 아닌 데이터로 의사결정합니다. 정확한 분석을 통해 최적의 솔루션을 제시합니다.</p>
+                    <p className="text-lg text-black/60 group-hover:text-black transition-colors">추측이 아닌 데이터로 의사결정합니다. 정확한 분석을 통해 최적의 솔루션을 제시합니다.</p>
                   </CardContent>
                 </Card>
 
-                <Card className="border-none bg-[#F2F2F2] rounded-3xl p-8 hover:bg-black hover:text-white transition-colors duration-500 group min-h-[320px] flex flex-col justify-between">
+                <Card className="border border-black/5 bg-white shadow-sm rounded-3xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group min-h-[320px] flex flex-col justify-between">
                   <CardHeader className="p-0">
-                    <div className="text-4xl lg:text-5xl font-bold mb-4">02</div>
+                    <div className="text-4xl lg:text-5xl font-bold mb-4 text-[var(--brand-primary)]">02</div>
                     <CardTitle className="text-2xl font-bold">크리에이티브 실행력</CardTitle>
                   </CardHeader>
                   <CardContent className="p-0 mt-4">
-                    <p className="text-lg opacity-70 group-hover:opacity-90">아이디어를 현실로 만드는 실행력. 빠르고 정확한 구현으로 시장을 선도합니다.</p>
+                    <p className="text-lg text-black/60 group-hover:text-black transition-colors">아이디어를 현실로 만드는 실행력. 빠르고 정확한 구현으로 시장을 선도합니다.</p>
                   </CardContent>
                 </Card>
               </div>
 
               <div className="space-y-8 lg:space-y-12">
-                <Card className="border-none bg-[#F2F2F2] rounded-3xl p-8 hover:bg-black hover:text-white transition-colors duration-500 group min-h-[320px] flex flex-col justify-between">
+                <Card className="border border-black/5 bg-white shadow-sm rounded-3xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group min-h-[320px] flex flex-col justify-between">
                   <CardHeader className="p-0">
-                    <div className="text-4xl lg:text-5xl font-bold mb-4">03</div>
+                    <div className="text-4xl lg:text-5xl font-bold mb-4 text-[var(--brand-primary)]">03</div>
                     <CardTitle className="text-2xl font-bold">지속적인 최적화</CardTitle>
                   </CardHeader>
                   <CardContent className="p-0 mt-4">
-                    <p className="text-lg opacity-70 group-hover:opacity-90">한 번의 성공으로 끝나지 않습니다. 지속적인 모니터링과 개선으로 성장을 이어갑니다.</p>
+                    <p className="text-lg text-black/60 group-hover:text-black transition-colors">한 번의 성공으로 끝나지 않습니다. 지속적인 모니터링과 개선으로 성장을 이어갑니다.</p>
                   </CardContent>
                 </Card>
                 {/* Abstract Decorative Element */}
-                <div className="hidden md:block h-[320px] rounded-3xl bg-[var(--brand-primary)]/10 flex items-center justify-center overflow-hidden relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[var(--brand-primary)]/20 to-transparent mix-blend-multiply" />
-                  <TrendingUp className="w-32 h-32 text-[var(--brand-primary)] opacity-20" />
+                <div className="hidden md:block h-[320px] rounded-3xl bg-[var(--brand-primary)]/5 border border-[var(--brand-primary)]/10 flex items-center justify-center overflow-hidden relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[var(--brand-primary)]/10 to-transparent mix-blend-multiply opacity-50 group-hover:opacity-100 transition-opacity" />
+                  <TrendingUp className="w-32 h-32 text-[var(--brand-primary)] opacity-20 group-hover:scale-110 transition-transform duration-700" />
                 </div>
               </div>
             </div>
@@ -259,6 +259,7 @@ export default function HomePage() {
                 metrics={[item.tag]}
                 color={idx === 0 ? "primary" : idx === 1 ? "secondary" : "hot1"}
                 delay={idx * 100}
+                mode="dark"
               />
             </div>
           ))}

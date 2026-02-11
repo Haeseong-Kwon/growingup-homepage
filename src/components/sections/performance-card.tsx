@@ -15,31 +15,10 @@ interface PerformanceCardProps {
   metrics: string[];
   color: "primary" | "secondary" | "hot1";
   delay?: number;
+  mode?: "light" | "dark";
 }
 
-const colorClasses = {
-  primary: {
-    iconBg: "bg-[var(--brand-primary)]/10",
-    iconColor: "text-[var(--brand-primary)]",
-    numberColor: "text-[var(--brand-primary)]",
-    borderHover: "hover:border-[var(--brand-primary)]/30",
-    gradient: "from-[var(--brand-primary)]/5 via-[var(--brand-primary)]/2 to-transparent",
-  },
-  secondary: {
-    iconBg: "bg-[var(--brand-secondary)]/10",
-    iconColor: "text-[var(--brand-secondary)]",
-    numberColor: "text-[var(--brand-secondary)]",
-    borderHover: "hover:border-[var(--brand-secondary)]/30",
-    gradient: "from-[var(--brand-secondary)]/5 via-[var(--brand-secondary)]/2 to-transparent",
-  },
-  hot1: {
-    iconBg: "bg-[var(--brand-hot1)]/10",
-    iconColor: "text-[var(--brand-hot1)]",
-    numberColor: "text-[var(--brand-hot1)]",
-    borderHover: "hover:border-[var(--brand-hot1)]/30",
-    gradient: "from-[var(--brand-hot1)]/5 via-[var(--brand-hot1)]/2 to-transparent",
-  },
-};
+// ... existing colorClasses ...
 
 export function PerformanceCard({
   icon: Icon,
@@ -50,8 +29,10 @@ export function PerformanceCard({
   metrics,
   color,
   delay = 0,
+  mode = "light",
 }: PerformanceCardProps) {
-  // 숫자 포맷팅: 억 단위 처리
+  // ... existing formatNumber logic ... 
+  // (Copy formatNumber, formatted, suffix, useCountUp logic exactly)
   const formatNumber = (num: number): { display: string; raw: number } => {
     if (num >= 100000000) {
       const eok = num / 100000000;
@@ -65,12 +46,13 @@ export function PerformanceCard({
 
   const formatted = formatNumber(number);
   const suffix = number >= 100000000 ? "억" : number >= 10000 ? "만" : "";
-  const { ref, count } = useCountUp({ 
-    end: parseFloat(formatted.display), 
+  const { ref, count } = useCountUp({
+    end: parseFloat(formatted.display),
     duration: 2000,
     decimals: formatted.display.includes(".") ? 1 : 0,
   });
   const colors = colorClasses[color];
+  const isDark = mode === "dark";
 
   return (
     <MediaReveal delay={delay} intensity="medium">
@@ -81,71 +63,79 @@ export function PerformanceCard({
             "transition-transform duration-200 ease-out [contain:paint]",
             "hover:-translate-y-1.5 motion-reduce:transition-none",
             colors.borderHover,
-            "bg-gradient-to-br from-white to-[var(--brand-muted-light)]/30",
+            isDark
+              ? "bg-white/5 border-white/10 text-white"
+              : "bg-gradient-to-br from-white to-[var(--brand-muted-light)]/30 text-slate-900",
             "shadow-sm"
           )}
         >
-        {/* 배경 그라데이션 효과 */}
-        <div
-          className={cn(
-            "absolute inset-0 opacity-0 transition-opacity duration-200 ease-out motion-reduce:transition-none",
-            "group-hover:opacity-100",
-            "bg-gradient-to-br",
-            colors.gradient
-          )}
-        />
+          {/* 배경 그라데이션 효과 - Dark mode uses different blend */}
+          <div
+            className={cn(
+              "absolute inset-0 opacity-0 transition-opacity duration-200 ease-out motion-reduce:transition-none",
+              "group-hover:opacity-100",
+              "bg-gradient-to-br",
+              colors.gradient,
+              isDark && "mix-blend-screen opacity-20"
+            )}
+          />
 
-        {/* 상단 액센트 바 */}
-        <div
-          className={cn(
-            "absolute top-0 left-0 right-0 h-1 bg-gradient-to-r opacity-0 transition-opacity duration-200 ease-out motion-reduce:transition-none",
-            "group-hover:opacity-100",
-            colors.gradient
-          )}
-        />
+          {/* 상단 액센트 바 */}
+          <div
+            className={cn(
+              "absolute top-0 left-0 right-0 h-1 bg-gradient-to-r opacity-0 transition-opacity duration-200 ease-out motion-reduce:transition-none",
+              "group-hover:opacity-100",
+              colors.gradient
+            )}
+          />
 
-        <CardHeader className="relative z-10 flex-1 flex flex-col">
-          <div className="flex items-center gap-3 mb-4">
-            <div
-              className={cn(
-                "w-14 h-14 rounded-xl flex items-center justify-center",
-                colors.iconBg
-              )}
-            >
-              <Icon className={cn("w-7 h-7", colors.iconColor)} />
-            </div>
-            <CardTitle className="text-lg md:text-xl font-bold text-[var(--brand-fg)]">
-              {title}
-            </CardTitle>
-          </div>
-
-          <div className={cn("text-3xl md:text-4xl lg:text-5xl font-bold mb-3", colors.numberColor)}>
-            {count}
-            {suffix && <span className="text-2xl md:text-3xl">{suffix}</span>}
-            {numberSuffix}
-          </div>
-
-          <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
-            {description}
-          </p>
-        </CardHeader>
-
-        <CardContent className="relative z-10 mt-auto">
-          <div className="text-xs font-medium text-[var(--brand-fg)]/60 mb-3 uppercase tracking-wide">
-            핵심 지표
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {metrics.map((metric, index) => (
-              <span
-                key={index}
-                className="px-3 py-1.5 rounded-full bg-[var(--brand-muted-light)] text-xs font-medium text-[var(--brand-fg)]"
+          <CardHeader className="relative z-10 flex-1 flex flex-col">
+            <div className="flex items-center gap-3 mb-4">
+              <div
+                className={cn(
+                  "w-14 h-14 rounded-xl flex items-center justify-center transition-colors",
+                  isDark ? "bg-white/10" : colors.iconBg
+                )}
               >
-                {metric}
-              </span>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+                <Icon className={cn("w-7 h-7", colors.iconColor)} />
+              </div>
+              <CardTitle className={cn("text-lg md:text-xl font-bold", isDark ? "text-white" : "text-slate-900")}>
+                {title}
+              </CardTitle>
+            </div>
+
+            <div className={cn("text-3xl md:text-4xl lg:text-5xl font-bold mb-3", colors.numberColor)}>
+              {count}
+              {suffix && <span className="text-2xl md:text-3xl">{suffix}</span>}
+              {numberSuffix}
+            </div>
+
+            <p className={cn("text-sm leading-relaxed", isDark ? "text-white/60" : "text-slate-600")}>
+              {description}
+            </p>
+          </CardHeader>
+
+          <CardContent className="relative z-10 mt-auto">
+            <div className={cn("text-xs font-medium mb-3 uppercase tracking-wide", isDark ? "text-white/40" : "text-slate-400")}>
+              핵심 지표
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {metrics.map((metric, index) => (
+                <span
+                  key={index}
+                  className={cn(
+                    "px-3 py-1.5 rounded-full text-xs font-medium",
+                    isDark
+                      ? "bg-white/10 text-white/80"
+                      : "bg-[var(--brand-muted-light)] text-slate-700"
+                  )}
+                >
+                  {metric}
+                </span>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </MediaReveal>
   );
