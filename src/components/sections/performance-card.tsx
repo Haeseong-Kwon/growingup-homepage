@@ -18,7 +18,29 @@ interface PerformanceCardProps {
   mode?: "light" | "dark";
 }
 
-// ... existing colorClasses ...
+const colorClasses = {
+  primary: {
+    borderHover: "hover:border-[var(--brand-primary)]",
+    gradient: "from-[var(--brand-primary)] to-[#4B5DFF]",
+    iconBg: "bg-[var(--brand-primary)]/10",
+    iconColor: "text-[var(--brand-primary)]",
+    numberColor: "text-[var(--brand-primary)]",
+  },
+  secondary: {
+    borderHover: "hover:border-[var(--brand-secondary)]",
+    gradient: "from-[var(--brand-secondary)] to-[#10B981]",
+    iconBg: "bg-[var(--brand-secondary)]/10",
+    iconColor: "text-[var(--brand-secondary)]",
+    numberColor: "text-[var(--brand-secondary)]",
+  },
+  hot1: {
+    borderHover: "hover:border-[var(--brand-hot1)]",
+    gradient: "from-[var(--brand-hot1)] to-[#FF4D4D]",
+    iconBg: "bg-[var(--brand-hot1)]/10",
+    iconColor: "text-[var(--brand-hot1)]",
+    numberColor: "text-[var(--brand-hot1)]",
+  },
+};
 
 export function PerformanceCard({
   icon: Icon,
