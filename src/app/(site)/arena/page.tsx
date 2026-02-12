@@ -17,6 +17,7 @@ import {
   Clock,
   Star,
   LogIn,
+  ArrowUpRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -124,68 +125,53 @@ function CampaignCard({
   onClick: () => void;
 }) {
   return (
-    <Card
-      className="h-full border-2 hover:border-[var(--brand-primary)]/20 transition-all cursor-pointer group min-w-0 bg-white border-[var(--brand-muted)] shadow-sm hover:shadow-lg"
+    <div
       onClick={onClick}
+      className={cn(
+        "group h-full flex flex-col justify-between p-8 cursor-pointer transition-all duration-300",
+        "bg-white border-2 border-[var(--brand-fg)] hover:bg-[var(--brand-fg)] hover:text-white"
+      )}
     >
-      <CardHeader className="pb-4 min-w-0">
-        <div className="flex items-start justify-between gap-4 mb-3 min-w-0">
-          <CardTitle className="text-xl md:text-2xl font-bold leading-tight break-words flex-1 min-w-0 text-[var(--brand-fg)]">
-            {campaign.title}
-          </CardTitle>
-          <div className="flex flex-col gap-2 shrink-0 min-w-0">
-            <Badge
-              variant="outline"
-              className="bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] border-[var(--brand-primary)]/20 whitespace-nowrap"
-            >
-              종료
-            </Badge>
-            <Badge
-              variant="secondary"
-              className="bg-[var(--brand-secondary)]/10 text-[var(--brand-secondary)] whitespace-nowrap"
-            >
-              {campaign.status}
-            </Badge>
+      <div className="space-y-6">
+        <div className="flex items-start justify-between gap-4">
+          <Badge
+            variant="outline"
+            className="rounded-none border-[var(--brand-fg)] text-[var(--brand-fg)] group-hover:border-white group-hover:text-white transition-colors"
+          >
+            {campaign.status}
+          </Badge>
+          <ArrowUpRight className="w-6 h-6 text-[var(--brand-fg)] opacity-0 group-hover:opacity-100 group-hover:stroke-white transition-all duration-300 -translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0" />
+        </div>
+
+        <h3 className="text-2xl font-bold leading-tight group-hover:text-white transition-colors">
+          {campaign.title}
+        </h3>
+
+        <div className="space-y-4 pt-4 border-t border-[var(--brand-fg)]/10 group-hover:border-white/20">
+          <div className="flex justify-between items-center text-sm">
+            <span className="opacity-60 group-hover:text-white/70">기간</span>
+            <span className="font-bold group-hover:text-white">{campaign.date}</span>
+          </div>
+          <div className="flex justify-between items-center text-sm">
+            <span className="opacity-60 group-hover:text-white/70">목표</span>
+            <span className="font-bold group-hover:text-white">{campaign.objective}</span>
           </div>
         </div>
-      </CardHeader>
-      <CardContent className="space-y-4 min-w-0">
-        <div className="flex items-center gap-2 text-sm text-[var(--brand-fg)]/70 min-w-0">
-          <Calendar className="w-4 h-4 shrink-0" />
-          <span className="break-words min-w-0">{campaign.date}</span>
+      </div>
+
+      <div className="mt-8 pt-6 border-t border-[var(--brand-fg)]/10 group-hover:border-white/20">
+        <div className="flex justify-between items-end mb-2">
+          <span className="text-xs font-bold uppercase tracking-widest opacity-60 group-hover:text-white/70">Progress</span>
+          <span className="text-xl font-black text-[var(--brand-primary)] group-hover:text-white">{campaign.progress}%</span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-[var(--brand-fg)]/70 min-w-0">
-          <Target className="w-4 h-4 shrink-0" />
-          <span className="break-words min-w-0">{campaign.objective}</span>
+        <div className="h-2 w-full bg-[var(--brand-fg)]/10 group-hover:bg-white/20">
+          <div
+            className="h-full bg-[var(--brand-primary)] group-hover:bg-white transition-all duration-500"
+            style={{ width: `${campaign.progress}%` }}
+          />
         </div>
-        <div className="space-y-2 min-w-0">
-          <div className="flex justify-between text-sm">
-            <span className="text-[var(--brand-fg)]/70">진행률</span>
-            <span className="font-medium text-[var(--brand-fg)]">{campaign.progress}%</span>
-          </div>
-          <div className="h-2 bg-[var(--brand-muted)] rounded-full overflow-hidden">
-            <div
-              className="h-full bg-[var(--brand-primary)] transition-all rounded-full"
-              style={{ width: `${campaign.progress}%` }}
-            />
-          </div>
-        </div>
-        <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed line-clamp-2 break-words min-w-0">
-          {campaign.description}
-        </p>
-        <Button
-          variant="ghost"
-          className="w-full justify-between hover:bg-[var(--brand-muted-light)] text-[var(--brand-fg)] group-hover:text-[var(--brand-primary)] min-w-0"
-          onClick={(e) => {
-            e.stopPropagation();
-            onClick();
-          }}
-        >
-          <span className="min-w-0">상세 보기</span>
-          <ChevronRight className="w-4 h-4 shrink-0" />
-        </Button>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 
@@ -198,43 +184,35 @@ function MissionCard({
   onClick: () => void;
 }) {
   return (
-    <Card
-      className="h-full border-2 hover:border-[var(--brand-primary)]/20 transition-all cursor-pointer min-w-0 bg-white border-[var(--brand-muted)] shadow-sm hover:shadow-lg"
+    <div
       onClick={onClick}
+      className={cn(
+        "group flex flex-col justify-between p-6 cursor-pointer transition-all duration-300 h-full",
+        "bg-white border-2 border-[var(--brand-fg)] hover:bg-[var(--brand-fg)] hover:text-white"
+      )}
     >
-      <CardHeader className="pb-3 min-w-0">
-        <div className="flex items-start justify-between gap-3 mb-2 min-w-0">
-          <CardTitle className="text-lg md:text-xl font-bold leading-tight break-words flex-1 min-w-0 text-[var(--brand-fg)]">
-            {mission.title}
-          </CardTitle>
-          <Badge
-            variant="outline"
-            className="bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] border-[var(--brand-primary)]/20 shrink-0 whitespace-nowrap"
-          >
+      <div>
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex gap-1">
+            {Array.from({ length: mission.stars }).map((_, i) => (
+              <Star key={i} className="w-4 h-4 fill-[var(--brand-primary)] text-[var(--brand-primary)] group-hover:fill-white group-hover:text-white transition-colors" />
+            ))}
+          </div>
+          <Badge className="rounded-none bg-[var(--brand-primary)] text-white hover:bg-[var(--brand-primary)]/90 group-hover:bg-white group-hover:text-[var(--brand-fg)] transition-colors">
             참여 가능
           </Badge>
         </div>
-      </CardHeader>
-      <CardContent className="space-y-3 min-w-0">
-        <div className="flex items-center gap-4 flex-wrap min-w-0">
-          <div className="flex items-center gap-1 shrink-0">
-            {Array.from({ length: mission.stars }).map((_, i) => (
-              <Star
-                key={i}
-                className="w-4 h-4 fill-[var(--brand-primary)] text-[var(--brand-primary)] shrink-0"
-              />
-            ))}
-          </div>
-          <div className="flex items-center gap-1.5 text-sm text-[var(--brand-fg)]/70 shrink-0">
-            <Clock className="w-4 h-4 shrink-0" />
-            <span className="whitespace-nowrap">반나절</span>
-          </div>
-        </div>
-        <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
+        <h3 className="text-xl font-bold mb-2 group-hover:text-white transition-colors leading-tight">
+          {mission.title}
+        </h3>
+      </div>
+
+      <div className="mt-6 pt-4 border-t border-[var(--brand-fg)]/10 group-hover:border-white/20">
+        <p className="text-sm font-medium opacity-70 group-hover:text-white/80 transition-colors">
           {mission.deliver}
         </p>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 
@@ -267,213 +245,118 @@ export default function ArenaPage() {
     <div className="w-full overflow-x-clip">
       {/* 1) Hero 섹션 */}
       <VideoHero
-        line1="실전 레퍼런스를 만드는 곳"
-        line2=""
+        line1="ARENA"
+        line2="PROGRAM"
         subtitle="반나절 단위 미션 기반 협업 프로그램. 고정 근무 없이, 포트폴리오에 바로 넣을 수 있는 결과물을 만듭니다."
       />
 
-      {/* 추가 정보 카드 */}
-      <Section
-        data-palette="light"
-        data-theme="light"
-        data-section="arena-info"
-        variant="default"
-        divider="none"
-        minHeight="auto"
-        className="py-8"
-      >
-        <Container>
-          <div className="max-w-4xl min-w-0">
-            <div className="space-y-3">
-              <MediaReveal intensity="subtle" delay={0}>
-                <Card className="border-2 bg-white border-[var(--brand-muted)] min-w-0 shadow-sm">
-                  <CardContent className="p-4 md:p-6 min-w-0">
-                    <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
-                      • 기여자 크레딧 표기는 참여자 선택
-                    </p>
-                  </CardContent>
-                </Card>
-              </MediaReveal>
-              <MediaReveal intensity="subtle" delay={100}>
-                <Card className="border-2 bg-white border-[var(--brand-muted)] min-w-0 shadow-sm">
-                  <CardContent className="p-4 md:p-6 min-w-0">
-                    <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
-                      • 상위 기여자는 유료 전환 트랙 우선 제안 가능
-                    </p>
-                  </CardContent>
-                </Card>
-              </MediaReveal>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
       {/* 2) 초대코드 바 */}
-      <section className="py-8 border-b border-[var(--brand-muted)] bg-white">
-        <div className="mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <p className="text-sm md:text-base text-[var(--brand-fg)]/70 min-w-0">
-              초대코드가 있으신가요?
-            </p>
+      <section className="py-12 border-b-2 border-[var(--brand-fg)] bg-white">
+        <Container>
+          <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
+            <div>
+              <h3 className="text-2xl font-bold text-[var(--brand-fg)] mb-2">INVITATION ONLY</h3>
+              <p className="text-[var(--brand-fg)]/60">초대코드가 있으신가요? 코드를 입력하고 아레나에 입장하세요.</p>
+            </div>
 
-            <div className="w-full md:w-auto md:max-w-[520px] flex flex-col sm:flex-row gap-3 min-w-0">
+            <div className="w-full md:max-w-md flex flex-col sm:flex-row gap-0">
               <Input
                 type="text"
-                placeholder="초대코드 입력"
+                placeholder="ENTER CODE"
                 value={inviteCode}
                 onChange={(e) => setInviteCode(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handleInviteSubmit();
-                  }
+                  if (e.key === "Enter") handleInviteSubmit();
                 }}
-                className="w-full sm:flex-1 min-w-0 bg-white border-[var(--brand-muted)] text-[var(--brand-fg)] placeholder:text-muted-foreground"
+                className="h-14 bg-white border-2 border-[var(--brand-fg)] rounded-none text-lg px-6 focus-visible:ring-0 focus-visible:border-[var(--brand-primary)] z-10"
               />
-              <Button onClick={handleInviteSubmit} className="w-full sm:w-auto shrink-0 bg-[var(--brand-primary)] text-white hover:bg-[var(--brand-primary)]/90">
-                확인
+              <Button
+                onClick={handleInviteSubmit}
+                className="h-14 px-8 bg-[var(--brand-fg)] text-white hover:bg-[var(--brand-primary)] rounded-none text-lg font-bold border-2 border-l-0 border-[var(--brand-fg)]"
+              >
+                ENTER
               </Button>
             </div>
           </div>
           {inviteMessage && (
-            <div
-              className={cn(
-                "mt-3 text-sm min-w-0",
-                inviteMessage.includes("확인되었습니다")
-                  ? "text-[var(--brand-primary)]"
-                  : "text-destructive"
-              )}
-            >
+            <div className={cn("mt-4 text-right font-bold", inviteMessage.includes("확인") ? "text-[var(--brand-primary)]" : "text-red-500")}>
               {inviteMessage}
             </div>
           )}
-        </div>
+        </Container>
       </section>
 
       {/* 3) 진행 중인 캠페인 섹션 */}
-      <section className="py-16 md:py-24 bg-white border-t border-[var(--brand-muted)]">
-        <div className="mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
-          <MediaReveal intensity="subtle">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 md:mb-12 min-w-0 text-[var(--brand-fg)]">
-              진행 중인 캠페인
+      <Section className="py-20 md:py-32 bg-white">
+        <Container>
+          <div className="mb-16 md:mb-24">
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-[var(--brand-fg)] mb-6">
+              ACTIVE<br />CAMPAIGNS
             </h2>
-          </MediaReveal>
+            <p className="text-xl text-[var(--brand-fg)]/60 max-w-2xl">
+              현재 진행 중인 실전 마케팅 캠페인에 참여하여<br className="hidden md:block" />
+              당신의 실력을 증명하고 보상을 획득하세요.
+            </p>
+          </div>
 
-          <div className="grid gap-8 lg:grid-cols-12 items-start">
-            {/* LEFT: 캠페인 리스트 */}
-            <div className="lg:col-span-8 min-w-0">
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3 items-stretch auto-rows-fr">
-                {campaigns.map((campaign, index) => (
-                  <MediaReveal key={campaign.id} delay={index * 100} intensity="medium">
-                    <div className="min-w-0 h-full">
-                      <CampaignCard
-                        campaign={campaign}
-                        onClick={handleCampaignClick}
-                      />
-                    </div>
-                  </MediaReveal>
-                ))}
-              </div>
-            </div>
-
-            {/* RIGHT: 신청 CTA */}
-            <aside className="lg:col-span-4 min-w-0">
-              <MediaReveal intensity="medium" delay={200}>
-                <div className="rounded-2xl bg-[var(--brand-primary)]/5 text-[var(--brand-fg)] p-6 md:p-7 shadow-sm border border-[var(--brand-primary)]/20">
-                  <h3 className="text-xl md:text-2xl font-bold mb-3 text-[var(--brand-fg)] min-w-0">
-                    참여하고 싶으신가요?
-                  </h3>
-                  <p className="text-sm md:text-base text-[var(--brand-fg)]/80 leading-relaxed mb-4 break-words min-w-0">
-                    포트폴리오와 함께 신청해 주세요. 검토 후 연락드립니다.
-                  </p>
-                  <Button
-                    asChild
-                    variant="secondary"
-                    className="w-full bg-[var(--brand-primary)] text-white hover:bg-[var(--brand-primary)]/90"
-                  >
-                    <Link href="/auth" className="min-w-0">
-                      <LogIn className="w-4 h-4" />
-                      로그인하고 신청하기
-                    </Link>
-                  </Button>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t-2 border-l-2 border-[var(--brand-fg)]">
+            {campaigns.map((campaign, index) => (
+              <MediaReveal key={campaign.id} delay={index * 100} intensity="medium" className="col-span-1">
+                <div className="border-r-2 border-b-2 border-[var(--brand-fg)] h-full">
+                  <CampaignCard campaign={campaign} onClick={handleCampaignClick} />
                 </div>
               </MediaReveal>
-            </aside>
-          </div>
-        </div>
-      </section>
+            ))}
 
-      {/* 4) 진행 현황 + 미션 보드 섹션 */}
+            {/* CTA Card positioned as grid item */}
+            <MediaReveal delay={200} intensity="medium" className="col-span-1 md:col-span-2 lg:col-span-1">
+              <div className="h-full border-r-2 border-b-2 border-[var(--brand-fg)] bg-[var(--brand-fg)] p-8 md:p-12 flex flex-col justify-center text-white">
+                <h3 className="text-3xl font-black mb-4 leading-tight">WANT TO<br />JOIN?</h3>
+                <p className="text-white/70 mb-8 text-lg">
+                  포트폴리오와 함께 신청해 주세요.<br />
+                  검토 후 24시간 내에 연락드립니다.
+                </p>
+                <Button asChild className="h-14 bg-white text-[var(--brand-fg)] hover:bg-[var(--brand-primary)] hover:text-white rounded-none text-lg font-bold w-full transition-colors">
+                  <Link href="/auth">
+                    LOGIN TO APPLY
+                  </Link>
+                </Button>
+              </div>
+            </MediaReveal>
+          </div>
+        </Container>
+      </Section>
+
+      {/* 4) 미션 보드 섹션 */}
       <Section
-        data-palette="light"
-        data-theme="light"
-        data-section="progress-missions"
-        variant="default"
-        divider="top"
-        minHeight="auto"
+        data-palette="dark"
+        data-theme="dark"
+        className="py-20 md:py-32 bg-[#050505] text-white"
+        variant="ink"
       >
         <Container>
-          <div className="space-y-12 min-w-0">
-            {/* 진행 현황 */}
-            <div className="min-w-0">
-              <MediaReveal intensity="subtle">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8 min-w-0 text-[var(--brand-fg)]">
-                  진행 현황
-                </h2>
-              </MediaReveal>
-              <div className="space-y-4">
-                {timelineItems.map((item, index) => (
-                  <MediaReveal key={index} delay={index * 100} intensity="medium">
-                    <Card
-                      className="border-2 bg-white border-[var(--brand-muted)] p-4 md:p-6 min-w-0 shadow-sm"
-                    >
-                      <div className="flex flex-col sm:flex-row gap-4 min-w-0">
-                        <Badge
-                          variant="outline"
-                          className="w-fit bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] border-[var(--brand-primary)]/20 shrink-0"
-                        >
-                          {item.date}
-                        </Badge>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="text-lg md:text-xl font-bold mb-2 break-words min-w-0 text-[var(--brand-fg)]">
-                            {item.title}
-                          </h4>
-                          <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed break-words min-w-0">
-                            {item.desc}
-                          </p>
-                        </div>
-                      </div>
-                    </Card>
-                  </MediaReveal>
-                ))}
-              </div>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+            <div>
+              <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 text-white">
+                MISSION<br />BOARD
+              </h2>
+              <p className="text-xl text-white/60 max-w-xl">
+                반나절이면 완료할 수 있는 마이크로 미션.<br className="hidden md:block" />
+                완료 즉시 기여도를 인정받고 크레딧을 적립하세요.
+              </p>
             </div>
+            <div className="hidden md:block text-right">
+              <div className="text-sm font-bold uppercase tracking-widest text-[var(--brand-primary)] mb-2">Live Status</div>
+              <div className="text-4xl font-black">{missions.length} Missions Open</div>
+            </div>
+          </div>
 
-            {/* 미션 보드 */}
-            <div className="min-w-0">
-              <MediaReveal intensity="subtle">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 min-w-0 text-[var(--brand-fg)]">
-                  미션 보드
-                </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {missions.map((mission, index) => (
+              <MediaReveal key={mission.id} delay={index * 50} intensity="subtle">
+                <MissionCard mission={mission} onClick={handleMissionClick} />
               </MediaReveal>
-              <MediaReveal intensity="subtle" delay={100}>
-                <p className="text-base md:text-lg text-[var(--brand-fg)]/70 mb-6 md:mb-8 leading-relaxed break-words min-w-0">
-                  반나절 단위 실전 과제. 완료 시 포트폴리오에 바로 활용
-                  가능합니다.
-                </p>
-              </MediaReveal>
-              <div className="grid md:grid-cols-2 gap-4">
-                {missions.map((mission, index) => (
-                  <MediaReveal key={mission.id} delay={index * 100} intensity="medium">
-                    <div className="min-w-0">
-                      <MissionCard
-                        mission={mission}
-                        onClick={handleMissionClick}
-                      />
-                    </div>
-                  </MediaReveal>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </Container>
       </Section>

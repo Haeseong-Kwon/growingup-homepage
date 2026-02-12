@@ -65,7 +65,7 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
             </Button>
           </div>
 
-          <div className="flex-1 flex flex-col justify-center px-6 md:px-20 lg:px-32 max-w-[1800px] mx-auto w-full">
+          <div className="flex-1 flex flex-col justify-center px-6 md:px-20 lg:px-32 max-w-[1800px] mx-auto w-full overflow-y-auto py-24 md:py-32">
             <nav className="flex flex-col gap-2 md:gap-4">
               {menuItems.map((item, index) => (
                 <motion.div
