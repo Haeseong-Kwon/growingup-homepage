@@ -411,7 +411,7 @@ export default function HomePage() {
                   </Button>
                 </Magnetic>
                 <Magnetic strength={0.2}>
-                  <Button asChild size="lg" variant="outline" className="h-16 text-lg font-bold border-white/20 text-white hover:bg-white/10 rounded-full w-full">
+                  <Button asChild size="lg" variant="outline" className="h-16 text-lg font-bold border-white/20 text-white bg-transparent hover:bg-white/10 rounded-full w-full">
                     <Link href="/proposal">Request Proposal</Link>
                   </Button>
                 </Magnetic>
