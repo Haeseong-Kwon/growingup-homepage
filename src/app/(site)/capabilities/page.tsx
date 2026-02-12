@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { MediaReveal } from "@/components/motion/media-reveal";
+import { SplitTextReveal } from "@/components/motion/split-text-reveal";
 import { VideoHero } from "@/components/hero/video-hero";
 import {
   Search,
@@ -164,7 +165,7 @@ const sampleDeliverables = [
   },
 ];
 
-// Capabilities Map 섹션 - 안정화 버전 (애니메이션 제거)
+// Capabilities Map 섹션 - Bento Grid / Asymmetric Layout
 function CapabilitiesMapSection() {
   return (
     <Section
@@ -174,61 +175,73 @@ function CapabilitiesMapSection() {
       variant="default"
       divider="top"
       minHeight="auto"
-      className="py-12 md:py-20"
+      className="py-16 md:py-24"
     >
       <Container>
-        <div className="mb-12 md:mb-16">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance text-[var(--brand-fg)]">
-            Capabilities Map
-          </h2>
-          <p className="text-base md:text-lg text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
+        <div className="mb-20 md:mb-32">
+          <SplitTextReveal
+            text="Capabilities Map"
+            as="h2"
+            className="text-6xl md:text-8xl font-black tracking-tighter mb-8 text-[var(--brand-fg)]"
+          />
+          <p className="text-xl md:text-2xl text-[var(--brand-fg)]/60 leading-relaxed max-w-3xl">
             7개 영역에서 측정 가능한 성과를 만들어내는 체계적인 접근
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {capabilitiesMap.map((capability) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 auto-rows-[minmax(320px,auto)]">
+          {capabilitiesMap.map((capability, index) => (
             <Card
               key={capability.title}
               className={cn(
-                "border-2 flex flex-col h-full",
-                "transition-all duration-200 ease-out",
-                "hover:-translate-y-1 hover:shadow-lg hover:border-[var(--brand-primary)]/40",
-                "bg-white border-[var(--brand-muted)] shadow-sm",
-                "motion-reduce:transition-none motion-reduce:transform-none"
+                "border-2 flex flex-col justify-between p-8",
+                "transition-all duration-500 ease-out",
+                "hover:-translate-y-2 hover:shadow-xl hover:border-[var(--brand-primary)]",
+                "bg-white border-[var(--brand-muted)] shadow-sm group",
+                // Bento Grid Logic:
+                // Row 1: [2 cols] [1 col]
+                // Row 2: [1 col] [1 col] [1 col]
+                // Row 3: [2 cols] [1 col]
+                (index === 0 || index === 5) ? "lg:col-span-2" : "lg:col-span-1"
               )}
             >
-              <CardHeader>
-                <CardTitle className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-2">
+              <CardHeader className="p-0 mb-6">
+                <CardTitle className={cn(
+                  "font-bold text-[var(--brand-fg)] mb-4",
+                  (index === 0 || index === 5) ? "text-3xl md:text-4xl" : "text-2xl"
+                )}>
                   {capability.title}
                 </CardTitle>
-                <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed mb-4">
+                <p className="text-lg text-[var(--brand-fg)]/60 leading-relaxed group-hover:text-[var(--brand-fg)] transition-colors">
                   {capability.description}
                 </p>
               </CardHeader>
-              <CardContent className="flex-1 flex flex-col">
-                <div className="mb-4">
-                  <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-2">
-                    대표 산출물
-                  </div>
-                  <ul className="space-y-1.5">
-                    {capability.deliverables.map((item, itemIndex) => (
-                      <li key={itemIndex} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[var(--brand-primary)] mt-0.5 flex-shrink-0" />
-                        <span className="text-sm text-[var(--brand-fg)]/80 leading-relaxed">
+
+              <CardContent className="p-0 pt-6 border-t border-[var(--brand-muted)]/50 group-hover:border-[var(--brand-muted)] transition-colors">
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <div className="text-xs font-bold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
+                      Deliverables
+                    </div>
+                    <ul className="space-y-2">
+                      {capability.deliverables.slice(0, (index === 0 || index === 5) ? 3 : 2).map((item, i) => (
+                        <li key={i} className="text-sm font-medium text-[var(--brand-fg)]/80 flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-primary)]" />
                           {item}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-auto pt-4 border-t border-[var(--brand-muted)]">
-                  <div className="text-xs font-medium uppercase tracking-wide text-[var(--brand-fg)]/60 mb-1">
-                    성공 기준
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <p className="text-sm text-[var(--brand-fg)]/70 leading-relaxed">
-                    {capability.successCriteria}
-                  </p>
+                  {(index === 0 || index === 5) && (
+                    <div>
+                      <div className="text-xs font-bold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
+                        Success Metrics
+                      </div>
+                      <p className="text-sm font-medium text-[var(--brand-fg)]/80">
+                        {capability.successCriteria}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -267,15 +280,17 @@ export default function CapabilitiesPage() {
         variant="default"
         divider="top"
         minHeight="auto"
-        className="py-12 md:py-20"
+        className="py-16 md:py-24"
       >
         <Container>
           <MediaReveal intensity="subtle">
-            <div className="mb-12 md:mb-16">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance text-[var(--brand-fg)]">
-                OS로 운영되는 마케팅
-              </h2>
-              <p className="text-base md:text-lg text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
+            <div className="mb-16 md:mb-24">
+              <SplitTextReveal
+                text="OS로 운영되는 마케팅"
+                as="h2"
+                className="text-5xl md:text-7xl font-black tracking-tighter mb-8 text-[var(--brand-fg)]"
+              />
+              <p className="text-xl md:text-2xl text-[var(--brand-fg)]/60 leading-relaxed max-w-3xl">
                 각 단계가 독립적으로 작동하면서도 유기적으로 연결됩니다. 각 모듈은 독립 실행 가능하며, 전체 사이클을 통해 지속적으로 최적화됩니다.
               </p>
             </div>
@@ -323,15 +338,17 @@ export default function CapabilitiesPage() {
         variant="default"
         divider="top"
         minHeight="auto"
-        className="py-12 md:py-20"
+        className="py-16 md:py-24"
       >
         <Container>
           <MediaReveal intensity="subtle">
-            <div className="mb-12 md:mb-16">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4 text-balance text-[var(--brand-fg)]">
-                Operating Principles
-              </h2>
-              <p className="text-base md:text-lg text-[var(--brand-fg)]/70 leading-relaxed max-w-3xl">
+            <div className="mb-16 md:mb-24">
+              <SplitTextReveal
+                text="Operating Principles"
+                as="h2"
+                className="text-5xl md:text-7xl font-black tracking-tighter mb-8 text-[var(--brand-fg)]"
+              />
+              <p className="text-xl md:text-2xl text-[var(--brand-fg)]/60 leading-relaxed max-w-3xl">
                 모든 프로젝트에 일관되게 적용되는 운영 원칙
               </p>
             </div>

@@ -10,7 +10,9 @@ import { PortfolioFilterBar } from "@/components/portfolio/PortfolioFilterBar";
 import { PortfolioCard } from "@/components/portfolio/PortfolioCard";
 import { PortfolioDetailModal } from "@/components/portfolio/PortfolioDetailModal";
 import { Button } from "@/components/ui/button";
+import { SplitTextReveal } from "@/components/motion/split-text-reveal"; // Import added
 import { portfolioData, PortfolioItem } from "@/data/portfolio";
+import { cn } from "@/lib/utils";
 
 export default function PortfolioPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -123,36 +125,56 @@ export default function PortfolioPage() {
         className="py-16 md:py-24"
       >
         <Container>
-          {filteredPortfolios.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {filteredPortfolios.map((portfolioItem, index) => (
-                <MediaReveal
-                  key={portfolioItem.id}
-                  delay={index * 100}
-                  intensity="medium"
+          <div className="mb-12 md:mb-20">
+            <SplitTextReveal
+              text="Selected Works"
+              as="h2"
+              className="text-6xl md:text-8xl font-black tracking-tighter mb-8 text-[var(--brand-fg)]"
+            />
+            <p className="text-xl md:text-2xl text-[var(--brand-fg)]/60 max-w-2xl leading-relaxed">
+              다양한 산업 분야에서의 성공적인 프로젝트 경험
+            </p>
+          </div>
+
+          {/* Filter Bar is handled by component, assuming it fits */}
+          <div className="mb-12">
+            {filteredPortfolios.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 auto-rows-[minmax(320px,auto)]">
+                {filteredPortfolios.map((portfolioItem, index) => (
+                  <MediaReveal
+                    key={portfolioItem.id}
+                    delay={index * 100}
+                    intensity="medium"
+                    className={cn(
+                      "h-full",
+                      // Asymmetric spans: 1st item big, 5th item big
+                      (index === 0 || index === 4) && "sm:col-span-2"
+                    )}
+                  >
+                    <PortfolioCard
+                      portfolioItem={portfolioItem}
+                      onClick={() => handleCardClick(portfolioItem)}
+                      className="h-full"
+                    />
+                  </MediaReveal>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16 md:py-24">
+                <p className="text-lg text-muted-foreground mb-6">
+                  조건에 맞는 포트폴리오가 없습니다. 필터를 초기화해보세요.
+                </p>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={handleReset}
+                  className="rounded-lg h-12 px-8 text-base font-bold bg-transparent text-black border-black/30 hover:bg-black/5"
                 >
-                  <PortfolioCard
-                    portfolioItem={portfolioItem}
-                    onClick={() => handleCardClick(portfolioItem)}
-                  />
-                </MediaReveal>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16 md:py-24">
-              <p className="text-lg text-muted-foreground mb-6">
-                조건에 맞는 포트폴리오가 없습니다. 필터를 초기화해보세요.
-              </p>
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={handleReset}
-                className="rounded-lg h-12 px-8 text-base font-bold bg-transparent text-white border-white/30 hover:bg-white/10 hover:text-white"
-              >
-                필터 초기화
-              </Button>
-            </div>
-          )}
+                  필터 초기화
+                </Button>
+              </div>
+            )}
+          </div>
         </Container>
       </Section>
 

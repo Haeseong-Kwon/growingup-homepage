@@ -6,6 +6,7 @@ import { Container } from "@/components/layout/container";
 import { MediaReveal } from "@/components/motion/media-reveal";
 import { VideoHero } from "@/components/hero/video-hero";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { SplitTextReveal } from "@/components/motion/split-text-reveal"; // Added
 import { LeadMagnetCard } from "./LeadMagnetCard";
 import { SearchAndTags } from "./SearchAndTags";
 import { UpdatesList } from "./UpdatesList";
@@ -47,24 +48,36 @@ export function InsightsPage() {
 
   return (
     <div className="w-full overflow-x-hidden">
-      {/* Hero */}
+      {/* Hero - Video only */}
       <VideoHero
-        line1="트렌드와 실행 기록"
+        line1=""
         line2=""
-        subtitle="마케팅 업계 주요 이슈와 우리의 실행 과정을 공유합니다. 정보 수집과 학습, 그리고 투명한 공유."
+        subtitle=""
       />
 
-      {/* Tabs */}
+      {/* Main Content Area */}
       <Section
         data-palette="light"
         data-theme="light"
-        data-section="insights-tabs"
+        data-section="insights-content"
         variant="default"
         divider="top"
         minHeight="auto"
-        className="py-10 sm:py-12"
+        className="py-16 md:py-24"
       >
         <Container>
+          <div className="mb-20">
+            <SplitTextReveal
+              text="Insights & Updates"
+              as="h2"
+              className="text-6xl md:text-8xl font-black tracking-tighter mb-8 text-[var(--brand-fg)]"
+            />
+            <p className="text-xl md:text-2xl text-[var(--brand-fg)]/60 max-w-2xl leading-relaxed">
+              마케팅 업계 주요 이슈와 우리의 실행 과정을 공유합니다.<br />
+              정보 수집과 학습, 그리고 투명한 공유.
+            </p>
+          </div>
+
           <div className="w-full">
             <Tabs
               value={activeTab}

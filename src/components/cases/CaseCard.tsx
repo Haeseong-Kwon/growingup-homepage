@@ -8,11 +8,12 @@ import { CaseItem } from "./casesData";
 
 interface CaseCardProps {
   caseItem: CaseItem;
+  className?: string;
 }
 
-export function CaseCard({ caseItem }: CaseCardProps) {
+export function CaseCard({ caseItem, className }: CaseCardProps) {
   return (
-    <Link href={`/cases/${caseItem.slug}`} className="group block h-full">
+    <Link href={`/cases/${caseItem.slug}`} className={cn("group block h-full", className)}>
       <Card className="group overflow-hidden border-2 hover:border-[var(--brand-primary)]/20 transition-all duration-300 bg-white shadow-sm hover:shadow-xl rounded-2xl h-full flex flex-col">
         <div className="relative aspect-[4/3] overflow-hidden">
           {/* 이미지 (플레이스홀더) */}

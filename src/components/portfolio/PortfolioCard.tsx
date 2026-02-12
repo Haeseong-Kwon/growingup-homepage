@@ -1,17 +1,19 @@
 "use client";
 
 import { PortfolioItem } from "@/data/portfolio";
+import { cn } from "@/lib/utils";
 
 interface PortfolioCardProps {
   portfolioItem: PortfolioItem;
   onClick: () => void;
+  className?: string;
 }
 
-export function PortfolioCard({ portfolioItem, onClick }: PortfolioCardProps) {
+export function PortfolioCard({ portfolioItem, onClick, className }: PortfolioCardProps) {
   return (
     <div
       onClick={onClick}
-      className="group relative cursor-pointer"
+      className={cn("group relative cursor-pointer", className)}
     >
       {/* 이미지 컨테이너 - 모던한 비율과 둥근 모서리 */}
       <div className="aspect-[4/3] relative overflow-hidden rounded-2xl bg-[var(--brand-muted-light)] mb-6 shadow-sm group-hover:shadow-lg transition-shadow duration-300">

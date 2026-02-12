@@ -7,6 +7,7 @@ import { Section } from "@/components/layout/section";
 import { Container } from "@/components/layout/container";
 import { MediaReveal } from "@/components/motion/media-reveal";
 import { VideoHero } from "@/components/hero/video-hero";
+import { SplitTextReveal } from "@/components/motion/split-text-reveal";
 import { CaseCard } from "./CaseCard";
 import { casesData, categories, CaseItem } from "./casesData";
 import { cn } from "@/lib/utils";
@@ -45,24 +46,35 @@ export function CasesPage() {
         className="py-16 md:py-24"
       >
         <Container>
+          <div className="mb-12 md:mb-20">
+            <SplitTextReveal
+              text="Featured Works"
+              as="h2"
+              className="text-6xl md:text-8xl font-black tracking-tighter mb-8 text-[var(--brand-fg)]"
+            />
+            <p className="text-xl md:text-2xl text-[var(--brand-fg)]/60 max-w-2xl leading-relaxed">
+              비즈니스 임팩트를 만들어낸 실제 성공 사례
+            </p>
+          </div>
+
           {/* Filter Bar */}
           <MediaReveal intensity="subtle">
-            <div className="mb-10 lg:mb-12">
+            <div className="mb-12 lg:mb-16">
               <div className="flex items-center gap-4 overflow-x-auto pb-2 filter-bar-scroll">
-                <span className="text-sm font-medium text-white whitespace-nowrap flex-shrink-0">
-                  필터:
+                <span className="text-sm font-bold uppercase tracking-widest text-[var(--brand-fg)]/40 whitespace-nowrap flex-shrink-0">
+                  Filter
                 </span>
                 <div className="flex gap-2 min-w-0">
                   {categories.map((category) => (
                     <Button
                       key={category}
-                      variant={activeCategory === category ? "default" : "outline"}
+                      variant="ghost"
                       onClick={() => setActiveCategory(category)}
                       className={cn(
-                        "rounded-full px-6 transition-all duration-300",
+                        "rounded-full px-6 h-10 transition-all duration-300 font-bold border",
                         activeCategory === category
-                          ? "bg-[var(--brand-primary)] text-white hover:bg-[var(--brand-primary)]/90 shadow-md transform scale-105"
-                          : "bg-white text-[var(--brand-fg)] hover:bg-[var(--brand-primary)]/5 hover:border-[var(--brand-primary)]/30 hover:text-[var(--brand-primary)]"
+                          ? "bg-black text-white border-black"
+                          : "bg-transparent text-[var(--brand-fg)]/60 border-transparent hover:border-[var(--brand-fg)]/20 hover:bg-[var(--brand-fg)]/5"
                       )}
                     >
                       {category}
@@ -73,11 +85,20 @@ export function CasesPage() {
             </div>
           </MediaReveal>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {/* Cards Grid - Asymmetric Cheil Style */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 auto-rows-[minmax(400px,auto)]">
             {filteredCases.map((caseItem, index) => (
-              <MediaReveal key={caseItem.slug} delay={index * 100} intensity="medium">
-                <CaseCard caseItem={caseItem} />
+              <MediaReveal
+                key={caseItem.slug}
+                delay={index * 100}
+                intensity="medium"
+                className={cn(
+                  "h-full",
+                  // Asymmetric spans: 1st item is big (2 cols), 5th item is big
+                  (index === 0 || index === 4) && "md:col-span-2"
+                )}
+              >
+                <CaseCard caseItem={caseItem} className="h-full" />
               </MediaReveal>
             ))}
           </div>
@@ -116,4 +137,3 @@ export function CasesPage() {
     </div>
   );
 }
-
