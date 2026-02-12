@@ -107,62 +107,62 @@ export function ExecutionCasesSection() {
                   <ArrowUpRight className="w-5 h-5 text-[var(--brand-primary)]" />
                 </div>
 
-              <CardHeader className="pb-4 flex-1 relative z-10">
-                {/* 카테고리 칩 */}
-                <div className="mb-3">
-                  <span className="inline-block px-3 py-1.5 rounded-full bg-[var(--brand-primary)]/10 text-xs font-medium text-[var(--brand-primary)] transition-colors duration-200 ease-out motion-reduce:transition-none group-hover:bg-[var(--brand-primary)]/20">
-                    {caseItem.category}
-                  </span>
-                </div>
+                <CardHeader className="pb-4 flex-1 relative z-10">
+                  {/* 카테고리 칩 */}
+                  <div className="mb-3">
+                    <span className="inline-block px-3 py-1.5 rounded-full bg-[var(--brand-primary)]/10 text-xs font-medium text-[var(--brand-primary)] transition-colors duration-200 ease-out motion-reduce:transition-none group-hover:bg-[var(--brand-primary)]/20">
+                      {caseItem.category}
+                    </span>
+                  </div>
 
-                {/* 타이틀 */}
-                <h3 className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-6 pr-8">
-                  {caseItem.title}
-                </h3>
+                  {/* 타이틀 */}
+                  <h3 className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-6 pr-8">
+                    {caseItem.title}
+                  </h3>
 
-                {/* 문제/가설/실행 블록 */}
-                <div className="space-y-4">
-                  <div>
-                    <div className="text-xs font-medium text-[var(--brand-fg)]/50 mb-1.5 uppercase tracking-wide">
-                      문제
+                  {/* 문제/가설/실행 블록 */}
+                  <div className="space-y-4">
+                    <div>
+                      <div className="text-xs font-medium text-[var(--brand-fg)]/50 mb-1.5 uppercase tracking-wide">
+                        문제
+                      </div>
+                      <p className="text-sm text-[var(--brand-fg)]/80 leading-relaxed">
+                        {caseItem.problem}
+                      </p>
                     </div>
-                    <p className="text-sm text-[var(--brand-fg)]/80 leading-relaxed">
-                      {caseItem.problem}
+
+                    <div className="border-t border-[var(--color-border)] pt-4">
+                      <div className="text-xs font-medium text-[var(--brand-fg)]/50 mb-1.5 uppercase tracking-wide">
+                        가설
+                      </div>
+                      <p className="text-sm text-[var(--brand-fg)]/80 leading-relaxed">
+                        {caseItem.hypothesis}
+                      </p>
+                    </div>
+
+                    <div className="border-t border-[var(--color-border)] pt-4">
+                      <div className="text-xs font-medium text-[var(--brand-fg)]/50 mb-1.5 uppercase tracking-wide">
+                        실행
+                      </div>
+                      <p className="text-sm text-[var(--brand-fg)]/80 leading-relaxed">
+                        {caseItem.execution}
+                      </p>
+                    </div>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="pt-0 mt-auto relative z-10">
+                  {/* 성과 (하단 강조) */}
+                  <div className="border-t border-[var(--color-border)] pt-4 group-hover:border-[var(--brand-primary)]/20 transition-colors duration-200 ease-out motion-reduce:transition-none">
+                    <div className="text-xs font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
+                      성과
+                    </div>
+                    <p className="text-lg md:text-xl font-bold text-[var(--brand-primary)] leading-tight">
+                      {caseItem.result}
                     </p>
                   </div>
-
-                  <div className="border-t border-[var(--color-border)] pt-4">
-                    <div className="text-xs font-medium text-[var(--brand-fg)]/50 mb-1.5 uppercase tracking-wide">
-                      가설
-                    </div>
-                    <p className="text-sm text-[var(--brand-fg)]/80 leading-relaxed">
-                      {caseItem.hypothesis}
-                    </p>
-                  </div>
-
-                  <div className="border-t border-[var(--color-border)] pt-4">
-                    <div className="text-xs font-medium text-[var(--brand-fg)]/50 mb-1.5 uppercase tracking-wide">
-                      실행
-                    </div>
-                    <p className="text-sm text-[var(--brand-fg)]/80 leading-relaxed">
-                      {caseItem.execution}
-                    </p>
-                  </div>
-                </div>
-              </CardHeader>
-
-              <CardContent className="pt-0 mt-auto relative z-10">
-                {/* 성과 (하단 강조) */}
-                <div className="border-t border-[var(--color-border)] pt-4 group-hover:border-[var(--brand-primary)]/20 transition-colors duration-200 ease-out motion-reduce:transition-none">
-                  <div className="text-xs font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
-                    성과
-                  </div>
-                  <p className="text-lg md:text-xl font-bold text-[var(--brand-primary)] leading-tight">
-                    {caseItem.result}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
             </MediaReveal>
           ))}
         </div>

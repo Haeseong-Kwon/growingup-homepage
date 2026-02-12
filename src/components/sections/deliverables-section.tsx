@@ -73,7 +73,7 @@ export function DeliverablesSection() {
       data-palette="light"
       data-theme="light"
       data-section="deliverables"
-      className="py-32 bg-[#F8F9FA]"
+      className="py-20 md:py-24 bg-[#F8F9FA]"
     >
       <Container>
         {/* 섹션 헤더 */}

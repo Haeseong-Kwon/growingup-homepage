@@ -33,7 +33,7 @@ export function ServicesPage() {
         variant="default"
         divider="top"
         minHeight="auto"
-        className="py-24 md:py-32"
+        className="py-16 md:py-24"
       >
         <Container>
           <div className="mb-20">

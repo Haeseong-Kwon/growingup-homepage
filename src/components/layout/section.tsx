@@ -127,7 +127,7 @@ export function Section({
       data-section={dataSection}
       data-palette={dataPalette}
       className={cn(
-        "py-32 md:py-48 lg:py-56", // Massive padding
+        "py-16 md:py-24 lg:py-32", // Adjusted for mobile
         "scroll-mt-[100px]",
         !bleed && variantStyles[variant],
         dividerClass,

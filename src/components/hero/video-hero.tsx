@@ -112,7 +112,7 @@ export function VideoHero({
                 initial={{ y: 100, opacity: 0, rotate: 2 }}
                 animate={{ y: 0, opacity: 1, rotate: 0 }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                className="text-[clamp(1.75rem,7vw,6.5rem)] leading-[0.9] block"
+                className="text-5xl md:text-7xl lg:text-[6.5rem] leading-[0.9] block"
               >
                 {line1}
               </motion.span>
@@ -120,7 +120,7 @@ export function VideoHero({
                 initial={{ y: 100, opacity: 0, rotate: -2 }}
                 animate={{ y: 0, opacity: 1, rotate: 0 }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-                className="text-[clamp(1.75rem,7vw,6.5rem)] leading-[0.9] block text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/50"
+                className="text-5xl md:text-7xl lg:text-[6.5rem] leading-[0.9] block text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/50"
               >
                 {line2}
               </motion.span>

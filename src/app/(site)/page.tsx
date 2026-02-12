@@ -154,12 +154,12 @@ export default function HomePage() {
         data-palette="light"
         data-theme="light"
         data-section="why-growingup"
-        className="py-16 md:py-32 lg:py-48"
+        className="py-16 md:py-24 lg:py-32"
         bleed={true}
         withContainer={false}
       >
         <Container variant="fluid" className="px-6 lg:px-24">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-32 items-start mb-24 lg:mb-32">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-32 items-start mb-16 lg:mb-32">
             <div className="lg:w-1/3 sticky top-32">
               <SplitTextReveal
                 text="왜 GrowingUp인가"
@@ -222,7 +222,7 @@ export default function HomePage() {
         data-palette="dark"
         data-theme="dark"
         variant="ink"
-        className="py-16 md:py-32 lg:py-40 relative overflow-hidden"
+        className="py-16 md:py-24 lg:py-32 relative overflow-hidden"
         withContainer={false}
       >
         <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[var(--brand-primary)]/20 via-transparent to-transparent opacity-50 blur-3xl pointer-events-none" />
@@ -274,7 +274,7 @@ export default function HomePage() {
         data-palette="dark"
         data-theme="dark"
         variant="ink"
-        className="py-32"
+        className="py-20 md:py-24"
         withContainer={false}
       >
         <Container>
@@ -307,7 +307,7 @@ export default function HomePage() {
       <Section
         data-palette="light"
         data-theme="light"
-        className="py-32 lg:py-48 bg-white"
+        className="py-20 md:py-24 bg-white"
         withContainer={false}
       >
         <Container variant="fluid" className="px-6 lg:px-24">
@@ -347,7 +347,7 @@ export default function HomePage() {
         data-palette="light"
         data-theme="light"
         variant="tinted"
-        className="py-32"
+        className="py-20 md:py-24"
         withContainer={false}
       >
         <Container>
@@ -355,7 +355,7 @@ export default function HomePage() {
             <h2 className="text-4xl lg:text-6xl font-black tracking-tighter mb-6">SELECTED<br />WORKS</h2>
           </div>
 
-          <div className="flex flex-col gap-32">
+          <div className="flex flex-col gap-16 md:gap-32">
             {portfolioCases.map((caseItem, index) => (
               <div key={index} className="group grid md:grid-cols-2 gap-12 lg:gap-24 items-center">
                 <div className={cn("relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl", index % 2 !== 0 ? "md:order-2" : "")}>
@@ -392,7 +392,7 @@ export default function HomePage() {
       </Section>
 
       {/* FAQ & CTA */}
-      <Section className="py-32 bg-white">
+      <Section className="py-20 md:py-24 bg-white">
         <Container>
           <div className="grid lg:grid-cols-2 gap-20">
             <div>
