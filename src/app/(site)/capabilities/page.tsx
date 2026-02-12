@@ -189,62 +189,66 @@ function CapabilitiesMapSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 auto-rows-[minmax(320px,auto)]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t-2 border-l-2 border-[var(--brand-fg)]">
           {capabilitiesMap.map((capability, index) => (
-            <Card
-              key={capability.title}
-              className={cn(
-                "border-2 flex flex-col justify-between p-8",
-                "transition-all duration-500 ease-out",
-                "hover:-translate-y-2 hover:shadow-xl hover:border-[var(--brand-primary)]",
-                "bg-white border-[var(--brand-muted)] shadow-sm group",
-                // Bento Grid Logic:
-                // Row 1: [2 cols] [1 col]
-                // Row 2: [1 col] [1 col] [1 col]
-                // Row 3: [2 cols] [1 col]
-                (index === 0 || index === 5) ? "lg:col-span-2" : "lg:col-span-1"
-              )}
-            >
-              <CardHeader className="p-0 mb-6">
-                <CardTitle className={cn(
-                  "font-bold text-[var(--brand-fg)] mb-4",
-                  (index === 0 || index === 5) ? "text-3xl md:text-4xl" : "text-2xl"
-                )}>
-                  {capability.title}
-                </CardTitle>
-                <p className="text-lg text-[var(--brand-fg)]/60 leading-relaxed group-hover:text-[var(--brand-fg)] transition-colors">
-                  {capability.description}
-                </p>
-              </CardHeader>
-
-              <CardContent className="p-0 pt-6 border-t border-[var(--brand-muted)]/50 group-hover:border-[var(--brand-muted)] transition-colors">
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <div>
-                    <div className="text-xs font-bold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
-                      Deliverables
-                    </div>
-                    <ul className="space-y-2">
-                      {capability.deliverables.slice(0, (index === 0 || index === 5) ? 3 : 2).map((item, i) => (
-                        <li key={i} className="text-sm font-medium text-[var(--brand-fg)]/80 flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-primary)]" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  {(index === 0 || index === 5) && (
-                    <div>
-                      <div className="text-xs font-bold uppercase tracking-widest text-[var(--brand-primary)] mb-3">
-                        Success Metrics
-                      </div>
-                      <p className="text-sm font-medium text-[var(--brand-fg)]/80">
-                        {capability.successCriteria}
-                      </p>
-                    </div>
-                  )}
+            <MediaReveal key={capability.title} delay={index * 50} intensity="subtle" className={cn(
+              // Grid Spans:
+              // Desktop (lg): 3 cols. Items 0 & 4 span 2 cols.
+              // Tablet (md): 2 cols. Item 0 spans 2 cols to start full width.
+              // Mobile (base): 1 col.
+              "col-span-1",
+              index === 0 && "md:col-span-2 lg:col-span-2",
+              index === 4 && "lg:col-span-2"
+            )}>
+              <div
+                className={cn(
+                  "group relative h-full flex flex-col justify-between p-8 md:p-12",
+                  "border-r-2 border-b-2 border-[var(--brand-fg)] bg-white",
+                  "transition-all duration-300 ease-out",
+                  "hover:bg-[var(--brand-fg)] hover:text-white"
+                )}
+              >
+                <div className="mb-8">
+                  <h3 className={cn(
+                    "font-bold mb-4 tracking-tight group-hover:text-white transition-colors",
+                    (index === 0 || index === 4) ? "text-3xl md:text-4xl" : "text-2xl"
+                  )}>
+                    {capability.title}
+                  </h3>
+                  <p className="text-lg opacity-70 group-hover:opacity-90 transition-opacity leading-relaxed">
+                    {capability.description}
+                  </p>
                 </div>
-              </CardContent>
-            </Card>
+
+                <div className="pt-8 border-t border-[var(--brand-fg)]/10 group-hover:border-white/20 transition-colors">
+                  <div className="grid gap-8 sm:grid-cols-2">
+                    <div>
+                      <div className="text-xs font-bold uppercase tracking-widest opacity-40 mb-3 group-hover:text-white group-hover:opacity-60">
+                        Deliverables
+                      </div>
+                      <ul className="space-y-2">
+                        {capability.deliverables.slice(0, 3).map((item, i) => (
+                          <li key={i} className="text-sm font-medium flex items-center gap-2 group-hover:text-white/90">
+                            <div className="w-1.5 h-1.5 bg-[var(--brand-primary)] group-hover:bg-white transition-colors" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    {(index === 0 || index === 4) && (
+                      <div>
+                        <div className="text-xs font-bold uppercase tracking-widest opacity-40 mb-3 group-hover:text-white group-hover:opacity-60">
+                          Success Metrics
+                        </div>
+                        <p className="text-sm font-medium group-hover:text-white/90">
+                          {capability.successCriteria}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </MediaReveal>
           ))}
         </div>
       </Container>

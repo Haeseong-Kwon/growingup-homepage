@@ -13,17 +13,22 @@ export function PortfolioCard({ portfolioItem, onClick, className }: PortfolioCa
   return (
     <div
       onClick={onClick}
-      className={cn("group relative cursor-pointer", className)}
+      className={cn(
+        "group relative cursor-pointer h-full flex flex-col",
+        "bg-white border-2 border-[var(--brand-fg)] transition-all duration-300",
+        "hover:bg-[var(--brand-fg)] hover:text-white hover:-translate-y-1 hover:shadow-xl",
+        className
+      )}
     >
-      {/* 이미지 컨테이너 - 모던한 비율과 둥근 모서리 */}
-      <div className="aspect-[4/3] relative overflow-hidden rounded-2xl bg-[var(--brand-muted-light)] mb-6 shadow-sm group-hover:shadow-lg transition-shadow duration-300">
+      {/* 이미지 컨테이너 - Sharp corners, Border bottom */}
+      <div className="aspect-[4/3] relative overflow-hidden border-b-2 border-[var(--brand-fg)] group-hover:border-white/20 transition-colors">
         {/* 호버 시 이미지 스케일 효과 */}
         <div className="w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105">
           {portfolioItem.thumbnailUrl ? (
-            <div className="w-full h-full bg-slate-200" /> // 실제 이미지 로직이 있다면 여기에 img 태그 사용
+            <div className="w-full h-full bg-slate-200" />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
-              <span className="text-lg font-bold text-gray-300 uppercase tracking-widest">
+            <div className="w-full h-full flex items-center justify-center bg-[var(--brand-muted-light)] group-hover:bg-[var(--brand-fg)] transition-colors">
+              <span className="text-lg font-bold text-[var(--brand-fg)]/20 group-hover:text-white/20 uppercase tracking-widest">
                 {portfolioItem.category}
               </span>
             </div>
@@ -43,26 +48,26 @@ export function PortfolioCard({ portfolioItem, onClick, className }: PortfolioCa
       </div>
 
       {/* 텍스트 정보 */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-3 text-xs uppercase tracking-wider font-bold text-[var(--brand-fg)]/40">
+      <div className="p-6 space-y-4 flex-1 flex flex-col">
+        <div className="flex items-center gap-3 text-xs uppercase tracking-wider font-bold text-[var(--brand-fg)]/60 group-hover:text-white/60 transition-colors">
           <span>{portfolioItem.category}</span>
-          <span className="w-1 h-1 rounded-full bg-[var(--brand-fg)]/20" />
+          <span className="w-1 h-1 rounded-full bg-[var(--brand-fg)]/20 group-hover:bg-white/40" />
           <span>{portfolioItem.year}</span>
         </div>
 
-        <h3 className="text-2xl md:text-3xl font-bold text-[var(--brand-fg)] leading-tight group-hover:text-[var(--brand-primary)] transition-colors duration-300">
+        <h3 className="text-2xl md:text-3xl font-bold text-[var(--brand-fg)] leading-tight group-hover:text-white transition-colors duration-300">
           {portfolioItem.title}
         </h3>
 
-        <p className="text-[var(--brand-fg)]/60 line-clamp-2 leading-relaxed">
+        <p className="text-[var(--brand-fg)]/60 group-hover:text-white/70 line-clamp-2 leading-relaxed transition-colors flex-1">
           {portfolioItem.summary}
         </p>
 
         {/* 태그 */}
         {portfolioItem.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 pt-2">
+          <div className="flex flex-wrap gap-2 pt-2 mt-auto">
             {portfolioItem.tags.slice(0, 3).map((tag, index) => (
-              <span key={index} className="text-xs px-2 py-1 rounded-md bg-[var(--brand-muted-light)] text-[var(--brand-fg)]/60">
+              <span key={index} className="text-xs px-2 py-1 bg-[var(--brand-muted-light)] text-[var(--brand-fg)]/60 group-hover:bg-white/10 group-hover:text-white/80 transition-colors border border-transparent group-hover:border-white/20">
                 #{tag}
               </span>
             ))}

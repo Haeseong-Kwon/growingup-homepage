@@ -71,10 +71,10 @@ export function CasesPage() {
                       variant="ghost"
                       onClick={() => setActiveCategory(category)}
                       className={cn(
-                        "rounded-full px-6 h-10 transition-all duration-300 font-bold border",
+                        "rounded-none px-6 h-10 transition-all duration-300 font-bold border-2",
                         activeCategory === category
                           ? "bg-black text-white border-black"
-                          : "bg-transparent text-[var(--brand-fg)]/60 border-transparent hover:border-[var(--brand-fg)]/20 hover:bg-[var(--brand-fg)]/5"
+                          : "bg-transparent text-[var(--brand-fg)]/60 border-transparent hover:border-[var(--brand-fg)] hover:text-[var(--brand-fg)]"
                       )}
                     >
                       {category}
@@ -86,16 +86,19 @@ export function CasesPage() {
           </MediaReveal>
 
           {/* Cards Grid - Asymmetric Cheil Style */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 auto-rows-[minmax(400px,auto)]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 auto-rows-[minmax(400px,auto)] grid-flow-dense">
             {filteredCases.map((caseItem, index) => (
               <MediaReveal
                 key={caseItem.slug}
-                delay={index * 100}
+                delay={index * 50}
                 intensity="medium"
                 className={cn(
                   "h-full",
-                  // Asymmetric spans: 1st item is big (2 cols), 5th item is big
-                  (index === 0 || index === 4) && "md:col-span-2"
+                  // Bento Logic for 3-col grid:
+                  // 0: Big (2)
+                  // 1,2,3: Small (1)
+                  // 4: Big (2) -> Needs dense flow to fill holes if they appear
+                  (index === 0 || index === 4) ? "md:col-span-2 lg:col-span-2" : "col-span-1"
                 )}
               >
                 <CaseCard caseItem={caseItem} className="h-full" />

@@ -139,16 +139,18 @@ export default function PortfolioPage() {
           {/* Filter Bar is handled by component, assuming it fits */}
           <div className="mb-12">
             {filteredPortfolios.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 auto-rows-[minmax(320px,auto)]">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 auto-rows-[minmax(320px,auto)] grid-flow-dense">
                 {filteredPortfolios.map((portfolioItem, index) => (
                   <MediaReveal
                     key={portfolioItem.id}
-                    delay={index * 100}
+                    delay={index * 50}
                     intensity="medium"
                     className={cn(
                       "h-full",
-                      // Asymmetric spans: 1st item big, 5th item big
-                      (index === 0 || index === 4) && "sm:col-span-2"
+                      // Asymmetric spans: 
+                      // 0: Big (2)
+                      // 4: Big (2)
+                      (index === 0 || index === 4) ? "md:col-span-2 lg:col-span-2" : "col-span-1"
                     )}
                   >
                     <PortfolioCard
