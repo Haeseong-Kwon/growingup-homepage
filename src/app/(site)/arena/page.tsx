@@ -188,7 +188,8 @@ function MissionCard({
       onClick={onClick}
       className={cn(
         "group flex flex-col justify-between p-6 cursor-pointer transition-all duration-300 h-full",
-        "bg-white border-2 border-[var(--brand-fg)] hover:bg-[var(--brand-fg)] hover:text-white"
+        "bg-white border-2 border-[var(--brand-fg)] hover:bg-[var(--brand-fg)] hover:text-white",
+        "text-[var(--brand-fg)]"
       )}
     >
       <div>
