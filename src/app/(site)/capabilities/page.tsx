@@ -191,15 +191,7 @@ function CapabilitiesMapSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t-2 border-l-2 border-[var(--brand-fg)]">
           {capabilitiesMap.map((capability, index) => (
-            <MediaReveal key={capability.title} delay={index * 50} intensity="subtle" className={cn(
-              // Grid Spans:
-              // Desktop (lg): 3 cols. Items 0 & 4 span 2 cols.
-              // Tablet (md): 2 cols. Item 0 spans 2 cols to start full width.
-              // Mobile (base): 1 col.
-              "col-span-1",
-              index === 0 && "md:col-span-2 lg:col-span-2",
-              index === 4 && "lg:col-span-2"
-            )}>
+            <MediaReveal key={capability.title} delay={index * 50} intensity="subtle" className="col-span-1">
               <div
                 className={cn(
                   "group relative h-full flex flex-col justify-between p-8 md:p-12",
@@ -209,10 +201,7 @@ function CapabilitiesMapSection() {
                 )}
               >
                 <div className="mb-8">
-                  <h3 className={cn(
-                    "font-bold mb-4 tracking-tight group-hover:text-white transition-colors",
-                    (index === 0 || index === 4) ? "text-3xl md:text-4xl" : "text-2xl"
-                  )}>
+                  <h3 className="font-bold mb-4 tracking-tight group-hover:text-white transition-colors text-2xl">
                     {capability.title}
                   </h3>
                   <p className="text-lg opacity-70 group-hover:opacity-90 transition-opacity leading-relaxed">
@@ -235,16 +224,6 @@ function CapabilitiesMapSection() {
                         ))}
                       </ul>
                     </div>
-                    {(index === 0 || index === 4) && (
-                      <div>
-                        <div className="text-xs font-bold uppercase tracking-widest opacity-40 mb-3 group-hover:text-white group-hover:opacity-60">
-                          Success Metrics
-                        </div>
-                        <p className="text-sm font-medium group-hover:text-white/90">
-                          {capability.successCriteria}
-                        </p>
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>

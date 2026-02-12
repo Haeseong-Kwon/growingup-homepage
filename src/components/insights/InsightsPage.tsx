@@ -48,11 +48,11 @@ export function InsightsPage() {
 
   return (
     <div className="w-full overflow-x-hidden">
-      {/* Hero - Video only */}
+      {/* Hero - Video with Text */}
       <VideoHero
-        line1=""
-        line2=""
-        subtitle=""
+        line1="INSIGHTS"
+        line2="& UPDATES"
+        subtitle="마케팅 업계 주요 이슈와 우리의 실행 과정을 공유합니다."
       />
 
       {/* Main Content Area */}
@@ -66,17 +66,7 @@ export function InsightsPage() {
         className="py-16 md:py-24"
       >
         <Container>
-          <div className="mb-20">
-            <SplitTextReveal
-              text="Insights & Updates"
-              as="h2"
-              className="text-6xl md:text-8xl font-black tracking-tighter mb-8 text-[var(--brand-fg)]"
-            />
-            <p className="text-xl md:text-2xl text-[var(--brand-fg)]/60 max-w-2xl leading-relaxed">
-              마케팅 업계 주요 이슈와 우리의 실행 과정을 공유합니다.<br />
-              정보 수집과 학습, 그리고 투명한 공유.
-            </p>
-          </div>
+          {/* Removed duplicate header, moved subtitle to hero */}
 
           <div className="w-full">
             <Tabs

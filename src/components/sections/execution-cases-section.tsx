@@ -54,115 +54,78 @@ export function ExecutionCasesSection() {
       variant="default"
       divider="top"
       minHeight="auto"
-      className="py-12 md:py-16"
+      className="py-16 md:py-24"
     >
       <Container className="relative">
-        {/* 배경 장식 요소 */}
-        <div className="absolute top-0 left-0 w-64 h-64 md:w-96 md:h-96 rounded-full bg-[var(--brand-primary)]/5 blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-64 h-64 md:w-96 md:h-96 rounded-full bg-[var(--brand-secondary)]/5 blur-3xl pointer-events-none translate-x-1/2 translate-y-1/2" />
-
-        {/* 섹션 헤더 */}
+        {/* 섹션 헤더 - Massive Typography */}
         <MediaReveal intensity="subtle">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 md:gap-8 mb-12 md:mb-16 relative z-10">
-            <div>
-              <div className="text-sm md:text-base font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
-                실행 사례
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 md:mb-24 relative z-10">
+            <div className="max-w-3xl">
+              <div className="text-sm font-bold text-[var(--brand-primary)] mb-4 uppercase tracking-widest border-l-4 border-[var(--brand-primary)] pl-4">
+                Process to Results
               </div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--brand-fg)] leading-tight">
-                문제 정의 → 가설 수립 → 실행 → 결과
+              <h2 className="text-5xl md:text-7xl font-black text-[var(--brand-fg)] leading-[0.9] tracking-tighter mb-6">
+                EXECUTION<br />CASES
               </h2>
+              <p className="text-xl text-[var(--brand-fg)]/60 max-w-xl leading-relaxed">
+                문제 정의부터 가설 검증, 그리고 압도적인 성과까지.<br className="hidden md:block" />
+                우리의 실행은 데이터로 증명됩니다.
+              </p>
             </div>
             <Link
               href="/cases"
-              className="inline-flex items-center gap-2 text-sm md:text-base font-medium text-[var(--brand-primary)] hover:text-[var(--brand-primary)]/80 transition-colors group/link"
+              className="inline-flex items-center gap-2 text-lg font-bold text-[var(--brand-fg)] hover:text-[var(--brand-primary)] transition-colors group/link border-b-2 border-black pb-1 hover:border-[var(--brand-primary)]"
             >
-              전체 사례 보기
-              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
+              VIEW ALL CASES
+              <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
             </Link>
           </div>
         </MediaReveal>
 
-        {/* 카드 그리드 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {/* 카드 그리드 - Sharp & High Contrast */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t-2 border-l-2 border-[var(--brand-fg)]">
           {executionCases.map((caseItem, index) => (
             <MediaReveal key={index} delay={index * 100} intensity="medium">
-              <Card
+              <div
                 className={cn(
-                  "group relative border-2 flex flex-col h-full overflow-hidden",
-                  "transition-transform duration-200 ease-out [contain:paint]",
-                  "hover:-translate-y-1.5 motion-reduce:transition-none",
-                  "bg-gradient-to-br from-white to-[var(--brand-muted-light)]/30",
-                  "border-[var(--color-border)]",
-                  "hover:border-[var(--brand-primary)]/40 shadow-sm"
+                  "group relative h-full flex flex-col justify-between p-8 md:p-10",
+                  "bg-white border-r-2 border-b-2 border-[var(--brand-fg)]",
+                  "transition-all duration-300 ease-out",
+                  "hover:bg-[var(--brand-fg)] hover:text-white"
                 )}
               >
-                {/* 배경 그라데이션 효과 */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
-
-                {/* 상단 액센트 바 */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--brand-primary)]/50 via-[var(--brand-secondary)]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none" />
-
-                {/* 우상단 아이콘 */}
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none z-10">
-                  <ArrowUpRight className="w-5 h-5 text-[var(--brand-primary)]" />
-                </div>
-
-                <CardHeader className="pb-4 flex-1 relative z-10">
-                  {/* 카테고리 칩 */}
-                  <div className="mb-3">
-                    <span className="inline-block px-3 py-1.5 rounded-full bg-[var(--brand-primary)]/10 text-xs font-medium text-[var(--brand-primary)] transition-colors duration-200 ease-out motion-reduce:transition-none group-hover:bg-[var(--brand-primary)]/20">
+                <div className="mb-8">
+                  <div className="mb-6 flex justify-between items-start">
+                    <span className="inline-block px-3 py-1 bg-[var(--brand-fg)] text-white text-xs font-bold uppercase tracking-widest group-hover:bg-white group-hover:text-[var(--brand-fg)] transition-colors">
                       {caseItem.category}
                     </span>
+                    <ArrowUpRight className="w-6 h-6 text-[var(--brand-fg)] opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 text-white transition-all duration-300" />
                   </div>
 
-                  {/* 타이틀 */}
-                  <h3 className="text-xl md:text-2xl font-bold text-[var(--brand-fg)] mb-6 pr-8">
+                  <h3 className="text-2xl md:text-3xl font-black mb-6 leading-tight group-hover:text-white transition-colors">
                     {caseItem.title}
                   </h3>
 
-                  {/* 문제/가설/실행 블록 */}
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <div>
-                      <div className="text-xs font-medium text-[var(--brand-fg)]/50 mb-1.5 uppercase tracking-wide">
-                        문제
-                      </div>
-                      <p className="text-sm text-[var(--brand-fg)]/80 leading-relaxed">
-                        {caseItem.problem}
-                      </p>
+                      <div className="text-xs font-bold opacity-40 uppercase tracking-widest mb-2 group-hover:text-white group-hover:opacity-60">PROBLEM</div>
+                      <p className="text-sm font-medium opacity-80 leading-relaxed group-hover:text-white/90">{caseItem.problem}</p>
                     </div>
-
-                    <div className="border-t border-[var(--color-border)] pt-4">
-                      <div className="text-xs font-medium text-[var(--brand-fg)]/50 mb-1.5 uppercase tracking-wide">
-                        가설
-                      </div>
-                      <p className="text-sm text-[var(--brand-fg)]/80 leading-relaxed">
-                        {caseItem.hypothesis}
-                      </p>
-                    </div>
-
-                    <div className="border-t border-[var(--color-border)] pt-4">
-                      <div className="text-xs font-medium text-[var(--brand-fg)]/50 mb-1.5 uppercase tracking-wide">
-                        실행
-                      </div>
-                      <p className="text-sm text-[var(--brand-fg)]/80 leading-relaxed">
-                        {caseItem.execution}
-                      </p>
+                    <div className="w-full h-px bg-[var(--brand-fg)]/10 group-hover:bg-white/20 transition-colors" />
+                    <div>
+                      <div className="text-xs font-bold opacity-40 uppercase tracking-widest mb-2 group-hover:text-white group-hover:opacity-60">SOLUTION</div>
+                      <p className="text-sm font-medium opacity-80 leading-relaxed group-hover:text-white/90">{caseItem.hypothesis}</p>
                     </div>
                   </div>
-                </CardHeader>
+                </div>
 
-                <CardContent className="pt-0 mt-auto relative z-10">
-                  {/* 성과 (하단 강조) */}
-                  <div className="border-t border-[var(--color-border)] pt-4 group-hover:border-[var(--brand-primary)]/20 transition-colors duration-200 ease-out motion-reduce:transition-none">
-                    <div className="text-xs font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
-                      성과
-                    </div>
-                    <p className="text-lg md:text-xl font-bold text-[var(--brand-primary)] leading-tight">
-                      {caseItem.result}
-                    </p>
+                <div className="mt-8 pt-8 border-t-2 border-[var(--brand-fg)]/10 group-hover:border-white/20 transition-colors">
+                  <div className="text-xs font-bold text-[var(--brand-primary)] uppercase tracking-widest mb-2 group-hover:text-white group-hover:opacity-80 transition-colors">RESULT</div>
+                  <div className="text-2xl font-black text-[var(--brand-primary)] group-hover:text-white transition-colors">
+                    {caseItem.result}
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </MediaReveal>
           ))}
         </div>

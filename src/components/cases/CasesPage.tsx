@@ -85,21 +85,14 @@ export function CasesPage() {
             </div>
           </MediaReveal>
 
-          {/* Cards Grid - Asymmetric Cheil Style */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 auto-rows-[minmax(400px,auto)] grid-flow-dense">
+          {/* Cards Grid - Uniform Cheil Style */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 auto-rows-[minmax(400px,auto)]">
             {filteredCases.map((caseItem, index) => (
               <MediaReveal
                 key={caseItem.slug}
                 delay={index * 50}
                 intensity="medium"
-                className={cn(
-                  "h-full",
-                  // Bento Logic for 3-col grid:
-                  // 0: Big (2)
-                  // 1,2,3: Small (1)
-                  // 4: Big (2) -> Needs dense flow to fill holes if they appear
-                  (index === 0 || index === 4) ? "md:col-span-2 lg:col-span-2" : "col-span-1"
-                )}
+                className="h-full col-span-1"
               >
                 <CaseCard caseItem={caseItem} className="h-full" />
               </MediaReveal>
