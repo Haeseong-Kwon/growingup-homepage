@@ -36,10 +36,10 @@ export function CasesPage() {
 
       {/* Filter Bar & Cards Grid */}
       <Section
-        data-palette="dark"
-        data-theme="dark"
+        data-palette="light"
+        data-theme="light"
         data-section="cases-grid"
-        variant="ink"
+        variant="default"
         divider="top"
         minHeight="auto"
         className="py-16 md:py-24"
@@ -54,18 +54,19 @@ export function CasesPage() {
                 </span>
                 <div className="flex gap-2 min-w-0">
                   {categories.map((category) => (
-                    <button
+                    <Button
                       key={category}
+                      variant={activeCategory === category ? "default" : "outline"}
                       onClick={() => setActiveCategory(category)}
                       className={cn(
-                        "px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors duration-200 ease-out motion-reduce:transition-none flex-shrink-0",
+                        "rounded-full px-6 transition-all duration-300",
                         activeCategory === category
-                          ? "bg-white text-[var(--brand-primary)] hover:bg-white/90"
-                          : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
+                          ? "bg-[var(--brand-primary)] text-white hover:bg-[var(--brand-primary)]/90 shadow-md transform scale-105"
+                          : "bg-white text-[var(--brand-fg)] hover:bg-[var(--brand-primary)]/5 hover:border-[var(--brand-primary)]/30 hover:text-[var(--brand-primary)]"
                       )}
                     >
                       {category}
-                    </button>
+                    </Button>
                   ))}
                 </div>
               </div>

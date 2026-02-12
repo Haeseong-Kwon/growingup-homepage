@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { CaseItem } from "./casesData";
@@ -13,61 +13,51 @@ interface CaseCardProps {
 export function CaseCard({ caseItem }: CaseCardProps) {
   return (
     <Link href={`/cases/${caseItem.slug}`} className="group block h-full">
-      <Card
-        className={cn(
-          "group relative border-2 flex flex-col h-full overflow-hidden min-w-0",
-          "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
-          "hover:-translate-y-1.5 hover:border-white/40",
-          "bg-white/5 border-white/10 shadow-sm"
-        )}
-      >
-        {/* 배경 그라데이션 효과 */}
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/20 via-transparent to-transparent z-0" />
-
-        {/* 썸네일 */}
-        <div className="aspect-[4/3] relative overflow-hidden bg-white/5">
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--brand-primary)]/10 via-[var(--brand-secondary)]/10 to-[var(--brand-hot1)]/10 transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none">
-            <span className="text-sm text-white/40 font-medium px-4 text-center">
-              {caseItem.title}
-            </span>
-          </div>
+      <Card className="group overflow-hidden border-2 hover:border-[var(--brand-primary)]/20 transition-all duration-300 bg-white shadow-sm hover:shadow-xl rounded-2xl h-full flex flex-col">
+        <div className="relative aspect-[4/3] overflow-hidden">
+          {/* 이미지 (플레이스홀더) */}
+          <div className="absolute inset-0 bg-[var(--brand-muted-light)] group-hover:scale-105 transition-transform duration-500 will-change-transform" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
-
-        <CardHeader className="relative z-10 pb-4 min-w-0">
-          {/* 카테고리 pill */}
-          <div className="mb-3">
+        <CardHeader className="p-6 pb-2">
+          <div className="flex items-center justify-between mb-3">
             <Badge
               variant="secondary"
-              className="uppercase tracking-wide bg-[var(--brand-primary)]/20 text-[var(--brand-primary)] hover:bg-[var(--brand-primary)]/30 border border-[var(--brand-primary)]/30"
+              className="rounded-full bg-[var(--brand-primary)]/5 text-[var(--brand-primary)] hover:bg-[var(--brand-primary)]/10 px-3 py-1"
             >
               {caseItem.category}
             </Badge>
           </div>
-
-          {/* 제목 */}
-          <h3 className="text-xl md:text-2xl font-bold text-white mb-3 leading-tight break-words">
+          <CardTitle className="text-xl md:text-2xl font-bold leading-tight group-hover:text-[var(--brand-primary)] transition-colors text-[var(--brand-fg)]">
             {caseItem.title}
-          </h3>
-
-          {/* 요약 (2줄) */}
-          <p className="text-sm text-white/70 leading-relaxed line-clamp-2 min-w-0 break-words">
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-6 pt-2 space-y-4 flex-1 flex flex-col">
+          <p className="text-[var(--brand-fg)]/70 line-clamp-2 leading-relaxed">
             {caseItem.excerpt}
           </p>
-        </CardHeader>
-
-        <CardContent className="relative z-10 pt-0 mt-auto min-w-0">
-          {/* 성과 (하단 강조) */}
-          <div className="border-t border-white/10 pt-4">
-            <div className="text-xs font-medium text-[var(--brand-primary)] mb-2 uppercase tracking-wide">
-              성과
-            </div>
-            <p className="text-lg md:text-xl font-bold text-[var(--brand-primary)] leading-tight break-words">
+          <div className="pt-4 border-t border-[var(--brand-muted)] flex items-center justify-between mt-auto">
+            <span className="text-sm font-semibold text-[var(--brand-primary)]">
               {caseItem.result}
-            </p>
+            </span>
+            <div className="w-8 h-8 rounded-full bg-[var(--brand-muted-light)] flex items-center justify-center group-hover:bg-[var(--brand-primary)] transition-colors duration-300">
+              <svg
+                className="w-4 h-4 text-[var(--brand-fg)]/40 group-hover:text-white transition-colors duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </div>
           </div>
         </CardContent>
       </Card>
     </Link>
   );
 }
-

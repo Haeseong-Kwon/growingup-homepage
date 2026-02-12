@@ -114,10 +114,10 @@ export default function PortfolioPage() {
 
       {/* Portfolio Grid */}
       <Section
-        data-palette="dark"
-        data-theme="dark"
+        data-palette="light"
+        data-theme="light"
         data-section="portfolio-grid"
-        variant="ink"
+        variant="default"
         divider="top"
         minHeight="auto"
         className="py-16 md:py-24"
@@ -140,7 +140,7 @@ export default function PortfolioPage() {
             </div>
           ) : (
             <div className="text-center py-16 md:py-24">
-              <p className="text-lg text-white/70 mb-6">
+              <p className="text-lg text-muted-foreground mb-6">
                 조건에 맞는 포트폴리오가 없습니다. 필터를 초기화해보세요.
               </p>
               <Button

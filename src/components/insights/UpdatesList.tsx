@@ -20,8 +20,8 @@ export function UpdatesList({ updates }: UpdatesListProps) {
             className={cn(
               "group relative w-full border-2 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6",
               "transition-all duration-200 ease-out [contain:paint] motion-reduce:transition-none",
-              "hover:-translate-y-1 hover:border-white/20 hover:shadow-lg",
-              "bg-white/5 border-white/10 shadow-sm",
+              "hover:-translate-y-1 hover:border-[var(--brand-primary)]/20 hover:shadow-lg",
+              "bg-white border-[var(--brand-muted)] shadow-sm",
               "p-0"
             )}
           >
@@ -32,7 +32,7 @@ export function UpdatesList({ updates }: UpdatesListProps) {
                   {update.pinned && (
                     <Badge
                       variant="secondary"
-                      className="bg-[var(--brand-primary)]/20 text-[var(--brand-primary)] flex items-center gap-1 border border-[var(--brand-primary)]/30"
+                      className="bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] flex items-center gap-1 border border-[var(--brand-primary)]/20"
                     >
                       <Pin className="w-3 h-3" />
                       고정
@@ -42,7 +42,7 @@ export function UpdatesList({ updates }: UpdatesListProps) {
                     <Badge
                       key={badge}
                       variant="secondary"
-                      className="bg-white/10 text-white/70 hover:bg-white/20"
+                      className="bg-[var(--brand-muted-light)] text-[var(--brand-fg)]/70 hover:bg-[var(--brand-muted)]"
                     >
                       {badge}
                     </Badge>
@@ -50,22 +50,22 @@ export function UpdatesList({ updates }: UpdatesListProps) {
                 </div>
 
                 {/* 제목 */}
-                <h3 className="text-lg md:text-xl font-semibold tracking-tight text-white group-hover:text-[var(--brand-primary)] transition-colors duration-200 ease-out motion-reduce:transition-none break-words">
+                <h3 className="text-lg md:text-xl font-semibold tracking-tight text-[var(--brand-fg)] group-hover:text-[var(--brand-primary)] transition-colors duration-200 ease-out motion-reduce:transition-none break-words">
                   {update.title}
                 </h3>
 
                 {/* 요약 */}
                 {update.excerpt && (
-                  <p className="text-sm text-white/60 leading-relaxed line-clamp-2 break-words">
+                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 break-words">
                     {update.excerpt}
                   </p>
                 )}
 
                 {/* 메타 정보 */}
-                <div className="flex items-center gap-4 text-xs text-white/40">
+                <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <span>{update.date}</span>
                   {update.meta && (
-                    <span className="font-mono bg-white/10 px-2 py-1 rounded text-white/60">
+                    <span className="font-mono bg-[var(--brand-muted-light)] px-2 py-1 rounded text-[var(--brand-fg)]/60">
                       {update.meta}
                     </span>
                   )}
@@ -75,7 +75,7 @@ export function UpdatesList({ updates }: UpdatesListProps) {
 
             {/* 화살표 아이콘 */}
             <div className="p-6 pl-0 sm:pl-6 flex-shrink-0">
-              <ArrowRight className="w-5 h-5 text-white/40 group-hover:text-[var(--brand-primary)] transition-colors duration-200 ease-out motion-reduce:transition-none" />
+              <ArrowRight className="w-5 h-5 text-muted-foreground/40 group-hover:text-[var(--brand-primary)] transition-colors duration-200 ease-out motion-reduce:transition-none" />
             </div>
           </Card>
         </Link>

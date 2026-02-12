@@ -56,10 +56,10 @@ export function InsightsPage() {
 
       {/* Tabs */}
       <Section
-        data-palette="dark"
-        data-theme="dark"
+        data-palette="light"
+        data-theme="light"
         data-section="insights-tabs"
-        variant="ink"
+        variant="default"
         divider="top"
         minHeight="auto"
         className="py-10 sm:py-12"

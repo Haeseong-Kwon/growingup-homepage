@@ -38,9 +38,9 @@ export default function ContactPage() {
 
       {/* Contact Info & Form */}
       <Section
-        data-palette="dark"
-        data-theme="dark"
-        variant="ink"
+        data-palette="light"
+        data-theme="light"
+        variant="default"
         className="py-16 md:py-24"
       >
         <Container>
@@ -48,10 +48,10 @@ export default function ContactPage() {
             {/* Contact Info */}
             <div className="space-y-10">
               <div>
-                <h3 className="text-xl md:text-2xl font-bold tracking-tight mb-5 text-white">
+                <h3 className="text-xl md:text-2xl font-bold tracking-tight mb-5 text-[var(--brand-fg)]">
                   연락처
                 </h3>
-                <div className="space-y-3 text-white/60 leading-relaxed">
+                <div className="space-y-3 text-[var(--brand-fg)]/60 leading-relaxed">
                   <p>이메일: contact@growingup.com</p>
                   <p>전화: 02-1234-5678</p>
                   <p>주소: 서울특별시 강남구</p>
@@ -59,10 +59,10 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <h3 className="text-xl md:text-2xl font-bold tracking-tight mb-5 text-white">
+                <h3 className="text-xl md:text-2xl font-bold tracking-tight mb-5 text-[var(--brand-fg)]">
                   운영 시간
                 </h3>
-                <div className="space-y-2 text-white/60 leading-relaxed">
+                <div className="space-y-2 text-[var(--brand-fg)]/60 leading-relaxed">
                   <p>평일: 09:00 - 18:00</p>
                   <p>주말 및 공휴일: 휴무</p>
                 </div>
@@ -73,7 +73,7 @@ export default function ContactPage() {
             <div>
               <form className="space-y-6">
                 <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium text-white/80">
+                  <label htmlFor="name" className="text-sm font-medium text-[var(--brand-fg)]/80">
                     이름 *
                   </label>
                   <Input
@@ -81,12 +81,12 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="이름을 입력하세요"
-                    className="h-12 rounded-lg bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-white/30"
+                    className="h-12 rounded-lg bg-white border-[var(--brand-muted)] text-[var(--brand-fg)] placeholder:text-muted-foreground focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--brand-primary)]"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium text-white/80">
+                  <label htmlFor="email" className="text-sm font-medium text-[var(--brand-fg)]/80">
                     이메일 *
                   </label>
                   <Input
@@ -95,12 +95,12 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="example@email.com"
-                    className="h-12 rounded-lg bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-white/30"
+                    className="h-12 rounded-lg bg-white border-[var(--brand-muted)] text-[var(--brand-fg)] placeholder:text-muted-foreground focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--brand-primary)]"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="subject" className="text-sm font-medium text-white/80">
+                  <label htmlFor="subject" className="text-sm font-medium text-[var(--brand-fg)]/80">
                     제목 *
                   </label>
                   <Input
@@ -108,12 +108,12 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder="문의 제목"
-                    className="h-12 rounded-lg bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-white/30"
+                    className="h-12 rounded-lg bg-white border-[var(--brand-muted)] text-[var(--brand-fg)] placeholder:text-muted-foreground focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--brand-primary)]"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium text-white/80">
+                  <label htmlFor="message" className="text-sm font-medium text-[var(--brand-fg)]/80">
                     내용 *
                   </label>
                   <Textarea
@@ -122,12 +122,12 @@ export default function ContactPage() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="문의 내용을 입력하세요"
                     rows={6}
-                    className="rounded-lg bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-white/30"
+                    className="rounded-lg bg-white border-[var(--brand-muted)] text-[var(--brand-fg)] placeholder:text-muted-foreground focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--brand-primary)]"
                   />
                 </div>
 
                 <Button
-                  className="w-full h-12 rounded-lg bg-white text-[var(--brand-primary)] hover:bg-white/90 font-bold"
+                  className="w-full h-12 rounded-lg bg-[var(--brand-primary)] text-white hover:bg-[var(--brand-primary)]/90 font-bold"
                   size="lg"
                   type="button"
                 >

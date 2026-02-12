@@ -567,31 +567,30 @@ export default function CapabilitiesPage() {
         </Container>
       </Section>
 
-      {/* CTA */}
+      {/* 7) CTA */}
       <Section
         data-palette="dark"
         data-theme="dark"
-        data-section="capabilities-cta"
-        theme="dark"
-        variant="default"
+        data-section="diagnosis-cta"
+        variant="ink"
         divider="top"
-        bleed={true}
         minHeight="auto"
-        className="py-16 md:py-24"
+        className="py-24 md:py-32 bg-[#050505]"
       >
         <Container>
           <MediaReveal intensity="subtle">
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-6 text-balance text-white">
+            <div className="max-w-4xl mx-auto text-center space-y-8">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6">
                 우리의 시스템이 귀사의 런칭에 적합한지 확인하세요
               </h2>
-              <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed">
-                3분이면 현재 런칭 준비 상태를 진단하고, 우선순위 액션 플랜을 받아볼 수 있습니다.
+              <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed">
+                3분이면 현재 런칭 준비 상태를 진단하고, 우선순위 액션 플랜을
+                받아볼 수 있습니다.
               </p>
               <Button
                 asChild
                 size="lg"
-                className="bg-white text-[var(--brand-primary)] hover:bg-white/90 rounded-lg h-12 px-8 text-base font-bold"
+                className="h-14 px-8 text-lg font-bold rounded-full bg-white text-[var(--brand-primary)] hover:bg-white/90 transition-all hover:scale-105"
               >
                 <Link href="/diagnosis">진단 요청</Link>
               </Button>
