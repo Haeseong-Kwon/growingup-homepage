@@ -11,6 +11,8 @@ interface UseCountUpOptions {
   suffix?: string;
   prefix?: string;
   enabled?: boolean;
+  /** Re-run the count every time the element re-enters the viewport. */
+  replay?: boolean;
 }
 
 export function useCountUp({
@@ -21,42 +23,43 @@ export function useCountUp({
   suffix = "",
   prefix = "",
   enabled = true,
+  replay = false,
 }: UseCountUpOptions) {
   const [count, setCount] = useState(start);
   const divRef = useRef<HTMLDivElement>(null);
-  const { inView } = useInView({ 
-    threshold: 0.3, 
-    triggerOnce: true,
-    ref: divRef as RefObject<HTMLElement | null>
+  const { inView } = useInView({
+    threshold: 0.3,
+    triggerOnce: !replay,
+    ref: divRef as RefObject<HTMLElement | null>,
   });
-  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (!enabled || !inView || hasAnimated.current) return;
+    if (!enabled) return;
 
-    hasAnimated.current = true;
-    const startTime = Date.now();
+    // Out of view in replay mode: rewind so the next entry counts up again.
+    if (!inView) {
+      if (replay) setCount(start);
+      return;
+    }
+
+    let frame = 0;
+    let startTime: number | null = null;
     const difference = end - start;
 
-    const animate = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
+    // rAF timestamps keep the curve tied to frame time rather than wall-clock
+    // reads, so the count stays smooth under load.
+    const animate = (now: number) => {
+      startTime ??= now;
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
 
-      // Easing function (ease-out)
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      const current = start + difference * easeOut;
-
-      setCount(current);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setCount(end);
-      }
+      setCount(progress < 1 ? start + difference * eased : end);
+      if (progress < 1) frame = requestAnimationFrame(animate);
     };
 
-    requestAnimationFrame(animate);
-  }, [inView, end, start, duration, enabled]);
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [inView, end, start, duration, enabled, replay]);
 
   const formatNumber = (num: number): string => {
     const rounded = decimals > 0 ? num.toFixed(decimals) : Math.floor(num).toString();

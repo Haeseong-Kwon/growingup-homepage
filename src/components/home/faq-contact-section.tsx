@@ -86,7 +86,7 @@ export function FaqContactSection({ items }: FaqContactSectionProps) {
           className="flex flex-col justify-between bg-[var(--paper)] p-8 text-[var(--ink)] lg:p-10"
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-12% 0px" }}
+          viewport={{ once: false, margin: "-12% 0px -12% 0px" }}
           transition={{ duration: 0.95, ease: EASE }}
         >
           <div>

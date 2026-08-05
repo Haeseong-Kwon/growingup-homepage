@@ -57,7 +57,7 @@ export function PillarsSection() {
               className="text-[clamp(28px,3vw,72px)] font-semibold uppercase leading-none tracking-[-0.01em]"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-20% 0px" }}
+              viewport={{ once: false, margin: "-20% 0px -20% 0px" }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: i * 0.12 }}
             >
               {mark}
@@ -87,7 +87,7 @@ export function PillarsSection() {
               className="flex flex-col gap-4 py-8 md:border-l md:border-dashed md:border-[var(--rule)] md:px-7 md:first:border-l-0 md:first:pl-0"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-12% 0px" }}
+              viewport={{ once: false, margin: "-12% 0px -12% 0px" }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
             >
               <span className="t-label text-white/45">0{i + 1}</span>

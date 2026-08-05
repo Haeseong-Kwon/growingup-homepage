@@ -27,6 +27,7 @@ function StatCounter({ stat }: { stat: Stat }) {
     decimals: stat.decimals ?? 0,
     suffix: stat.suffix ?? "",
     duration: 1800,
+    replay: true,
   });
 
   return (
@@ -81,7 +82,7 @@ export function PartnersSection() {
                 className="group relative overflow-hidden border-b border-dashed border-[var(--rule)] p-6 transition-colors duration-500 hover:bg-white lg:border-b-0 lg:border-l lg:first:border-l-0"
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-12% 0px" }}
+                viewport={{ once: false, margin: "-12% 0px -12% 0px" }}
                 transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 }}
               >
                 <span className="t-label text-white/45 transition-colors duration-500 group-hover:text-black/50">

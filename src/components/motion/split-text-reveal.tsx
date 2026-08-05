@@ -28,7 +28,7 @@ export function SplitTextReveal({
 }: SplitTextRevealProps) {
   const prefersReducedMotion = useReducedMotion();
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: viewportMargin as any });
+  const isInView = useInView(ref, { once: false, margin: viewportMargin as any });
 
   // 텍스트 분할
   const splitText = () => {

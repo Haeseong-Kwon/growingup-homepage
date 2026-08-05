@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, type MotionValue } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
@@ -21,11 +21,74 @@ interface WorksSectionProps {
   items: WorkItem[];
 }
 
-function WorkCard({ item, index }: { item: WorkItem; index: number }) {
+/**
+ * Coverflow attitude for one card. The reel's own `x` tells us where this card
+ * currently sits relative to the middle of the screen; that offset drives a
+ * Y-rotation and a push back in depth, so cards turn to face you as they reach
+ * centre and turn away again as they leave.
+ *
+ * `centre` is the card's static distance from the track origin, measured once
+ * per layout — combining it with the live `x` avoids per-frame DOM reads.
+ */
+function useCoverflow(
+  x: MotionValue<number>,
+  centre: number,
+  enabled: boolean
+) {
+  const offset = useTransform(x, (value) => {
+    if (!enabled || typeof window === "undefined") return 0;
+    // Normalised: 0 at screen centre, ±1 roughly one half-viewport away.
+    return (centre + value - window.innerWidth / 2) / (window.innerWidth / 2);
+  });
+
+  const rotateY = useTransform(offset, [-1.6, 0, 1.6], [34, 0, -34]);
+  const z = useTransform(offset, [-1.6, 0, 1.6], [-260, 40, -260]);
+  const opacity = useTransform(offset, [-2.1, -1.4, 0, 1.4, 2.1], [0.25, 0.75, 1, 0.75, 0.25]);
+
+  return { rotateY, z, opacity };
+}
+
+function WorkCard({
+  item,
+  index,
+  x,
+  enabled,
+}: {
+  item: WorkItem;
+  index: number;
+  x: MotionValue<number>;
+  enabled: boolean;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [centre, setCentre] = useState(0);
+
+  useEffect(() => {
+    // offsetLeft resolves against the pinned section, which spans the viewport —
+    // so this is the card's x before the reel's own translation is applied.
+    const measure = () => {
+      const el = ref.current;
+      if (el) setCentre(el.offsetLeft + el.offsetWidth / 2);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  const { rotateY, z, opacity } = useCoverflow(x, centre, enabled);
+
   return (
+    <motion.div
+      ref={ref}
+      className="shrink-0 will-change-transform"
+      style={
+        enabled
+          ? { rotateY, z, opacity, transformStyle: "preserve-3d" }
+          : undefined
+      }
+    >
     <Link
       href={item.href}
-      className="group img-gray relative block h-[62vh] w-[78vw] shrink-0 overflow-hidden bg-[var(--ink-soft)] md:h-[52vh] md:w-[38vw] lg:w-[29vw]"
+      className="group img-gray relative block h-[62vh] w-[78vw] overflow-hidden bg-[var(--ink-soft)] md:h-[52vh] md:w-[38vw] lg:w-[29vw]"
     >
       <Image
         src={item.image}
@@ -56,6 +119,7 @@ function WorkCard({ item, index }: { item: WorkItem; index: number }) {
         </div>
       </div>
     </Link>
+    </motion.div>
   );
 }
 
@@ -98,7 +162,14 @@ export function WorksSection({ items }: WorksSectionProps) {
   });
 
   const rawX = useTransform(scrollYProgress, [0, 1], [0, -overflow]);
-  const x = useSpring(rawX, { stiffness: 260, damping: 40, mass: 0.5 });
+  // Softer than a 1:1 track — the reel keeps gliding for a beat after the wheel
+  // stops, and settles the same way when you scroll back up.
+  const x = useSpring(rawX, {
+    stiffness: 140,
+    damping: 30,
+    mass: 0.45,
+    restDelta: 0.5,
+  });
 
   const viewAll = (
     <Link
@@ -132,10 +203,10 @@ export function WorksSection({ items }: WorksSectionProps) {
   const track = (
     <div
       ref={trackRef}
-      className="flex w-max gap-4 pl-[var(--gut)] pr-[var(--gut)]"
+      className="flex w-max gap-8 pl-[var(--gut)] pr-[var(--gut)] [transform-style:preserve-3d]"
     >
       {items.map((item, i) => (
-        <WorkCard key={item.href} item={item} index={i} />
+        <WorkCard key={item.href} item={item} index={i} x={x} enabled={canPin} />
       ))}
     </div>
   );
@@ -157,7 +228,14 @@ export function WorksSection({ items }: WorksSectionProps) {
       {canPin ? (
         <div className="sticky top-0 flex h-[100svh] flex-col justify-center gap-7 overflow-hidden pt-[var(--header-h)]">
           {header(true)}
-          <motion.div style={{ x }}>{track}</motion.div>
+          {/* Perspective lives on the wrapper, not the moving track: a translated
+              element establishes its own containing block and would flatten the
+              cards' rotation. */}
+          <div style={{ perspective: "1400px" }}>
+            <motion.div style={{ x }} className="[transform-style:preserve-3d]">
+              {track}
+            </motion.div>
+          </div>
         </div>
       ) : (
         <div className="py-[12vh]">

@@ -13,6 +13,8 @@ interface VideoHeroProps {
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
   eyebrow?: string[];
+  plates?: string[];
+  intro?: boolean;
 }
 
 /**
@@ -29,6 +31,8 @@ export function VideoHero({
   primaryCta,
   secondaryCta,
   eyebrow,
+  plates,
+  intro,
 }: VideoHeroProps) {
   return (
     <HeroScene
@@ -40,6 +44,8 @@ export function VideoHero({
       primaryCta={primaryCta}
       secondaryCta={secondaryCta}
       eyebrow={eyebrow}
+      plates={plates}
+      intro={intro}
     />
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
@@ -25,10 +25,18 @@ export function BandWipe({ text, className, height = "7.5vw" }: BandWipeProps) {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 0.85", "start 0.25"],
+    offset: ["start 0.9", "start 0.3"],
   });
 
-  const width = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  // Spring the raw progress so the band glides open and closed rather than
+  // tracking the wheel tick-for-tick.
+  const smooth = useSpring(scrollYProgress, {
+    stiffness: 110,
+    damping: 28,
+    mass: 0.3,
+    restDelta: 0.0005,
+  });
+  const width = useTransform(smooth, [0, 1], ["0%", "100%"]);
 
   return (
     <div ref={ref} className={cn("relative w-full", className)} style={{ height }}>
@@ -70,7 +78,7 @@ export function GrowRule({ className, orientation = "vertical" }: GrowRuleProps)
       className={cn(isVertical ? "w-px rule-l" : "h-px rule-t", className)}
       initial={prefersReducedMotion ? false : { [axis]: 0 }}
       whileInView={{ [axis]: 1 }}
-      viewport={{ once: true, margin: "-15% 0px" }}
+      viewport={{ once: false, margin: "-15% 0px -15% 0px" }}
       transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
     />
   );

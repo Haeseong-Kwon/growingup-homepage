@@ -1,9 +1,13 @@
 import { HeroScene } from "@/components/home/hero-scene";
 import { ManifestoSection } from "@/components/home/manifesto-section";
+import { StatementBand } from "@/components/home/statement-band";
 import { PillarsSection } from "@/components/home/pillars-section";
 import { WorksSection, type WorkItem } from "@/components/home/works-section";
 import { ProcessSection, type ProcessStep } from "@/components/home/process-section";
+import { DeliverablesSection } from "@/components/home/deliverables-section";
+import { EngagementsSection } from "@/components/home/engagements-section";
 import { PartnersSection } from "@/components/home/partners-section";
+import { UpdatesSection } from "@/components/home/updates-section";
 import { FaqContactSection, type FaqItem } from "@/components/home/faq-contact-section";
 
 // 포트폴리오 케이스 + 진행 중인 프로젝트를 하나의 가로 릴로 묶어 노출
@@ -114,6 +118,7 @@ export default function HomePage() {
   return (
     <div className="relative bg-[var(--ink)]">
       <HeroScene
+        intro
         line1="런칭을 기획서가 아닌"
         line2="매출과 데이터로 증명합니다"
         subtitle="데이터 기반의 정확한 진단으로 비즈니스의 본질적인 성장을 만듭니다."
@@ -122,10 +127,14 @@ export default function HomePage() {
       />
 
       <ManifestoSection />
+      <StatementBand />
       <PillarsSection />
       <WorksSection items={works} />
       <ProcessSection steps={processSteps} />
+      <DeliverablesSection />
+      <EngagementsSection />
       <PartnersSection />
+      <UpdatesSection />
       <FaqContactSection items={faqItems} />
     </div>
   );

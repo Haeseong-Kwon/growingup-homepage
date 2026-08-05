@@ -53,7 +53,7 @@ export function ProcessSection({ steps }: ProcessSectionProps) {
               className="absolute inset-0 z-10 origin-top bg-[var(--ink)]"
               initial={prefersReducedMotion ? false : { scaleY: 1 }}
               whileInView={{ scaleY: 0 }}
-              viewport={{ once: true, margin: "-10% 0px" }}
+              viewport={{ once: false, margin: "-10% 0px -10% 0px" }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.1 + i * 0.11 }}
             />
 

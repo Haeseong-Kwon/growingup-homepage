@@ -22,7 +22,7 @@ export function MediaReveal({
 }: MediaRevealProps) {
   const prefersReducedMotion = useReducedMotion();
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: viewportMargin as any });
+  const isInView = useInView(ref, { once: false, margin: viewportMargin as any });
 
   const intensityVariants: Record<string, Variants> = {
     subtle: {

@@ -47,8 +47,14 @@ export function Cube3D({
 
   // Hold → turn → hold, so each face stays still long enough to be read.
   const rawRotate = useTransform(scrollYProgress, [0.22, 0.72], [0, -90]);
-  const rotateY = useSpring(rawRotate, { stiffness: 120, damping: 30, mass: 0.4 });
-  const scale = useTransform(scrollYProgress, [0, 0.3, 1], [0.9, 1, 1]);
+  const rotateY = useSpring(rawRotate, {
+    stiffness: 70,
+    damping: 24,
+    mass: 0.5,
+    restDelta: 0.01,
+  });
+  const rawScale = useTransform(scrollYProgress, [0, 0.3, 1], [0.9, 1, 1]);
+  const scale = useSpring(rawScale, { stiffness: 90, damping: 26, mass: 0.4 });
 
   const sizeStyle = { "--cube": "min(460px, 74vw)" } as React.CSSProperties;
 
