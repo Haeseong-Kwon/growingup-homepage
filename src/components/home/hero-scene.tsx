@@ -12,7 +12,6 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { MaskReveal } from "@/components/motion/mask-reveal";
 import { DrawnFrame } from "@/components/motion/line-draw";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
@@ -108,6 +107,38 @@ function useIntroProgress(active: boolean) {
   }, [active]);
 
   return value;
+}
+
+function HeroHeadline({
+  lines,
+  delay,
+  stagger,
+}: {
+  lines: string[];
+  delay: number;
+  stagger: number;
+}) {
+  const prefersReducedMotion = useReducedMotion();
+
+  return (
+    <h1 className="t-display max-w-[20ch] normal-case text-white [line-height:1.04] md:[line-height:1]">
+      {lines.map((line, i) => (
+        <motion.span
+          key={line}
+          className="block text-pretty"
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
+          animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.95,
+            ease: EASE,
+            delay: delay + i * stagger,
+          }}
+        >
+          {line}
+        </motion.span>
+      ))}
+    </h1>
+  );
 }
 
 /**
@@ -375,13 +406,10 @@ export function HeroScene({
               : { y: contentY, opacity: contentOpacity }
           }
         >
-          <MaskReveal
-            as="h1"
-            immediate
+          <HeroHeadline
+            lines={line2 ? [line1, line2] : [line1]}
             delay={revealDelay}
             stagger={0.11}
-            lines={line2 ? [line1, line2] : [line1]}
-            className="t-display max-w-[20ch] normal-case text-white"
           />
 
           <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">

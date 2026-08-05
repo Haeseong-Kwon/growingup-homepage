@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"cd /Users/haeseong/Desktop/Projects/growing_up_homepage\\nlsof -ti:3177 | xargs kill -9 2>/dev/null; sleep 1\\nS=/private/tmp/claude-501/-Users-haeseong-Desktop-Projects-growing-up-homepage/...",
-  "error": "Exit code 144",
-  "timestamp": "2026-08-05T02:03:11.811Z",
-  "retry_count": 1
-}
