@@ -218,7 +218,7 @@ export function HorizontalSlider({
                   <span className={cn(
                     "absolute -z-10 -inset-2 rounded-full opacity-10",
                     dark
-                      ? "bg-white"
+                      ? "bg-[var(--ink-soft)]"
                       : "bg-[var(--brand-primary)]"
                   )} />
                 </span>

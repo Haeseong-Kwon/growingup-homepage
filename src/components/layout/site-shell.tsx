@@ -23,8 +23,11 @@ export function SiteShell({ children }: SiteShellProps) {
     <main
       id="app-shell"
       className={cn(
-        "flex-1",
-        !hasVideoHeroPage && "pt-[var(--header-h)]"
+        // `relative` gives the scroll-scrubbed sections a positioned offsetParent,
+        // which is what framer-motion measures scroll offsets against.
+        "relative flex-1",
+        // The header floats over the page, so only non-hero routes need clearance.
+        !hasVideoHeroPage && "pt-[calc(var(--header-h)+3rem)]"
       )}
     >
       {children}

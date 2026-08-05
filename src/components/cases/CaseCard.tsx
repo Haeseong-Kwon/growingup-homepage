@@ -16,8 +16,8 @@ export function CaseCard({ caseItem, className }: CaseCardProps) {
     <Link href={`/cases/${caseItem.slug}`} className={cn("group block h-full", className)}>
       <Card className={cn(
         "h-full flex flex-col transition-all duration-300",
-        "bg-white border-2 border-[var(--brand-fg)] rounded-none", // Sharp corners, black border
-        "group-hover:bg-[var(--brand-fg)] group-hover:text-white" // Inverse hover
+        "bg-[var(--ink-soft)] border-2 border-[var(--brand-fg)] rounded-none", // Sharp corners, black border
+        "group-hover:bg-[var(--brand-fg)] group-hover:text-[var(--ink)]" // Inverse hover
       )}>
         <div className="relative aspect-[4/3] overflow-hidden border-b-2 border-[var(--brand-fg)]">
           <div className="absolute inset-0 bg-[var(--brand-muted-light)] group-hover:scale-105 transition-transform duration-500 will-change-transform" />

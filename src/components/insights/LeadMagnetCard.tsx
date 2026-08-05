@@ -22,7 +22,7 @@ export function LeadMagnetCard() {
   };
 
   return (
-    <Card className="w-full border-y-2 md:border-2 border-[var(--brand-fg)] bg-white shadow-sm rounded-none hover:shadow-md transition-all duration-300">
+    <Card className="w-full border-y-2 md:border-2 border-[var(--brand-fg)] bg-[var(--ink-soft)] shadow-sm rounded-none hover:shadow-md transition-all duration-300">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-6 md:p-12">
         {/* 왼쪽: 텍스트 영역 */}
         <div className="flex flex-col justify-center min-w-0">
@@ -48,13 +48,13 @@ export function LeadMagnetCard() {
               placeholder="이메일 주소"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="h-14 w-full bg-white border-2 border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] placeholder:text-[var(--brand-fg)]/40 focus-visible:ring-0 focus-visible:border-[var(--brand-primary)] text-lg px-6"
+              className="h-14 w-full bg-transparent border-2 border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] placeholder:text-[var(--brand-fg)]/40 focus-visible:ring-0 focus-visible:border-[var(--brand-primary)] text-lg px-6"
               required
             />
             <Button
               type="submit"
               disabled={!email || !agreed}
-              className="w-full h-14 bg-[var(--brand-fg)] hover:bg-[var(--brand-primary)] text-white font-black text-lg rounded-none transition-all duration-300 border-2 border-transparent"
+              className="w-full h-14 bg-[var(--brand-fg)] hover:bg-[var(--brand-primary)] text-[var(--ink)] font-black text-lg rounded-none transition-all duration-300 border-2 border-transparent"
             >
               지금 무료로 받기
             </Button>
@@ -63,7 +63,7 @@ export function LeadMagnetCard() {
                 id="privacy-agree"
                 checked={agreed}
                 onCheckedChange={(checked) => setAgreed(checked as boolean)}
-                className="mt-0.5 flex-shrink-0 border-[var(--brand-fg)]/30 data-[state=checked]:bg-[var(--brand-fg)] data-[state=checked]:text-white"
+                className="mt-0.5 flex-shrink-0 border-[var(--brand-fg)]/30 data-[state=checked]:bg-[var(--brand-fg)] data-[state=checked]:text-[var(--ink)]"
               />
               <label
                 htmlFor="privacy-agree"

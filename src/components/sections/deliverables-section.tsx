@@ -108,7 +108,7 @@ export function DeliverablesSection() {
                 <Card
                   className={cn(
                     "relative h-full border-none overflow-visible",
-                    "bg-white",
+                    "bg-[var(--ink-soft)]",
                     "transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]",
                     "hover:-translate-y-4 hover:shadow-2xl",
                     "flex flex-col rounded-3xl"

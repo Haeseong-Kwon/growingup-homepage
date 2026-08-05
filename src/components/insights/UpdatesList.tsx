@@ -21,7 +21,7 @@ export function UpdatesList({ updates }: UpdatesListProps) {
     <div className="space-y-12">
       {/* Featured Article */}
       <Link href={featured.href} className="group block">
-        <div className="relative overflow-hidden rounded-3xl border-2 border-[var(--brand-muted)] bg-white p-8 md:p-12 transition-all duration-500 hover:border-[var(--brand-primary)] hover:shadow-2xl">
+        <div className="relative overflow-hidden rounded-3xl border-2 border-[var(--brand-muted)] bg-[var(--ink-soft)] p-8 md:p-12 transition-all duration-500 hover:border-[var(--brand-primary)] hover:shadow-2xl">
           <div className="flex flex-col md:flex-row gap-8 items-start">
             <div className="flex-1 space-y-6">
               <div className="flex items-center gap-3">
@@ -74,7 +74,7 @@ export function UpdatesList({ updates }: UpdatesListProps) {
             <Card
               className={cn(
                 "h-full flex flex-col border-2 rounded-2xl p-6 transition-all duration-300",
-                "bg-white border-[var(--brand-muted)] hover:border-[var(--brand-primary)]/50 hover:shadow-lg hover:-translate-y-1"
+                "bg-[var(--ink-soft)] border-[var(--brand-muted)] hover:border-[var(--brand-primary)]/50 hover:shadow-lg hover:-translate-y-1"
               )}
             >
               <div className="mb-4 flex items-center justify-between">

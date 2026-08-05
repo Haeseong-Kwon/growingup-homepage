@@ -195,7 +195,7 @@ export default function PortfolioPage() {
               <Button
                 asChild
                 size="lg"
-                className="bg-white text-[var(--brand-primary)] hover:bg-white/90 rounded-lg h-12 px-8 text-base font-bold"
+                className="bg-[var(--ink-soft)] text-[var(--brand-primary)] hover:bg-white/90 rounded-lg h-12 px-8 text-base font-bold"
               >
                 <Link href="/diagnosis">진단 요청</Link>
               </Button>

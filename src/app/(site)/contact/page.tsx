@@ -81,7 +81,7 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="이름을 입력하세요"
-                    className="h-12 rounded-lg bg-white border-[var(--brand-muted)] text-[var(--brand-fg)] placeholder:text-muted-foreground focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--brand-primary)]"
+                    className="h-12 rounded-lg bg-transparent border-[var(--brand-muted)] text-[var(--brand-fg)] placeholder:text-muted-foreground focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--brand-primary)]"
                   />
                 </div>
 
@@ -95,7 +95,7 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="example@email.com"
-                    className="h-12 rounded-lg bg-white border-[var(--brand-muted)] text-[var(--brand-fg)] placeholder:text-muted-foreground focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--brand-primary)]"
+                    className="h-12 rounded-lg bg-transparent border-[var(--brand-muted)] text-[var(--brand-fg)] placeholder:text-muted-foreground focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--brand-primary)]"
                   />
                 </div>
 
@@ -108,7 +108,7 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder="문의 제목"
-                    className="h-12 rounded-lg bg-white border-[var(--brand-muted)] text-[var(--brand-fg)] placeholder:text-muted-foreground focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--brand-primary)]"
+                    className="h-12 rounded-lg bg-transparent border-[var(--brand-muted)] text-[var(--brand-fg)] placeholder:text-muted-foreground focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--brand-primary)]"
                   />
                 </div>
 
@@ -122,7 +122,7 @@ export default function ContactPage() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="문의 내용을 입력하세요"
                     rows={6}
-                    className="rounded-lg bg-white border-[var(--brand-muted)] text-[var(--brand-fg)] placeholder:text-muted-foreground focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--brand-primary)]"
+                    className="rounded-lg bg-transparent border-[var(--brand-muted)] text-[var(--brand-fg)] placeholder:text-muted-foreground focus-visible:ring-offset-0 focus-visible:ring-1 focus-visible:ring-[var(--brand-primary)]"
                   />
                 </div>
 

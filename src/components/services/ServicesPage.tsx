@@ -78,7 +78,7 @@ export function ServicesPage() {
                     <Button
                       asChild
                       variant="outline"
-                      className="rounded-full h-12 px-8 border-[var(--brand-fg)]/20 hover:bg-[var(--brand-fg)] hover:text-white transition-all group-hover:pl-10"
+                      className="rounded-full h-12 px-8 border-[var(--brand-fg)]/20 hover:bg-[var(--brand-fg)] hover:text-[var(--ink)] transition-all group-hover:pl-10"
                     >
                       <Link href={`/diagnosis?service=${service.id}`}>
                         Start {service.title} <ArrowRight className="ml-2 w-4 h-4" />
@@ -147,7 +147,7 @@ export function ServicesPage() {
               <Button
                 asChild
                 size="lg"
-                className="bg-white text-[var(--brand-primary)] hover:bg-white/90 rounded-full h-14 px-10 text-lg font-bold transition-transform hover:scale-105"
+                className="bg-[var(--ink-soft)] text-[var(--brand-primary)] hover:bg-white/90 rounded-full h-14 px-10 text-lg font-bold transition-transform hover:scale-105"
               >
                 <Link href="/diagnosis">진단 요청</Link>
               </Button>

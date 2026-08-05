@@ -1,94 +1,113 @@
 "use client";
 
 import Link from "next/link";
-import { Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Container } from "./container";
-import { useState, useRef, useEffect } from "react";
-import { MegaMenuOverlay } from "./mega-menu-overlay";
-import { useScroll } from "@/hooks/use-scroll";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
+import { MegaMenuOverlay } from "./mega-menu-overlay";
 import { cn } from "@/lib/utils";
-import { hasVideoHero } from "@/lib/constants";
 
-type MenuKey = "capabilities" | "services" | "cases" | "insights" | "arena" | null;
+/**
+ * Only three links sit on the rail. Any more and the centred wordmark collides
+ * with them at laptop widths — the rest live in the overlay.
+ */
+const NAV_LINKS = [
+  { href: "/portfolio", label: "Work" },
+  { href: "/insights", label: "Insights" },
+  { href: "/contact", label: "Contact" },
+];
+
+/**
+ * Nav item whose label is wiped by a solid box on hover: a white panel grows from
+ * the left edge, carrying a dark copy of the same label over the light one. The
+ * two labels are pinned to the same baseline so nothing shifts during the wipe.
+ */
+function NavItem({
+  href,
+  label,
+  active,
+  className,
+}: {
+  href: string;
+  label: string;
+  active: boolean;
+  className?: string;
+}) {
+  return (
+    <li className={cn("relative h-[17px] overflow-visible", className)}>
+      <Link href={href} className="group relative block h-full">
+        <span className={cn("relative block whitespace-nowrap", active && "underline underline-offset-4")}>
+          {label}
+        </span>
+        <span
+          aria-hidden
+          className="absolute -left-[7px] -top-[3px] h-[22px] w-0 overflow-hidden bg-white text-[#0E0E0E] transition-[width] duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:w-[calc(100%+14px)]"
+        >
+          <span className="absolute left-[7px] top-[3px] whitespace-nowrap">{label}</span>
+        </span>
+      </Link>
+    </li>
+  );
+}
 
 export function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [headerHovered, setHeaderHovered] = useState(false);
-  const isScrolled = useScroll(10);
   const pathname = usePathname();
-  const headerRef = useRef<HTMLElement>(null);
-
-  // Logic: Always transparent/glassy, but more opaque on scroll
-  const isGlass = isScrolled || headerHovered || isMenuOpen;
-
-  const navLinks = [
-    { href: "/capabilities", label: "Capabilities" },
-    { href: "/services", label: "Services" },
-    { href: "/cases", label: "Cases" },
-    { href: "/portfolio", label: "Portfolio" },
-    { href: "/insights", label: "Insights" },
-    { href: "/arena", label: "Arena" },
-  ];
 
   return (
     <>
-      <header
-        ref={headerRef}
-        onMouseEnter={() => setHeaderHovered(true)}
-        onMouseLeave={() => setHeaderHovered(false)}
-        className={cn(
-          "fixed top-0 left-0 right-0 w-full z-[1000] transition-all duration-500",
-          isGlass ? "bg-[#050505]/80 backdrop-blur-md border-b border-white/5" : "bg-transparent border-b border-transparent"
-        )}
-        style={{ height: "var(--header-h)" }}
+      {/* mix-blend-difference lets one white header stay legible over both the
+          ink sections and the light ones — no scroll listener, no theme state. */}
+      <motion.header
+        className="fixed left-[var(--gut)] right-[var(--gut)] top-5 z-[9999] flex items-start justify-between text-[15px] font-semibold uppercase leading-[17px] text-white mix-blend-difference lg:text-[17px]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="w-full h-full flex items-center">
-          <div className="mx-auto w-full max-w-[1800px] px-6 lg:px-12 flex items-center justify-between">
-            {/* Logo - Mix Blend Mode Difference for visibility */}
-            <Link
-              href="/"
-              className="relative z-50 text-xl lg:text-2xl font-black tracking-tighter text-white mix-blend-difference hover:opacity-80 transition-opacity"
-            >
-              GROWING UP
-            </Link>
+        {/* Left: standing statement, lower-case against the uppercase rail */}
+        <p className="hidden max-w-[16ch] text-[13px] font-semibold normal-case leading-4 tracking-[-0.01em] md:block">
+          런칭을 기획서가 아닌
+          <br />
+          매출과 데이터로 증명합니다
+        </p>
 
-            {/* Desktop Nav - Clean & Minimal */}
-            <nav className="hidden lg:flex items-center gap-10 absolute left-1/2 -translate-x-1/2 mix-blend-difference">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm font-medium tracking-wide text-white/90 hover:text-white transition-colors uppercase relative group"
-                >
-                  {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full" />
-                </Link>
-              ))}
-            </nav>
+        <Link
+          href="/"
+          className="tracking-[-0.02em] md:absolute md:left-1/2 md:top-0 md:-translate-x-1/2"
+        >
+          GROWING&nbsp;UP
+        </Link>
 
-            {/* Right Actions */}
-            <div className="flex items-center gap-4 relative z-50">
-              <Button
-                asChild
-                variant="outline"
-                className="hidden md:inline-flex rounded-full border-white/20 bg-white/5 text-white hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm mix-blend-difference"
-              >
-                <Link href="/diagnosis">Start Project</Link>
-              </Button>
-
+        <nav aria-label="주요 메뉴">
+          <ul className="flex items-start gap-3">
+            {NAV_LINKS.map((link) => (
+              <NavItem
+                key={link.href}
+                href={link.href}
+                label={link.label}
+                active={pathname === link.href}
+                className="hidden lg:block"
+              />
+            ))}
+            <li className="h-[17px]">
               <button
+                type="button"
                 onClick={() => setIsMenuOpen(true)}
-                className="group flex items-center justify-center w-12 h-12 rounded-full hover:bg-white/10 transition-colors mix-blend-difference text-white"
-                aria-label="Open Menu"
+                aria-label="전체 메뉴 열기"
+                className="group relative block h-full"
               >
-                <Menu className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <span className="relative block">Menu</span>
+                <span
+                  aria-hidden
+                  className="absolute -left-[7px] -top-[3px] h-[22px] w-0 overflow-hidden bg-white text-[#0E0E0E] transition-[width] duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:w-[calc(100%+14px)]"
+                >
+                  <span className="absolute left-[7px] top-[3px]">Menu</span>
+                </span>
               </button>
-            </div>
-          </div>
-        </div>
-      </header>
+            </li>
+          </ul>
+        </nav>
+      </motion.header>
 
       <MegaMenuOverlay open={isMenuOpen} onOpenChange={setIsMenuOpen} />
     </>

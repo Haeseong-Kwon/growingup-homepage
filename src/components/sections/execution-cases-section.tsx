@@ -89,14 +89,14 @@ export function ExecutionCasesSection() {
               <div
                 className={cn(
                   "group relative h-full flex flex-col justify-between p-8 md:p-10",
-                  "bg-white border-r-2 border-b-2 border-[var(--brand-fg)]",
+                  "bg-[var(--ink-soft)] border-r-2 border-b-2 border-[var(--brand-fg)]",
                   "transition-all duration-300 ease-out",
-                  "hover:bg-[var(--brand-fg)] hover:text-white"
+                  "hover:bg-[var(--brand-fg)] hover:text-[var(--ink)]"
                 )}
               >
                 <div className="mb-8">
                   <div className="mb-6 flex justify-between items-start">
-                    <span className="inline-block px-3 py-1 bg-[var(--brand-fg)] text-white text-xs font-bold uppercase tracking-widest group-hover:bg-white group-hover:text-[var(--brand-fg)] transition-colors">
+                    <span className="inline-block px-3 py-1 bg-[var(--brand-fg)] text-[var(--ink)] text-xs font-bold uppercase tracking-widest group-hover:bg-transparent group-hover:text-[var(--brand-fg)] transition-colors">
                       {caseItem.category}
                     </span>
                     <ArrowUpRight className="w-6 h-6 text-[var(--brand-fg)] opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 text-white transition-all duration-300" />

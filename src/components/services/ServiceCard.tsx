@@ -17,7 +17,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         "group relative border-2 flex flex-col",
         "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
         "hover:-translate-y-1 hover:border-[var(--brand-primary)]/20 hover:shadow-lg",
-        "bg-white border-[var(--brand-muted)] shadow-sm",
+        "bg-[var(--ink-soft)] border-[var(--brand-muted)] shadow-sm",
         "h-full"
       )}
     >

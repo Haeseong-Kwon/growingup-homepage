@@ -129,7 +129,7 @@ function CampaignCard({
       onClick={onClick}
       className={cn(
         "group h-full flex flex-col justify-between p-8 cursor-pointer transition-all duration-300",
-        "bg-white border-2 border-[var(--brand-fg)] hover:bg-[var(--brand-fg)] hover:text-white"
+        "bg-white border-2 border-[var(--brand-fg)] hover:bg-[var(--brand-fg)] hover:text-[var(--ink)]"
       )}
     >
       <div className="space-y-6">
@@ -188,7 +188,7 @@ function MissionCard({
       onClick={onClick}
       className={cn(
         "group flex flex-col justify-between p-6 cursor-pointer transition-all duration-300 h-full",
-        "bg-white border-2 border-[var(--brand-fg)] hover:bg-[var(--brand-fg)] hover:text-white",
+        "bg-white border-2 border-[var(--brand-fg)] hover:bg-[var(--brand-fg)] hover:text-[var(--ink)]",
         "text-[var(--brand-fg)]"
       )}
     >
@@ -199,7 +199,7 @@ function MissionCard({
               <Star key={i} className="w-4 h-4 fill-[var(--brand-primary)] text-[var(--brand-primary)] group-hover:fill-white group-hover:text-white transition-colors" />
             ))}
           </div>
-          <Badge className="rounded-none bg-[var(--brand-primary)] text-white hover:bg-[var(--brand-primary)]/90 group-hover:bg-white group-hover:text-[var(--brand-fg)] transition-colors">
+          <Badge className="rounded-none bg-[var(--brand-primary)] text-white hover:bg-[var(--brand-primary)]/90 group-hover:bg-transparent group-hover:text-[var(--brand-fg)] transition-colors">
             참여 가능
           </Badge>
         </div>
@@ -252,7 +252,7 @@ export default function ArenaPage() {
       />
 
       {/* 2) 초대코드 바 */}
-      <section className="py-12 border-b-2 border-[var(--brand-fg)] bg-white">
+      <section className="py-12 border-b-2 border-[var(--brand-fg)] bg-[var(--ink-soft)]">
         <Container>
           <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
             <div>
@@ -269,11 +269,11 @@ export default function ArenaPage() {
                 onKeyDown={(e) => {
                   if (e.key === "Enter") handleInviteSubmit();
                 }}
-                className="h-14 bg-white border-2 border-[var(--brand-fg)] rounded-none text-lg px-6 focus-visible:ring-0 focus-visible:border-[var(--brand-primary)] z-10"
+                className="h-14 bg-[var(--ink-soft)] border-2 border-[var(--brand-fg)] rounded-none text-lg px-6 focus-visible:ring-0 focus-visible:border-[var(--brand-primary)] z-10"
               />
               <Button
                 onClick={handleInviteSubmit}
-                className="h-14 px-8 bg-[var(--brand-fg)] text-white hover:bg-[var(--brand-primary)] rounded-none text-lg font-bold border-2 border-l-0 border-[var(--brand-fg)]"
+                className="h-14 px-8 bg-[var(--brand-fg)] text-[var(--ink)] hover:bg-[var(--brand-primary)] rounded-none text-lg font-bold border-2 border-l-0 border-[var(--brand-fg)]"
               >
                 ENTER
               </Button>
@@ -288,7 +288,7 @@ export default function ArenaPage() {
       </section>
 
       {/* 3) 진행 중인 캠페인 섹션 */}
-      <Section className="py-20 md:py-32 bg-white">
+      <Section className="py-20 md:py-32 bg-[var(--ink-soft)]">
         <Container>
           <div className="mb-16 md:mb-24">
             <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-[var(--brand-fg)] mb-6">
@@ -311,13 +311,13 @@ export default function ArenaPage() {
 
             {/* CTA Card positioned as grid item */}
             <MediaReveal delay={200} intensity="medium" className="col-span-1 md:col-span-2 lg:col-span-1">
-              <div className="h-full border-r-2 border-b-2 border-[var(--brand-fg)] bg-[var(--brand-fg)] p-8 md:p-12 flex flex-col justify-center text-white">
+              <div className="h-full border-r-2 border-b-2 border-[var(--brand-fg)] bg-[var(--brand-fg)] p-8 md:p-12 flex flex-col justify-center text-[var(--ink)]">
                 <h3 className="text-3xl font-black mb-4 leading-tight">WANT TO<br />JOIN?</h3>
                 <p className="text-white/70 mb-8 text-lg">
                   포트폴리오와 함께 신청해 주세요.<br />
                   검토 후 24시간 내에 연락드립니다.
                 </p>
-                <Button asChild className="h-14 bg-white text-[var(--brand-fg)] hover:bg-[var(--brand-primary)] hover:text-white rounded-none text-lg font-bold w-full transition-colors">
+                <Button asChild className="h-14 bg-transparent text-[var(--brand-fg)] hover:bg-[var(--brand-primary)] hover:text-white rounded-none text-lg font-bold w-full transition-colors">
                   <Link href="/auth">
                     LOGIN TO APPLY
                   </Link>

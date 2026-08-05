@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"S=/private/tmp/claude-501/-Users-haeseong-Desktop-Projects-growing-up-homepage/700af14d-d0f6-4a6b-8113-7a2ca518876e/scratchpad\\nlsof -ti:3000 | xargs kill -9 2>/dev/null; sleep 1\\n(npm run...",
+  "error": "Exit code 7\n/: 000\n/services: 000\n/contact: 000\n/insights: 000\n/capabilities: 000\n/cases: 000\n/portfolio: 000\n/arena: 000",
+  "timestamp": "2026-08-05T01:01:24.442Z",
+  "retry_count": 1
+}

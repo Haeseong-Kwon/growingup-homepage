@@ -20,7 +20,7 @@ export function SearchAndTags({
   onTagChange,
 }: SearchAndTagsProps) {
   return (
-    <div className="w-full bg-white border-y-2 md:border-2 border-[var(--brand-fg)] p-6 md:p-12 space-y-8 shadow-sm">
+    <div className="w-full bg-[var(--ink-soft)] border-y-2 md:border-2 border-[var(--brand-fg)] p-6 md:p-12 space-y-8 shadow-sm">
       {/* 검색 */}
       <div className="w-full max-w-3xl mx-auto">
         <Input
@@ -28,7 +28,7 @@ export function SearchAndTags({
           placeholder="검색..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="h-14 w-full bg-white border-2 border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] placeholder:text-[var(--brand-fg)]/40 text-lg px-6 focus-visible:ring-0 focus-visible:border-[var(--brand-primary)] transition-colors"
+          className="h-14 w-full bg-transparent border-2 border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] placeholder:text-[var(--brand-fg)]/40 text-lg px-6 focus-visible:ring-0 focus-visible:border-[var(--brand-primary)] transition-colors"
         />
       </div>
 
@@ -41,8 +41,8 @@ export function SearchAndTags({
             className={cn(
               "px-6 py-3 rounded-none text-sm font-bold uppercase tracking-wider transition-all duration-200 ease-out border-2 flex-shrink-0",
               activeTag === tag
-                ? "bg-[var(--brand-fg)] text-white border-[var(--brand-fg)]"
-                : "bg-transparent text-[var(--brand-fg)] border-[var(--brand-fg)]/20 hover:border-[var(--brand-fg)] hover:bg-[var(--brand-fg)] hover:text-white"
+                ? "bg-[var(--brand-fg)] text-[var(--ink)] border-[var(--brand-fg)]"
+                : "bg-transparent text-[var(--brand-fg)] border-[var(--brand-fg)]/20 hover:border-[var(--brand-fg)] hover:bg-[var(--brand-fg)] hover:text-[var(--ink)]"
             )}
           >
             {tag}

@@ -56,7 +56,7 @@ export function PortfolioFilterBar({
   return (
     <div
       className={cn(
-        "w-full bg-white/80 backdrop-blur-md border-b border-[var(--brand-muted)]",
+        "w-full bg-[var(--ink)]/85 backdrop-blur-md border-b border-[var(--brand-muted)]",
         "md:sticky md:top-[var(--header-h)] z-30 transition-all duration-300"
       )}
     >
@@ -70,7 +70,7 @@ export function PortfolioFilterBar({
               placeholder="프로젝트/클라이언트/키워드 검색"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="pl-11 pr-10 h-12 w-full bg-white border-2 border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] placeholder:text-[var(--brand-fg)]/40 focus-visible:ring-0 focus-visible:border-[var(--brand-primary)] transition-colors"
+              className="pl-11 pr-10 h-12 w-full bg-transparent border border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] placeholder:text-[var(--brand-fg)]/40 focus-visible:ring-0 focus-visible:border-[var(--brand-primary)] transition-colors"
             />
             {searchQuery && (
               <button
@@ -86,13 +86,13 @@ export function PortfolioFilterBar({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             {/* 연도 */}
             <Select value={selectedYear} onValueChange={onYearChange}>
-              <SelectTrigger className="w-full h-12 bg-white border-2 border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] uppercase font-bold text-xs tracking-wider hover:bg-[var(--brand-fg)] hover:text-white transition-colors focus:ring-0">
+              <SelectTrigger className="w-full h-12 bg-transparent border border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] uppercase font-bold text-xs tracking-wider hover:bg-[var(--brand-fg)] hover:text-[var(--ink)] transition-colors focus:ring-0">
                 <SelectValue placeholder="YEAR" />
               </SelectTrigger>
               <SelectContent className="rounded-none border-2 border-[var(--brand-fg)]">
-                <SelectItem value="전체" className="rounded-none focus:bg-[var(--brand-fg)] focus:text-white">ALL YEARS</SelectItem>
+                <SelectItem value="전체" className="rounded-none focus:bg-[var(--brand-fg)] focus:text-[var(--ink)]">ALL YEARS</SelectItem>
                 {portfolioYears.map((year) => (
-                  <SelectItem key={year} value={year.toString()} className="rounded-none focus:bg-[var(--brand-fg)] focus:text-white">
+                  <SelectItem key={year} value={year.toString()} className="rounded-none focus:bg-[var(--brand-fg)] focus:text-[var(--ink)]">
                     {year}
                   </SelectItem>
                 ))}
@@ -101,12 +101,12 @@ export function PortfolioFilterBar({
 
             {/* 카테고리 */}
             <Select value={selectedCategory} onValueChange={onCategoryChange}>
-              <SelectTrigger className="w-full h-12 bg-white border-2 border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] uppercase font-bold text-xs tracking-wider hover:bg-[var(--brand-fg)] hover:text-white transition-colors focus:ring-0">
+              <SelectTrigger className="w-full h-12 bg-transparent border border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] uppercase font-bold text-xs tracking-wider hover:bg-[var(--brand-fg)] hover:text-[var(--ink)] transition-colors focus:ring-0">
                 <SelectValue placeholder="CATEGORY" />
               </SelectTrigger>
               <SelectContent className="rounded-none border-2 border-[var(--brand-fg)]">
                 {portfolioCategories.map((category) => (
-                  <SelectItem key={category} value={category} className="rounded-none focus:bg-[var(--brand-fg)] focus:text-white">
+                  <SelectItem key={category} value={category} className="rounded-none focus:bg-[var(--brand-fg)] focus:text-[var(--ink)]">
                     {category}
                   </SelectItem>
                 ))}
@@ -115,12 +115,12 @@ export function PortfolioFilterBar({
 
             {/* 산업 */}
             <Select value={selectedIndustry} onValueChange={onIndustryChange}>
-              <SelectTrigger className="w-full h-12 bg-white border-2 border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] uppercase font-bold text-xs tracking-wider hover:bg-[var(--brand-fg)] hover:text-white transition-colors focus:ring-0">
+              <SelectTrigger className="w-full h-12 bg-transparent border border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] uppercase font-bold text-xs tracking-wider hover:bg-[var(--brand-fg)] hover:text-[var(--ink)] transition-colors focus:ring-0">
                 <SelectValue placeholder="INDUSTRY" />
               </SelectTrigger>
               <SelectContent className="rounded-none border-2 border-[var(--brand-fg)]">
                 {portfolioIndustries.map((industry) => (
-                  <SelectItem key={industry} value={industry} className="rounded-none focus:bg-[var(--brand-fg)] focus:text-white">
+                  <SelectItem key={industry} value={industry} className="rounded-none focus:bg-[var(--brand-fg)] focus:text-[var(--ink)]">
                     {industry}
                   </SelectItem>
                 ))}
@@ -129,12 +129,12 @@ export function PortfolioFilterBar({
 
             {/* 정렬 */}
             <Select value={selectedSort} onValueChange={onSortChange}>
-              <SelectTrigger className="w-full h-12 bg-white border-2 border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] uppercase font-bold text-xs tracking-wider hover:bg-[var(--brand-fg)] hover:text-white transition-colors focus:ring-0">
+              <SelectTrigger className="w-full h-12 bg-transparent border border-[var(--brand-fg)] rounded-none text-[var(--brand-fg)] uppercase font-bold text-xs tracking-wider hover:bg-[var(--brand-fg)] hover:text-[var(--ink)] transition-colors focus:ring-0">
                 <SelectValue placeholder="SORT" />
               </SelectTrigger>
               <SelectContent className="rounded-none border-2 border-[var(--brand-fg)]">
                 {sortOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value} className="rounded-none focus:bg-[var(--brand-fg)] focus:text-white">
+                  <SelectItem key={option.value} value={option.value} className="rounded-none focus:bg-[var(--brand-fg)] focus:text-[var(--ink)]">
                     {option.label}
                   </SelectItem>
                 ))}

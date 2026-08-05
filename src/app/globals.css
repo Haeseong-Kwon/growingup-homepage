@@ -21,10 +21,9 @@
 }
 
 @theme inline {
-  /* Brand Colors - Cheil Style Expansion */
-  --color-brand-bg: #FCFBF8;
-  --color-brand-fg: #050505;
-  /* Deep Black for Text */
+  /* Brand Colors - Editorial Ink System */
+  --color-brand-bg: #0E0E0E;
+  --color-brand-fg: #FFFFFF;
 
   /* Artistic Palette */
   --color-brand-primary: #3B4CCA;
@@ -36,9 +35,8 @@
   --color-brand-hot3: #FF00FF;
   /* Magenta for Art */
 
-  --color-brand-muted: rgba(5, 5, 5, 0.08);
-  /* Lighter touch */
-  --color-brand-muted-light: rgba(5, 5, 5, 0.03);
+  --color-brand-muted: rgba(255, 255, 255, 0.12);
+  --color-brand-muted-light: rgba(255, 255, 255, 0.04);
 
   /* Shadcn Theme Variables */
   --color-background: var(--brand-bg);
@@ -101,36 +99,48 @@
 
 :root {
   --radius: 0.5rem;
-  --brand-bg: #FCFBF8;
-  --brand-fg: #050505;
+
+  /* Editorial ink base */
+  --ink: #0E0E0E;
+  --ink-soft: #191816;
+  --paper: #F5F5F5;
+
+  --brand-bg: #0E0E0E;
+  --brand-fg: #FFFFFF;
   --brand-primary: #3B4CCA;
   --brand-secondary: #0D9488;
   --brand-hot1: #FF3B30;
   --brand-hot2: #FE3F21;
   --brand-hot3: #FF00FF;
-  --brand-muted: rgba(5, 5, 5, 0.08);
-  --brand-muted-light: rgba(5, 5, 5, 0.03);
+  --brand-muted: rgba(255, 255, 255, 0.12);
+  --brand-muted-light: rgba(255, 255, 255, 0.04);
+
+  /* Edge-anchored gutter (reference uses a hard 30px rail) */
+  --gut: 20px;
 
   /* Header height */
-  --header-h: 70px;
+  --header-h: 60px;
 
-  /* Theme transition variables */
+  /* Signature easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
   --theme-transition-duration: 400ms;
-  --theme-transition-timing: cubic-bezier(0.16, 1, 0.3, 1);
+  --theme-transition-timing: var(--ease-out-expo);
 
   /* Global Theme Props */
-  --bg: #FCFBF8;
-  --fg: #050505;
-  --muted: #888888;
-  --border: rgba(0, 0, 0, 0.06);
-  --header-fg: #050505;
-  --header-bg: rgba(252, 251, 248, 0.6);
+  --bg: #0E0E0E;
+  --fg: #FFFFFF;
+  --muted: rgba(255, 255, 255, 0.55);
+  --border: rgba(255, 255, 255, 0.14);
+  --rule: rgba(255, 255, 255, 0.5);
+  --header-fg: #FFFFFF;
+  --header-bg: transparent;
 }
 
 @media (min-width: 1024px) {
   :root {
-    --header-h: 100px;
-    /* Cheil Style: Large Header area */
+    --gut: 30px;
+    --header-h: 70px;
   }
 }
 
@@ -222,13 +232,16 @@ html.theme-dark {
   html,
   body {
     width: 100%;
-    overflow-x: hidden;
-    /* Prevent horizontal scroll globally */
+    /* `clip`, not `hidden`: `hidden` turns html/body into a scroll container,
+       which silently disables every `position: sticky` descendant. `clip` blocks
+       horizontal overflow without creating a scrollport. */
+    overflow-x: clip;
   }
 
   html {
     -webkit-text-size-adjust: 100%;
-    text-rendering: geometricPrecision;
+    text-rendering: optimizeLegibility;
+    overscroll-behavior: none;
   }
 
   body {
@@ -238,8 +251,13 @@ html.theme-dark {
     font-family: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont,
       "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
 
-    /* Cheil Style Craft */
+    /* Editorial base: small, dense body type against massive display type */
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
     letter-spacing: -0.01em;
+    word-break: keep-all;
+    overscroll-behavior: none;
     font-feature-settings: "ss01", "ss02", "salt";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -324,23 +342,15 @@ html.theme-dark {
     color: #ffffff;
   }
 
-  /* Scrollbar Minimal */
+  /* Scrollbar: hidden entirely — scroll position is communicated by motion, not chrome */
   ::-webkit-scrollbar {
-    @apply w-1.5;
+    -webkit-appearance: none;
+    width: 0;
+    height: 0;
   }
 
-  ::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--brand-muted);
-    /* Darker thumb */
-    @apply rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--brand-fg);
+  html {
+    scrollbar-width: none;
   }
 
   /* Hide scrollbars for specific containers */
@@ -484,6 +494,129 @@ html.theme-dark {
   @media (hover: hover) {
     .card-hover-safe:hover {
       transform: translateY(-8px) scale(1.01);
+    }
+  }
+
+  /* ==========================================================================
+     Editorial system — edge-anchored rails, dashed rules, viewport-scaled display type.
+     The reference anchors everything to a hard 30px rail instead of a centred
+     container, which is what makes the layout read as a printed sheet.
+     ========================================================================== */
+
+  .rail {
+    padding-left: var(--gut);
+    padding-right: var(--gut);
+  }
+
+  .rail-l {
+    padding-left: var(--gut);
+  }
+
+  /* Dashed rules are the signature divider motif of the reference. */
+  .rule-t {
+    border-top: 1px dashed var(--rule);
+  }
+
+  .rule-b {
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .rule-l {
+    border-left: 1px dashed var(--rule);
+  }
+
+  .rule-box {
+    border: 1px dashed var(--rule);
+  }
+
+  /* Display type: scales with the viewport so the composition holds at any width. */
+  .t-mega {
+    font-size: clamp(2.75rem, 8.2vw, 11rem);
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .t-display {
+    font-size: clamp(2.25rem, 5.6vw, 7rem);
+    line-height: 0.94;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+  }
+
+  .t-headline {
+    font-size: clamp(1.5rem, 2.6vw, 3rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+
+  /* Lead paragraph — the reference pairs 24px/30px lead copy with 15px body. */
+  .t-lead {
+    font-size: clamp(1.05rem, 1.5vw, 1.5rem);
+    line-height: 1.3;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .t-body {
+    font-size: 15px;
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  /* Eyebrow / section label — 13-14px, never bigger. */
+  .t-label {
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+
+  /* Mask reveal: children slide up from behind a hard edge.
+     The padding/negative-margin pair pushes the clipping edge below the baseline
+     so Hangul descenders (ㅁ, ㄴ, ㅂ …) survive the tight display line-heights,
+     without changing where the next line sits. */
+  .mask-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.16em;
+    margin-bottom: -0.16em;
+  }
+
+  /* Grayscale-until-hover imagery, straight from the reference. */
+  .img-gray img,
+  img.img-gray {
+    filter: grayscale(1);
+    transition: filter 0.45s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+  }
+
+  .img-gray:hover img,
+  img.img-gray:hover {
+    filter: grayscale(0);
+  }
+
+  /* Continuous single-pass ticker (reference: 120s linear infinite). */
+  @keyframes rail-scroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .animate-rail {
+    animation: rail-scroll var(--rail-duration, 60s) linear infinite;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-rail {
+      animation: none;
     }
   }
 }

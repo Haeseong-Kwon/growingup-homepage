@@ -195,9 +195,9 @@ function CapabilitiesMapSection() {
               <div
                 className={cn(
                   "group relative h-full flex flex-col justify-between p-8 md:p-12",
-                  "border-r-2 border-b-2 border-[var(--brand-fg)] bg-white",
+                  "border-r-2 border-b-2 border-[var(--brand-fg)] bg-[var(--ink-soft)]",
                   "transition-all duration-300 ease-out",
-                  "hover:bg-[var(--brand-fg)] hover:text-white"
+                  "hover:bg-[var(--brand-fg)] hover:text-[var(--ink)]"
                 )}
               >
                 <div className="mb-8">
@@ -289,7 +289,7 @@ export default function CapabilitiesPage() {
                       "group relative border-2 flex flex-col h-full",
                       "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
                       "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40 hover:shadow-lg",
-                      "bg-white border-[var(--brand-muted)] shadow-sm"
+                      "bg-[var(--ink-soft)] border-[var(--brand-muted)] shadow-sm"
                     )}
                   >
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
@@ -345,7 +345,7 @@ export default function CapabilitiesPage() {
                     "group relative border-2 flex flex-col h-full",
                     "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
                     "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40 hover:shadow-lg",
-                    "bg-white border-[var(--brand-muted)] shadow-sm"
+                    "bg-[var(--ink-soft)] border-[var(--brand-muted)] shadow-sm"
                   )}
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
@@ -402,7 +402,7 @@ export default function CapabilitiesPage() {
                     "group relative border-2 flex flex-col md:flex-row",
                     "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
                     "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40 hover:shadow-lg",
-                    "bg-white border-[var(--brand-muted)] shadow-sm"
+                    "bg-[var(--ink-soft)] border-[var(--brand-muted)] shadow-sm"
                   )}
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
@@ -477,7 +477,7 @@ export default function CapabilitiesPage() {
                     "group relative border-2 flex flex-col",
                     "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
                     "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40 hover:shadow-lg",
-                    "bg-white border-[var(--brand-muted)] shadow-sm"
+                    "bg-[var(--ink-soft)] border-[var(--brand-muted)] shadow-sm"
                   )}
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
@@ -537,7 +537,7 @@ export default function CapabilitiesPage() {
                     "group relative border-2 flex flex-col h-full",
                     "transition-transform duration-200 ease-out [contain:paint] motion-reduce:transition-none",
                     "hover:-translate-y-1.5 hover:border-[var(--brand-primary)]/40 hover:shadow-lg",
-                    "bg-white border-[var(--brand-muted)] shadow-sm"
+                    "bg-[var(--ink-soft)] border-[var(--brand-muted)] shadow-sm"
                   )}
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out motion-reduce:transition-none bg-gradient-to-br from-[var(--brand-primary)]/5 via-transparent to-transparent" />
@@ -590,7 +590,7 @@ export default function CapabilitiesPage() {
               <Button
                 asChild
                 size="lg"
-                className="h-14 px-8 text-lg font-bold rounded-full bg-white text-[var(--brand-primary)] hover:bg-white/90 transition-all hover:scale-105"
+                className="h-14 px-8 text-lg font-bold rounded-full bg-[var(--ink-soft)] text-[var(--brand-primary)] hover:bg-white/90 transition-all hover:scale-105"
               >
                 <Link href="/diagnosis">진단 요청</Link>
               </Button>

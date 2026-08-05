@@ -1,0 +1,327 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1785889913613,
+  "projectRoot": "/Users/haeseong/Desktop/Projects/growing_up_homepage",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      },
+      {
+        "name": "TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "tsconfig.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "next",
+        "version": "16.1.4",
+        "category": "fullstack"
+      },
+      {
+        "name": "react",
+        "version": "19.2.3",
+        "category": "frontend"
+      },
+      {
+        "name": "react-dom",
+        "version": "19.2.3",
+        "category": "frontend"
+      }
+    ],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "npm run build",
+    "testCommand": null,
+    "lintCommand": "npm run lint",
+    "devCommand": "npm run dev",
+    "scripts": {
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start",
+      "lint": "eslint"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": "type-based"
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "public",
+      "src"
+    ],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "public": {
+      "path": "public",
+      "purpose": "Public files",
+      "fileCount": 7,
+      "lastAccessed": 1785889913553,
+      "keyFiles": [
+        "file.svg",
+        "globe.svg",
+        "hero-poster.svg",
+        "hero.mp4",
+        "next.svg"
+      ]
+    },
+    "src": {
+      "path": "src",
+      "purpose": "Source code",
+      "fileCount": 1,
+      "lastAccessed": 1785889913554,
+      "keyFiles": []
+    },
+    "src/app": {
+      "path": "src/app",
+      "purpose": "Application code",
+      "fileCount": 4,
+      "lastAccessed": 1785889913572,
+      "keyFiles": [
+        "favicon.ico",
+        "globals.css",
+        "layout.tsx"
+      ]
+    },
+    "src/components": {
+      "path": "src/components",
+      "purpose": "UI components",
+      "fileCount": 0,
+      "lastAccessed": 1785889913573,
+      "keyFiles": []
+    },
+    "src/data": {
+      "path": "src/data",
+      "purpose": "Data files",
+      "fileCount": 1,
+      "lastAccessed": 1785889913573,
+      "keyFiles": [
+        "portfolio.ts"
+      ]
+    },
+    "src/lib": {
+      "path": "src/lib",
+      "purpose": "Library code",
+      "fileCount": 5,
+      "lastAccessed": 1785889913574,
+      "keyFiles": [
+        "constants.ts",
+        "effects.ts",
+        "palette.ts"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "src/components/home/hero-scene.tsx",
+      "accessCount": 9,
+      "lastAccessed": 1785892335894,
+      "type": "file"
+    },
+    {
+      "path": "src/app/globals.css",
+      "accessCount": 8,
+      "lastAccessed": 1785891602489,
+      "type": "file"
+    },
+    {
+      "path": "src/components/motion/cube-3d.tsx",
+      "accessCount": 6,
+      "lastAccessed": 1785891230693,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/works-section.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1785891004831,
+      "type": "file"
+    },
+    {
+      "path": "src/components/layout/site-header.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1785891201253,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/pillars-section.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1785890725355,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/manifesto-section.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1785891490049,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/partners-section.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1785891607564,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(site)/layout.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1785890912144,
+      "type": "file"
+    },
+    {
+      "path": "src/components/layout/site-shell.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1785892416844,
+      "type": "file"
+    },
+    {
+      "path": "src/components/layout/site-footer.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1785890554974,
+      "type": "file"
+    },
+    {
+      "path": "src/data/partners.ts",
+      "accessCount": 2,
+      "lastAccessed": 1785890597055,
+      "type": "file"
+    },
+    {
+      "path": "src/components/motion/band-wipe.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1785890707031,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(site)/page.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1785890899899,
+      "type": "file"
+    },
+    {
+      "path": "src/components/layout/mega-menu-overlay.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1785891266638,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/process-section.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1785891613233,
+      "type": "file"
+    },
+    {
+      "path": "src/components/hero/video-hero.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1785891884178,
+      "type": "file"
+    },
+    {
+      "path": "src/components/sections/logo-marquee.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1785890185039,
+      "type": "file"
+    },
+    {
+      "path": "src/components/layout/section.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1785890258967,
+      "type": "file"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1785890264461,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/constants.ts",
+      "accessCount": 1,
+      "lastAccessed": 1785890265009,
+      "type": "file"
+    },
+    {
+      "path": "src/components/layout/container.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1785890308234,
+      "type": "file"
+    },
+    {
+      "path": "src/hooks/use-count-up.ts",
+      "accessCount": 1,
+      "lastAccessed": 1785890308722,
+      "type": "file"
+    },
+    {
+      "path": "src/hooks/use-reduced-motion.ts",
+      "accessCount": 1,
+      "lastAccessed": 1785890309631,
+      "type": "file"
+    },
+    {
+      "path": "src/components/ui/accordion.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1785890309762,
+      "type": "file"
+    },
+    {
+      "path": "src/components/motion/mask-reveal.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1785890398679,
+      "type": "file"
+    },
+    {
+      "path": "src/components/motion/line-draw.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1785890495940,
+      "type": "file"
+    },
+    {
+      "path": "src/components/motion/text-ticker.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1785890508829,
+      "type": "file"
+    },
+    {
+      "path": "src/components/layout/page-transition.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1785890566872,
+      "type": "file"
+    },
+    {
+      "path": "next.config.ts",
+      "accessCount": 1,
+      "lastAccessed": 1785890615293,
+      "type": "file"
+    },
+    {
+      "path": "src/components/sections/execution-cases-section.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1785890615586,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/faq-contact-section.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1785890868941,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}
