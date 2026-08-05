@@ -7,6 +7,7 @@ import { ProcessSection, type ProcessStep } from "@/components/home/process-sect
 import { DeliverablesSection } from "@/components/home/deliverables-section";
 import { EngagementsSection } from "@/components/home/engagements-section";
 import { PartnersSection } from "@/components/home/partners-section";
+import { AutopilotSection } from "@/components/home/autopilot-section";
 import { UpdatesSection } from "@/components/home/updates-section";
 import { FaqContactSection, type FaqItem } from "@/components/home/faq-contact-section";
 
@@ -134,6 +135,7 @@ export default function HomePage() {
       <DeliverablesSection />
       <EngagementsSection />
       <PartnersSection />
+      <AutopilotSection />
       <UpdatesSection />
       <FaqContactSection items={faqItems} />
     </div>

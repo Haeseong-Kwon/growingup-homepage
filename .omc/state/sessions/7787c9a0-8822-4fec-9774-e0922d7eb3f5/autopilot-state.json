@@ -1,0 +1,11 @@
+{
+  "active": false,
+  "current_phase": "completed",
+  "task_description": "메인페이지 Autopilot(AOP 협력 제품) 섹션 추가 — 완료",
+  "_meta": {
+    "mode": "autopilot",
+    "sessionId": "7787c9a0-8822-4fec-9774-e0922d7eb3f5",
+    "updatedAt": "2026-08-05T05:43:12.437Z",
+    "updatedBy": "state_write_tool"
+  }
+}

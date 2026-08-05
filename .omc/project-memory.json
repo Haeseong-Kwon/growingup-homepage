@@ -138,26 +138,50 @@
     },
     {
       "path": "src/components/home/works-section.tsx",
-      "accessCount": 14,
-      "lastAccessed": 1785896463057,
+      "accessCount": 15,
+      "lastAccessed": 1785907631808,
       "type": "file"
     },
     {
       "path": "src/app/globals.css",
-      "accessCount": 8,
-      "lastAccessed": 1785891602489,
+      "accessCount": 9,
+      "lastAccessed": 1785907623337,
       "type": "file"
     },
     {
       "path": "src/components/motion/cube-3d.tsx",
+      "accessCount": 8,
+      "lastAccessed": 1785907615030,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/autopilot-section.tsx",
+      "accessCount": 8,
+      "lastAccessed": 1785908070223,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(site)/page.tsx",
       "accessCount": 7,
-      "lastAccessed": 1785894017854,
+      "lastAccessed": 1785907783995,
       "type": "file"
     },
     {
       "path": "src/components/layout/site-header.tsx",
       "accessCount": 5,
       "lastAccessed": 1785891201253,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/partners-section.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1785907630835,
+      "type": "file"
+    },
+    {
+      "path": "src/components/motion/mask-reveal.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1785907639170,
       "type": "file"
     },
     {
@@ -173,18 +197,6 @@
       "type": "file"
     },
     {
-      "path": "src/components/home/partners-section.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1785891607564,
-      "type": "file"
-    },
-    {
-      "path": "src/components/motion/mask-reveal.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1785893749842,
-      "type": "file"
-    },
-    {
       "path": "src/components/hero/video-hero.tsx",
       "accessCount": 4,
       "lastAccessed": 1785893886914,
@@ -194,12 +206,6 @@
       "path": "src/components/motion/band-wipe.tsx",
       "accessCount": 4,
       "lastAccessed": 1785893993800,
-      "type": "file"
-    },
-    {
-      "path": "src/app/(site)/page.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1785894035521,
       "type": "file"
     },
     {
@@ -221,15 +227,15 @@
       "type": "file"
     },
     {
-      "path": "src/components/layout/site-footer.tsx",
-      "accessCount": 2,
-      "lastAccessed": 1785890554974,
+      "path": "src/data/partners.ts",
+      "accessCount": 3,
+      "lastAccessed": 1785907638797,
       "type": "file"
     },
     {
-      "path": "src/data/partners.ts",
+      "path": "src/components/layout/site-footer.tsx",
       "accessCount": 2,
-      "lastAccessed": 1785890597055,
+      "lastAccessed": 1785890554974,
       "type": "file"
     },
     {
@@ -242,6 +248,24 @@
       "path": "src/components/home/process-section.tsx",
       "accessCount": 2,
       "lastAccessed": 1785891613233,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/deliverables-section.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1785907619146,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/engagements-section.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1785907619441,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/constants.ts",
+      "accessCount": 2,
+      "lastAccessed": 1785907623837,
       "type": "file"
     },
     {
@@ -260,12 +284,6 @@
       "path": "src/app/layout.tsx",
       "accessCount": 1,
       "lastAccessed": 1785890264461,
-      "type": "file"
-    },
-    {
-      "path": "src/lib/constants.ts",
-      "accessCount": 1,
-      "lastAccessed": 1785890265009,
       "type": "file"
     },
     {
@@ -350,18 +368,6 @@
       "path": "src/components/home/statement-band.tsx",
       "accessCount": 1,
       "lastAccessed": 1785893904495,
-      "type": "file"
-    },
-    {
-      "path": "src/components/home/deliverables-section.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1785893925124,
-      "type": "file"
-    },
-    {
-      "path": "src/components/home/engagements-section.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1785893945655,
       "type": "file"
     },
     {
