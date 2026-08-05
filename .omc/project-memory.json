@@ -143,6 +143,12 @@
       "type": "file"
     },
     {
+      "path": "src/components/home/autopilot-section.tsx",
+      "accessCount": 13,
+      "lastAccessed": 1785909430817,
+      "type": "file"
+    },
+    {
       "path": "src/app/globals.css",
       "accessCount": 9,
       "lastAccessed": 1785907623337,
@@ -152,12 +158,6 @@
       "path": "src/components/motion/cube-3d.tsx",
       "accessCount": 8,
       "lastAccessed": 1785907615030,
-      "type": "file"
-    },
-    {
-      "path": "src/components/home/autopilot-section.tsx",
-      "accessCount": 8,
-      "lastAccessed": 1785908070223,
       "type": "file"
     },
     {
@@ -374,6 +374,12 @@
       "path": "src/components/home/updates-section.tsx",
       "accessCount": 1,
       "lastAccessed": 1785893965941,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/autopilot-glyphs.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1785909194123,
       "type": "file"
     }
   ],

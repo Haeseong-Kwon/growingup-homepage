@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import {
   motion,
@@ -12,6 +13,7 @@ import {
 import { ArrowUpRight } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { CAPABILITY_GLYPHS } from "@/components/home/autopilot-glyphs";
 
 const AUTOPILOT_URL = "https://www.autopilot.it.kr/";
 
@@ -84,20 +86,29 @@ function buildScrub() {
 const SCRUB = buildScrub();
 
 function FaceCard({ capability, index }: { capability: Capability; index: number }) {
+  const Glyph = CAPABILITY_GLYPHS[index];
+
   return (
-    <div className="flex h-full flex-col justify-between border border-dashed border-[var(--rule)] bg-[var(--ink-soft)] p-6 md:p-8">
-      <div className="flex items-start justify-between gap-4">
+    <div className="relative flex h-full flex-col justify-between overflow-hidden border border-dashed border-[var(--rule)] bg-[var(--ink-soft)] p-6 md:p-8">
+      {/* 기능별 라인 그래픽. currentColor라 면이 물러날 때 함께 어두워집니다. */}
+      <Glyph
+        aria-hidden
+        className="pointer-events-none absolute right-5 top-1/2 h-[clamp(88px,11vw,148px)] w-[clamp(88px,11vw,148px)] -translate-y-1/2 text-white/30 md:right-8"
+      />
+
+      <div className="relative flex items-start justify-between gap-4">
         <span className="t-label text-white/45">
           {String(index + 1).padStart(2, "0")} / {capability.latin}
         </span>
         <span className="t-label text-white/35">Autopilot</span>
       </div>
 
-      <div>
+      {/* 글리프 폭만큼 비워 둡니다 — 좁은 카드에서 본문이 그래픽 위로 흘러갑니다. */}
+      <div className="relative pr-[clamp(100px,12vw,168px)]">
         <h3 className="text-[clamp(26px,2.8vw,52px)] font-semibold leading-none tracking-[-0.03em] text-white">
           {capability.title}
         </h3>
-        <p className="mt-3 max-w-[38ch] t-body text-white/60">{capability.description}</p>
+        <p className="mt-3 t-body text-white/60">{capability.description}</p>
       </div>
     </div>
   );
@@ -186,15 +197,31 @@ export function AutopilotSection() {
     setActive(Math.min(FACES - 1, Math.max(0, i)));
   });
 
+  /** 제품 썸네일 자체가 플랫폼으로 가는 링크입니다. */
   const cta = (
     <a
       href={AUTOPILOT_URL}
       target="_blank"
       rel="noreferrer noopener"
-      className="group inline-flex items-center gap-2 border-b border-white pb-1 text-[13px] font-semibold uppercase text-white"
+      className="group img-gray flex items-center gap-5 border border-dashed border-[var(--rule)] p-3 transition-colors duration-500 hover:border-white/70"
     >
-      Autopilot 열어보기
-      <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+      <span className="relative block aspect-video w-[clamp(120px,12vw,176px)] shrink-0 overflow-hidden bg-[var(--ink-soft)]">
+        <Image
+          src="/autopilot-thumbnail.png"
+          alt="오토파일럿 플랫폼 홈 화면"
+          fill
+          sizes="176px"
+          className="object-cover object-top transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
+        />
+      </span>
+
+      <span className="min-w-0 flex-1">
+        <span className="block t-label text-white/45">autopilot.it.kr</span>
+        <span className="mt-1 flex items-center gap-2 text-[15px] font-semibold uppercase text-white">
+          Autopilot 열어보기
+          <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+        </span>
+      </span>
     </a>
   );
 
