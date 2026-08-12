@@ -52,9 +52,11 @@ export default function ContactPage() {
                   연락처
                 </h3>
                 <div className="space-y-3 text-[var(--brand-fg)]/60 leading-relaxed">
-                  <p>이메일: contact@growingup.com</p>
-                  <p>전화: 02-1234-5678</p>
-                  <p>주소: 서울특별시 강남구</p>
+                  <p>이메일: hello@growingup.kr</p>
+                  <p>
+                    주소: 서울특별시 성북구 고려대로27길 4, 3층 (안암동5가,
+                    석실빌딩) — 고려대학교 창업스튜디오
+                  </p>
                 </div>
               </div>
 

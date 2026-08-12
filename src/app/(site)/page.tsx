@@ -3,6 +3,7 @@ import { ManifestoSection } from "@/components/home/manifesto-section";
 import { StatementBand } from "@/components/home/statement-band";
 import { PillarsSection } from "@/components/home/pillars-section";
 import { WorksSection, type WorkItem } from "@/components/home/works-section";
+import { HistorySection } from "@/components/home/history-section";
 import { ProcessSection, type ProcessStep } from "@/components/home/process-section";
 import { DeliverablesSection } from "@/components/home/deliverables-section";
 import { EngagementsSection } from "@/components/home/engagements-section";
@@ -11,59 +12,43 @@ import { AutopilotSection } from "@/components/home/autopilot-section";
 import { UpdatesSection } from "@/components/home/updates-section";
 import { FaqContactSection, type FaqItem } from "@/components/home/faq-contact-section";
 
-// 포트폴리오 케이스 + 진행 중인 프로젝트를 하나의 가로 릴로 묶어 노출
+// 포트폴리오의 SELECTED WORKS 네 건을 하나의 가로 릴로 묶어 노출
 const works: WorkItem[] = [
   {
-    category: "전자제품",
+    category: "리테일 · 가전",
     title: "Great 포터블 스크린",
-    summary: "무명 브랜드 30만원대 제품, 기존 마케팅 채널 포화 상태에서 신규 진입 필요",
-    result: "4주 만에 3,500대 완판",
-    href: "/portfolio/great-portable-screen",
+    summary:
+      "24인치 안드로이드 태블릿을 ‘포터블 스크린’으로 재정의해 이마트·트레이더스 단독 출시. 브랜드 런칭 마케팅 전반 전담",
+    result: "사전예약 1시간 · 1,400대 완판",
+    href: "/cases/great-portable",
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&h=1200&fit=crop",
   },
   {
-    category: "프랜차이즈",
-    title: "글라소",
-    summary: "브랜드 인지도 0%, 가맹점 모집 광고 예산 제한, B2B 리드 확보 어려움",
-    result: "3개월 내 20개 점포 계약",
-    href: "/portfolio/glaso",
+    category: "F&B · 프랜차이즈",
+    title: "글라쇼",
+    summary:
+      "인지도 0%에서 시작한 프리미엄 수제 아이스크림 프랜차이즈. B2C 인지도와 B2B 가맹 리드를 동시에 만드는 이중 퍼널 설계",
+    result: "전국 가맹 20개점",
+    href: "/cases/glasho-franchise",
     image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=900&h=1200&fit=crop",
   },
   {
-    category: "크라우드펀딩",
-    title: "와디즈 GPT 전자책",
-    summary: "신규 카테고리(AI 전자책), 레퍼런스 부재, 3주라는 짧은 펀딩 기간",
-    result: "3주 만에 4억 펀딩 달성",
-    href: "/portfolio/wadiz-gpt-ebook",
+    category: "크라우드펀딩 · 자사 IP",
+    title: "와디즈 전자책 시리즈",
+    summary:
+      "출판사 직접 등록 후 기획·제작·출판·펀딩 전 과정을 자체 수행. 클라이언트 사례가 아니라 우리 제품이었습니다",
+    result: "누적 크라우드펀딩 10억원+",
+    href: "/cases/wadiz-ebook",
     image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=900&h=1200&fit=crop",
   },
   {
-    category: "브랜딩",
-    title: "브랜드 리뉴얼 프로젝트",
-    summary: "디지털 시대에 맞는 새로운 브랜드 아이덴티티 구축",
-    href: "/projects/1",
-    image: "https://images.unsplash.com/photo-1541462608143-67571c6738dd?w=900&h=1200&fit=crop",
-  },
-  {
-    category: "마케팅",
-    title: "마케팅 캠페인 최적화",
-    summary: "데이터 기반 캠페인 성과 개선 및 ROI 향상",
-    href: "/projects/2",
+    category: "프로덕트 · B2B",
+    title: "Autopilot with AOP",
+    summary:
+      "현장에서 검증한 마케팅 실행 방법론을 협력사 AOP와 함께 제품으로. 사람이 하던 판단을 제품이 반복합니다",
+    result: "6개 모듈 AI 마케팅 실행 시스템",
+    href: "/cases/autopilot-aop",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=1200&fit=crop",
-  },
-  {
-    category: "UX/UI",
-    title: "고객 경험 혁신",
-    summary: "사용자 중심의 디지털 경험 설계 및 구현",
-    href: "/projects/3",
-    image: "https://images.unsplash.com/photo-1559028012-481c04fa702d?w=900&h=1200&fit=crop",
-  },
-  {
-    category: "콘텐츠",
-    title: "콘텐츠 전략 수립",
-    summary: "브랜드 스토리텔링을 통한 고객 소통 강화",
-    href: "/projects/4",
-    image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=900&h=1200&fit=crop",
   },
 ];
 
@@ -131,6 +116,7 @@ export default function HomePage() {
       <StatementBand />
       <PillarsSection />
       <WorksSection items={works} />
+      <HistorySection />
       <ProcessSection steps={processSteps} />
       <DeliverablesSection />
       <EngagementsSection />

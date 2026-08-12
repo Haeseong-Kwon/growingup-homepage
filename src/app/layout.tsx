@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   keywords: [
     "GrowingUp",
-    "그로잉업",
+    "그로윙업",
     "런칭",
     "성장 마케팅",
     "데이터 마케팅",

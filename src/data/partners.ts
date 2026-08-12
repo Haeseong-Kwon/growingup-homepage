@@ -25,6 +25,7 @@ export const PARTNERS: Partner[] = [
 export const TICKER_NAMES = [
   ...PARTNERS.map((partner) => ({ name: `${partner.latin} ${partner.name}`, featured: true })),
   { name: "Great 포터블 스크린" },
-  { name: "글라소" },
-  { name: "와디즈 GPT 전자책" },
+  { name: "글라쇼" },
+  { name: "와디즈 전자책 시리즈" },
+  { name: "Autopilot" },
 ];

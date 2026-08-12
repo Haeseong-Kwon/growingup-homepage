@@ -13,12 +13,12 @@ interface Stat {
   suffix?: string;
 }
 
-/** Figures already published elsewhere on the site — no new claims here. */
+/** 회사 포트폴리오의 AT A GLANCE 지표. 원문 표기를 그대로 따릅니다. */
 const STATS: Stat[] = [
-  { label: "Units sold out", end: 3500, suffix: "대" },
-  { label: "Store contracts", end: 20, suffix: "개" },
-  { label: "Funding raised", end: 4, suffix: "억", decimals: 1 },
-  { label: "Peak ROAS", end: 320, suffix: "%" },
+  { label: "사전예약 1시간", end: 1400, suffix: "대" },
+  { label: "누적 거래액 · 자사 집계", end: 100, suffix: "억+" },
+  { label: "프랜차이즈 가맹", end: 20, suffix: "개점" },
+  { label: "누적 크라우드펀딩", end: 10, suffix: "억+" },
 ];
 
 function StatCounter({ stat }: { stat: Stat }) {

@@ -239,7 +239,7 @@ export function AutopilotSection() {
         상세페이지 진단, 데이터 퍼포먼스가 한 흐름으로 이어집니다.
       </p>
       <p className="mt-3 max-w-[44ch] t-body text-white/50">
-        그로잉업이 현장에서 검증한 마케팅 실행 방법론을 협력사 AOP와 함께 제품으로
+        그로윙업이 현장에서 검증한 마케팅 실행 방법론을 협력사 AOP와 함께 제품으로
         옮겼습니다.
       </p>
       <div className="mt-7">{cta}</div>

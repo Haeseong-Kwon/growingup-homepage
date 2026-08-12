@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1785889913613,
+  "lastScanned": 1786524319888,
   "projectRoot": "/Users/haeseong/Desktop/Projects/growing_up_homepage",
   "techStack": {
     "languages": [
@@ -63,6 +63,7 @@
     "isMonorepo": false,
     "workspaces": [],
     "mainDirectories": [
+      "docs",
       "public",
       "src"
     ],
@@ -70,31 +71,40 @@
   },
   "customNotes": [],
   "directoryMap": {
+    "docs": {
+      "path": "docs",
+      "purpose": "Documentation",
+      "fileCount": 1,
+      "lastAccessed": 1786524319808,
+      "keyFiles": [
+        "growingup_portfolio_1.html"
+      ]
+    },
     "public": {
       "path": "public",
       "purpose": "Public files",
-      "fileCount": 7,
-      "lastAccessed": 1785889913553,
+      "fileCount": 8,
+      "lastAccessed": 1786524319811,
       "keyFiles": [
+        "autopilot-thumbnail.png",
         "file.svg",
         "globe.svg",
         "hero-poster.svg",
-        "hero.mp4",
-        "next.svg"
+        "hero.mp4"
       ]
     },
     "src": {
       "path": "src",
       "purpose": "Source code",
       "fileCount": 1,
-      "lastAccessed": 1785889913554,
+      "lastAccessed": 1786524319841,
       "keyFiles": []
     },
     "src/app": {
       "path": "src/app",
       "purpose": "Application code",
-      "fileCount": 4,
-      "lastAccessed": 1785889913572,
+      "fileCount": 6,
+      "lastAccessed": 1786524319843,
       "keyFiles": [
         "favicon.ico",
         "globals.css",
@@ -105,15 +115,16 @@
       "path": "src/components",
       "purpose": "UI components",
       "fileCount": 0,
-      "lastAccessed": 1785889913573,
+      "lastAccessed": 1786524319844,
       "keyFiles": []
     },
     "src/data": {
       "path": "src/data",
       "purpose": "Data files",
-      "fileCount": 1,
-      "lastAccessed": 1785889913573,
+      "fileCount": 2,
+      "lastAccessed": 1786524319844,
       "keyFiles": [
+        "partners.ts",
         "portfolio.ts"
       ]
     },
@@ -121,7 +132,7 @@
       "path": "src/lib",
       "purpose": "Library code",
       "fileCount": 5,
-      "lastAccessed": 1785889913574,
+      "lastAccessed": 1786524319845,
       "keyFiles": [
         "constants.ts",
         "effects.ts",
@@ -131,255 +142,141 @@
   },
   "hotPaths": [
     {
-      "path": "src/components/home/hero-scene.tsx",
-      "accessCount": 34,
-      "lastAccessed": 1785896658560,
-      "type": "file"
-    },
-    {
-      "path": "src/components/home/works-section.tsx",
-      "accessCount": 15,
-      "lastAccessed": 1785907631808,
-      "type": "file"
-    },
-    {
-      "path": "src/components/home/autopilot-section.tsx",
-      "accessCount": 13,
-      "lastAccessed": 1785909430817,
-      "type": "file"
-    },
-    {
-      "path": "src/app/globals.css",
-      "accessCount": 9,
-      "lastAccessed": 1785907623337,
-      "type": "file"
-    },
-    {
-      "path": "src/components/motion/cube-3d.tsx",
-      "accessCount": 8,
-      "lastAccessed": 1785907615030,
-      "type": "file"
-    },
-    {
       "path": "src/app/(site)/page.tsx",
-      "accessCount": 7,
-      "lastAccessed": 1785907783995,
-      "type": "file"
-    },
-    {
-      "path": "src/components/layout/site-header.tsx",
-      "accessCount": 5,
-      "lastAccessed": 1785891201253,
-      "type": "file"
-    },
-    {
-      "path": "src/components/home/partners-section.tsx",
-      "accessCount": 5,
-      "lastAccessed": 1785907630835,
-      "type": "file"
-    },
-    {
-      "path": "src/components/motion/mask-reveal.tsx",
-      "accessCount": 5,
-      "lastAccessed": 1785907639170,
-      "type": "file"
-    },
-    {
-      "path": "src/components/home/pillars-section.tsx",
       "accessCount": 4,
-      "lastAccessed": 1785890725355,
-      "type": "file"
-    },
-    {
-      "path": "src/components/home/manifesto-section.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1785891490049,
-      "type": "file"
-    },
-    {
-      "path": "src/components/hero/video-hero.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1785893886914,
-      "type": "file"
-    },
-    {
-      "path": "src/components/motion/band-wipe.tsx",
-      "accessCount": 4,
-      "lastAccessed": 1785893993800,
-      "type": "file"
-    },
-    {
-      "path": "src/app/(site)/layout.tsx",
-      "accessCount": 3,
-      "lastAccessed": 1785890912144,
-      "type": "file"
-    },
-    {
-      "path": "src/components/layout/site-shell.tsx",
-      "accessCount": 3,
-      "lastAccessed": 1785892416844,
-      "type": "file"
-    },
-    {
-      "path": "src/hooks/use-count-up.ts",
-      "accessCount": 3,
-      "lastAccessed": 1785893781643,
+      "lastAccessed": 1786524839440,
       "type": "file"
     },
     {
       "path": "src/data/partners.ts",
+      "accessCount": 4,
+      "lastAccessed": 1786524880516,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/partners-section.tsx",
       "accessCount": 3,
-      "lastAccessed": 1785907638797,
+      "lastAccessed": 1786525345828,
       "type": "file"
     },
     {
-      "path": "src/components/layout/site-footer.tsx",
+      "path": "src/data/portfolio.ts",
       "accessCount": 2,
-      "lastAccessed": 1785890554974,
+      "lastAccessed": 1786524915578,
       "type": "file"
     },
     {
-      "path": "src/components/layout/mega-menu-overlay.tsx",
+      "path": "src/components/home/autopilot-section.tsx",
       "accessCount": 2,
-      "lastAccessed": 1785891266638,
+      "lastAccessed": 1786524932698,
       "type": "file"
     },
     {
-      "path": "src/components/home/process-section.tsx",
-      "accessCount": 2,
-      "lastAccessed": 1785891613233,
-      "type": "file"
-    },
-    {
-      "path": "src/components/home/deliverables-section.tsx",
-      "accessCount": 2,
-      "lastAccessed": 1785907619146,
-      "type": "file"
-    },
-    {
-      "path": "src/components/home/engagements-section.tsx",
-      "accessCount": 2,
-      "lastAccessed": 1785907619441,
-      "type": "file"
-    },
-    {
-      "path": "src/lib/constants.ts",
-      "accessCount": 2,
-      "lastAccessed": 1785907623837,
-      "type": "file"
-    },
-    {
-      "path": "src/components/sections/logo-marquee.tsx",
+      "path": "docs/growingup_portfolio_1.html",
       "accessCount": 1,
-      "lastAccessed": 1785890185039,
+      "lastAccessed": 1786524470690,
       "type": "file"
     },
     {
-      "path": "src/components/layout/section.tsx",
+      "path": "src/components/home/manifesto-section.tsx",
       "accessCount": 1,
-      "lastAccessed": 1785890258967,
+      "lastAccessed": 1786524493698,
       "type": "file"
     },
     {
-      "path": "src/app/layout.tsx",
+      "path": "src/components/home/pillars-section.tsx",
       "accessCount": 1,
-      "lastAccessed": 1785890264461,
+      "lastAccessed": 1786524497576,
       "type": "file"
     },
     {
-      "path": "src/components/layout/container.tsx",
+      "path": "src/components/home/works-section.tsx",
       "accessCount": 1,
-      "lastAccessed": 1785890308234,
-      "type": "file"
-    },
-    {
-      "path": "src/hooks/use-reduced-motion.ts",
-      "accessCount": 1,
-      "lastAccessed": 1785890309631,
-      "type": "file"
-    },
-    {
-      "path": "src/components/ui/accordion.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1785890309762,
-      "type": "file"
-    },
-    {
-      "path": "src/components/motion/line-draw.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1785890495940,
-      "type": "file"
-    },
-    {
-      "path": "src/components/motion/text-ticker.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1785890508829,
-      "type": "file"
-    },
-    {
-      "path": "src/components/layout/page-transition.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1785890566872,
-      "type": "file"
-    },
-    {
-      "path": "next.config.ts",
-      "accessCount": 1,
-      "lastAccessed": 1785890615293,
-      "type": "file"
-    },
-    {
-      "path": "src/components/sections/execution-cases-section.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1785890615586,
-      "type": "file"
-    },
-    {
-      "path": "src/components/home/faq-contact-section.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1785890868941,
-      "type": "file"
-    },
-    {
-      "path": "src/components/services/servicesData.ts",
-      "accessCount": 1,
-      "lastAccessed": 1785893695855,
-      "type": "file"
-    },
-    {
-      "path": "src/components/sections/deliverables-section.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1785893696379,
-      "type": "file"
-    },
-    {
-      "path": "src/components/insights/insightsData.ts",
-      "accessCount": 1,
-      "lastAccessed": 1785893697069,
-      "type": "file"
-    },
-    {
-      "path": "src/hooks/use-in-view.ts",
-      "accessCount": 1,
-      "lastAccessed": 1785893726863,
+      "lastAccessed": 1786524504090,
       "type": "file"
     },
     {
       "path": "src/components/home/statement-band.tsx",
       "accessCount": 1,
-      "lastAccessed": 1785893904495,
+      "lastAccessed": 1786524508652,
       "type": "file"
     },
     {
-      "path": "src/components/home/updates-section.tsx",
+      "path": "src/components/home/deliverables-section.tsx",
       "accessCount": 1,
-      "lastAccessed": 1785893965941,
+      "lastAccessed": 1786524512866,
       "type": "file"
     },
     {
-      "path": "src/components/home/autopilot-glyphs.tsx",
+      "path": "src/components/home/engagements-section.tsx",
       "accessCount": 1,
-      "lastAccessed": 1785909194123,
+      "lastAccessed": 1786524518000,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/constants.ts",
+      "accessCount": 1,
+      "lastAccessed": 1786524543001,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(site)/cases/page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1786524546952,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(site)/capabilities/page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1786524585010,
+      "type": "file"
+    },
+    {
+      "path": "src/app/globals.css",
+      "accessCount": 1,
+      "lastAccessed": 1786524624100,
+      "type": "file"
+    },
+    {
+      "path": "src/data/history.ts",
+      "accessCount": 1,
+      "lastAccessed": 1786524755156,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/history-section.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1786524797353,
+      "type": "file"
+    },
+    {
+      "path": "src/components/cases/casesData.ts",
+      "accessCount": 1,
+      "lastAccessed": 1786524855625,
+      "type": "file"
+    },
+    {
+      "path": "src/app/(site)/contact/page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1786524924633,
+      "type": "file"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1786524938038,
+      "type": "file"
+    },
+    {
+      "path": "src/components/sections/execution-cases-section.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1786524942514,
+      "type": "file"
+    },
+    {
+      "path": "src/hooks/use-count-up.ts",
+      "accessCount": 1,
+      "lastAccessed": 1786525245769,
       "type": "file"
     }
   ],
