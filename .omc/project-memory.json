@@ -160,6 +160,12 @@
       "type": "file"
     },
     {
+      "path": "src/app/layout.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1786527720896,
+      "type": "file"
+    },
+    {
       "path": "src/data/portfolio.ts",
       "accessCount": 2,
       "lastAccessed": 1786524915578,
@@ -259,12 +265,6 @@
       "path": "src/app/(site)/contact/page.tsx",
       "accessCount": 1,
       "lastAccessed": 1786524924633,
-      "type": "file"
-    },
-    {
-      "path": "src/app/layout.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1786524938038,
       "type": "file"
     },
     {

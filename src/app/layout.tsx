@@ -1,13 +1,18 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+/** 정식 도메인. canonical·OG·트위터 카드의 절대 URL이 모두 여기서 나옵니다. */
+const PRODUCTION_ORIGIN = "https://growingup-official.com";
+
+// 프리뷰 배포만 자기 자신을 가리키게 두고, 그 외에는 정식 도메인으로 고정합니다.
+// VERCEL_URL로 폴백하면 프로덕션 canonical이 배포마다 바뀌는 임시 URL이 됩니다.
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000");
+  (process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : PRODUCTION_ORIGIN);
 
 const siteTitle = "GrowingUp | 런칭을 매출과 데이터로 증명합니다";
 const siteDescription =
