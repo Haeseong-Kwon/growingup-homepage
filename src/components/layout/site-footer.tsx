@@ -62,8 +62,8 @@ export function SiteFooter() {
 
             <h3 className="mt-8 t-label text-white/45">Contact</h3>
             <p className="mt-3 text-[clamp(15px,1.3vw,20px)] font-semibold uppercase tracking-[-0.02em]">
-              <a href="mailto:hello@growingup.kr" className="hover:opacity-60">
-                hello@growingup.kr
+              <a href="mailto:jaeil@wekeepgrowing.com" className="hover:opacity-60">
+                jaeil@wekeepgrowing.com
               </a>
             </p>
           </div>

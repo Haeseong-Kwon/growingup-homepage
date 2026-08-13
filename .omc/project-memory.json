@@ -178,6 +178,18 @@
       "type": "file"
     },
     {
+      "path": "src/app/(site)/contact/page.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1786603267135,
+      "type": "file"
+    },
+    {
+      "path": "src/components/layout/mega-menu-overlay.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1786603294186,
+      "type": "file"
+    },
+    {
       "path": "docs/growingup_portfolio_1.html",
       "accessCount": 1,
       "lastAccessed": 1786524470690,
@@ -262,12 +274,6 @@
       "type": "file"
     },
     {
-      "path": "src/app/(site)/contact/page.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1786524924633,
-      "type": "file"
-    },
-    {
       "path": "src/components/sections/execution-cases-section.tsx",
       "accessCount": 1,
       "lastAccessed": 1786524942514,
@@ -277,6 +283,12 @@
       "path": "src/hooks/use-count-up.ts",
       "accessCount": 1,
       "lastAccessed": 1786525245769,
+      "type": "file"
+    },
+    {
+      "path": "src/components/layout/site-footer.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1786603277337,
       "type": "file"
     }
   ],

@@ -52,10 +52,11 @@ export default function ContactPage() {
                   연락처
                 </h3>
                 <div className="space-y-3 text-[var(--brand-fg)]/60 leading-relaxed">
-                  <p>이메일: hello@growingup.kr</p>
+                  <p>전화: 070-8780-4043</p>
+                  <p>이메일: jaeil@wekeepgrowing.com</p>
                   <p>
-                    주소: 서울특별시 성북구 고려대로27길 4, 3층 (안암동5가,
-                    석실빌딩) — 고려대학교 창업스튜디오
+                    주소: 서울특별시 강서구 마곡중앙로 161-8(마곡동) 두산더랜드파크
+                    A동 1302호
                   </p>
                 </div>
               </div>

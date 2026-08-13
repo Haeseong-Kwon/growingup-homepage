@@ -95,8 +95,8 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
             exit={{ opacity: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            <a href="mailto:hello@growingup.kr" className="hover:text-white">
-              hello@growingup.kr
+            <a href="mailto:jaeil@wekeepgrowing.com" className="hover:text-white">
+              jaeil@wekeepgrowing.com
             </a>
             <Link
               href="/diagnosis"
