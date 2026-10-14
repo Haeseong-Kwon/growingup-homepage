@@ -2,13 +2,12 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { ScrollWords } from "@/components/motion/scroll-words";
+import { MaskReveal } from "@/components/motion/mask-reveal";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 /**
  * The thesis, set as large as the grid allows over a plate that drifts against
- * the scroll. The sentence lights up word by word as it is read in — the one
- * place on the page where type itself is the motion.
+ * the scroll. Scrubbed rather than triggered, so it tracks in both directions.
  */
 export function StatementBand() {
   const ref = useRef<HTMLElement>(null);
@@ -31,7 +30,7 @@ export function StatementBand() {
   return (
     <section
       ref={ref}
-      className="tone-ink relative flex min-h-[100svh] items-center overflow-hidden py-[16vh]"
+      className="relative flex min-h-[92svh] items-center overflow-hidden bg-[var(--ink)] py-[14vh] text-white"
     >
       <motion.div
         aria-hidden
@@ -51,12 +50,14 @@ export function StatementBand() {
       <div aria-hidden className="absolute inset-0 bg-[var(--ink)]/45" />
 
       <div className="relative rail">
-        <ScrollWords
+        <p className="t-label text-white/50">(What we believe)</p>
+        <MaskReveal
           as="h2"
-          text="When strategy meets execution, growth stops being a guess."
-          className="max-w-[16ch] t-mega"
+          lines={["When strategy meets", "execution, growth", "stops being a guess."]}
+          className="mt-6 t-mega text-white"
+          stagger={0.08}
         />
-        <p className="mt-10 max-w-[46ch] t-lead fg-muted md:mt-14">
+        <p className="mt-10 max-w-[54ch] t-lead text-white/70">
           런칭은 감이 아니라 시스템입니다. 시장을 읽고, 가설을 세우고, 실행하고,
           결과를 다시 학습으로 되돌리는 하나의 루프. 그 루프를 대신 돌려드립니다.
         </p>

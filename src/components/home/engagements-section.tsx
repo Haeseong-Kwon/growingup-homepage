@@ -20,19 +20,20 @@ const TERM: Record<string, string> = {
  */
 export function EngagementsSection() {
   return (
-    <section className="tone-ink py-[12vh]">
+    <section className="bg-[var(--ink)] py-[12vh] text-white">
       <div className="rail">
-        <div className="flex flex-wrap items-end justify-between gap-8">
+        <p className="t-label text-white/45">(How we work)</p>
+        <div className="mt-3 flex flex-wrap items-end justify-between gap-8">
           <MaskReveal
             as="h2"
             lines={["Two ways", "to start"]}
-            className="t-display"
+            className="t-display text-white"
           />
           <Link
             href="/services"
-            className="group inline-flex h-11 items-center gap-2 border-b border-current text-[14px] font-semibold"
+            className="group inline-flex items-center gap-2 border-b border-white pb-1 text-[13px] font-semibold uppercase"
           >
-            서비스 자세히 비교하기
+            Compare in detail
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </Link>
         </div>
@@ -42,7 +43,7 @@ export function EngagementsSection() {
         {servicesData.map((service, i) => (
           <motion.article
             key={service.id}
-            className="group relative flex flex-col justify-between border-b border-dashed border-[var(--rule)] px-[var(--gut)] py-10 transition-colors duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] lg:border-b-0 lg:border-l lg:py-14 lg:first:border-l-0 lg:hover:bg-[var(--paper)] lg:hover:text-[var(--graphite)]"
+            className="group relative flex flex-col justify-between border-b border-dashed border-[var(--rule)] px-[var(--gut)] py-10 transition-colors duration-500 hover:bg-[var(--paper)] hover:text-[var(--ink)] lg:border-b-0 lg:border-l lg:first:border-l-0"
             initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
@@ -90,9 +91,9 @@ export function EngagementsSection() {
 
               <Link
                 href={`/services#${service.id}`}
-                className="group/cta mt-8 inline-flex h-11 items-center gap-2 border-b border-current text-[14px] font-semibold"
+                className="group/cta mt-8 inline-flex items-center gap-2 border-b border-current pb-1 text-[13px] font-semibold uppercase"
               >
-                {service.title} 시작하기
+                Start {service.title}
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/cta:translate-x-1 group-hover/cta:-translate-y-1" />
               </Link>
             </div>

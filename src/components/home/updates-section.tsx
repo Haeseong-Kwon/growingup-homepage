@@ -17,19 +17,20 @@ const FEATURED = updatesData.filter((update) => update.excerpt).slice(0, 3);
  */
 export function UpdatesSection() {
   return (
-    <section className="tone-paper py-[12vh]">
+    <section className="bg-[var(--ink)] py-[12vh] text-white">
       <div className="rail">
-        <div className="flex flex-wrap items-end justify-between gap-8">
+        <p className="t-label text-white/45">(Operating log)</p>
+        <div className="mt-3 flex flex-wrap items-end justify-between gap-8">
           <MaskReveal
             as="h2"
             lines={["최근 업데이트"]}
-            className="t-display normal-case"
+            className="t-display normal-case text-white"
           />
           <Link
             href="/insights"
-            className="group inline-flex h-11 items-center gap-2 border-b border-current text-[14px] font-semibold"
+            className="group inline-flex items-center gap-2 border-b border-white pb-1 text-[13px] font-semibold uppercase"
           >
-            전체 업데이트 보기
+            All updates
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </Link>
         </div>
@@ -46,15 +47,15 @@ export function UpdatesSection() {
             >
               <Link
                 href={update.href}
-                className="group relative grid items-baseline gap-2 py-7 md:grid-cols-[7rem_1fr_auto] md:gap-10 md:py-9"
+                className="group grid items-baseline gap-3 py-7 md:grid-cols-[7rem_1fr_auto] md:gap-10"
               >
-                <span className="t-label fg-faint tabular-nums">{update.date}</span>
+                <span className="t-label text-white/40">{update.date}</span>
 
                 <div>
                   <h3 className="text-[clamp(18px,1.9vw,30px)] font-semibold leading-tight tracking-[-0.02em] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2">
                     {update.title}
                   </h3>
-                  <p className="mt-2 max-w-[60ch] t-body fg-muted">
+                  <p className="mt-2 max-w-[60ch] t-body text-white/70">
                     {update.excerpt}
                   </p>
                 </div>
@@ -62,12 +63,12 @@ export function UpdatesSection() {
                 <div className="flex items-center gap-4">
                   <span className="hidden gap-2 md:flex">
                     {update.badges.map((badge) => (
-                      <span key={badge} className="rule-box px-2.5 py-1 t-label fg-muted">
+                      <span key={badge} className="rule-box px-2.5 py-1 t-label text-white/60">
                         {badge}
                       </span>
                     ))}
                   </span>
-                  <ArrowUpRight className="hidden h-5 w-5 shrink-0 -translate-x-2 text-[var(--signal)] opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100 md:block" />
+                  <ArrowUpRight className="h-5 w-5 shrink-0 -translate-x-2 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" />
                 </div>
               </Link>
             </motion.li>

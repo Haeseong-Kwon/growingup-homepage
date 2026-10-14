@@ -47,13 +47,13 @@ function Step({
         className="absolute left-0 top-[5px] h-[13px] w-[13px] -translate-x-1/2 rounded-full border border-white/50 bg-[var(--ink)] lg:left-0 lg:top-0 lg:-translate-y-1/2 lg:translate-x-0"
       >
         <motion.span
-          className="absolute inset-[-1px] rounded-full bg-[var(--signal)] shadow-[0_0_0_6px_rgba(47,75,255,0.22)]"
+          className="absolute inset-[-1px] rounded-full bg-white shadow-[0_0_0_5px_rgba(255,255,255,0.12)]"
           style={isStatic ? undefined : { opacity: lit, scale: lit }}
         />
       </span>
 
       <motion.div style={isStatic ? undefined : { opacity: textOpacity }}>
-        <span className="text-[13px] font-semibold tabular-nums text-[var(--signal-soft)]">
+        <span className="t-label tabular-nums text-white/45">
           {String(index + 1).padStart(2, "0")}
         </span>
         <h3 className="mt-2 text-[clamp(24px,2.1vw,36px)] font-semibold leading-[1.05] tracking-[-0.03em]">
@@ -100,12 +100,12 @@ export function ProcessSection({ steps }: ProcessSectionProps) {
           {/* The drawn line, laid over the dashed rail it is tracing. */}
           <motion.span
             aria-hidden
-            className="absolute -left-px top-0 h-full w-[2px] origin-top bg-[var(--signal)] lg:hidden"
+            className="absolute -left-px top-0 h-full w-px origin-top bg-white/80 lg:hidden"
             style={{ scaleY: line }}
           />
           <motion.span
             aria-hidden
-            className="absolute -top-px left-0 hidden h-[2px] w-full origin-left bg-[var(--signal)] lg:block"
+            className="absolute -top-px left-0 hidden h-px w-full origin-left bg-white/80 lg:block"
             style={{ scaleX: line }}
           />
 
@@ -125,7 +125,7 @@ export function ProcessSection({ steps }: ProcessSectionProps) {
           <Magnetic strength={0.25} className="inline-block w-full sm:w-auto">
             <Link
               href="/arena"
-              className="group inline-flex h-12 w-full items-center justify-center gap-2 bg-white px-7 text-[14px] font-semibold text-[var(--ink)] transition-colors duration-300 hover:bg-[var(--signal)] hover:text-white sm:w-auto"
+              className="group inline-flex h-12 w-full items-center justify-center gap-2 bg-white px-7 text-[14px] font-semibold text-[var(--ink)] transition-colors duration-300 hover:bg-white/85 sm:w-auto"
             >
               외주 파트너로 참여하기
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

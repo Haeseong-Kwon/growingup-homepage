@@ -446,7 +446,7 @@ export function HeroScene({
                 <Magnetic strength={0.25} className="w-full sm:w-auto">
                   <Link
                     href={primaryCta.href}
-                    className="group inline-flex h-12 w-full items-center justify-center gap-2 bg-white px-6 text-[14px] font-semibold tracking-[-0.01em] text-[var(--ink)] transition-colors duration-300 hover:bg-[var(--signal)] hover:text-white sm:w-auto"
+                    className="group inline-flex h-12 w-full items-center justify-center gap-2 bg-white px-6 text-[14px] font-semibold tracking-[-0.01em] text-[var(--ink)] transition-colors duration-300 hover:bg-white/85 sm:w-auto"
                   >
                     {primaryCta.label}
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -478,7 +478,7 @@ export function HeroScene({
                   <dt className="mt-2 text-[12px] font-medium leading-snug text-white/55 md:text-[13px]">
                     {point.label}
                   </dt>
-                  <dd className="text-[clamp(18px,2vw,30px)] font-semibold leading-none tracking-[-0.03em] text-[var(--signal-soft)] tabular-nums">
+                  <dd className="text-[clamp(18px,2vw,30px)] font-semibold leading-none tracking-[-0.03em] text-white tabular-nums">
                     {point.value}
                   </dd>
                 </div>

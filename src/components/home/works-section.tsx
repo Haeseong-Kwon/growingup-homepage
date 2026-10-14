@@ -98,9 +98,9 @@ function WorkCard({
         className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
       />
       {/* Constant scrim keeps the overlaid type legible on every plate. */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/40" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/35" />
 
-      <div className="absolute inset-0 flex flex-col justify-between p-5 md:p-6">
+      <div className="absolute inset-0 flex flex-col justify-between p-6">
         <div className="flex items-start justify-between gap-4">
           <span className="t-label text-white/80">
             {String(index + 1).padStart(2, "0")} / {item.category}
@@ -112,7 +112,7 @@ function WorkCard({
           <h3 className="t-headline text-white">{item.title}</h3>
           <p className="mt-2 line-clamp-3 max-w-[34ch] t-body text-white/75 md:line-clamp-none">{item.summary}</p>
           {item.result && (
-            <p className="mt-4 border-t border-dashed border-white/40 pt-3 text-[clamp(20px,1.8vw,28px)] font-semibold tracking-[-0.03em] text-[var(--signal-soft)] tabular-nums">
+            <p className="mt-4 border-t border-dashed border-white/40 pt-3 text-[clamp(18px,1.8vw,28px)] font-semibold tracking-[-0.02em] text-white">
               {item.result}
             </p>
           )}
@@ -174,9 +174,9 @@ export function WorksSection({ items }: WorksSectionProps) {
   const viewAll = (
     <Link
       href="/portfolio"
-      className="group inline-flex h-11 items-center gap-2 border-b border-current text-[14px] font-semibold"
+      className="group inline-flex items-center gap-2 border-b border-white pb-1 text-[13px] font-semibold uppercase"
     >
-      전체 프로젝트 보기
+      View all projects
       <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
     </Link>
   );
@@ -184,15 +184,16 @@ export function WorksSection({ items }: WorksSectionProps) {
   /** Pinned layout has one viewport to spend, so the header stays on one line. */
   const header = (compact: boolean) => (
     <div className="rail">
-      <div className="flex flex-wrap items-end justify-between gap-6">
+      <p className="t-label text-white/45">(Selected work)</p>
+      <div className="mt-3 flex flex-wrap items-end justify-between gap-6">
         <MaskReveal
           as="h2"
           lines={compact ? ["Selected works"] : ["Selected", "works"]}
-          className="t-display"
+          className="t-display text-white"
         />
         <div className="hidden pb-2 md:block">{viewAll}</div>
       </div>
-      <p className="mt-5 max-w-[44ch] t-lead fg-muted">
+      <p className="mt-5 max-w-[52ch] t-lead text-white/70">
         문제 정의부터 가설 검증, 그리고 압도적인 성과까지. 우리의 실행은 데이터로
         증명됩니다.
       </p>
@@ -202,7 +203,7 @@ export function WorksSection({ items }: WorksSectionProps) {
   const track = (
     <div
       ref={trackRef}
-      className="flex w-max gap-3 pl-[var(--gut)] pr-[var(--gut)] [transform-style:preserve-3d] md:gap-8"
+      className="flex w-max gap-3 md:gap-8 pl-[var(--gut)] pr-[var(--gut)] [transform-style:preserve-3d]"
     >
       {items.map((item, i) => (
         <WorkCard key={item.href} item={item} index={i} x={x} enabled={canPin} />
@@ -215,7 +216,7 @@ export function WorksSection({ items }: WorksSectionProps) {
   return (
     <section
       ref={sectionRef}
-      className="tone-ink relative"
+      className="relative bg-[var(--ink)] text-white"
       style={
         canPin
           // Scroll distance = one viewport to read the header, plus the exact
@@ -239,10 +240,7 @@ export function WorksSection({ items }: WorksSectionProps) {
       ) : (
         <div className="py-[12vh]">
           {header(false)}
-          {/* Native swipe with snap: each card settles flush to the rail. */}
-          <div className="no-scrollbar mt-10 snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-pl-[var(--gut)]">
-            {track}
-          </div>
+          <div className="no-scrollbar mt-10 snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-pl-[var(--gut)]">{track}</div>
           <div className="mt-10 rail">{viewAll}</div>
         </div>
       )}

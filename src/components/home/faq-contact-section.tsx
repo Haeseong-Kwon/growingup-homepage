@@ -26,10 +26,15 @@ export function FaqContactSection({ items }: FaqContactSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="tone-ink py-[12vh]">
+    <section className="bg-[var(--ink)] py-[12vh] text-white">
       <div className="grid gap-16 rail lg:grid-cols-[1.15fr_1fr] lg:gap-20">
         <div>
-          <MaskReveal as="h2" lines={["자주 묻는", "질문"]} className="t-display" />
+          <p className="t-label text-white/45">(FAQ)</p>
+          <MaskReveal
+            as="h2"
+            lines={["자주 묻는", "질문"]}
+            className="mt-3 t-display text-white"
+          />
 
           <ul className="mt-10 border-t border-dashed border-[var(--rule)]">
             {items.map((item, i) => {
@@ -42,7 +47,7 @@ export function FaqContactSection({ items }: FaqContactSectionProps) {
                     aria-expanded={isOpen}
                     className="group flex min-h-14 w-full items-start justify-between gap-6 py-5 text-left"
                   >
-                    <span className="text-[clamp(17px,1.5vw,22px)] font-semibold tracking-[-0.02em] transition-colors duration-300 group-hover:text-[var(--signal-soft)]">
+                    <span className="text-[clamp(16px,1.5vw,22px)] font-semibold tracking-[-0.02em] transition-opacity group-hover:opacity-60">
                       {item.question}
                     </span>
                     <Plus
@@ -63,7 +68,7 @@ export function FaqContactSection({ items }: FaqContactSectionProps) {
                         transition={{ duration: 0.5, ease: EASE }}
                         className="overflow-hidden"
                       >
-                        <p className="max-w-[58ch] pb-6 t-body fg-muted">
+                        <p className="max-w-[58ch] pb-6 t-body text-white/70">
                           {item.answer}
                         </p>
                       </motion.div>
@@ -78,19 +83,20 @@ export function FaqContactSection({ items }: FaqContactSectionProps) {
         {/* Inverted panel — the one light surface on the page, so it reads as the
             terminal action. */}
         <motion.aside
-          className="tone-paper flex flex-col justify-between p-7 md:p-10 lg:sticky lg:top-[calc(var(--header-h)+24px)] lg:self-start lg:min-h-[520px]"
+          className="flex flex-col justify-between bg-[var(--paper)] p-8 text-[var(--ink)] lg:p-10"
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
           transition={{ duration: 0.95, ease: EASE }}
         >
           <div>
-            <h2 className="text-[clamp(36px,4vw,72px)] font-semibold uppercase leading-[0.9] tracking-[-0.035em]">
+            <p className="t-label text-black/45">(Start here)</p>
+            <h2 className="mt-4 text-[clamp(32px,4vw,72px)] font-semibold uppercase leading-[0.9] tracking-[-0.03em]">
               Ready to
               <br />
               grow up?
             </h2>
-            <p className="mt-6 max-w-[36ch] t-body fg-muted">
+            <p className="mt-6 max-w-[36ch] t-body text-black/60">
               프로젝트 참여 신청 또는 마케팅 제안 요청을 통해 성장의 첫 걸음을
               내딛어보세요.
             </p>
@@ -99,15 +105,15 @@ export function FaqContactSection({ items }: FaqContactSectionProps) {
           <div className="mt-12 flex flex-col gap-3">
             <Link
               href="/diagnosis"
-              className="flex h-13 items-center justify-center bg-[var(--ink)] px-7 py-4 text-[14px] font-semibold text-white transition-colors duration-300 hover:bg-[var(--signal)]"
+              className="bg-[var(--ink)] px-7 py-4 text-center text-[13px] font-semibold uppercase text-white transition-opacity hover:opacity-85"
             >
-              무료 진단 요청하기
+              Start a project
             </Link>
             <Link
               href="/contact"
-              className="flex h-13 items-center justify-center border border-[var(--rule)] px-7 py-4 text-[14px] font-semibold transition-colors duration-300 hover:border-[var(--ink)] hover:bg-[var(--ink)] hover:text-white"
+              className="border border-dashed border-black/40 px-7 py-4 text-center text-[13px] font-semibold uppercase transition-colors hover:bg-[var(--ink)] hover:text-white"
             >
-              마케팅 제안 요청하기
+              Request proposal
             </Link>
           </div>
         </motion.aside>

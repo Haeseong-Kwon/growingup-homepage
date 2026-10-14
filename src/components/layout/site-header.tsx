@@ -120,10 +120,10 @@ export function SiteHeader() {
           </nav>
         </div>
 
-        {/* Reading progress: a signal hairline along the header's bottom edge. */}
+        {/* Reading progress: a hairline along the header's bottom edge. */}
         <motion.span
           aria-hidden
-          className="absolute inset-x-0 bottom-[-1px] h-px origin-left bg-[var(--signal-soft)]"
+          className="absolute inset-x-0 bottom-[-1px] h-px origin-left bg-white/60"
           style={{ scaleX: progress, opacity: isSolid ? 1 : 0 }}
         />
       </motion.header>

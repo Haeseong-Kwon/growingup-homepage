@@ -97,8 +97,8 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
                       >
                         <span
                           className={cn(
-                            "text-[clamp(2rem,min(6vw,7.4vh),5.75rem)] font-semibold uppercase leading-[1.02] tracking-[-0.035em] transition-[transform,color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-3 group-hover:text-[var(--signal-soft)]",
-                            isActive && "text-[var(--signal-soft)]"
+                            "text-[clamp(2rem,min(6vw,7.4vh),5.75rem)] font-semibold uppercase leading-[1.02] tracking-[-0.035em] transition-[transform,color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-3",
+                            isActive && "text-white/45"
                           )}
                         >
                           {item.label}
@@ -127,7 +127,7 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
             <Link
               href="/diagnosis"
               onClick={() => onOpenChange(false)}
-              className="bg-white px-6 py-4 text-center text-[13px] font-semibold uppercase text-[var(--ink)] transition-colors hover:bg-[var(--signal)] hover:text-white"
+              className="bg-white px-6 py-4 text-center text-[13px] font-semibold uppercase text-[var(--ink)] transition-colors hover:bg-white/85"
             >
               진단 요청하기
             </Link>

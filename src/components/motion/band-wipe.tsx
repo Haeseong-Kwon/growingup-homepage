@@ -41,7 +41,7 @@ export function BandWipe({ text, className, height = "7.5vw" }: BandWipeProps) {
   return (
     <div ref={ref} className={cn("relative w-full", className)} style={{ height }}>
       <motion.div
-        className="absolute top-0 left-0 h-full overflow-hidden bg-[var(--tone-fg,var(--paper))] text-[var(--tone-bg,#000)]"
+        className="absolute top-0 left-0 h-full overflow-hidden bg-[var(--paper)] text-[#000]"
         style={{ width: prefersReducedMotion ? "100%" : width }}
       >
         <span

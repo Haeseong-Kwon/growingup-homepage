@@ -1,0 +1,49 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
+
+interface ParallaxPlateProps {
+  src: string;
+  /** Plate opacity over the ink. */
+  className?: string;
+  /** How far the plate drifts against the scroll, as a percentage of its height. */
+  drift?: number;
+}
+
+/**
+ * Background photograph that drifts against the scroll inside its section.
+ * Replaces `background-attachment: fixed`, which iOS ignores and which forces a
+ * full repaint per frame elsewhere — this stays on the compositor everywhere.
+ *
+ * Must sit inside a `relative overflow-hidden` section.
+ */
+export function ParallaxPlate({ src, className, drift = 12 }: ParallaxPlateProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const smooth = useSpring(scrollYProgress, { stiffness: 80, damping: 24, mass: 0.4, restDelta: 0.0005 });
+  const y = useTransform(smooth, [0, 1], [`-${drift}%`, `${drift}%`]);
+
+  return (
+    <div ref={ref} aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+      <motion.div
+        // Oversized by twice the drift so the plate's edge never enters frame.
+        className="absolute inset-x-0"
+        style={{
+          top: `-${drift}%`,
+          bottom: `-${drift}%`,
+          y: prefersReducedMotion ? 0 : y,
+        }}
+      >
+        <div
+          className={cn("h-full w-full bg-cover bg-center grayscale", className)}
+          style={{ backgroundImage: `url(${src})` }}
+        />
+      </motion.div>
+    </div>
+  );
+}
