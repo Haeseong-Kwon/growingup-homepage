@@ -26,7 +26,11 @@ export function ParallaxPlate({ src, className, drift = 12 }: ParallaxPlateProps
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const smooth = useSpring(scrollYProgress, { stiffness: 80, damping: 24, mass: 0.4, restDelta: 0.0005 });
-  const y = useTransform(smooth, [0, 1], [`-${drift}%`, `${drift}%`]);
+  // A `y` percentage resolves against the plate's own (oversized) height, not the
+  // section's: the plate is (1 + 2·drift) tall, so travelling ±drift% of itself
+  // would overshoot the oversize and show its edge. Scale the travel down to fit.
+  const travel = drift / (1 + (2 * drift) / 100);
+  const y = useTransform(smooth, [0, 1], [`-${travel}%`, `${travel}%`]);
 
   return (
     <div ref={ref} aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
