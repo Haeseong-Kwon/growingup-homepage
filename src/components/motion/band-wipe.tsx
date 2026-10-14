@@ -20,7 +20,7 @@ interface BandWipeProps {
  *
  * Scroll-scrubbed: progress is bound to scroll position, not to a timer.
  */
-export function BandWipe({ text, className, height = "7.5vw" }: BandWipeProps) {
+export function BandWipe({ text, className, height = "clamp(52px, 7.5vw, 160px)" }: BandWipeProps) {
   const ref = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
@@ -32,17 +32,20 @@ export function BandWipe({ text, className, height = "7.5vw" }: BandWipeProps) {
   // Spring the raw progress so the band glides open and closed rather than
   // tracking the wheel tick-for-tick.
   const smooth = useSpring(scrollYProgress, SCROLL_SPRING);
-  const width = useTransform(smooth, [0, 1], ["0%", "100%"]);
+  // Clip, don't resize: animating width forces layout every frame, while a
+  // clip-path inset stays on the compositor and reveals exactly the same edge.
+  const clipPath = useTransform(smooth, (p) => `inset(0 ${(1 - p) * 100}% 0 0)`);
 
   return (
     <div ref={ref} className={cn("relative w-full", className)} style={{ height }}>
       <motion.div
-        className="absolute top-0 left-0 h-full overflow-hidden bg-[var(--paper)] text-[#000]"
-        style={{ width: prefersReducedMotion ? "100%" : width }}
+        className="absolute inset-0 overflow-hidden bg-[var(--paper)] text-[#000]"
+        style={{ clipPath: prefersReducedMotion ? "none" : clipPath }}
       >
         <span
           className="absolute top-0 left-[-8.5vw] whitespace-nowrap font-semibold tracking-[-0.01em]"
-          style={{ fontSize: "4.7vw", lineHeight: height }}
+          // Type tracks the band: 63% of its height, so it scales with the clamp.
+          style={{ fontSize: `calc(${height} * 0.63)`, lineHeight: height }}
         >
           {text}
         </span>
