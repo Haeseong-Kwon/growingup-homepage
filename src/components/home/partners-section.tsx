@@ -27,7 +27,7 @@ function StatCounter({ stat }: { stat: Stat }) {
     end: stat.end,
     decimals: stat.decimals ?? 0,
     suffix: stat.suffix ?? "",
-    duration: 1800,
+    duration: 1300,
   });
 
   return (
