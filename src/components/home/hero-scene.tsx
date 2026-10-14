@@ -108,7 +108,10 @@ function useIntroProgress(active: boolean) {
     return () => cancelAnimationFrame(frame);
   }, [active]);
 
-  return value;
+  // `active` starts true on the server and can flip false after hydration (the
+  // reduced-motion flag resolves late), cancelling the loop mid-count. Reporting
+  // "done" whenever inactive keeps the counter from freezing on screen.
+  return active ? value : 100;
 }
 
 function HeroHeadline({
@@ -187,10 +190,11 @@ function DepthPanel({
 
   return (
     <motion.div
-      className="absolute h-[30vh] w-[48vw] max-w-[430px] overflow-hidden will-change-transform md:h-[46vh] md:w-[30vw]"
+      className="absolute h-[22vh] w-[44vw] max-w-[430px] overflow-hidden will-change-transform md:h-[46vh] md:w-[30vw]"
       style={{
         left: `${spec.left}%`,
-        top: `${spec.top}%`,
+        // Phones lift the deck clear of the four-line headline below it.
+        top: `calc(${spec.top}% - var(--panel-lift, 0%))`,
         x: "-50%",
         y: "-50%",
         z,
@@ -306,7 +310,10 @@ export function HeroScene({
     return () => window.removeEventListener("pointermove", onMove);
   }, [pointerX, pointerY, prefersReducedMotion]);
 
-  const revealDelay = runIntro ? INTRO_MS / 1000 + 0.1 : 0.25;
+  // The headline rises while the counter is still running: the count frames the
+  // entrance rather than gating it, so the main line lands well inside LCP budget.
+  const revealDelay = runIntro ? 0.35 : 0.25;
+  const backdropDepth = SPACING * (plates.length + 2);
 
   return (
     <section
@@ -323,7 +330,7 @@ export function HeroScene({
           style={{ perspective: `${PERSPECTIVE}px`, perspectiveOrigin: "50% 45%" }}
         >
           <motion.div
-            className="absolute inset-0 [transform-style:preserve-3d]"
+            className="absolute inset-0 [--panel-lift:16%] [transform-style:preserve-3d] md:[--panel-lift:0%]"
             style={
               prefersReducedMotion ? undefined : { rotateX, rotateY }
             }
@@ -334,7 +341,10 @@ export function HeroScene({
               className="absolute overflow-hidden"
               style={{
                 inset: "-30%",
-                transform: `translateZ(-${SPACING * (plates.length + 2)}px)`,
+                // Pushed back in depth, the plate would shrink to a quarter of
+                // the frame; scaling by the same perspective ratio restores it to
+                // full bleed while keeping it behind every panel.
+                transform: `translateZ(-${backdropDepth}px) scale(${(PERSPECTIVE + backdropDepth) / PERSPECTIVE})`,
               }}
             >
               <video
