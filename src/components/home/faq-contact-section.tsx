@@ -82,7 +82,7 @@ export function FaqContactSection({ items }: FaqContactSectionProps) {
         {/* Inverted panel — the one light surface on the page, so it reads as the
             terminal action. */}
         <motion.aside
-          className="flex flex-col justify-between bg-[var(--paper)] p-8 text-[var(--ink)] lg:p-10"
+          className="flex flex-col justify-between bg-[var(--paper)] [--focus:var(--ink)] p-8 text-[var(--ink)] lg:p-10"
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={REVEAL_VIEWPORT}

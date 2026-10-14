@@ -82,7 +82,9 @@ export function SiteHeader() {
               "hidden max-w-[16ch] text-[13px] font-semibold normal-case leading-4 tracking-[-0.01em] transition-opacity duration-500 md:block",
               isSolid ? "opacity-0" : "opacity-100"
             )}
-            aria-hidden={isSolid}
+            // Same sentence as the page's h1 — hidden from screen readers so it
+            // isn't announced twice.
+            aria-hidden
           >
             런칭을 기획서가 아닌
             <br />

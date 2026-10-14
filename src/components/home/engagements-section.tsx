@@ -42,7 +42,7 @@ export function EngagementsSection() {
         {servicesData.map((service, i) => (
           <motion.article
             key={service.id}
-            className="group relative flex flex-col justify-between border-b border-dashed border-[var(--rule)] px-[var(--gut)] py-10 transition-colors duration-500 hover:bg-[var(--paper)] hover:text-[var(--ink)] lg:border-b-0 lg:border-l lg:first:border-l-0"
+            className="group relative flex flex-col justify-between border-b border-dashed border-[var(--rule)] px-[var(--gut)] py-10 transition-colors duration-500 hover:bg-[var(--paper)] hover:text-[var(--ink)] hover:[--focus:var(--ink)] lg:border-b-0 lg:border-l lg:first:border-l-0"
             initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}

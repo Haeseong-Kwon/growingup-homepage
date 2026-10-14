@@ -28,6 +28,7 @@ const WIPE = [0.76, 0, 0.24, 1] as const;
 export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
   const pathname = usePathname();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -37,7 +38,23 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
     closeRef.current?.focus({ preventScroll: true });
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onOpenChange(false);
+      if (e.key === "Escape") {
+        onOpenChange(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+      // Focus trap: Tab wraps within the dialog instead of escaping behind it.
+      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
+      if (!focusable || focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => {
@@ -51,6 +68,7 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
     <AnimatePresence>
       {open && (
         <motion.div
+          ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-label="전체 메뉴"

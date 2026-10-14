@@ -93,7 +93,8 @@ function WorkCard({
     >
       <Image
         src={item.image}
-        alt={item.title}
+        // Decorative here: the card's heading already names the project.
+        alt=""
         fill
         sizes="(max-width: 768px) 78vw, 30vw"
         className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
