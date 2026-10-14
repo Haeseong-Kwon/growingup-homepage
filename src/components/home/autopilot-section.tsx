@@ -93,7 +93,7 @@ function FaceCard({ capability, index }: { capability: Capability; index: number
       {/* 기능별 라인 그래픽. currentColor라 면이 물러날 때 함께 어두워집니다. */}
       <Glyph
         aria-hidden
-        className="pointer-events-none absolute right-5 top-1/2 h-[clamp(88px,11vw,148px)] w-[clamp(88px,11vw,148px)] -translate-y-1/2 text-white/30 md:right-8"
+        className="pointer-events-none absolute right-5 top-5 h-14 w-14 text-white/25 md:right-8 md:top-1/2 md:h-[clamp(88px,11vw,148px)] md:w-[clamp(88px,11vw,148px)] md:-translate-y-1/2 md:text-white/30"
       />
 
       <div className="relative flex items-start justify-between gap-4">
@@ -104,7 +104,7 @@ function FaceCard({ capability, index }: { capability: Capability; index: number
       </div>
 
       {/* 글리프 폭만큼 비워 둡니다 — 좁은 카드에서 본문이 그래픽 위로 흘러갑니다. */}
-      <div className="relative pr-[clamp(100px,12vw,168px)]">
+      <div className="relative md:pr-[clamp(100px,12vw,168px)]">
         <h3 className="text-[clamp(26px,2.8vw,52px)] font-semibold leading-none tracking-[-0.03em] text-white">
           {capability.title}
         </h3>
