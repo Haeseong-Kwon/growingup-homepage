@@ -110,11 +110,6 @@ export default function HomePage() {
         subtitle="데이터 기반의 정확한 진단으로 비즈니스의 본질적인 성장을 만듭니다."
         primaryCta={{ label: "마케팅 제안 요청", href: "/contact" }}
         secondaryCta={{ label: "성과 사례 보기", href: "/portfolio" }}
-        proof={[
-          { value: "1시간", label: "사전예약 1,400대 완판" },
-          { value: "20개점", label: "프랜차이즈 가맹" },
-          { value: "10억+", label: "누적 크라우드펀딩" },
-        ]}
       />
 
       <ManifestoSection />

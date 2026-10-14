@@ -21,11 +21,6 @@ interface Cta {
   href: string;
 }
 
-interface ProofPoint {
-  value: string;
-  label: string;
-}
-
 interface HeroSceneProps {
   line1: string;
   line2?: string;
@@ -39,8 +34,6 @@ interface HeroSceneProps {
   plates?: string[];
   /** Run the counter intro and the full pinned flight. Front door only. */
   intro?: boolean;
-  /** Shipped results set beside the CTAs — the claim, backed on arrival. */
-  proof?: ProofPoint[];
 }
 
 const DEFAULT_PLATES = [
@@ -245,7 +238,6 @@ export function HeroScene({
   eyebrow = ["Growth Marketing", "Seoul, KR"],
   plates = DEFAULT_PLATES,
   intro = false,
-  proof,
 }: HeroSceneProps) {
   const trackRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -466,25 +458,6 @@ export function HeroScene({
             </motion.div>
           </div>
 
-          {proof && proof.length > 0 && (
-            <motion.dl
-              className="mt-8 grid grid-cols-3 gap-4 border-t border-white/15 pt-4 md:mt-10 md:max-w-[640px] md:gap-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: revealDelay + 0.6 }}
-            >
-              {proof.map((point) => (
-                <div key={point.label} className="flex flex-col-reverse">
-                  <dt className="mt-2 text-[12px] font-medium leading-snug text-white/55 md:text-[13px]">
-                    {point.label}
-                  </dt>
-                  <dd className="text-[clamp(18px,2vw,30px)] font-semibold leading-none tracking-[-0.03em] text-white tabular-nums">
-                    {point.value}
-                  </dd>
-                </div>
-              ))}
-            </motion.dl>
-          )}
         </motion.div>
 
         {/* Foot rule: nested so the scroll retract and the intro draw don't

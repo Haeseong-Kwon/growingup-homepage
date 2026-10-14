@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1786524319888,
-  "projectRoot": "/Users/haeseong/Desktop/Projects/growing_up_homepage",
+  "lastScanned": 1791966482481,
+  "projectRoot": "/Users/haeseong/orca/workspaces/growingup-homepage/https-github.com-Haeseong-Kwon-growingup-homepage",
   "techStack": {
     "languages": [
       {
@@ -67,7 +67,10 @@
       "public",
       "src"
     ],
-    "gitBranches": null
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
   },
   "customNotes": [],
   "directoryMap": {
@@ -75,7 +78,7 @@
       "path": "docs",
       "purpose": "Documentation",
       "fileCount": 1,
-      "lastAccessed": 1786524319808,
+      "lastAccessed": 1791966482465,
       "keyFiles": [
         "growingup_portfolio_1.html"
       ]
@@ -84,7 +87,7 @@
       "path": "public",
       "purpose": "Public files",
       "fileCount": 8,
-      "lastAccessed": 1786524319811,
+      "lastAccessed": 1791966482467,
       "keyFiles": [
         "autopilot-thumbnail.png",
         "file.svg",
@@ -96,15 +99,15 @@
     "src": {
       "path": "src",
       "purpose": "Source code",
-      "fileCount": 1,
-      "lastAccessed": 1786524319841,
+      "fileCount": 0,
+      "lastAccessed": 1791966482471,
       "keyFiles": []
     },
     "src/app": {
       "path": "src/app",
       "purpose": "Application code",
-      "fileCount": 6,
-      "lastAccessed": 1786524319843,
+      "fileCount": 5,
+      "lastAccessed": 1791966482473,
       "keyFiles": [
         "favicon.ico",
         "globals.css",
@@ -115,15 +118,16 @@
       "path": "src/components",
       "purpose": "UI components",
       "fileCount": 0,
-      "lastAccessed": 1786524319844,
+      "lastAccessed": 1791966482473,
       "keyFiles": []
     },
     "src/data": {
       "path": "src/data",
       "purpose": "Data files",
-      "fileCount": 2,
-      "lastAccessed": 1786524319844,
+      "fileCount": 3,
+      "lastAccessed": 1791966482474,
       "keyFiles": [
+        "history.ts",
         "partners.ts",
         "portfolio.ts"
       ]
@@ -132,7 +136,7 @@
       "path": "src/lib",
       "purpose": "Library code",
       "fileCount": 5,
-      "lastAccessed": 1786524319845,
+      "lastAccessed": 1791966482474,
       "keyFiles": [
         "constants.ts",
         "effects.ts",
@@ -166,6 +170,12 @@
       "type": "file"
     },
     {
+      "path": "src/components/layout/mega-menu-overlay.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1791967116977,
+      "type": "file"
+    },
+    {
       "path": "src/data/portfolio.ts",
       "accessCount": 2,
       "lastAccessed": 1786524915578,
@@ -184,9 +194,9 @@
       "type": "file"
     },
     {
-      "path": "src/components/layout/mega-menu-overlay.tsx",
+      "path": "src/components/home/pillars-section.tsx",
       "accessCount": 2,
-      "lastAccessed": 1786603294186,
+      "lastAccessed": 1791967256877,
       "type": "file"
     },
     {
@@ -199,12 +209,6 @@
       "path": "src/components/home/manifesto-section.tsx",
       "accessCount": 1,
       "lastAccessed": 1786524493698,
-      "type": "file"
-    },
-    {
-      "path": "src/components/home/pillars-section.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1786524497576,
       "type": "file"
     },
     {
@@ -289,6 +293,42 @@
       "path": "src/components/layout/site-footer.tsx",
       "accessCount": 1,
       "lastAccessed": 1786603277337,
+      "type": "file"
+    },
+    {
+      "path": "src/components/layout/smooth-scroll.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1791967073651,
+      "type": "file"
+    },
+    {
+      "path": "src/components/layout/site-header.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1791967094532,
+      "type": "file"
+    },
+    {
+      "path": "src/components/layout/page-transition.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1791967122301,
+      "type": "file"
+    },
+    {
+      "path": "src/components/motion/scroll-words.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1791967221080,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/process-section.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1791967319446,
+      "type": "file"
+    },
+    {
+      "path": "src/components/motion/parallax-plate.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1791968130875,
       "type": "file"
     }
   ],
