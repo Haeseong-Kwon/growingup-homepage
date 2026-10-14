@@ -105,7 +105,7 @@ function WorkCard({
           <span className="t-label text-white/80">
             {String(index + 1).padStart(2, "0")} / {item.category}
           </span>
-          <ArrowUpRight className="h-5 w-5 -translate-x-2 translate-y-2 text-white opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" />
+          <ArrowUpRight className="h-5 w-5 -translate-x-2 translate-y-2 text-white opacity-0 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" />
         </div>
 
         <div>

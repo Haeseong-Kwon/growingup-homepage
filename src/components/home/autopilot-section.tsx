@@ -261,7 +261,7 @@ export function AutopilotSection() {
             {String(i + 1).padStart(2, "0")}
           </span>
           <span
-            className="t-body transition-all duration-500"
+            className="t-body transition-[color,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
             style={{
               color: i === active ? "#fff" : "rgba(255,255,255,0.4)",
               transform: i === active ? "translateX(6px)" : "none",

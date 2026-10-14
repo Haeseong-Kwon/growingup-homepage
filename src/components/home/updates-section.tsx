@@ -68,7 +68,7 @@ export function UpdatesSection() {
                       </span>
                     ))}
                   </span>
-                  <ArrowUpRight className="h-5 w-5 shrink-0 -translate-x-2 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" />
+                  <ArrowUpRight className="h-5 w-5 shrink-0 -translate-x-2 opacity-0 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0 group-hover:opacity-100" />
                 </div>
               </Link>
             </motion.li>
