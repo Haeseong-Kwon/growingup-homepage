@@ -28,7 +28,7 @@ export function UpdatesSection() {
           />
           <Link
             href="/insights"
-            className="group inline-flex items-center gap-2 border-b border-white pb-1 text-[13px] font-semibold uppercase"
+            className="group inline-flex items-center gap-2 relative after:absolute after:inset-x-0 after:-inset-y-2.5 after:content-[''] border-b border-white pb-1 text-[13px] font-semibold uppercase"
           >
             All updates
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

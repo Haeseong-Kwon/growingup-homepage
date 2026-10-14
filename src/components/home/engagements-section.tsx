@@ -31,7 +31,7 @@ export function EngagementsSection() {
           />
           <Link
             href="/services"
-            className="group inline-flex items-center gap-2 border-b border-white pb-1 text-[13px] font-semibold uppercase"
+            className="group inline-flex items-center gap-2 relative after:absolute after:inset-x-0 after:-inset-y-2.5 after:content-[''] border-b border-white pb-1 text-[13px] font-semibold uppercase"
           >
             Compare in detail
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -91,7 +91,7 @@ export function EngagementsSection() {
 
               <Link
                 href={`/services#${service.id}`}
-                className="group/cta mt-8 inline-flex items-center gap-2 border-b border-current pb-1 text-[13px] font-semibold uppercase"
+                className="group/cta mt-8 inline-flex items-center gap-2 relative after:absolute after:inset-x-0 after:-inset-y-2.5 after:content-[''] border-b border-current pb-1 text-[13px] font-semibold uppercase"
               >
                 Start {service.title}
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/cta:translate-x-1 group-hover/cta:-translate-y-1" />
