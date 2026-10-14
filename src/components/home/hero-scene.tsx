@@ -15,6 +15,7 @@ import { ArrowRight } from "lucide-react";
 import { DrawnFrame } from "@/components/motion/line-draw";
 import { Magnetic } from "@/components/motion/magnetic";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { EASE, EASE_IN_OUT, SCROLL_SPRING } from "@/lib/motion";
 
 interface Cta {
   label: string;
@@ -87,7 +88,6 @@ const PANEL_SPECS: PanelSpec[] = [
 
 // Long enough to read as a deliberate count, short enough not to gate content.
 const INTRO_MS = 1400;
-const EASE = [0.16, 1, 0.3, 1] as const;
 
 function useIntroProgress(active: boolean) {
   const [value, setValue] = useState(active ? 0 : 100);
@@ -260,12 +260,7 @@ export function HeroScene({
     offset: pinned ? ["start start", "end end"] : ["start start", "end start"],
   });
 
-  const flight = useSpring(scrollYProgress, {
-    stiffness: 64,
-    damping: 22,
-    mass: 0.45,
-    restDelta: 0.0002,
-  });
+  const flight = useSpring(scrollYProgress, SCROLL_SPRING);
 
   // Rig attitude: a slow roll through the flight, plus pointer tilt on top.
   const pointerX = useMotionValue(0);
@@ -482,7 +477,7 @@ export function HeroScene({
             animate={{ scaleX: 1 }}
             transition={{
               duration: runIntro ? INTRO_MS / 1000 : 1.1,
-              ease: [0.65, 0, 0.35, 1],
+              ease: EASE_IN_OUT,
             }}
           />
         </motion.div>

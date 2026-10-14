@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { BandWipe, GrowRule } from "@/components/motion/band-wipe";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { ParallaxPlate } from "@/components/motion/parallax-plate";
+import { EASE, REVEAL_VIEWPORT } from "@/lib/motion";
 
 /** The two words the band uncovers, set either side of the growing rule. */
 const BAND_MARKS = ["Evidence", "Execution"];
@@ -53,7 +54,7 @@ export function PillarsSection() {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-20% 0px -20% 0px" }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: i * 0.12 }}
+              transition={{ duration: 0.9, ease: EASE, delay: i * 0.12 }}
             >
               {mark}
             </motion.span>
@@ -82,8 +83,8 @@ export function PillarsSection() {
               className="flex flex-col gap-4 border-b border-dashed border-[var(--rule)] py-8 last:border-b-0 md:border-b-0 md:border-l md:border-dashed md:border-[var(--rule)] md:px-7 md:first:border-l-0 md:first:pl-0"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
+              viewport={REVEAL_VIEWPORT}
+              transition={{ duration: 0.9, ease: EASE, delay: i * 0.1 }}
             >
               <span className="t-label text-white/45">0{i + 1}</span>
               <h3 className="t-headline">{pillar.title}</h3>

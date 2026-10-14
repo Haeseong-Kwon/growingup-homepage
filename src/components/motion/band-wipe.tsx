@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { EASE, REVEAL_VIEWPORT, SCROLL_SPRING } from "@/lib/motion";
 
 interface BandWipeProps {
   text: string;
@@ -30,12 +31,7 @@ export function BandWipe({ text, className, height = "7.5vw" }: BandWipeProps) {
 
   // Spring the raw progress so the band glides open and closed rather than
   // tracking the wheel tick-for-tick.
-  const smooth = useSpring(scrollYProgress, {
-    stiffness: 110,
-    damping: 28,
-    mass: 0.3,
-    restDelta: 0.0005,
-  });
+  const smooth = useSpring(scrollYProgress, SCROLL_SPRING);
   const width = useTransform(smooth, [0, 1], ["0%", "100%"]);
 
   return (
@@ -78,8 +74,8 @@ export function GrowRule({ className, orientation = "vertical" }: GrowRuleProps)
       className={cn(isVertical ? "w-px rule-l" : "h-px rule-t", className)}
       initial={prefersReducedMotion ? false : { [axis]: 0 }}
       whileInView={{ [axis]: 1 }}
-      viewport={{ once: true, margin: "-15% 0px -15% 0px" }}
-      transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+      viewport={REVEAL_VIEWPORT}
+      transition={{ duration: 1.1, ease: EASE, delay: 0.25 }}
     />
   );
 }

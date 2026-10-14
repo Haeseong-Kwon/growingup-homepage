@@ -5,8 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { updatesData } from "@/components/insights/insightsData";
-
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { DURATION, EASE, REVEAL_VIEWPORT } from "@/lib/motion";
 
 /** Only entries with a written excerpt earn a slot on the front page. */
 const FEATURED = updatesData.filter((update) => update.excerpt).slice(0, 3);
@@ -42,8 +41,8 @@ export function UpdatesSection() {
               className="border-b border-dashed border-[var(--rule)]"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-              transition={{ duration: 0.85, ease: EASE, delay: i * 0.08 }}
+              viewport={REVEAL_VIEWPORT}
+              transition={{ duration: DURATION, ease: EASE, delay: i * 0.08 }}
             >
               <Link
                 href={update.href}

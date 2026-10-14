@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { MaskReveal } from "@/components/motion/mask-reveal";
+import { EASE, REVEAL_VIEWPORT } from "@/lib/motion";
 
 interface DeliverableGroup {
   title: string;
@@ -38,8 +39,6 @@ const GROUPS: DeliverableGroup[] = [
   },
 ];
 
-const EASE = [0.16, 1, 0.3, 1] as const;
-
 /**
  * What the engagement actually hands over. Four stacked rows rather than cards:
  * each row spans the full rail so the deliverable lists read as a spec sheet,
@@ -71,7 +70,7 @@ export function DeliverablesSection() {
               className="group grid gap-6 border-b border-dashed border-[var(--rule)] py-9 md:grid-cols-[auto_1fr_1.4fr] md:gap-12"
               initial={{ opacity: 0, y: 34 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+              viewport={REVEAL_VIEWPORT}
               transition={{ duration: 0.9, ease: EASE, delay: i * 0.07 }}
             >
               <span className="t-label text-white/40 md:w-16">

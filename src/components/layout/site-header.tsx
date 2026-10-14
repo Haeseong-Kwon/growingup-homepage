@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, useMotionValueEvent, useScroll, useSpring } from "framer-motion";
 import { MegaMenuOverlay } from "./mega-menu-overlay";
 import { cn } from "@/lib/utils";
+import { EASE } from "@/lib/motion";
 
 /**
  * Only three links sit on the rail. Any more and the centred wordmark collides
@@ -72,7 +73,7 @@ export function SiteHeader() {
         )}
         initial={{ y: "-100%" }}
         animate={{ y: isHidden && !isMenuOpen ? "-100%" : "0%" }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.55, ease: EASE }}
       >
         <div className="relative flex h-[var(--header-h)] items-center justify-between px-[var(--gut)] text-[15px] font-semibold uppercase leading-none lg:text-[16px]">
           {/* Standing statement: only while the header sits over the hero. */}

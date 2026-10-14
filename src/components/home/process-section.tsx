@@ -7,6 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { Magnetic } from "@/components/motion/magnetic";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { SCROLL_SPRING } from "@/lib/motion";
 
 export interface ProcessStep {
   title: string;
@@ -79,7 +80,7 @@ export function ProcessSection({ steps }: ProcessSectionProps) {
   const prefersReducedMotion = useReducedMotion();
 
   const { scrollYProgress } = useScroll({ target: listRef, offset: ["start 0.8", "end 0.55"] });
-  const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 26, mass: 0.4, restDelta: 0.001 });
+  const progress = useSpring(scrollYProgress, SCROLL_SPRING);
   const line = prefersReducedMotion ? 1 : progress;
 
   return (

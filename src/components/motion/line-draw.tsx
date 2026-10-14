@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { EASE_IN_OUT } from "@/lib/motion";
 
 interface DrawnFrameProps {
   className?: string;
@@ -47,7 +48,7 @@ export function DrawnFrame({
           pathLength={1}
           initial={prefersReducedMotion ? { pathLength: 1 } : { pathLength: 0 }}
           animate={{ pathLength: 1 }}
-          transition={{ duration: prefersReducedMotion ? 0 : duration, ease: [0.65, 0, 0.35, 1], delay }}
+          transition={{ duration: prefersReducedMotion ? 0 : duration, ease: EASE_IN_OUT, delay }}
         />
       </svg>
 

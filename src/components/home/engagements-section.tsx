@@ -5,8 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { servicesData } from "@/components/services/servicesData";
-
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { DURATION, EASE, REVEAL_VIEWPORT } from "@/lib/motion";
 
 const TERM: Record<string, string> = {
   sprint: "Short-term",
@@ -46,8 +45,8 @@ export function EngagementsSection() {
             className="group relative flex flex-col justify-between border-b border-dashed border-[var(--rule)] px-[var(--gut)] py-10 transition-colors duration-500 hover:bg-[var(--paper)] hover:text-[var(--ink)] lg:border-b-0 lg:border-l lg:first:border-l-0"
             initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-            transition={{ duration: 0.95, ease: EASE, delay: i * 0.1 }}
+            viewport={REVEAL_VIEWPORT}
+            transition={{ duration: DURATION, ease: EASE, delay: i * 0.1 }}
           >
             <header>
               <div className="flex items-center gap-3">

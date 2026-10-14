@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { SCROLL_SPRING } from "@/lib/motion";
 
 interface ParallaxPlateProps {
   src: string;
@@ -25,7 +26,7 @@ export function ParallaxPlate({ src, className, drift = 12 }: ParallaxPlateProps
   const prefersReducedMotion = useReducedMotion();
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const smooth = useSpring(scrollYProgress, { stiffness: 80, damping: 24, mass: 0.4, restDelta: 0.0005 });
+  const smooth = useSpring(scrollYProgress, SCROLL_SPRING);
   // A `y` percentage resolves against the plate's own (oversized) height, not the
   // section's: the plate is (1 + 2·drift) tall, so travelling ±drift% of itself
   // would overshoot the oversize and show its edge. Scale the travel down to fit.

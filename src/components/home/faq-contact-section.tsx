@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { cn } from "@/lib/utils";
+import { DURATION, EASE, REVEAL_VIEWPORT } from "@/lib/motion";
 
 export interface FaqItem {
   question: string;
@@ -15,8 +16,6 @@ export interface FaqItem {
 interface FaqContactSectionProps {
   items: FaqItem[];
 }
-
-const EASE = [0.16, 1, 0.3, 1] as const;
 
 /**
  * Closing pair: questions on the left as dashed rows that open in place, the
@@ -86,8 +85,8 @@ export function FaqContactSection({ items }: FaqContactSectionProps) {
           className="flex flex-col justify-between bg-[var(--paper)] p-8 text-[var(--ink)] lg:p-10"
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
-          transition={{ duration: 0.95, ease: EASE }}
+          viewport={REVEAL_VIEWPORT}
+          transition={{ duration: DURATION, ease: EASE }}
         >
           <div>
             <p className="t-label text-black/45">(Start here)</p>

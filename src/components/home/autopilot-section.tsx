@@ -14,6 +14,7 @@ import { ArrowUpRight } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { CAPABILITY_GLYPHS } from "@/components/home/autopilot-glyphs";
+import { DURATION, EASE, REVEAL_VIEWPORT, SCROLL_SPRING } from "@/lib/motion";
 
 const AUTOPILOT_URL = "https://www.autopilot.it.kr/";
 
@@ -62,7 +63,6 @@ const FACES = CAPABILITIES.length;
 const STEP = 360 / FACES;
 /** 외접 반지름 = (면 높이 / 2) / tan(30°). 면이 서로 정확히 맞물리는 유일한 값. */
 const RADIUS = "calc(var(--face-h) * 0.8660254)";
-const EASE = [0.16, 1, 0.3, 1] as const;
 
 /**
  * 면마다 "멈춤 → 회전"을 반복하도록 스크럽 구간을 만듭니다. 등속으로 300°를
@@ -183,17 +183,12 @@ export function AutopilotSection() {
   });
 
   const rawRotate = useTransform(scrollYProgress, SCRUB.input, SCRUB.output);
-  const rotateX = useSpring(rawRotate, {
-    stiffness: 78,
-    damping: 22,
-    mass: 0.5,
-    restDelta: 0.01,
-  });
+  const rotateX = useSpring(rawRotate, SCROLL_SPRING);
 
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
-    // +0.21은 회전 구간의 중간점. 이게 없으면 프리즘이 이미 다음 면을 보여주는
-    // 동안에도 왼쪽 목록은 직전 면을 짚고 있습니다.
-    const i = Math.floor(value * FACES + 0.21);
+  // 목록은 스크롤 원값이 아니라 실제로 화면에 보이는 프리즘 각도를 따릅니다.
+  // 원값을 쓰면 스프링 지연만큼 목록이 프리즘보다 먼저 넘어갑니다.
+  useMotionValueEvent(rotateX, "change", (deg) => {
+    const i = Math.round(-deg / STEP);
     setActive(Math.min(FACES - 1, Math.max(0, i)));
   });
 
@@ -306,7 +301,7 @@ export function AutopilotSection() {
                 style={{ rotateX }}
                 initial={{ opacity: 0, scale: 0.94 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-15% 0px -15% 0px" }}
+                viewport={REVEAL_VIEWPORT}
                 transition={{ duration: 1, ease: EASE }}
               >
                 {CAPABILITIES.map((capability, i) => (
@@ -331,8 +326,8 @@ export function AutopilotSection() {
                 className="h-full"
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-                transition={{ duration: 0.85, ease: EASE, delay: i * 0.06 }}
+                viewport={REVEAL_VIEWPORT}
+                transition={{ duration: DURATION, ease: EASE, delay: i * 0.06 }}
               >
                 <FaceCard capability={capability} index={i} />
               </motion.li>

@@ -5,8 +5,7 @@ import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { CATEGORY_ARC, HISTORY, type HistoryEntry, type HistoryYear } from "@/data/history";
-
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { DURATION, EASE, REVEAL_VIEWPORT, SCROLL_SPRING } from "@/lib/motion";
 
 /**
  * 타임라인 한 항목. 왼쪽 점선 레일 위의 점이 먼저 찍히고 본문이 따라 올라옵니다 —
@@ -18,8 +17,8 @@ function Entry({ entry, index }: { entry: HistoryEntry; index: number }) {
       className="relative pb-12 last:pb-0"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-      transition={{ duration: 0.85, ease: EASE, delay: index * 0.05 }}
+      viewport={REVEAL_VIEWPORT}
+      transition={{ duration: DURATION, ease: EASE, delay: index * 0.05 }}
     >
       {/* 레일 위의 점. 마일스톤은 채워지고 링을 답니다. */}
       <motion.span
@@ -31,7 +30,7 @@ function Entry({ entry, index }: { entry: HistoryEntry; index: number }) {
         }
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
-        viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+        viewport={REVEAL_VIEWPORT}
         transition={{ duration: 0.6, ease: EASE, delay: index * 0.05 + 0.1 }}
       />
 
@@ -86,12 +85,7 @@ function YearBlock({ year, blockIndex }: { year: HistoryYear; blockIndex: number
     target: listRef,
     offset: ["start 78%", "end 62%"],
   });
-  const smooth = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 26,
-    mass: 0.4,
-    restDelta: 0.001,
-  });
+  const smooth = useSpring(scrollYProgress, SCROLL_SPRING);
   const scaleY = useTransform(smooth, [0, 1], [0, 1]);
 
   return (
@@ -154,8 +148,8 @@ export function HistorySection() {
               className="group border-b border-dashed border-[var(--rule)] py-7 transition-colors duration-500 lg:border-b-0 lg:border-l lg:px-6 lg:first:border-l-0 lg:first:pl-0"
               initial={{ opacity: 0, y: 26 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
-              transition={{ duration: 0.85, ease: EASE, delay: i * 0.08 }}
+              viewport={REVEAL_VIEWPORT}
+              transition={{ duration: DURATION, ease: EASE, delay: i * 0.08 }}
             >
               <span className="t-label text-white/40">{arc.year}</span>
               <h3 className="mt-5 text-[clamp(24px,2.4vw,40px)] font-semibold leading-none tracking-[-0.03em] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5">

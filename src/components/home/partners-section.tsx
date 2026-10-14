@@ -6,6 +6,7 @@ import { ParallaxPlate } from "@/components/motion/parallax-plate";
 import { TextTicker } from "@/components/motion/text-ticker";
 import { useCountUp } from "@/hooks/use-count-up";
 import { PARTNERS, TICKER_NAMES } from "@/data/partners";
+import { DURATION, EASE, REVEAL_VIEWPORT } from "@/lib/motion";
 
 interface Stat {
   label: string;
@@ -78,8 +79,8 @@ export function PartnersSection() {
                 className="group relative overflow-hidden border-b border-dashed border-[var(--rule)] p-5 transition-colors duration-500 odd:border-r hover:bg-white md:p-6 lg:border-b-0 lg:border-l lg:odd:border-r-0 lg:first:border-l-0"
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
-                transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 }}
+                viewport={REVEAL_VIEWPORT}
+                transition={{ duration: DURATION, ease: EASE, delay: i * 0.08 }}
               >
                 <span className="t-label text-white/45 transition-colors duration-500 group-hover:text-black/50">
                   {String(i + 1).padStart(2, "0")}

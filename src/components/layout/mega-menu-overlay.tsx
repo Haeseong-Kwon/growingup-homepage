@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { setScrollLocked } from "./smooth-scroll";
 import { cn } from "@/lib/utils";
+import { EASE } from "@/lib/motion";
 
 interface MegaMenuOverlayProps {
   open: boolean;
@@ -22,7 +23,6 @@ const MENU_ITEMS = [
   { href: "/contact", label: "Contact", kr: "문의하기" },
 ];
 
-const EASE = [0.16, 1, 0.3, 1] as const;
 const WIPE = [0.76, 0, 0.24, 1] as const;
 
 export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {

@@ -7,6 +7,7 @@ import { motion, useScroll, useTransform, useSpring, type MotionValue } from "fr
 import { ArrowUpRight } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { SCROLL_SPRING } from "@/lib/motion";
 
 export interface WorkItem {
   category: string;
@@ -162,14 +163,8 @@ export function WorksSection({ items }: WorksSectionProps) {
   });
 
   const rawX = useTransform(scrollYProgress, [0, 1], [0, -overflow]);
-  // Softer than a 1:1 track — the reel keeps gliding for a beat after the wheel
-  // stops, and settles the same way when you scroll back up.
-  const x = useSpring(rawX, {
-    stiffness: 140,
-    damping: 30,
-    mass: 0.45,
-    restDelta: 0.5,
-  });
+  // Shared scroll spring, with a pixel-sized rest threshold for a pixel value.
+  const x = useSpring(rawX, { ...SCROLL_SPRING, restDelta: 0.5 });
 
   const viewAll = (
     <Link
