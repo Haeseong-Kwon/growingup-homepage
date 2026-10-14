@@ -34,7 +34,7 @@ function StatCounter({ stat }: { stat: Stat }) {
   return (
     <div
       ref={ref}
-      className="border-b border-dashed border-[var(--rule)] py-6 odd:pr-4 even:pl-4 lg:odd:pr-0 lg:even:pl-0 lg:border-b-0 lg:border-l lg:px-5 lg:first:border-l-0 lg:first:pl-0"
+      className="border-b border-dashed border-[var(--rule)] py-6 max-lg:odd:pr-4 max-lg:even:pl-4 lg:border-b-0 lg:border-l lg:px-5 lg:first:border-l-0 lg:first:pl-0"
     >
       <p className="t-label text-white/45">{stat.label}</p>
       <p className="mt-2 text-[clamp(30px,5.5vw,110px)] font-semibold uppercase leading-[0.95] tracking-[-0.02em] tabular-nums">
