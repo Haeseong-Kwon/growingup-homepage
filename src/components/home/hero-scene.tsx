@@ -123,7 +123,7 @@ function HeroHeadline({
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <h1 className="max-w-[18ch] text-[clamp(2.5rem,7.2vw,8.25rem)] font-semibold leading-[1.02] tracking-[-0.04em] text-white">
+    <h1 className="max-w-[18ch] text-[clamp(2.5rem,5.4vw,6rem)] font-semibold leading-[1.04] tracking-[-0.035em] text-white">
       {lines.map((line, i) => (
         <span key={line} className="mask-line">
           <motion.span
