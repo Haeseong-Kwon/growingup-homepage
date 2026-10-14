@@ -86,7 +86,8 @@ export function ProcessSection({ steps }: ProcessSectionProps) {
   return (
     <section className="tone-ink py-[14vh]">
       <div className="rail">
-        <div className="flex flex-wrap items-end justify-between gap-8">
+        <p className="t-label text-white/45">(Our process)</p>
+        <div className="mt-3 flex flex-wrap items-end justify-between gap-8">
           <MaskReveal as="h2" lines={["GrowingUp", "Marketing OS"]} className="t-display" />
           <p className="max-w-[40ch] pb-2 t-lead fg-muted">
             5단계 운영 루프로 런칭의 불확실성을 관리합니다. 단계마다 산출물과
