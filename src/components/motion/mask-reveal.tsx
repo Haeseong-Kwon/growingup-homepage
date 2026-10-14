@@ -17,9 +17,8 @@ interface MaskRevealProps {
   /** Play immediately (hero) instead of waiting for the viewport. */
   immediate?: boolean;
   /**
-   * Keep the revealed state once played. Off by default: the reference plays
-   * forward on entry and reverses on exit, so scrolling back up re-arms every
-   * reveal instead of leaving a page of already-landed type behind you.
+   * Keep the revealed state once played. On by default: re-arming every heading
+   * on the way back up turns a deliberate reveal into scroll noise.
    */
   once?: boolean;
 }
@@ -36,7 +35,7 @@ export function MaskReveal({
   delay = 0,
   stagger = 0.09,
   immediate = false,
-  once = false,
+  once = true,
 }: MaskRevealProps) {
   const prefersReducedMotion = useReducedMotion();
   const Tag = as;

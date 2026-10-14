@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
+import { Magnetic } from "@/components/motion/magnetic";
 
 const NAV_COLUMNS = [
   {
@@ -37,30 +39,37 @@ export function SiteFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[var(--ink)] pb-6 pt-[18vh] text-white">
+    <footer className="tone-ink relative pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-[16vh]">
       <div className="rail">
         {/* Oversized sign-off — the last thing on the page is the loudest. */}
-        <MaskReveal
-          as="h2"
-          lines={["LET'S", "GROW UP."]}
-          className="t-mega text-white"
-        />
+        <MaskReveal as="h2" lines={["LET'S", "GROW UP."]} className="t-mega" />
 
-        <p className="mt-10 max-w-[46ch] t-body text-white/60">
-          프로젝트 문의는 목표와 예산, 일정을 함께 보내주세요. 검토 후 맞춤 제안서로
-          빠르게 회신드립니다.
-        </p>
+        <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <p className="max-w-[40ch] t-lead fg-muted">
+            프로젝트 문의는 목표와 예산, 일정을 함께 보내주세요. 검토 후 맞춤 제안서로
+            빠르게 회신드립니다.
+          </p>
+          <Magnetic strength={0.2} className="w-full md:w-auto">
+            <a
+              href="mailto:jaeil@wekeepgrowing.com"
+              className="group flex h-14 w-full items-center justify-center gap-3 bg-white px-8 text-[15px] font-semibold text-[var(--ink)] transition-colors duration-300 hover:bg-[var(--signal)] hover:text-white md:w-auto"
+            >
+              jaeil@wekeepgrowing.com
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+          </Magnetic>
+        </div>
 
         <div className="mt-16 grid gap-y-10 rule-t pt-8 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-2">
-            <h3 className="t-label text-white/45">Business</h3>
+            <h3 className="t-label fg-faint">Business</h3>
             <p className="mt-3 text-[clamp(15px,1.3vw,20px)] font-semibold uppercase leading-tight tracking-[-0.02em]">
               Growth Marketing &amp; Launch Strategy
               <br />
               Data-Driven Campaign Operations
             </p>
 
-            <h3 className="mt-8 t-label text-white/45">Contact</h3>
+            <h3 className="mt-8 t-label fg-faint">Contact</h3>
             <p className="mt-3 text-[clamp(15px,1.3vw,20px)] font-semibold uppercase tracking-[-0.02em]">
               <a href="mailto:jaeil@wekeepgrowing.com" className="hover:opacity-60">
                 jaeil@wekeepgrowing.com
@@ -70,13 +79,13 @@ export function SiteFooter() {
 
           {NAV_COLUMNS.map((column) => (
             <nav key={column.title} aria-label={column.title}>
-              <h3 className="t-label text-white/45">{column.title}</h3>
-              <ul className="mt-3 space-y-1.5">
+              <h3 className="t-label fg-faint">{column.title}</h3>
+              <ul className="mt-2">
                 {column.links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="t-body text-white/70 transition-opacity hover:text-white"
+                      className="inline-flex min-h-10 items-center t-body fg-muted transition-colors duration-300 hover:text-white md:min-h-8"
                     >
                       {link.label}
                     </Link>
@@ -87,7 +96,7 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-14 flex flex-col gap-2 rule-t pt-5 t-label text-white/45 md:flex-row md:items-center md:justify-between">
+        <div className="mt-14 flex flex-col gap-2 rule-t pt-5 t-label fg-faint md:flex-row md:items-center md:justify-between">
           <span>© GROWING UP {currentYear}</span>
           <span>All rights reserved</span>
         </div>

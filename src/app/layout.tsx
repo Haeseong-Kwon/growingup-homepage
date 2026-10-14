@@ -71,6 +71,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#0E0E0E",
 };
 
 export default function RootLayout({
@@ -80,6 +82,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <head>
+        {/* Pinned dynamic subset: the browser fetches only the Hangul ranges a page
+            actually uses, instead of a multi-megabyte variable font up front. */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
+      </head>
       <body className="antialiased">
         {children}
       </body>

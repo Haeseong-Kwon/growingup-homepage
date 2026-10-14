@@ -41,7 +41,7 @@ export function BandWipe({ text, className, height = "7.5vw" }: BandWipeProps) {
   return (
     <div ref={ref} className={cn("relative w-full", className)} style={{ height }}>
       <motion.div
-        className="absolute top-0 left-0 h-full overflow-hidden bg-[var(--paper)] text-[#000]"
+        className="absolute top-0 left-0 h-full overflow-hidden bg-[var(--tone-fg,var(--paper))] text-[var(--tone-bg,#000)]"
         style={{ width: prefersReducedMotion ? "100%" : width }}
       >
         <span
@@ -78,7 +78,7 @@ export function GrowRule({ className, orientation = "vertical" }: GrowRuleProps)
       className={cn(isVertical ? "w-px rule-l" : "h-px rule-t", className)}
       initial={prefersReducedMotion ? false : { [axis]: 0 }}
       whileInView={{ [axis]: 1 }}
-      viewport={{ once: false, margin: "-15% 0px -15% 0px" }}
+      viewport={{ once: true, margin: "-15% 0px -15% 0px" }}
       transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
     />
   );

@@ -27,71 +27,58 @@ function StatCounter({ stat }: { stat: Stat }) {
     decimals: stat.decimals ?? 0,
     suffix: stat.suffix ?? "",
     duration: 1800,
-    replay: true,
   });
 
   return (
     <div
       ref={ref}
-      className="border-b border-dashed border-[var(--rule)] py-6 lg:border-b-0 lg:border-l lg:px-5 lg:first:border-l-0 lg:first:pl-0"
+      className="flex flex-col-reverse border-b border-dashed border-[var(--rule)] py-6 even:pl-4 lg:border-b-0 lg:border-l lg:px-6 lg:py-2 lg:first:border-l-0 lg:first:pl-0 lg:even:pl-6 [&:nth-last-child(-n+2)]:border-b-0"
     >
-      <p className="t-label text-white/45">{stat.label}</p>
-      <p className="mt-2 text-[clamp(30px,5.5vw,110px)] font-semibold uppercase leading-[0.95] tracking-[-0.02em] tabular-nums">
+      <dt className="mt-3 text-[13px] font-medium fg-muted md:text-[14px]">{stat.label}</dt>
+      <dd className="text-[clamp(34px,6vw,120px)] font-semibold leading-[0.9] tracking-[-0.045em] tabular-nums">
         {count}
-      </p>
+      </dd>
     </div>
   );
 }
 
 /**
- * Closing beat: who we build with. The four partner firms get named panels that
- * invert on hover, then every name — partners and shipped brands — runs past in
- * a single continuous line, followed by the numbers those projects produced.
+ * Closing proof beat: who we build with, then what it produced. The partner
+ * firms get named panels that invert on hover, every shipped name runs past in
+ * one continuous line, and the numbers land on the signal band — the one
+ * full-bleed use of the proof colour on the page.
  */
 export function PartnersSection() {
   return (
-    <section className="relative overflow-hidden bg-[var(--ink)] text-white">
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-cover bg-fixed bg-center opacity-20 grayscale"
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1920&h=1280&fit=crop)",
-        }}
-      />
-
-      <div className="relative pb-[12vh] pt-[16vh]">
+    <section className="relative">
+      <div className="tone-ink pb-[12vh] pt-[14vh]">
         <div className="rail">
-          <p className="t-label text-white/45">(Collaboration)</p>
           <MaskReveal
             as="h2"
             lines={["함께 성장한", "브랜드와 협력사"]}
             // t-display, not t-mega: at 8vw the Hangul headline runs past the
             // section and reads as a wall rather than a statement.
-            className="mt-3 t-display normal-case text-white"
+            className="t-display normal-case"
           />
         </div>
 
         {/* 협력사 */}
-        <div className="mt-[10vh] rail">
-          <h3 className="t-label text-white/45">협력사 / Partners</h3>
-          <div className="mt-5 grid border-t border-dashed border-[var(--rule)] sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-[8vh] rail">
+          <h3 className="text-[14px] font-medium fg-faint">협력사</h3>
+          <div className="mt-4 grid grid-cols-2 border-t border-dashed border-[var(--rule)] lg:grid-cols-4">
             {PARTNERS.map((partner, i) => (
               <motion.article
                 key={partner.latin}
-                className="group relative overflow-hidden border-b border-dashed border-[var(--rule)] p-6 transition-colors duration-500 hover:bg-white lg:border-b-0 lg:border-l lg:first:border-l-0"
+                className="group relative overflow-hidden border-b border-dashed border-[var(--rule)] p-5 odd:border-r transition-colors duration-500 hover:bg-white md:p-6 lg:border-b-0 lg:border-l lg:odd:border-r-0 lg:first:border-l-0"
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: "-12% 0px -12% 0px" }}
+                viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
                 transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 }}
               >
-                <span className="t-label text-white/45 transition-colors duration-500 group-hover:text-black/50">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <p className="mt-8 text-[clamp(26px,2.6vw,44px)] font-semibold uppercase leading-none tracking-[-0.03em] transition-colors duration-500 group-hover:text-[var(--ink)]">
+                <p className="text-[clamp(24px,2.6vw,44px)] font-semibold uppercase leading-none tracking-[-0.03em] transition-colors duration-500 group-hover:text-[var(--ink)]">
                   {partner.latin}
                 </p>
-                <p className="mt-2 t-body text-white/60 transition-colors duration-500 group-hover:text-black/60">
+                <p className="mt-2 t-body fg-muted transition-colors duration-500 group-hover:text-black/60">
                   {partner.name}
                 </p>
               </motion.article>
@@ -100,17 +87,22 @@ export function PartnersSection() {
         </div>
 
         {/* Continuous name line */}
-        <div className="mt-[10vh] border-y border-dashed border-[var(--rule)] py-6">
+        <div className="mt-[10vh] border-y border-dashed border-[var(--rule)] py-5 md:py-6">
           <TextTicker items={TICKER_NAMES} durationSeconds={70} />
         </div>
+      </div>
 
-        {/* Numbers */}
-        <div className="mt-[8vh] rail">
-          <div className="grid grid-cols-2 lg:grid-cols-4">
+      {/* Numbers */}
+      <div className="tone-signal py-[10vh] md:py-[12vh]">
+        <div className="rail">
+          <p className="max-w-[30ch] text-[clamp(18px,1.6vw,24px)] font-semibold leading-snug tracking-[-0.02em]">
+            기획서가 아니라 숫자로 남은 것들
+          </p>
+          <dl className="mt-8 grid grid-cols-2 md:mt-12 lg:grid-cols-4">
             {STATS.map((stat) => (
               <StatCounter key={stat.label} stat={stat} />
             ))}
-          </div>
+          </dl>
         </div>
       </div>
     </section>

@@ -108,7 +108,7 @@ function FaceCard({ capability, index }: { capability: Capability; index: number
         <h3 className="text-[clamp(26px,2.8vw,52px)] font-semibold leading-none tracking-[-0.03em] text-white">
           {capability.title}
         </h3>
-        <p className="mt-3 t-body text-white/60">{capability.description}</p>
+        <p className="mt-3 t-body fg-muted">{capability.description}</p>
       </div>
     </div>
   );
@@ -203,7 +203,7 @@ export function AutopilotSection() {
       href={AUTOPILOT_URL}
       target="_blank"
       rel="noreferrer noopener"
-      className="group img-gray flex items-center gap-5 border border-dashed border-[var(--rule)] p-3 transition-colors duration-500 hover:border-white/70"
+      className="group img-gray flex items-center gap-5 border border-dashed border-[var(--rule)] p-3 transition-colors duration-500 hover:border-[var(--signal-soft)]"
     >
       <span className="relative block aspect-video w-[clamp(120px,12vw,176px)] shrink-0 overflow-hidden bg-[var(--ink-soft)]">
         <Image
@@ -227,18 +227,17 @@ export function AutopilotSection() {
 
   const copy = (
     <div>
-      <p className="t-label text-white/45">(Product — Autopilot)</p>
       <MaskReveal
         as="h2"
         lines={["AOP와 함께 만든", "AI 마케팅 실행 시스템"]}
         // t-display는 반폭 컬럼에서 세 줄로 흘러 오른쪽 프리즘과 높이가 어긋납니다.
-        className="mt-3 text-[clamp(30px,3.6vw,62px)] font-semibold leading-[0.98] tracking-[-0.03em] text-white"
+        className="text-[clamp(32px,3.8vw,66px)] font-semibold leading-[0.98] tracking-[-0.035em]"
       />
-      <p className="mt-5 max-w-[44ch] t-lead text-white/70">
+      <p className="mt-5 max-w-[44ch] t-lead fg-muted">
         감으로 하던 마케팅을 자동 운항으로. 제품 하나만 넣으면 시장 판단, 추적 세팅,
         상세페이지 진단, 데이터 퍼포먼스가 한 흐름으로 이어집니다.
       </p>
-      <p className="mt-3 max-w-[44ch] t-body text-white/50">
+      <p className="mt-3 max-w-[44ch] t-body fg-faint">
         그로윙업이 현장에서 검증한 마케팅 실행 방법론을 협력사 AOP와 함께 제품으로
         옮겼습니다.
       </p>
@@ -256,7 +255,7 @@ export function AutopilotSection() {
         >
           <span
             className="t-label transition-colors duration-500"
-            style={{ color: i === active ? "#fff" : "rgba(255,255,255,0.35)" }}
+            style={{ color: i === active ? "var(--signal-soft)" : "rgba(255,255,255,0.35)" }}
           >
             {String(i + 1).padStart(2, "0")}
           </span>
@@ -278,7 +277,7 @@ export function AutopilotSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[var(--ink)] text-white"
+      className="tone-ink relative"
       // 면 하나당 약 0.8 뷰포트: 멈춤과 회전이 모두 읽힐 만큼의 스크롤 거리.
       style={canPin ? { height: `${100 + (FACES - 1) * 80}svh` } : undefined}
     >
@@ -306,7 +305,7 @@ export function AutopilotSection() {
                 style={{ rotateX }}
                 initial={{ opacity: 0, scale: 0.94 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: false, margin: "-15% 0px -15% 0px" }}
+                viewport={{ once: true, margin: "-15% 0px -15% 0px" }}
                 transition={{ duration: 1, ease: EASE }}
               >
                 {CAPABILITIES.map((capability, i) => (
@@ -331,7 +330,7 @@ export function AutopilotSection() {
                 className="h-full"
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: "-10% 0px -10% 0px" }}
+                viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
                 transition={{ duration: 0.85, ease: EASE, delay: i * 0.06 }}
               >
                 <FaceCard capability={capability} index={i} />

@@ -32,8 +32,8 @@ export function ManifestoSection() {
   const trackRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section className="relative bg-[var(--ink)] text-white">
-      <div className="border-y border-white/10 py-5">
+    <section className="tone-ink relative">
+      <div className="border-y border-white/10 py-4 md:py-5">
         <TextTicker
           items={MARQUEE}
           durationSeconds={45}
@@ -42,19 +42,19 @@ export function ManifestoSection() {
         />
       </div>
 
-      <div ref={trackRef} className="relative h-[180vh]">
+      {/* Shorter on phones: the turn needs less thumb travel to read. */}
+      <div ref={trackRef} className="relative h-[150vh] lg:h-[180vh]">
         <div className="sticky top-0 flex h-[100svh] items-center">
           <div className="grid w-full items-center gap-10 rail lg:grid-cols-[1fr_auto] lg:gap-16">
             {/* Explicit px, not `ch`: a ch-based max-width resolves against the
                 parent's 15px body size and would clip the 80px display type. */}
             <div className="max-w-[640px]">
-              <p className="t-label text-white/45">(Why GrowingUp)</p>
               <MaskReveal
                 as="h2"
                 lines={["왜", "GrowingUp인가"]}
-                className="mt-3 t-display normal-case text-white"
+                className="t-display normal-case"
               />
-              <p className="mt-6 max-w-[44ch] t-body text-white/60">
+              <p className="mt-6 max-w-[40ch] t-lead fg-muted">
                 데이터 기반의 정확한 진단과 실행력으로 비즈니스의 본질적인 성장을
                 만들어갑니다. 추측이 아닌 근거로 의사결정하고, 실행한 결과를 다시
                 학습으로 되돌립니다.

@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { setScrollLocked } from "./smooth-scroll";
+import { cn } from "@/lib/utils";
 
 interface MegaMenuOverlayProps {
   open: boolean;
@@ -20,22 +23,29 @@ const MENU_ITEMS = [
 ];
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+const WIPE = [0.76, 0, 0.24, 1] as const;
 
 export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
+  const pathname = usePathname();
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
+    if (!open) return;
+    returnFocusRef.current = document.activeElement as HTMLElement | null;
+    setScrollLocked(true);
+    closeRef.current?.focus({ preventScroll: true });
+
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onOpenChange(false);
     };
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [onOpenChange]);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      setScrollLocked(false);
+      returnFocusRef.current?.focus({ preventScroll: true });
+    };
+  }, [open, onOpenChange]);
 
   return (
     <AnimatePresence>
@@ -44,66 +54,82 @@ export function MegaMenuOverlay({ open, onOpenChange }: MegaMenuOverlayProps) {
           role="dialog"
           aria-modal="true"
           aria-label="전체 메뉴"
-          // Wipes down from the top edge rather than fading, matching the page
-          // transition so navigation feels like one mechanism.
+          // Wipes down from the top edge, matching the page transition so
+          // navigation reads as one mechanism.
           initial={{ clipPath: "inset(0 0 100% 0)" }}
           animate={{ clipPath: "inset(0 0 0% 0)" }}
-          exit={{ clipPath: "inset(0 0 100% 0)" }}
-          transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[10000] flex flex-col bg-[var(--ink)] text-white"
+          exit={{ clipPath: "inset(0 0 100% 0)", transition: { duration: 0.6, ease: WIPE, delay: 0.1 } }}
+          transition={{ duration: 0.75, ease: WIPE }}
+          className="fixed inset-0 z-[10000] flex flex-col overflow-y-auto bg-[var(--ink)] pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] text-white"
+          data-lenis-prevent
         >
-          <div className="flex items-start justify-between px-[var(--gut)] pt-5 text-[15px] font-semibold uppercase leading-[17px] lg:text-[17px]">
-            <span>Menu</span>
-            <button type="button" onClick={() => onOpenChange(false)} className="hover:opacity-60">
+          <div className="flex h-[var(--header-h)] shrink-0 items-center justify-between px-[var(--gut)] text-[15px] font-semibold uppercase leading-none lg:text-[16px]">
+            <Link href="/" onClick={() => onOpenChange(false)} className="flex h-11 items-center tracking-[-0.02em]">
+              GROWING&nbsp;UP
+            </Link>
+            <button
+              ref={closeRef}
+              type="button"
+              onClick={() => onOpenChange(false)}
+              className="-mr-1.5 flex h-11 items-center px-1.5 uppercase transition-opacity hover:opacity-60"
+            >
               Close
             </button>
           </div>
 
-          <nav className="flex flex-1 flex-col justify-center px-[var(--gut)]">
-            <ul className="border-t border-dashed border-[var(--rule)]">
-              {MENU_ITEMS.map((item, i) => (
-                <motion.li
-                  key={item.href}
-                  className="border-b border-dashed border-[var(--rule)]"
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.6, ease: EASE, delay: 0.2 + i * 0.045 }}
-                >
-                  <Link
-                    href={item.href}
-                    onClick={() => onOpenChange(false)}
-                    className="group flex items-baseline gap-5 py-3 md:gap-8"
-                  >
-                    <span className="t-label w-8 shrink-0 text-white/40">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="text-[clamp(2rem,5.5vw,5.5rem)] font-semibold uppercase leading-[1.02] tracking-[-0.03em] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-3">
-                      {item.label}
-                    </span>
-                    <span className="t-label ml-auto text-white/40">{item.kr}</span>
-                  </Link>
-                </motion.li>
-              ))}
+          <nav aria-label="전체 메뉴 목록" className="flex flex-1 flex-col justify-center px-[var(--gut)] py-6">
+            <ul className="border-t border-dashed border-white/25">
+              {MENU_ITEMS.map((item, i) => {
+                const isActive = pathname === item.href;
+                return (
+                  <li key={item.href} className="overflow-hidden border-b border-dashed border-white/25">
+                    <motion.div
+                      initial={{ y: "105%" }}
+                      animate={{ y: "0%" }}
+                      exit={{ y: "-105%", transition: { duration: 0.4, ease: WIPE, delay: i * 0.02 } }}
+                      transition={{ duration: 0.8, ease: EASE, delay: 0.28 + i * 0.05 }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={() => onOpenChange(false)}
+                        aria-current={isActive ? "page" : undefined}
+                        className="group flex items-center gap-4 py-2.5 md:gap-8 md:py-3"
+                      >
+                        <span
+                          className={cn(
+                            "text-[clamp(2rem,min(6vw,7.4vh),5.75rem)] font-semibold uppercase leading-[1.02] tracking-[-0.035em] transition-[transform,color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-3 group-hover:text-[var(--signal-soft)]",
+                            isActive && "text-[var(--signal-soft)]"
+                          )}
+                        >
+                          {item.label}
+                        </span>
+                        <span className="ml-auto text-[14px] font-medium text-white/50 transition-colors duration-300 group-hover:text-white">
+                          {item.kr}
+                        </span>
+                      </Link>
+                    </motion.div>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
           <motion.div
-            className="flex flex-col gap-3 px-[var(--gut)] pb-6 t-label text-white/50 md:flex-row md:items-center md:justify-between"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
+            className="flex shrink-0 flex-col gap-4 px-[var(--gut)] pb-6 md:flex-row md:items-center md:justify-between"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, transition: { duration: 0.2 } }}
+            transition={{ delay: 0.6, duration: 0.6, ease: EASE }}
           >
-            <a href="mailto:jaeil@wekeepgrowing.com" className="hover:text-white">
+            <a href="mailto:jaeil@wekeepgrowing.com" className="text-[15px] font-medium text-white/60 transition-colors hover:text-white">
               jaeil@wekeepgrowing.com
             </a>
             <Link
               href="/diagnosis"
               onClick={() => onOpenChange(false)}
-              className="bg-white px-6 py-3 text-center font-semibold text-[var(--ink)] transition-opacity hover:opacity-85"
+              className="bg-white px-6 py-4 text-center text-[13px] font-semibold uppercase text-[var(--ink)] transition-colors hover:bg-[var(--signal)] hover:text-white"
             >
-              Start a project
+              진단 요청하기
             </Link>
           </motion.div>
         </motion.div>

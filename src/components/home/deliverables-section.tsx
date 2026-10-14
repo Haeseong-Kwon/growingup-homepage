@@ -47,16 +47,15 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  */
 export function DeliverablesSection() {
   return (
-    <section className="bg-[var(--ink)] py-[12vh] text-white">
+    <section className="tone-paper py-[12vh]">
       <div className="rail">
-        <p className="t-label text-white/45">(Deliverables)</p>
-        <div className="mt-3 flex flex-wrap items-end justify-between gap-8">
+        <div className="flex flex-wrap items-end justify-between gap-8">
           <MaskReveal
             as="h2"
             lines={["What you", "actually get"]}
-            className="t-display text-white"
+            className="t-display"
           />
-          <p className="max-w-[40ch] pb-2 t-body text-white/60">
+          <p className="max-w-[40ch] pb-2 t-lead fg-muted">
             모호한 조언이 아닌, 실체 있는 결과물을 제공합니다. 모든 산출물은 귀사의
             영구적인 자산이 됩니다.
           </p>
@@ -68,13 +67,13 @@ export function DeliverablesSection() {
           {GROUPS.map((group, i) => (
             <motion.li
               key={group.title}
-              className="group grid gap-6 border-b border-dashed border-[var(--rule)] py-9 md:grid-cols-[auto_1fr_1.4fr] md:gap-12"
+              className="group grid gap-5 border-b border-dashed border-[var(--rule)] py-8 md:grid-cols-[auto_1fr_1.4fr] md:gap-12 md:py-10"
               initial={{ opacity: 0, y: 34 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-10% 0px -10% 0px" }}
+              viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
               transition={{ duration: 0.9, ease: EASE, delay: i * 0.07 }}
             >
-              <span className="t-label text-white/40 md:w-16">
+              <span className="text-[13px] font-semibold tabular-nums fg-proof md:w-16">
                 {String(i + 1).padStart(2, "0")}
               </span>
 
@@ -82,19 +81,17 @@ export function DeliverablesSection() {
                 <h3 className="text-[clamp(22px,2.3vw,40px)] font-semibold leading-none tracking-[-0.025em] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2">
                   {group.title}
                 </h3>
-                <p className="mt-2 t-label text-white/40">{group.latin}</p>
-                <p className="mt-4 t-body text-white/60">{group.description}</p>
+                <p className="mt-2 t-label fg-faint">{group.latin}</p>
+                <p className="mt-4 t-body fg-muted">{group.description}</p>
               </div>
 
               <ul className="grid gap-x-8 gap-y-2 sm:grid-cols-2">
                 {group.items.map((item) => (
                   <li
                     key={item}
-                    className="flex items-baseline gap-3 t-body text-white/70"
+                    className="flex items-baseline gap-3 border-b border-dashed border-[var(--rule)] py-2 t-body sm:border-0 sm:py-0"
                   >
-                    <span aria-hidden className="text-white/30">
-                      —
-                    </span>
+                    <span aria-hidden className="h-1.5 w-1.5 shrink-0 -translate-y-[3px] bg-[var(--signal)]" />
                     {item}
                   </li>
                 ))}

@@ -18,7 +18,7 @@ function Entry({ entry, index }: { entry: HistoryEntry; index: number }) {
       className="relative pb-12 last:pb-0"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-10% 0px -10% 0px" }}
+      viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
       transition={{ duration: 0.85, ease: EASE, delay: index * 0.05 }}
     >
       {/* 레일 위의 점. 마일스톤은 채워지고 링을 답니다. */}
@@ -26,34 +26,34 @@ function Entry({ entry, index }: { entry: HistoryEntry; index: number }) {
         aria-hidden
         className={
           entry.key
-            ? "absolute left-[calc(-1*var(--rail-gap)-5px)] top-[9px] h-[11px] w-[11px] rounded-full bg-white ring-[5px] ring-white/12"
-            : "absolute left-[calc(-1*var(--rail-gap)-5px)] top-[9px] h-[11px] w-[11px] rounded-full border border-white/45 bg-[var(--ink)]"
+            ? "absolute left-[calc(-1*var(--rail-gap)-5px)] top-[9px] h-[11px] w-[11px] rounded-full bg-[var(--signal)] ring-[5px] ring-[var(--signal)]/15"
+            : "absolute left-[calc(-1*var(--rail-gap)-5px)] top-[9px] h-[11px] w-[11px] rounded-full border border-[var(--tone-faint)] bg-[var(--tone-bg)]"
         }
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
-        viewport={{ once: false, margin: "-10% 0px -10% 0px" }}
+        viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
         transition={{ duration: 0.6, ease: EASE, delay: index * 0.05 + 0.1 }}
       />
 
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-        <span className="t-label text-white/40">{entry.when}</span>
-        <span className="rule-box px-2.5 py-0.5 t-label text-white/55">{entry.category}</span>
+        <span className="t-label fg-faint tabular-nums">{entry.when}</span>
+        <span className="rule-box px-2.5 py-0.5 t-label fg-muted">{entry.category}</span>
       </div>
 
       <h3
         className={
           entry.key
-            ? "mt-3 text-[clamp(20px,2.1vw,34px)] font-semibold leading-[1.2] tracking-[-0.025em] text-white"
-            : "mt-3 text-[clamp(17px,1.6vw,26px)] font-semibold leading-[1.25] tracking-[-0.02em] text-white/90"
+            ? "mt-3 text-[clamp(20px,2.1vw,34px)] font-semibold leading-[1.2] tracking-[-0.025em]"
+            : "mt-3 text-[clamp(17px,1.6vw,26px)] font-semibold leading-[1.25] tracking-[-0.02em]"
         }
       >
         {entry.title}
       </h3>
 
-      <p className="mt-3 max-w-[62ch] t-body text-white/55">{entry.body}</p>
+      <p className="mt-3 max-w-[62ch] t-body fg-muted">{entry.body}</p>
 
       {entry.highlight && (
-        <p className="mt-5 border-l border-white pl-4 t-body font-semibold text-white">
+        <p className="mt-5 border-l-2 border-[var(--signal)] pl-4 t-body font-semibold">
           {entry.highlight}
         </p>
       )}
@@ -62,8 +62,8 @@ function Entry({ entry, index }: { entry: HistoryEntry; index: number }) {
         <div className="mt-5 flex flex-wrap gap-3">
           {entry.facts.map((fact) => (
             <div key={fact.label} className="rule-box px-4 py-2.5">
-              <span className="block t-label text-white/40">{fact.label}</span>
-              <span className="mt-1 block text-[clamp(15px,1.2vw,19px)] font-semibold tracking-[-0.02em] text-white">
+              <span className="block t-label fg-faint">{fact.label}</span>
+              <span className="mt-1 block text-[clamp(17px,1.4vw,22px)] font-semibold tracking-[-0.02em] fg-proof tabular-nums">
                 {fact.value}
               </span>
             </div>
@@ -100,10 +100,10 @@ function YearBlock({ year, blockIndex }: { year: HistoryYear; blockIndex: number
         <MaskReveal
           as="p"
           lines={[year.year]}
-          className="text-[clamp(38px,4.4vw,76px)] font-semibold leading-[0.9] tracking-[-0.04em] text-white"
+          className="text-[clamp(44px,4.8vw,84px)] font-semibold leading-[0.9] tracking-[-0.05em] tabular-nums"
           delay={blockIndex * 0.04}
         />
-        <p className="mt-3 t-label text-white/40">{year.label}</p>
+        <p className="mt-3 t-label fg-faint">{year.label}</p>
       </div>
 
       <ol
@@ -115,7 +115,7 @@ function YearBlock({ year, blockIndex }: { year: HistoryYear; blockIndex: number
         {!prefersReducedMotion && (
           <motion.span
             aria-hidden
-            className="absolute -left-px top-0 h-full w-px origin-top bg-white/70"
+            className="absolute -left-px top-0 h-full w-[2px] origin-top bg-[var(--signal)]"
             style={{ scaleY }}
           />
         )}
@@ -135,12 +135,11 @@ function YearBlock({ year, blockIndex }: { year: HistoryYear; blockIndex: number
  */
 export function HistorySection() {
   return (
-    <section id="history" className="bg-[var(--ink)] py-[12vh] text-white">
+    <section id="history" className="tone-paper py-[12vh]">
       <div className="rail">
-        <p className="t-label text-white/45">(History)</p>
-        <div className="mt-3 flex flex-wrap items-end justify-between gap-8">
-          <MaskReveal as="h2" lines={["연혁"]} className="t-display normal-case text-white" />
-          <p className="max-w-[44ch] pb-2 t-body text-white/60">
+        <div className="flex flex-wrap items-end justify-between gap-8">
+          <MaskReveal as="h2" lines={["연혁"]} className="t-display normal-case" />
+          <p className="max-w-[44ch] pb-2 t-body fg-muted">
             고려대학교 창업스튜디오 3층에서 시작해, 우리 제품을 먼저 팔아보고, 그
             방법을 다른 브랜드에 적용해 온 3년의 기록입니다.
           </p>
@@ -154,20 +153,20 @@ export function HistorySection() {
               className="group border-b border-dashed border-[var(--rule)] py-7 transition-colors duration-500 lg:border-b-0 lg:border-l lg:px-6 lg:first:border-l-0 lg:first:pl-0"
               initial={{ opacity: 0, y: 26 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-12% 0px -12% 0px" }}
+              viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
               transition={{ duration: 0.85, ease: EASE, delay: i * 0.08 }}
             >
-              <span className="t-label text-white/40">{arc.year}</span>
+              <span className="t-label fg-faint tabular-nums">{arc.year}</span>
               <h3 className="mt-5 text-[clamp(24px,2.4vw,40px)] font-semibold leading-none tracking-[-0.03em] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5">
                 {arc.field}
               </h3>
-              <p className="mt-4 t-body font-semibold text-white/90">{arc.subject}</p>
-              <p className="mt-1 t-body text-white/50">{arc.detail}</p>
+              <p className="mt-4 t-body font-semibold">{arc.subject}</p>
+              <p className="mt-1 t-body fg-muted">{arc.detail}</p>
             </motion.article>
           ))}
         </div>
 
-        <p className="mt-10 max-w-[52ch] t-lead text-white/70">
+        <p className="mt-10 max-w-[44ch] t-lead fg-muted">
           평균 3.5개월마다 새로운 카테고리의 런칭을 겪었습니다. 카테고리는 달랐지만,
           아이템을 다시 정의하는 방법은 같았습니다.
         </p>

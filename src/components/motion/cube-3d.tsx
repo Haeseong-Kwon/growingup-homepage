@@ -110,7 +110,7 @@ export function Cube3D({
                 {row.map((word) => (
                   <span
                     key={word}
-                    className="text-[clamp(9px,1.45vw,21px)] font-medium uppercase leading-none tracking-[-0.01em] text-white/85"
+                    className="text-[clamp(10px,2.7vw,21px)] lg:text-[clamp(10px,1.45vw,21px)] font-medium uppercase leading-none tracking-[-0.01em] text-white/85"
                   >
                     {word}
                   </span>

@@ -13,11 +13,17 @@ import {
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { DrawnFrame } from "@/components/motion/line-draw";
+import { Magnetic } from "@/components/motion/magnetic";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface Cta {
   label: string;
   href: string;
+}
+
+interface ProofPoint {
+  value: string;
+  label: string;
 }
 
 interface HeroSceneProps {
@@ -33,6 +39,8 @@ interface HeroSceneProps {
   plates?: string[];
   /** Run the counter intro and the full pinned flight. Front door only. */
   intro?: boolean;
+  /** Shipped results set beside the CTAs — the claim, backed on arrival. */
+  proof?: ProofPoint[];
 }
 
 const DEFAULT_PLATES = [
@@ -84,7 +92,8 @@ const PANEL_SPECS: PanelSpec[] = [
   { left: 68, top: 42, rotFrom: 40, rotTo: -46, tiltFrom: -10, tiltTo: 10, rollFrom: -4, rollTo: 4 },
 ];
 
-const INTRO_MS = 2200;
+// Long enough to read as a deliberate count, short enough not to gate content.
+const INTRO_MS = 1400;
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 function useIntroProgress(active: boolean) {
@@ -121,21 +130,25 @@ function HeroHeadline({
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <h1 className="t-display max-w-[20ch] normal-case text-white [line-height:1.04] md:[line-height:1]">
+    <h1 className="max-w-[18ch] text-[clamp(2.5rem,7.2vw,8.25rem)] font-semibold leading-[1.02] tracking-[-0.04em] text-white">
       {lines.map((line, i) => (
-        <motion.span
-          key={line}
-          className="block text-pretty"
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
-          animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.95,
-            ease: EASE,
-            delay: delay + i * stagger,
-          }}
-        >
-          {line}
-        </motion.span>
+        <span key={line} className="mask-line">
+          <motion.span
+            className="block text-pretty"
+            // Always animate to rest: the reduced-motion flag only resolves after
+            // hydration, so an `animate={undefined}` branch would strand the SSR'd
+            // line below its mask.
+            initial={{ y: "110%", rotate: 2 }}
+            animate={{ y: "0%", rotate: 0 }}
+            transition={
+              prefersReducedMotion
+                ? { duration: 0 }
+                : { duration: 1.15, ease: EASE, delay: delay + i * stagger }
+            }
+          >
+            {line}
+          </motion.span>
+        </span>
       ))}
     </h1>
   );
@@ -181,7 +194,7 @@ function DepthPanel({
 
   return (
     <motion.div
-      className="absolute h-[38vh] w-[30vw] max-w-[430px] overflow-hidden will-change-transform md:h-[46vh]"
+      className="absolute h-[30vh] w-[48vw] max-w-[430px] overflow-hidden will-change-transform md:h-[46vh] md:w-[30vw]"
       style={{
         left: `${spec.left}%`,
         top: `${spec.top}%`,
@@ -232,6 +245,7 @@ export function HeroScene({
   eyebrow = ["Growth Marketing", "Seoul, KR"],
   plates = DEFAULT_PLATES,
   intro = false,
+  proof,
 }: HeroSceneProps) {
   const trackRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -305,10 +319,10 @@ export function HeroScene({
   return (
     <section
       ref={trackRef}
-      className="relative z-0 w-full bg-[var(--ink)] text-white"
-      // 190svh gives the flight ~90vh of scroll — long enough to read as travel,
-      // short enough that the pin never sits on an emptied-out frame.
-      style={{ height: pinned ? "190svh" : "100svh" }}
+      // 190svh gives the flight ~90vh of scroll on desktop — long enough to read
+      // as travel. Phones get 150svh: a thumb covers distance faster, and a long
+      // pin there feels like the page is stuck.
+      className={`relative z-0 w-full bg-[var(--ink)] text-white ${pinned ? "h-[150svh] md:h-[190svh]" : "h-[100svh]"}`}
     >
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
         {/* Depth rig */}
@@ -399,7 +413,7 @@ export function HeroScene({
 
         {/* Headline block — given its own z so it floats clear of the plates */}
         <motion.div
-          className="absolute inset-x-0 bottom-0 z-10 rail pb-[calc(var(--gut)+4.5rem)]"
+          className="absolute inset-x-0 bottom-0 z-10 rail pb-[calc(var(--gut)+3rem+env(safe-area-inset-bottom))] md:pb-[calc(var(--gut)+4rem)]"
           style={
             prefersReducedMotion
               ? undefined
@@ -409,12 +423,12 @@ export function HeroScene({
           <HeroHeadline
             lines={line2 ? [line1, line2] : [line1]}
             delay={revealDelay}
-            stagger={0.11}
+            stagger={0.09}
           />
 
-          <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="mt-7 flex flex-col gap-6 md:mt-9 md:flex-row md:items-end md:justify-between">
             <motion.p
-              className="max-w-[38ch] t-body text-white/60"
+              className="max-w-[38ch] t-body text-white/70"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: revealDelay + 0.3, ease: EASE }}
@@ -423,30 +437,54 @@ export function HeroScene({
             </motion.p>
 
             <motion.div
-              className="flex flex-wrap items-center gap-3"
+              className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: revealDelay + 0.42, ease: EASE }}
             >
               {primaryCta && (
-                <Link
-                  href={primaryCta.href}
-                  className="group inline-flex items-center gap-2 bg-white px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.01em] text-[var(--ink)] transition-colors hover:bg-white/85"
-                >
-                  {primaryCta.label}
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
+                <Magnetic strength={0.25} className="w-full sm:w-auto">
+                  <Link
+                    href={primaryCta.href}
+                    className="group inline-flex h-12 w-full items-center justify-center gap-2 bg-white px-6 text-[14px] font-semibold tracking-[-0.01em] text-[var(--ink)] transition-colors duration-300 hover:bg-[var(--signal)] hover:text-white sm:w-auto"
+                  >
+                    {primaryCta.label}
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
+                </Magnetic>
               )}
               {secondaryCta && (
-                <Link
-                  href={secondaryCta.href}
-                  className="inline-flex items-center gap-2 rule-box px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.01em] text-white transition-colors hover:bg-white hover:text-[var(--ink)]"
-                >
-                  {secondaryCta.label}
-                </Link>
+                <Magnetic strength={0.25} className="w-full sm:w-auto">
+                  <Link
+                    href={secondaryCta.href}
+                    className="inline-flex h-12 w-full items-center justify-center gap-2 border border-white/40 px-6 text-[14px] font-semibold tracking-[-0.01em] text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-[var(--ink)] sm:w-auto"
+                  >
+                    {secondaryCta.label}
+                  </Link>
+                </Magnetic>
               )}
             </motion.div>
           </div>
+
+          {proof && proof.length > 0 && (
+            <motion.dl
+              className="mt-8 grid grid-cols-3 gap-4 border-t border-white/15 pt-4 md:mt-10 md:max-w-[640px] md:gap-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: revealDelay + 0.6 }}
+            >
+              {proof.map((point) => (
+                <div key={point.label} className="flex flex-col-reverse">
+                  <dt className="mt-2 text-[12px] font-medium leading-snug text-white/55 md:text-[13px]">
+                    {point.label}
+                  </dt>
+                  <dd className="text-[clamp(18px,2vw,30px)] font-semibold leading-none tracking-[-0.03em] text-[var(--signal-soft)] tabular-nums">
+                    {point.value}
+                  </dd>
+                </div>
+              ))}
+            </motion.dl>
+          )}
         </motion.div>
 
         {/* Foot rule: nested so the scroll retract and the intro draw don't

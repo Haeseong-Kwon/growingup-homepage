@@ -25,74 +25,62 @@ const PILLARS = [
   },
 ];
 
+const EASE = [0.16, 1, 0.3, 1] as const;
+
 /**
- * Third beat: a fixed plate holds still while the page scrolls over it, and a
- * solid band wipes across to uncover the brand mark. The three pillars are then
+ * Third beat, and the first paper surface: the page turns from ink to sheet,
+ * and an ink band wipes across to print the brand mark. The three pillars are
  * stitched together with dashed rules that draw themselves in.
  */
 export function PillarsSection() {
   return (
-    <section className="relative overflow-hidden bg-[var(--ink)] text-white">
-      {/* Fixed plate: stays put under the scroll, which reads as depth without
-          any transform work. */}
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-cover bg-fixed bg-center opacity-30 grayscale"
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&h=1280&fit=crop)",
-        }}
-      />
-      <div aria-hidden className="absolute inset-0 bg-[var(--ink)]/55" />
-
-      <div className="relative flex min-h-[100svh] flex-col justify-center py-[14vh]">
+    <section className="tone-paper relative overflow-hidden">
+      <div className="relative flex flex-col justify-center pb-[10vh] pt-[14vh] md:min-h-[90svh]">
         <BandWipe text="GROWING UP — GROWING UP — GROWING UP" />
 
         {/* Paired marks split by a rule that grows out from the centre */}
-        <div className="relative mt-[10vh] flex items-center justify-center gap-[12%] rail md:gap-[17%]">
+        <div className="relative mt-[8vh] flex items-center justify-center gap-[12%] rail md:gap-[17%]">
           <GrowRule className="absolute left-1/2 top-1/2 h-[clamp(56px,7vw,120px)] -translate-x-1/2 -translate-y-1/2" />
           {BAND_MARKS.map((mark, i) => (
             <motion.span
               key={mark}
-              className="text-[clamp(28px,3vw,72px)] font-semibold uppercase leading-none tracking-[-0.01em]"
+              className="text-[clamp(26px,3vw,72px)] font-semibold uppercase leading-none tracking-[-0.02em]"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-20% 0px -20% 0px" }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: i * 0.12 }}
+              viewport={{ once: true, margin: "-20% 0px -20% 0px" }}
+              transition={{ duration: 0.9, ease: EASE, delay: i * 0.12 }}
             >
               {mark}
             </motion.span>
           ))}
         </div>
 
-        <div className="mt-[8vh] rail">
-          <p className="mx-auto max-w-[52ch] text-center t-body text-white/70">
+        <div className="mt-[7vh] rail">
+          <p className="mx-auto max-w-[44ch] text-center t-lead fg-muted">
             5단계 운영 루프로 런칭의 불확실성을 체계적으로 관리하며, 각 단계마다
             명확한 산출물과 의사결정 기준을 제공합니다.
           </p>
         </div>
       </div>
 
-      {/* Pillar detail — dashed column grid, the reference's specimen-sheet motif */}
+      {/* Pillar detail — dashed column grid, the specimen-sheet motif */}
       <div className="relative rail pb-[14vh]">
-        <MaskReveal
-          as="h2"
-          lines={["What we", "stand on"]}
-          className="t-display mb-12 text-white"
-        />
+        <MaskReveal as="h2" lines={["What we", "stand on"]} className="t-display mb-10 md:mb-14" />
         <div className="grid rule-t md:grid-cols-3">
           {PILLARS.map((pillar, i) => (
             <motion.article
               key={pillar.title}
-              className="flex flex-col gap-4 py-8 md:border-l md:border-dashed md:border-[var(--rule)] md:px-7 md:first:border-l-0 md:first:pl-0"
+              className="group flex flex-col gap-3 border-b border-dashed border-[var(--rule)] py-8 md:gap-4 md:border-b-0 md:border-l md:px-7 md:py-10 md:first:border-l-0 md:first:pl-0"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-12% 0px -12% 0px" }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
+              viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
+              transition={{ duration: 0.9, ease: EASE, delay: i * 0.1 }}
             >
-              <span className="t-label text-white/45">0{i + 1}</span>
-              <h3 className="t-headline">{pillar.title}</h3>
-              <p className="t-body text-white/60">{pillar.body}</p>
+              <span className="text-[clamp(44px,5vw,88px)] font-semibold leading-[0.9] tracking-[-0.05em] text-transparent [-webkit-text-stroke:1px_var(--tone-fg)] transition-colors duration-500 group-hover:text-[var(--tone-fg)]">
+                {pillar.mark}
+              </span>
+              <h3 className="mt-4 t-headline">{pillar.title}</h3>
+              <p className="max-w-[36ch] t-body fg-muted">{pillar.body}</p>
             </motion.article>
           ))}
         </div>
