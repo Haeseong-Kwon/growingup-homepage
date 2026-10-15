@@ -14,7 +14,7 @@ import { DURATION, EASE, REVEAL_VIEWPORT, SCROLL_SPRING } from "@/lib/motion";
 function Entry({ entry, index }: { entry: HistoryEntry; index: number }) {
   return (
     <motion.li
-      className="relative pb-12 last:pb-0"
+      className={entry.key ? "relative pb-14 last:pb-0" : "relative pb-8 last:pb-0"}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={REVEAL_VIEWPORT}
@@ -42,14 +42,22 @@ function Entry({ entry, index }: { entry: HistoryEntry; index: number }) {
       <h3
         className={
           entry.key
-            ? "mt-3 text-[clamp(20px,2.1vw,34px)] font-semibold leading-[1.2] tracking-[-0.025em] text-white"
-            : "mt-3 text-[clamp(17px,1.6vw,26px)] font-semibold leading-[1.25] tracking-[-0.02em] text-white/90"
+            ? "mt-3 text-[clamp(24px,2.6vw,44px)] font-semibold leading-[1.15] tracking-[-0.035em] text-white"
+            : "mt-2 text-[clamp(16px,1.3vw,21px)] font-semibold leading-[1.3] tracking-[-0.02em] text-white/85"
         }
       >
         {entry.title}
       </h3>
 
-      <p className="mt-3 max-w-[62ch] t-body text-white/70">{entry.body}</p>
+      <p
+        className={
+          entry.key
+            ? "mt-3 max-w-[60ch] t-lead text-white/75"
+            : "mt-2 line-clamp-2 max-w-[62ch] t-body text-white/55"
+        }
+      >
+        {entry.body}
+      </p>
 
       {entry.highlight && (
         <p className="mt-5 border-l border-white pl-4 t-body font-semibold text-white">
@@ -62,7 +70,7 @@ function Entry({ entry, index }: { entry: HistoryEntry; index: number }) {
           {entry.facts.map((fact) => (
             <div key={fact.label} className="rule-box px-4 py-2.5">
               <span className="block t-label text-white/40">{fact.label}</span>
-              <span className="mt-1 block text-[clamp(15px,1.2vw,19px)] font-semibold tracking-[-0.02em] text-white">
+              <span className="mt-1 block text-[clamp(20px,1.8vw,30px)] font-semibold tracking-[-0.03em] text-white tabular-nums">
                 {fact.value}
               </span>
             </div>
@@ -89,12 +97,12 @@ function YearBlock({ year, blockIndex }: { year: HistoryYear; blockIndex: number
   const scaleY = useTransform(smooth, [0, 1], [0, 1]);
 
   return (
-    <div className="grid gap-y-8 border-t border-dashed border-[var(--rule)] py-10 md:grid-cols-[minmax(0,180px)_1fr] md:gap-x-12 md:py-14">
+    <div className="grid gap-y-8 border-t border-dashed border-[var(--rule)] py-10 md:grid-cols-[minmax(0,30%)_1fr] md:gap-x-12 md:py-16">
       <div className="md:sticky md:top-[calc(var(--header-h)+48px)] md:self-start">
         <MaskReveal
           as="p"
           lines={[year.year]}
-          className="text-[clamp(38px,4.4vw,76px)] font-semibold leading-[0.9] tracking-[-0.04em] text-white"
+          className="text-[clamp(76px,11vw,210px)] font-semibold leading-[0.82] tracking-[-0.065em] text-white tabular-nums"
           delay={blockIndex * 0.04}
         />
         <p className="mt-3 t-label text-white/40">{year.label}</p>
