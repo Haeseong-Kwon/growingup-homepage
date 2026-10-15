@@ -1,4 +1,5 @@
 import { HeroScene } from "@/components/home/hero-scene";
+import { Preloader } from "@/components/home/preloader";
 import { ManifestoSection } from "@/components/home/manifesto-section";
 import { StatementBand } from "@/components/home/statement-band";
 import { PillarsSection } from "@/components/home/pillars-section";
@@ -103,6 +104,7 @@ const faqItems: FaqItem[] = [
 export default function HomePage() {
   return (
     <div className="relative bg-[var(--ink)]">
+      <Preloader />
       <HeroScene
         intro
         line1="런칭을 기획서가 아닌"

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   motion,
   useMotionValue,
@@ -12,9 +12,9 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { DrawnFrame } from "@/components/motion/line-draw";
 import { Magnetic } from "@/components/motion/magnetic";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { useIntroDone } from "@/lib/intro-store";
 import { EASE, EASE_IN_OUT, SCROLL_SPRING } from "@/lib/motion";
 
 interface Cta {
@@ -86,64 +86,53 @@ const PANEL_SPECS: PanelSpec[] = [
   { left: 68, top: 42, rotFrom: 40, rotTo: -46, tiltFrom: -10, tiltTo: 10, rollFrom: -4, rollTo: 4 },
 ];
 
-// Long enough to read as a deliberate count, short enough not to gate content.
-const INTRO_MS = 1400;
-
-function useIntroProgress(active: boolean) {
-  const [value, setValue] = useState(active ? 0 : 100);
-
-  useEffect(() => {
-    if (!active) return;
-    let frame = 0;
-    let start: number | null = null;
-
-    const tick = (now: number) => {
-      start ??= now;
-      const p = Math.min((now - start) / INTRO_MS, 1);
-      setValue(Math.round(p * 100));
-      if (p < 1) frame = requestAnimationFrame(tick);
-    };
-
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [active]);
-
-  // `active` starts true on the server and can flip false after hydration (the
-  // reduced-motion flag resolves late), cancelling the loop mid-count. Reporting
-  // "done" whenever inactive keeps the counter from freezing on screen.
-  return active ? value : 100;
-}
-
 function HeroHeadline({
   lines,
+  isReady,
   delay,
-  stagger,
 }: {
   lines: string[];
+  isReady: boolean;
   delay: number;
-  stagger: number;
 }) {
   const prefersReducedMotion = useReducedMotion();
+  let charIndex = 0;
 
   return (
-    <h1 className="max-w-[18ch] text-[clamp(2.5rem,5.4vw,6rem)] font-semibold leading-[1.04] tracking-[-0.035em] text-white">
-      {lines.map((line, i) => (
-        <span key={line} className="mask-line">
-          <motion.span
-            className="block text-pretty"
-            // Always animate to rest: the reduced-motion flag only resolves after
-            // hydration, so an `animate={undefined}` branch would strand the SSR'd
-            // line below its mask.
-            initial={{ y: "110%", rotate: 2 }}
-            animate={{ y: "0%", rotate: 0 }}
-            transition={
-              prefersReducedMotion
-                ? { duration: 0 }
-                : { duration: 1.15, ease: EASE, delay: delay + i * stagger }
-            }
-          >
-            {line}
-          </motion.span>
+    // Display size tracks the viewport so the longer line spans the rail; the
+    // characters rise in sequence, so the sentence is read in as it lands.
+    <h1
+      aria-label={lines.join(" ")}
+      className="text-[clamp(2.6rem,7.3vw,9rem)] font-semibold leading-[1.02] tracking-[-0.045em] text-white"
+    >
+      {lines.map((line) => (
+        <span key={line} aria-hidden className="mask-line">
+          {line.split(" ").map((word, w, words) => (
+            <span key={w} className="inline-block whitespace-nowrap">
+              {Array.from(word).map((char) => {
+                const i = charIndex++;
+                return (
+                  <motion.span
+                    key={i}
+                    className="inline-block"
+                    // Always animate to a defined state: the reduced-motion flag
+                    // resolves after hydration, and an undefined target would
+                    // strand the SSR'd glyph below its mask.
+                    initial={{ y: "112%" }}
+                    animate={{ y: isReady ? "0%" : "112%" }}
+                    transition={
+                      prefersReducedMotion
+                        ? { duration: 0 }
+                        : { duration: 1.05, ease: EASE, delay: delay + i * 0.028 }
+                    }
+                  >
+                    {char}
+                  </motion.span>
+                );
+              })}
+              {w < words.length - 1 && "\u00A0"}
+            </span>
+          ))}
         </span>
       ))}
     </h1>
@@ -190,7 +179,7 @@ function DepthPanel({
 
   return (
     <motion.div
-      className="absolute h-[22vh] w-[44vw] max-w-[430px] overflow-hidden will-change-transform md:h-[46vh] md:w-[30vw]"
+      className="absolute h-[22vh] w-[44vw] max-w-[430px] overflow-hidden will-change-transform md:h-[34vh] md:w-[24vw]"
       style={{
         left: `${spec.left}%`,
         // Phones lift the deck clear of the four-line headline below it.
@@ -247,9 +236,9 @@ export function HeroScene({
   const videoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  const runIntro = intro && !prefersReducedMotion;
-  const progress = useIntroProgress(runIntro);
-  const introDone = progress >= 100;
+  // The front door waits for the preloader's curtain; inner pages start at once.
+  const introDone = useIntroDone();
+  const isReady = !intro || introDone;
 
   // Pinned for a viewport and a half past the fold, which is the room the
   // flight needs to read as travel. Inner pages skip the pin entirely.
@@ -305,9 +294,8 @@ export function HeroScene({
     return () => window.removeEventListener("pointermove", onMove);
   }, [pointerX, pointerY, prefersReducedMotion]);
 
-  // The headline rises while the counter is still running: the count frames the
-  // entrance rather than gating it, so the main line lands well inside LCP budget.
-  const revealDelay = runIntro ? 0.35 : 0.25;
+  // Starts as the curtain begins to part, so the type rises out of the split.
+  const revealDelay = intro ? 0.2 : 0.25;
   const backdropDepth = SPACING * (plates.length + 2);
 
   return (
@@ -325,7 +313,7 @@ export function HeroScene({
           style={{ perspective: `${PERSPECTIVE}px`, perspectiveOrigin: "50% 45%" }}
         >
           <motion.div
-            className="absolute inset-0 [--panel-lift:16%] [transform-style:preserve-3d] md:[--panel-lift:0%]"
+            className="absolute inset-0 [--panel-lift:16%] [transform-style:preserve-3d] md:[--panel-lift:12%]"
             style={
               prefersReducedMotion ? undefined : { rotateX, rotateY }
             }
@@ -377,14 +365,6 @@ export function HeroScene({
           style={prefersReducedMotion ? { opacity: 0.25 } : { opacity: vignette }}
         />
 
-        {runIntro && (
-          <motion.div
-            className="absolute inset-[var(--gut)] z-10 hidden text-white/30 md:block"
-            style={{ opacity: contentOpacity }}
-          >
-            <DrawnFrame duration={INTRO_MS / 1000} delay={0.1} />
-          </motion.div>
-        )}
 
         {/* Two layers: the outer carries the scroll fade (left standing, this
             collides with the header's copy as the pin releases), the inner
@@ -397,8 +377,8 @@ export function HeroScene({
           <motion.p
             className="t-label text-white/60"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.9, delay: revealDelay - 0.2 }}
+            animate={{ opacity: isReady ? 1 : 0 }}
+            transition={{ duration: 0.9, delay: revealDelay }}
           >
             {eyebrow.map((line) => (
               <span key={line} className="block">
@@ -419,16 +399,16 @@ export function HeroScene({
         >
           <HeroHeadline
             lines={line2 ? [line1, line2] : [line1]}
+            isReady={isReady}
             delay={revealDelay}
-            stagger={0.09}
           />
 
           <div className="mt-7 flex flex-col gap-6 md:mt-9 md:flex-row md:items-end md:justify-between">
             <motion.p
               className="max-w-[38ch] t-body text-white/70"
               initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: revealDelay + 0.3, ease: EASE }}
+              animate={isReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+              transition={{ duration: 1, delay: revealDelay + 0.55, ease: EASE }}
             >
               {subtitle}
             </motion.p>
@@ -436,8 +416,8 @@ export function HeroScene({
             <motion.div
               className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3"
               initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: revealDelay + 0.42, ease: EASE }}
+              animate={isReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+              transition={{ duration: 1, delay: revealDelay + 0.65, ease: EASE }}
             >
               {primaryCta && (
                 <Magnetic strength={0.25} className="w-full sm:w-auto">
@@ -473,28 +453,18 @@ export function HeroScene({
         >
           <motion.div
             className="h-px w-full origin-left bg-white/45"
-            initial={runIntro ? { scaleX: 0 } : { scaleX: 1 }}
-            animate={{ scaleX: 1 }}
-            transition={{
-              duration: runIntro ? INTRO_MS / 1000 : 1.1,
-              ease: EASE_IN_OUT,
-            }}
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: isReady ? 1 : 0 }}
+            transition={{ duration: 1.4, ease: EASE_IN_OUT, delay: revealDelay + 0.3 }}
           />
         </motion.div>
 
-        <motion.span
-          className="pointer-events-none absolute bottom-[calc(var(--gut)+0.6rem)] left-1/2 z-20 -translate-x-1/2 t-label tabular-nums text-white/70"
-          animate={{ opacity: introDone ? 0 : 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          {String(progress).padStart(3, "0")}
-        </motion.span>
 
         <motion.span
           className="pointer-events-none absolute bottom-[calc(var(--gut)+0.6rem)] right-[var(--gut)] z-20 t-label text-white/50"
           initial={{ opacity: 0 }}
-          animate={{ opacity: introDone ? 1 : 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          animate={{ opacity: isReady ? 1 : 0 }}
+          transition={{ duration: 0.6, delay: revealDelay + 1.2 }}
         >
           Scroll
         </motion.span>
