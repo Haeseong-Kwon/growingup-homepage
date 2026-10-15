@@ -108,7 +108,7 @@ export function Preloader() {
             </p>
 
             <div>
-              <p className="flex overflow-hidden whitespace-nowrap text-[15.4vw] font-semibold uppercase leading-[0.86] tracking-[-0.045em]">
+              <p className="flex overflow-hidden whitespace-nowrap text-[14.6vw] font-semibold uppercase leading-[0.86] tracking-[-0.045em]">
                 {WORDMARK.split("").map((char, i) => (
                   <motion.span
                     key={i}
