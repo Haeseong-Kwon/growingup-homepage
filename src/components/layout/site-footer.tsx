@@ -1,7 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { MaskReveal } from "@/components/motion/mask-reveal";
+import { EASE, REVEAL_VIEWPORT } from "@/lib/motion";
+
+const WORDMARK = "GROWING UP";
 
 const NAV_COLUMNS = [
   {
@@ -92,6 +96,27 @@ export function SiteFooter() {
           <span>All rights reserved</span>
         </div>
       </div>
+
+      {/* Sign-off wordmark at the full width of the page — the same mark the
+          intro opens on, so the page ends where it began. */}
+      <motion.p
+        aria-hidden
+        className="mt-10 flex justify-center overflow-hidden whitespace-nowrap px-[var(--gut)] pb-[1.6vw] text-[14.6vw] font-semibold uppercase leading-[0.8] tracking-[-0.045em] text-white md:mt-14"
+        initial="hidden"
+        whileInView="visible"
+        viewport={REVEAL_VIEWPORT}
+      >
+        {WORDMARK.split("").map((char, i) => (
+          <motion.span
+            key={i}
+            className="inline-block"
+            variants={{ hidden: { y: "100%" }, visible: { y: "0%" } }}
+            transition={{ duration: 1.1, ease: EASE, delay: i * 0.04 }}
+          >
+            {char === " " ? "\u00A0" : char}
+          </motion.span>
+        ))}
+      </motion.p>
     </footer>
   );
 }
