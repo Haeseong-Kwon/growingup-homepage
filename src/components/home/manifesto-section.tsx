@@ -52,7 +52,7 @@ export function ManifestoSection() {
               <MaskReveal
                 as="h2"
                 lines={["왜", "GrowingUp인가"]}
-                className="mt-4 text-[clamp(3.2rem,7.2vw,9rem)] font-semibold leading-[0.98] tracking-[-0.045em] text-white"
+                className="mt-4 text-[clamp(2.2rem,10.5vw,3.4rem)] font-semibold md:text-[clamp(3.2rem,7.2vw,9rem)] leading-[0.98] tracking-[-0.045em] text-white"
               />
               <p className="mt-8 max-w-[34ch] t-lead text-white/75">
                 데이터 기반의 정확한 진단과 실행력으로 비즈니스의 본질적인 성장을
