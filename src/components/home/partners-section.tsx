@@ -1,12 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { ParallaxPlate } from "@/components/motion/parallax-plate";
 import { TextTicker } from "@/components/motion/text-ticker";
 import { useCountUp } from "@/hooks/use-count-up";
 import { PARTNERS, TICKER_NAMES } from "@/data/partners";
-import { DURATION, EASE, REVEAL_VIEWPORT } from "@/lib/motion";
+
+const PARTNER_RAIL = PARTNERS.map((partner) => ({ name: partner.latin, featured: true }));
+const BRAND_RAIL = TICKER_NAMES.filter((item) => !("featured" in item));
 
 interface Stat {
   label: string;
@@ -69,37 +70,34 @@ export function PartnersSection() {
           />
         </div>
 
-        {/* 협력사 */}
-        <div className="mt-[10vh] rail">
-          <h3 className="t-label text-white/45">협력사 / Partners</h3>
-          <div className="mt-5 grid grid-cols-2 border-t border-dashed border-[var(--rule)] lg:grid-cols-4">
-            {PARTNERS.map((partner, i) => (
-              <motion.article
-                key={partner.latin}
-                className="group relative overflow-hidden border-b border-dashed border-[var(--rule)] p-5 transition-colors duration-500 odd:border-r hover:bg-white md:p-6 lg:border-b-0 lg:border-l lg:odd:border-r-0 lg:first:border-l-0"
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={REVEAL_VIEWPORT}
-                transition={{ duration: DURATION, ease: EASE, delay: i * 0.08 }}
-              >
-                <span className="t-label text-white/45 transition-colors duration-500 group-hover:text-black/50">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <p className="mt-8 text-[clamp(26px,2.6vw,44px)] font-semibold uppercase leading-none tracking-[-0.03em] transition-colors duration-500 group-hover:text-[var(--ink)]">
-                  {partner.latin}
-                </p>
-                <p className="mt-2 t-body text-white/70 transition-colors duration-500 group-hover:text-black/60">
-                  {partner.name}
-                </p>
-              </motion.article>
-            ))}
-          </div>
+        {/* Who we build with, as two oversized rails running against each
+            other: partner firms set solid, shipped brands set in outline. */}
+        <div className="mt-[8vh] border-y border-dashed border-[var(--rule)] py-6 md:py-9">
+          <h3 className="sr-only">협력사와 함께한 브랜드</h3>
+          <TextTicker
+            items={PARTNER_RAIL}
+            durationSeconds={36}
+            gap="clamp(36px, 6vw, 120px)"
+            itemClassName="text-[clamp(56px,10vw,184px)] uppercase leading-[0.92] tracking-[-0.05em]"
+          />
+          <TextTicker
+            items={BRAND_RAIL}
+            durationSeconds={48}
+            reverse
+            gap="clamp(36px, 6vw, 120px)"
+            className="mt-2 md:mt-4"
+            itemClassName="text-[clamp(44px,7.6vw,140px)] leading-[0.98] tracking-[-0.045em] !text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.55)] hover:!text-white"
+          />
         </div>
 
-        {/* Continuous name line */}
-        <div className="mt-[10vh] border-y border-dashed border-[var(--rule)] py-6">
-          <TextTicker items={TICKER_NAMES} durationSeconds={70} />
-        </div>
+        <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-2 rail">
+          <dt className="t-label text-white/45">협력사</dt>
+          {PARTNERS.map((partner) => (
+            <dd key={partner.latin} className="t-body text-white/70">
+              <span className="font-semibold text-white">{partner.latin}</span> {partner.name}
+            </dd>
+          ))}
+        </dl>
 
         {/* Numbers */}
         <div className="mt-[8vh] rail">
