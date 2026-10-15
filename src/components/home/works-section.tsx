@@ -80,7 +80,7 @@ function WorkCard({
   return (
     <motion.div
       ref={ref}
-      className="shrink-0 snap-start will-change-transform"
+      className="pointer-events-auto shrink-0 snap-start will-change-transform"
       style={
         enabled
           ? { rotateY, z, opacity, transformStyle: "preserve-3d" }
@@ -89,6 +89,7 @@ function WorkCard({
     >
     <Link
       href={item.href}
+      data-cursor="보기"
       className="group img-gray relative block h-[min(64svh,560px)] w-[82vw] overflow-hidden bg-[var(--ink-soft)] md:h-[52vh] md:w-[38vw] lg:w-[29vw]"
     >
       <Image
@@ -199,7 +200,7 @@ export function WorksSection({ items }: WorksSectionProps) {
   const track = (
     <div
       ref={trackRef}
-      className="flex w-max gap-3 md:gap-8 pl-[var(--gut)] pr-[var(--gut)] [transform-style:preserve-3d]"
+      className="pointer-events-none flex w-max gap-3 md:gap-8 pl-[var(--gut)] pr-[var(--gut)] [transform-style:preserve-3d]"
     >
       {items.map((item, i) => (
         <WorkCard key={item.href} item={item} index={i} x={x} enabled={canPin} />
@@ -228,7 +229,9 @@ export function WorksSection({ items }: WorksSectionProps) {
               element establishes its own containing block and would flatten the
               cards' rotation. */}
           <div style={{ perspective: "1400px" }}>
-            <motion.div style={{ x }} className="[transform-style:preserve-3d]">
+            {/* Cards pushed back in z sit behind this transparent plane, which
+                would swallow their clicks; only the cards take pointer events. */}
+            <motion.div style={{ x }} className="pointer-events-none [transform-style:preserve-3d]">
               {track}
             </motion.div>
           </div>
