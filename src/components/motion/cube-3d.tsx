@@ -52,7 +52,7 @@ export function Cube3D({
   const rawScale = useTransform(scrollYProgress, [0, 0.3, 1], [0.9, 1, 1]);
   const scale = useSpring(rawScale, SCROLL_SPRING);
 
-  const sizeStyle = { "--cube": "min(460px, 74vw)" } as React.CSSProperties;
+  const sizeStyle = { "--cube": "min(480px, 78vw)" } as React.CSSProperties;
 
   if (prefersReducedMotion) {
     return (

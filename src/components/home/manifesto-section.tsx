@@ -47,14 +47,14 @@ export function ManifestoSection() {
           <div className="grid w-full items-center gap-10 rail lg:grid-cols-[1fr_auto] lg:gap-16">
             {/* Explicit px, not `ch`: a ch-based max-width resolves against the
                 parent's 15px body size and would clip the 80px display type. */}
-            <div className="max-w-[640px]">
+            <div className="max-w-[900px]">
               <p className="t-label text-white/45">(Why GrowingUp)</p>
               <MaskReveal
                 as="h2"
                 lines={["왜", "GrowingUp인가"]}
-                className="mt-3 t-display normal-case text-white"
+                className="mt-4 text-[clamp(3.2rem,7.2vw,9rem)] font-semibold leading-[0.98] tracking-[-0.045em] text-white"
               />
-              <p className="mt-6 max-w-[44ch] t-body text-white/70">
+              <p className="mt-8 max-w-[34ch] t-lead text-white/75">
                 데이터 기반의 정확한 진단과 실행력으로 비즈니스의 본질적인 성장을
                 만들어갑니다. 추측이 아닌 근거로 의사결정하고, 실행한 결과를 다시
                 학습으로 되돌립니다.
@@ -66,6 +66,9 @@ export function ManifestoSection() {
               image="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=900&h=900&fit=crop"
               imageAlt="GrowingUp 팀의 작업 공간"
               wordRows={WORD_ROWS}
+              // Mid-turn the near face swings toward the viewer and widens; the
+              // inset keeps that face from running off the right edge.
+              className="lg:mr-[6vw]"
             />
           </div>
         </div>
