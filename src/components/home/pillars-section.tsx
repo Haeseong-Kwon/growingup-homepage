@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { BandWipe, GrowRule } from "@/components/motion/band-wipe";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { ParallaxPlate } from "@/components/motion/parallax-plate";
-import { EASE, REVEAL_VIEWPORT } from "@/lib/motion";
+import { DURATION, DURATION_HEADING, EASE, REVEAL_VIEWPORT, STAGGER } from "@/lib/motion";
 
 /** The two words the band uncovers, set either side of the growing rule. */
 const BAND_MARKS = ["Evidence", "Execution"];
@@ -69,29 +69,53 @@ export function PillarsSection() {
         </div>
       </div>
 
-      {/* Pillar detail — dashed column grid, the reference's specimen-sheet motif */}
+      {/* Pillar detail — each pillar gets a full-width row. Its one-word mark is
+          set as large as the rail allows, in outline, and fills solid on hover:
+          the word is the pillar, the sentence beside it is the footnote. */}
       <div className="relative rail pb-[14vh]">
+        <p className="t-label text-white/45">(What we stand on)</p>
         <MaskReveal
           as="h2"
           lines={["What we", "stand on"]}
-          className="t-display mb-12 text-white"
+          className="mt-3 t-display text-white"
         />
-        <div className="grid rule-t md:grid-cols-3">
+        <ul className="mt-12 border-t border-dashed border-[var(--rule)] md:mt-16">
           {PILLARS.map((pillar, i) => (
-            <motion.article
+            <li
               key={pillar.title}
-              className="flex flex-col gap-4 border-b border-dashed border-[var(--rule)] py-8 last:border-b-0 md:border-b-0 md:border-l md:border-dashed md:border-[var(--rule)] md:px-7 md:first:border-l-0 md:first:pl-0"
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={REVEAL_VIEWPORT}
-              transition={{ duration: 0.9, ease: EASE, delay: i * 0.1 }}
+              className="group grid items-end gap-5 border-b border-dashed border-[var(--rule)] py-7 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:gap-10 md:py-10"
             >
-              <span className="t-label text-white/45">0{i + 1}</span>
-              <h3 className="t-headline">{pillar.title}</h3>
-              <p className="max-w-[38ch] t-body text-white/70">{pillar.body}</p>
-            </motion.article>
+              {/* The in-view trigger sits on the mask, not the word: the word
+                  starts clipped below the mask, so it would never intersect. */}
+              <motion.span
+                className="mask-line"
+                initial="hidden"
+                whileInView="visible"
+                viewport={REVEAL_VIEWPORT}
+              >
+                <motion.span
+                  className="block text-[clamp(80px,17vw,300px)] font-semibold uppercase leading-[0.8] tracking-[-0.055em] text-transparent transition-colors duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] [-webkit-text-stroke:1px_rgba(255,255,255,0.6)] group-hover:text-white"
+                  variants={{ hidden: { y: "105%" }, visible: { y: "0%" } }}
+                  transition={{ duration: DURATION_HEADING, ease: EASE, delay: i * STAGGER }}
+                >
+                  {pillar.mark}
+                </motion.span>
+              </motion.span>
+              <motion.div
+                className="md:pb-[0.6vw]"
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={REVEAL_VIEWPORT}
+                transition={{ duration: DURATION, ease: EASE, delay: 0.15 + i * STAGGER }}
+              >
+                <h3 className="text-[clamp(22px,2.2vw,38px)] font-semibold leading-[1.15] tracking-[-0.03em]">
+                  {pillar.title}
+                </h3>
+                <p className="mt-3 max-w-[40ch] t-lead text-white/70">{pillar.body}</p>
+              </motion.div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

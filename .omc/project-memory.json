@@ -336,6 +336,30 @@
       "accessCount": 1,
       "lastAccessed": 1791968883666,
       "type": "file"
+    },
+    {
+      "path": "src/lib/intro-store.ts",
+      "accessCount": 1,
+      "lastAccessed": 1792026930361,
+      "type": "file"
+    },
+    {
+      "path": "src/components/home/preloader.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1792026971686,
+      "type": "file"
+    },
+    {
+      "path": "src/components/layout/custom-cursor.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1792027103669,
+      "type": "file"
+    },
+    {
+      "path": "src/components/motion/stack-section.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1792027313464,
+      "type": "file"
     }
   ],
   "userDirectives": []
