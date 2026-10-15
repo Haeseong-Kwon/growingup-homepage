@@ -196,6 +196,7 @@ export function AutopilotSection() {
   const cta = (
     <a
       href={AUTOPILOT_URL}
+      data-cursor="열기"
       target="_blank"
       rel="noreferrer noopener"
       className="group img-gray flex items-center gap-5 border border-dashed border-[var(--rule)] p-3 transition-colors duration-500 hover:border-white/70"

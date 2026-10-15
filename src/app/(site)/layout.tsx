@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteShell } from "@/components/layout/site-shell";
 import { PageTransition } from "@/components/layout/page-transition";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
+import { CustomCursor } from "@/components/layout/custom-cursor";
 
 export default function SiteLayout({
   children,
@@ -18,6 +19,7 @@ export default function SiteLayout({
     <MotionConfig reducedMotion="user">
       <div className="flex min-h-screen flex-col">
         <SmoothScroll />
+        <CustomCursor />
         <PageTransition />
         <SiteHeader />
         <SiteShell>{children}</SiteShell>

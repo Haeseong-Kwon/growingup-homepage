@@ -338,6 +338,17 @@ html.theme-dark {
     text-decoration: none;
   }
 
+  /* The drawn cursor replaces the native one only once it has mounted; text
+     fields keep the I-beam so editing never loses its affordance. */
+  html.has-cursor,
+  html.has-cursor * {
+    cursor: none !important;
+  }
+
+  html.has-cursor :is(input, textarea, select, [contenteditable="true"]) {
+    cursor: text !important;
+  }
+
   :focus-visible {
     /* Light surfaces set --focus to ink so the ring never vanishes on paper. */
     outline: 2px solid var(--focus, #ffffff);
