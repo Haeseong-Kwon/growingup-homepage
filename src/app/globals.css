@@ -282,11 +282,7 @@ html.theme-dark {
     }
   }
 
-  @media (min-width: 768px) {
-    body {
-      font-size: 15px;
-    }
-  }
+
 
   /* Cheil Massive Typography */
   h1,
@@ -570,7 +566,7 @@ html.theme-dark {
   }
 
   .t-headline {
-    font-size: clamp(1.5rem, 2.6vw, 3rem);
+    font-size: clamp(1.625rem, 2.8vw, 3.25rem);
     line-height: 1.06;
     letter-spacing: -0.02em;
     font-weight: 600;
@@ -578,8 +574,8 @@ html.theme-dark {
 
   /* Lead paragraph — the reference pairs 24px/30px lead copy with 15px body. */
   .t-lead {
-    font-size: clamp(1.05rem, 1.5vw, 1.5rem);
-    line-height: 1.3;
+    font-size: clamp(1.125rem, 1.6vw, 1.625rem);
+    line-height: 1.38;
     font-weight: 500;
     letter-spacing: -0.02em;
   }
@@ -590,11 +586,8 @@ html.theme-dark {
     font-weight: 400;
   }
 
-  @media (min-width: 768px) {
-    .t-body {
-      font-size: 15px;
-    }
-  }
+  /* 16px everywhere: the 15px desktop body read as fine print against the
+     display sizes around it. */
 
   /* ==========================================================================
      Section tones. Each section declares one; children read --tone-* instead of

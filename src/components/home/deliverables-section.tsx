@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { MaskReveal } from "@/components/motion/mask-reveal";
-import { EASE, REVEAL_VIEWPORT } from "@/lib/motion";
+import { DURATION, EASE, REVEAL_VIEWPORT, STAGGER } from "@/lib/motion";
 
 interface DeliverableGroup {
   title: string;
@@ -67,31 +67,39 @@ export function DeliverablesSection() {
           {GROUPS.map((group, i) => (
             <motion.li
               key={group.title}
-              className="group grid gap-6 border-b border-dashed border-[var(--rule)] py-9 md:grid-cols-[auto_1fr_1.4fr] md:gap-12"
-              initial={{ opacity: 0, y: 34 }}
+              // Full-bleed row: a white sheet wipes up from the bottom edge on
+              // hover and the type inverts with it, so the row you're reading
+              // is the only lit thing on the page.
+              className="group relative -mx-[var(--gut)] grid gap-5 border-b border-dashed border-[var(--rule)] px-[var(--gut)] py-9 md:grid-cols-[auto_1.1fr_1.3fr] md:gap-12 md:py-12"
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={REVEAL_VIEWPORT}
-              transition={{ duration: 0.9, ease: EASE, delay: i * 0.07 }}
+              transition={{ duration: DURATION, ease: EASE, delay: i * STAGGER }}
             >
-              <span className="t-label text-white/40 md:w-16">
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 origin-bottom scale-y-0 bg-white transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-y-100"
+              />
+
+              <span className="relative t-label text-white/40 transition-colors duration-500 group-hover:text-black/45 md:w-16">
                 {String(i + 1).padStart(2, "0")}
               </span>
 
-              <div>
-                <h3 className="text-[clamp(22px,2.3vw,40px)] font-semibold leading-none tracking-[-0.025em] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2">
+              <div className="relative">
+                <h3 className="text-[clamp(30px,3.6vw,64px)] font-semibold leading-[0.95] tracking-[-0.04em] transition-[color,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2 group-hover:text-[var(--ink)]">
                   {group.title}
                 </h3>
-                <p className="mt-2 t-label text-white/40">{group.latin}</p>
-                <p className="mt-4 t-body text-white/70">{group.description}</p>
+                <p className="mt-3 t-label text-white/40 transition-colors duration-500 group-hover:text-black/45">{group.latin}</p>
+                <p className="mt-4 max-w-[34ch] t-lead text-white/70 transition-colors duration-500 group-hover:text-black/70">{group.description}</p>
               </div>
 
-              <ul className="grid gap-x-8 gap-y-2 sm:grid-cols-2">
+              <ul className="relative grid content-end gap-x-8 gap-y-2.5 sm:grid-cols-2">
                 {group.items.map((item) => (
                   <li
                     key={item}
-                    className="flex items-baseline gap-3 t-body text-white/70"
+                    className="flex items-baseline gap-3 t-body text-white/75 transition-colors duration-500 group-hover:text-[var(--ink)]"
                   >
-                    <span aria-hidden className="text-white/30">
+                    <span aria-hidden className="text-white/30 transition-colors duration-500 group-hover:text-black/35">
                       —
                     </span>
                     {item}
