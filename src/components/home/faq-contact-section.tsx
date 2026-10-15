@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { cn } from "@/lib/utils";
+import { DURATION, EASE, REVEAL_VIEWPORT } from "@/lib/motion";
 
 export interface FaqItem {
   question: string;
@@ -15,8 +16,6 @@ export interface FaqItem {
 interface FaqContactSectionProps {
   items: FaqItem[];
 }
-
-const EASE = [0.16, 1, 0.3, 1] as const;
 
 /**
  * Closing pair: questions on the left as dashed rows that open in place, the
@@ -45,7 +44,7 @@ export function FaqContactSection({ items }: FaqContactSectionProps) {
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? null : i)}
                     aria-expanded={isOpen}
-                    className="group flex w-full items-start justify-between gap-6 py-5 text-left"
+                    className="group flex min-h-14 w-full items-start justify-between gap-6 py-5 text-left"
                   >
                     <span className="text-[clamp(16px,1.5vw,22px)] font-semibold tracking-[-0.02em] transition-opacity group-hover:opacity-60">
                       {item.question}
@@ -68,7 +67,7 @@ export function FaqContactSection({ items }: FaqContactSectionProps) {
                         transition={{ duration: 0.5, ease: EASE }}
                         className="overflow-hidden"
                       >
-                        <p className="max-w-[58ch] pb-6 t-body text-white/60">
+                        <p className="max-w-[58ch] pb-6 t-body text-white/70">
                           {item.answer}
                         </p>
                       </motion.div>
@@ -83,11 +82,11 @@ export function FaqContactSection({ items }: FaqContactSectionProps) {
         {/* Inverted panel — the one light surface on the page, so it reads as the
             terminal action. */}
         <motion.aside
-          className="flex flex-col justify-between bg-[var(--paper)] p-8 text-[var(--ink)] lg:p-10"
+          className="flex flex-col justify-between bg-[var(--paper)] [--focus:var(--ink)] p-8 text-[var(--ink)] lg:p-10"
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-12% 0px -12% 0px" }}
-          transition={{ duration: 0.95, ease: EASE }}
+          viewport={REVEAL_VIEWPORT}
+          transition={{ duration: DURATION, ease: EASE }}
         >
           <div>
             <p className="t-label text-black/45">(Start here)</p>
@@ -104,13 +103,13 @@ export function FaqContactSection({ items }: FaqContactSectionProps) {
 
           <div className="mt-12 flex flex-col gap-3">
             <Link
-              href="/apply"
+              href="/diagnosis"
               className="bg-[var(--ink)] px-7 py-4 text-center text-[13px] font-semibold uppercase text-white transition-opacity hover:opacity-85"
             >
               Start a project
             </Link>
             <Link
-              href="/proposal"
+              href="/contact"
               className="border border-dashed border-black/40 px-7 py-4 text-center text-[13px] font-semibold uppercase transition-colors hover:bg-[var(--ink)] hover:text-white"
             >
               Request proposal

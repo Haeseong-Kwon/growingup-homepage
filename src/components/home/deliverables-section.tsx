@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { MaskReveal } from "@/components/motion/mask-reveal";
+import { EASE, REVEAL_VIEWPORT } from "@/lib/motion";
 
 interface DeliverableGroup {
   title: string;
@@ -38,8 +39,6 @@ const GROUPS: DeliverableGroup[] = [
   },
 ];
 
-const EASE = [0.16, 1, 0.3, 1] as const;
-
 /**
  * What the engagement actually hands over. Four stacked rows rather than cards:
  * each row spans the full rail so the deliverable lists read as a spec sheet,
@@ -56,7 +55,7 @@ export function DeliverablesSection() {
             lines={["What you", "actually get"]}
             className="t-display text-white"
           />
-          <p className="max-w-[40ch] pb-2 t-body text-white/60">
+          <p className="max-w-[40ch] pb-2 t-body text-white/70">
             모호한 조언이 아닌, 실체 있는 결과물을 제공합니다. 모든 산출물은 귀사의
             영구적인 자산이 됩니다.
           </p>
@@ -71,7 +70,7 @@ export function DeliverablesSection() {
               className="group grid gap-6 border-b border-dashed border-[var(--rule)] py-9 md:grid-cols-[auto_1fr_1.4fr] md:gap-12"
               initial={{ opacity: 0, y: 34 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-10% 0px -10% 0px" }}
+              viewport={REVEAL_VIEWPORT}
               transition={{ duration: 0.9, ease: EASE, delay: i * 0.07 }}
             >
               <span className="t-label text-white/40 md:w-16">
@@ -83,7 +82,7 @@ export function DeliverablesSection() {
                   {group.title}
                 </h3>
                 <p className="mt-2 t-label text-white/40">{group.latin}</p>
-                <p className="mt-4 t-body text-white/60">{group.description}</p>
+                <p className="mt-4 t-body text-white/70">{group.description}</p>
               </div>
 
               <ul className="grid gap-x-8 gap-y-2 sm:grid-cols-2">

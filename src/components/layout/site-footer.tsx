@@ -37,7 +37,7 @@ export function SiteFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[var(--ink)] pb-6 pt-[18vh] text-white">
+    <footer className="relative bg-[var(--ink)] pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-[18vh] text-white">
       <div className="rail">
         {/* Oversized sign-off — the last thing on the page is the loudest. */}
         <MaskReveal
@@ -46,7 +46,7 @@ export function SiteFooter() {
           className="t-mega text-white"
         />
 
-        <p className="mt-10 max-w-[46ch] t-body text-white/60">
+        <p className="mt-10 max-w-[46ch] t-body text-white/70">
           프로젝트 문의는 목표와 예산, 일정을 함께 보내주세요. 검토 후 맞춤 제안서로
           빠르게 회신드립니다.
         </p>
@@ -62,7 +62,7 @@ export function SiteFooter() {
 
             <h3 className="mt-8 t-label text-white/45">Contact</h3>
             <p className="mt-3 text-[clamp(15px,1.3vw,20px)] font-semibold uppercase tracking-[-0.02em]">
-              <a href="mailto:jaeil@wekeepgrowing.com" className="hover:opacity-60">
+              <a href="mailto:jaeil@wekeepgrowing.com" className="relative hover:opacity-60 after:absolute after:inset-x-0 after:-inset-y-3.5 after:content-['']">
                 jaeil@wekeepgrowing.com
               </a>
             </p>
@@ -71,12 +71,12 @@ export function SiteFooter() {
           {NAV_COLUMNS.map((column) => (
             <nav key={column.title} aria-label={column.title}>
               <h3 className="t-label text-white/45">{column.title}</h3>
-              <ul className="mt-3 space-y-1.5">
+              <ul className="mt-2">
                 {column.links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="t-body text-white/70 transition-opacity hover:text-white"
+                      className="inline-flex min-h-10 items-center t-body text-white/70 transition-colors hover:text-white md:min-h-8"
                     >
                       {link.label}
                     </Link>

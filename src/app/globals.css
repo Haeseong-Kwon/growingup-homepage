@@ -3,23 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Pretendard 웹폰트: 맥/윈도우 동일 렌더링을 위해 CDN 기반으로 고정 로드 */
-@font-face {
-  font-family: "Pretendard Variable";
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/woff2/PretendardVariable.woff2") format("woff2-variations");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2") format("woff2");
-}
-
 @theme inline {
   /* Brand Colors - Editorial Ink System */
   --color-brand-bg: #0E0E0E;
@@ -102,7 +85,7 @@
 
   /* Editorial ink base */
   --ink: #0E0E0E;
-  --ink-soft: #191816;
+  --ink-soft: #17181B;
   --paper: #F5F5F5;
 
   --brand-bg: #0E0E0E;
@@ -132,7 +115,7 @@
   --fg: #FFFFFF;
   --muted: rgba(255, 255, 255, 0.55);
   --border: rgba(255, 255, 255, 0.14);
-  --rule: rgba(255, 255, 255, 0.5);
+  --rule: rgba(255, 255, 255, 0.3);
   --header-fg: #FFFFFF;
   --header-bg: transparent;
 }
@@ -144,11 +127,22 @@
   }
 }
 
-/* Reduced Motion Preference */
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
+/* Lenis owns wheel smoothing on desktop; native smooth scroll would fight it. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
 }
 
 /* 다크 테마 전역 변수 */
@@ -252,9 +246,9 @@ html.theme-dark {
       "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
 
     /* Editorial base: small, dense body type against massive display type */
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
-    line-height: 1.5;
+    line-height: 1.55;
     letter-spacing: -0.01em;
     word-break: keep-all;
     overscroll-behavior: none;
@@ -280,6 +274,18 @@ html.theme-dark {
     background-repeat: repeat;
     opacity: 0.4;
     mix-blend-mode: overlay;
+  }
+
+  @media (max-width: 1023px), (pointer: coarse) {
+    body::before {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    body {
+      font-size: 15px;
+    }
   }
 
   /* Cheil Massive Typography */
@@ -332,14 +338,32 @@ html.theme-dark {
     text-decoration: none;
   }
 
-  a:hover {
-    @apply text-[var(--brand-primary)];
+  /* The drawn cursor replaces the native one only once it has mounted; text
+     fields keep the I-beam so editing never loses its affordance. */
+  html.has-cursor,
+  html.has-cursor * {
+    cursor: none !important;
+  }
+
+  html.has-cursor :is(input, textarea, select, [contenteditable="true"]) {
+    cursor: text !important;
+  }
+
+  :focus-visible {
+    /* Light surfaces set --focus to ink so the ring never vanishes on paper. */
+    outline: 2px solid var(--focus, #ffffff);
+    outline-offset: 3px;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* Selection */
   ::selection {
-    background-color: var(--brand-primary);
-    color: #ffffff;
+    background-color: #ffffff;
+    color: var(--ink);
   }
 
   /* Scrollbar: hidden entirely — scroll position is communicated by motion, not chrome */
@@ -539,10 +563,10 @@ html.theme-dark {
   }
 
   .t-display {
-    font-size: clamp(2.25rem, 5.6vw, 7rem);
-    line-height: 0.94;
-    letter-spacing: -0.025em;
-    font-weight: 600;
+    font-size: clamp(2.6rem, 6.2vw, 8rem);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    font-weight: 650;
   }
 
   .t-headline {
@@ -561,10 +585,41 @@ html.theme-dark {
   }
 
   .t-body {
-    font-size: 15px;
-    line-height: 1.55;
+    font-size: 16px;
+    line-height: 1.6;
     font-weight: 400;
   }
+
+  @media (min-width: 768px) {
+    .t-body {
+      font-size: 15px;
+    }
+  }
+
+  /* ==========================================================================
+     Section tones. Each section declares one; children read --tone-* instead of
+     hard-coding white, so a section can move between ink and paper without a
+     class-by-class rewrite.
+     ========================================================================== */
+  .tone-ink {
+    --tone-bg: var(--ink);
+    --tone-fg: #ffffff;
+    --tone-muted: rgba(255, 255, 255, 0.68);
+    --tone-faint: rgba(255, 255, 255, 0.44);
+    --rule: rgba(255, 255, 255, 0.28);
+    background-color: var(--tone-bg);
+    color: var(--tone-fg);
+  }
+
+
+  .fg-muted {
+    color: var(--tone-muted);
+  }
+
+  .fg-faint {
+    color: var(--tone-faint);
+  }
+
 
   /* Eyebrow / section label — 13-14px, never bigger. */
   .t-label {

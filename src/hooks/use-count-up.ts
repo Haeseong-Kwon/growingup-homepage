@@ -28,7 +28,9 @@ export function useCountUp({
   const [count, setCount] = useState(start);
   const divRef = useRef<HTMLDivElement>(null);
   const { inView } = useInView({
-    threshold: 0.3,
+    // Start as soon as the figure is properly on screen — a high threshold left
+    // a row of zeros sitting in view before anything moved.
+    threshold: 0.1,
     triggerOnce: !replay,
     ref: divRef as RefObject<HTMLElement | null>,
   });

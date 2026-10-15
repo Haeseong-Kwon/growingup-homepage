@@ -7,6 +7,7 @@ import { motion, useScroll, useTransform, useSpring, type MotionValue } from "fr
 import { ArrowUpRight } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { SCROLL_SPRING } from "@/lib/motion";
 
 export interface WorkItem {
   category: string;
@@ -79,7 +80,7 @@ function WorkCard({
   return (
     <motion.div
       ref={ref}
-      className="shrink-0 will-change-transform"
+      className="pointer-events-auto shrink-0 snap-start will-change-transform"
       style={
         enabled
           ? { rotateY, z, opacity, transformStyle: "preserve-3d" }
@@ -88,11 +89,13 @@ function WorkCard({
     >
     <Link
       href={item.href}
-      className="group img-gray relative block h-[62vh] w-[78vw] overflow-hidden bg-[var(--ink-soft)] md:h-[52vh] md:w-[38vw] lg:w-[29vw]"
+      data-cursor="보기"
+      className="group img-gray relative block h-[min(64svh,560px)] w-[82vw] overflow-hidden bg-[var(--ink-soft)] md:h-[52vh] md:w-[38vw] lg:w-[29vw]"
     >
       <Image
         src={item.image}
-        alt={item.title}
+        // Decorative here: the card's heading already names the project.
+        alt=""
         fill
         sizes="(max-width: 768px) 78vw, 30vw"
         className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
@@ -105,12 +108,12 @@ function WorkCard({
           <span className="t-label text-white/80">
             {String(index + 1).padStart(2, "0")} / {item.category}
           </span>
-          <ArrowUpRight className="h-5 w-5 -translate-x-2 translate-y-2 text-white opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" />
+          <ArrowUpRight className="h-5 w-5 -translate-x-2 translate-y-2 text-white opacity-0 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" />
         </div>
 
         <div>
           <h3 className="t-headline text-white">{item.title}</h3>
-          <p className="mt-2 max-w-[34ch] t-body text-white/70">{item.summary}</p>
+          <p className="mt-2 line-clamp-3 max-w-[34ch] t-body text-white/75 md:line-clamp-none">{item.summary}</p>
           {item.result && (
             <p className="mt-4 border-t border-dashed border-white/40 pt-3 text-[clamp(18px,1.8vw,28px)] font-semibold tracking-[-0.02em] text-white">
               {item.result}
@@ -162,19 +165,13 @@ export function WorksSection({ items }: WorksSectionProps) {
   });
 
   const rawX = useTransform(scrollYProgress, [0, 1], [0, -overflow]);
-  // Softer than a 1:1 track — the reel keeps gliding for a beat after the wheel
-  // stops, and settles the same way when you scroll back up.
-  const x = useSpring(rawX, {
-    stiffness: 140,
-    damping: 30,
-    mass: 0.45,
-    restDelta: 0.5,
-  });
+  // Shared scroll spring, with a pixel-sized rest threshold for a pixel value.
+  const x = useSpring(rawX, { ...SCROLL_SPRING, restDelta: 0.5 });
 
   const viewAll = (
     <Link
       href="/portfolio"
-      className="group inline-flex items-center gap-2 border-b border-white pb-1 text-[13px] font-semibold uppercase"
+      className="group inline-flex items-center gap-2 relative after:absolute after:inset-x-0 after:-inset-y-2.5 after:content-[''] border-b border-white pb-1 text-[13px] font-semibold uppercase"
     >
       View all projects
       <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -203,7 +200,7 @@ export function WorksSection({ items }: WorksSectionProps) {
   const track = (
     <div
       ref={trackRef}
-      className="flex w-max gap-8 pl-[var(--gut)] pr-[var(--gut)] [transform-style:preserve-3d]"
+      className="pointer-events-none flex w-max gap-3 md:gap-8 pl-[var(--gut)] pr-[var(--gut)] [transform-style:preserve-3d]"
     >
       {items.map((item, i) => (
         <WorkCard key={item.href} item={item} index={i} x={x} enabled={canPin} />
@@ -232,7 +229,9 @@ export function WorksSection({ items }: WorksSectionProps) {
               element establishes its own containing block and would flatten the
               cards' rotation. */}
           <div style={{ perspective: "1400px" }}>
-            <motion.div style={{ x }} className="[transform-style:preserve-3d]">
+            {/* Cards pushed back in z sit behind this transparent plane, which
+                would swallow their clicks; only the cards take pointer events. */}
+            <motion.div style={{ x }} className="pointer-events-none [transform-style:preserve-3d]">
               {track}
             </motion.div>
           </div>
@@ -240,7 +239,7 @@ export function WorksSection({ items }: WorksSectionProps) {
       ) : (
         <div className="py-[12vh]">
           {header(false)}
-          <div className="no-scrollbar mt-12 overflow-x-auto">{track}</div>
+          <div className="no-scrollbar mt-10 snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-pl-[var(--gut)]">{track}</div>
           <div className="mt-10 rail">{viewAll}</div>
         </div>
       )}

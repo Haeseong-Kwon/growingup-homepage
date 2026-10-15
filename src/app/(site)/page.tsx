@@ -1,4 +1,6 @@
 import { HeroScene } from "@/components/home/hero-scene";
+import { Preloader } from "@/components/home/preloader";
+import { StackSection } from "@/components/motion/stack-section";
 import { ManifestoSection } from "@/components/home/manifesto-section";
 import { StatementBand } from "@/components/home/statement-band";
 import { PillarsSection } from "@/components/home/pillars-section";
@@ -102,28 +104,58 @@ const faqItems: FaqItem[] = [
 
 export default function HomePage() {
   return (
-    <div className="relative bg-[var(--ink)]">
-      <HeroScene
-        intro
-        line1="런칭을 기획서가 아닌"
-        line2="매출과 데이터로 증명합니다"
-        subtitle="데이터 기반의 정확한 진단으로 비즈니스의 본질적인 성장을 만듭니다."
-        primaryCta={{ label: "진행 중인 프로젝트", href: "/projects" }}
-        secondaryCta={{ label: "마케팅 제안 요청", href: "/proposal" }}
-      />
-
-      <ManifestoSection />
-      <StatementBand />
-      <PillarsSection />
-      <WorksSection items={works} />
-      <HistorySection />
-      <ProcessSection steps={processSteps} />
-      <DeliverablesSection />
-      <EngagementsSection />
-      <PartnersSection />
-      <AutopilotSection />
-      <UpdatesSection />
-      <FaqContactSection items={faqItems} />
+    // Pure black behind the sections: as each one recedes under the next, its
+    // margins open onto this darker ground, which is what reads as depth.
+    <div className="relative bg-black">
+      <Preloader />
+      <StackSection index={1}>
+        <HeroScene
+          intro
+          line1="런칭을 기획서가 아닌"
+          line2="매출과 데이터로 증명합니다"
+          subtitle="데이터 기반의 정확한 진단으로 비즈니스의 본질적인 성장을 만듭니다."
+          primaryCta={{ label: "마케팅 제안 요청", href: "/contact" }}
+          secondaryCta={{ label: "성과 사례 보기", href: "/portfolio" }}
+        />
+      </StackSection>
+      <StackSection index={2}>
+        <ManifestoSection />
+      </StackSection>
+      <StackSection index={3}>
+        <StatementBand />
+      </StackSection>
+      <StackSection index={4}>
+        <PillarsSection />
+      </StackSection>
+      <StackSection index={5}>
+        <WorksSection items={works} />
+      </StackSection>
+      <StackSection index={6}>
+        <HistorySection />
+      </StackSection>
+      <StackSection index={7}>
+        <ProcessSection steps={processSteps} />
+      </StackSection>
+      <StackSection index={8}>
+        <DeliverablesSection />
+      </StackSection>
+      <StackSection index={9}>
+        <EngagementsSection />
+      </StackSection>
+      <StackSection index={10}>
+        <PartnersSection />
+      </StackSection>
+      <StackSection index={11}>
+        <AutopilotSection />
+      </StackSection>
+      <StackSection index={12}>
+        <UpdatesSection />
+      </StackSection>
+      {/* Last sheet: no exit (the footer follows outside this page), but it must
+          still sit above the receding section before it. */}
+      <div className="relative" style={{ zIndex: 13 }}>
+        <FaqContactSection items={faqItems} />
+      </div>
     </div>
   );
 }

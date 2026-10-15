@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { BandWipe, GrowRule } from "@/components/motion/band-wipe";
 import { MaskReveal } from "@/components/motion/mask-reveal";
+import { ParallaxPlate } from "@/components/motion/parallax-plate";
+import { EASE, REVEAL_VIEWPORT } from "@/lib/motion";
 
 /** The two words the band uncovers, set either side of the growing rule. */
 const BAND_MARKS = ["Evidence", "Execution"];
@@ -26,26 +28,20 @@ const PILLARS = [
 ];
 
 /**
- * Third beat: a fixed plate holds still while the page scrolls over it, and a
+ * Third beat: a plate drifts slowly against the scroll, and a
  * solid band wipes across to uncover the brand mark. The three pillars are then
  * stitched together with dashed rules that draw themselves in.
  */
 export function PillarsSection() {
   return (
     <section className="relative overflow-hidden bg-[var(--ink)] text-white">
-      {/* Fixed plate: stays put under the scroll, which reads as depth without
-          any transform work. */}
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-cover bg-fixed bg-center opacity-30 grayscale"
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&h=1280&fit=crop)",
-        }}
+      <ParallaxPlate
+        src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&h=1280&fit=crop"
+        className="opacity-30"
       />
       <div aria-hidden className="absolute inset-0 bg-[var(--ink)]/55" />
 
-      <div className="relative flex min-h-[100svh] flex-col justify-center py-[14vh]">
+      <div className="relative flex flex-col justify-center py-[14vh] md:min-h-[100svh]">
         <BandWipe text="GROWING UP — GROWING UP — GROWING UP" />
 
         {/* Paired marks split by a rule that grows out from the centre */}
@@ -57,8 +53,8 @@ export function PillarsSection() {
               className="text-[clamp(28px,3vw,72px)] font-semibold uppercase leading-none tracking-[-0.01em]"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-20% 0px -20% 0px" }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: i * 0.12 }}
+              viewport={{ once: true, margin: "-20% 0px -20% 0px" }}
+              transition={{ duration: 0.9, ease: EASE, delay: i * 0.12 }}
             >
               {mark}
             </motion.span>
@@ -66,7 +62,7 @@ export function PillarsSection() {
         </div>
 
         <div className="mt-[8vh] rail">
-          <p className="mx-auto max-w-[52ch] text-center t-body text-white/70">
+          <p className="mx-auto max-w-[44ch] text-center t-body text-white/75">
             5단계 운영 루프로 런칭의 불확실성을 체계적으로 관리하며, 각 단계마다
             명확한 산출물과 의사결정 기준을 제공합니다.
           </p>
@@ -84,15 +80,15 @@ export function PillarsSection() {
           {PILLARS.map((pillar, i) => (
             <motion.article
               key={pillar.title}
-              className="flex flex-col gap-4 py-8 md:border-l md:border-dashed md:border-[var(--rule)] md:px-7 md:first:border-l-0 md:first:pl-0"
+              className="flex flex-col gap-4 border-b border-dashed border-[var(--rule)] py-8 last:border-b-0 md:border-b-0 md:border-l md:border-dashed md:border-[var(--rule)] md:px-7 md:first:border-l-0 md:first:pl-0"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-12% 0px -12% 0px" }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
+              viewport={REVEAL_VIEWPORT}
+              transition={{ duration: 0.9, ease: EASE, delay: i * 0.1 }}
             >
               <span className="t-label text-white/45">0{i + 1}</span>
               <h3 className="t-headline">{pillar.title}</h3>
-              <p className="t-body text-white/60">{pillar.body}</p>
+              <p className="max-w-[38ch] t-body text-white/70">{pillar.body}</p>
             </motion.article>
           ))}
         </div>

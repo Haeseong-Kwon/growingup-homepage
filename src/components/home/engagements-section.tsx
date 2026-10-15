@@ -5,8 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { servicesData } from "@/components/services/servicesData";
-
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { DURATION, EASE, REVEAL_VIEWPORT } from "@/lib/motion";
 
 const TERM: Record<string, string> = {
   sprint: "Short-term",
@@ -31,7 +30,7 @@ export function EngagementsSection() {
           />
           <Link
             href="/services"
-            className="group inline-flex items-center gap-2 border-b border-white pb-1 text-[13px] font-semibold uppercase"
+            className="group inline-flex items-center gap-2 relative after:absolute after:inset-x-0 after:-inset-y-2.5 after:content-[''] border-b border-white pb-1 text-[13px] font-semibold uppercase"
           >
             Compare in detail
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -43,11 +42,11 @@ export function EngagementsSection() {
         {servicesData.map((service, i) => (
           <motion.article
             key={service.id}
-            className="group relative flex flex-col justify-between border-b border-dashed border-[var(--rule)] px-[var(--gut)] py-10 transition-colors duration-500 hover:bg-[var(--paper)] hover:text-[var(--ink)] lg:border-b-0 lg:border-l lg:first:border-l-0"
+            className="group relative flex flex-col justify-between border-b border-dashed border-[var(--rule)] px-[var(--gut)] py-10 transition-colors duration-500 hover:bg-[var(--paper)] hover:text-[var(--ink)] hover:[--focus:var(--ink)] lg:border-b-0 lg:border-l lg:first:border-l-0"
             initial={{ opacity: 0, y: 36 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-10% 0px -10% 0px" }}
-            transition={{ duration: 0.95, ease: EASE, delay: i * 0.1 }}
+            viewport={REVEAL_VIEWPORT}
+            transition={{ duration: DURATION, ease: EASE, delay: i * 0.1 }}
           >
             <header>
               <div className="flex items-center gap-3">
@@ -91,7 +90,7 @@ export function EngagementsSection() {
 
               <Link
                 href={`/services#${service.id}`}
-                className="group/cta mt-8 inline-flex items-center gap-2 border-b border-current pb-1 text-[13px] font-semibold uppercase"
+                className="group/cta mt-8 inline-flex items-center gap-2 relative after:absolute after:inset-x-0 after:-inset-y-2.5 after:content-[''] border-b border-current pb-1 text-[13px] font-semibold uppercase"
               >
                 Start {service.title}
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/cta:translate-x-1 group-hover/cta:-translate-y-1" />

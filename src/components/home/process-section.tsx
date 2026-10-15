@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
+import { Magnetic } from "@/components/motion/magnetic";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { SCROLL_SPRING } from "@/lib/motion";
 
 export interface ProcessStep {
   title: string;
@@ -16,77 +19,121 @@ interface ProcessSectionProps {
   steps: ProcessStep[];
 }
 
-const EASE = [0.76, 0, 0.24, 1] as const;
-
 /**
- * The operating loop as a run of dashed panels. Each panel is masked by a solid
- * cover that lifts away in sequence, so the steps arrive in reading order rather
- * than all at once.
+ * One stop on the loop. It switches on when the drawn line reaches it, so the
+ * reader sees which step the scroll has "run" so far.
  */
-export function ProcessSection({ steps }: ProcessSectionProps) {
-  const prefersReducedMotion = useReducedMotion();
+function Step({
+  step,
+  index,
+  count,
+  progress,
+  isStatic,
+}: {
+  step: ProcessStep;
+  index: number;
+  count: number;
+  progress: MotionValue<number>;
+  isStatic: boolean;
+}) {
+  const reach = index / count;
+  const lit = useTransform(progress, [reach - 0.04, reach + 0.02], [0, 1]);
+  const textOpacity = useTransform(lit, [0, 1], [0.38, 1]);
 
   return (
-    <section className="bg-[var(--ink)] py-[12vh] text-white">
+    <li className="relative pb-10 pl-9 last:pb-0 lg:pb-0 lg:pl-0 lg:pr-8 lg:pt-12">
+      {/* Node, centred on the rail in either orientation. */}
+      <span
+        aria-hidden
+        className="absolute left-0 top-[5px] h-[13px] w-[13px] -translate-x-1/2 rounded-full border border-white/50 bg-[var(--ink)] lg:left-0 lg:top-0 lg:-translate-y-1/2 lg:translate-x-0"
+      >
+        <motion.span
+          className="absolute inset-[-1px] rounded-full bg-white shadow-[0_0_0_5px_rgba(255,255,255,0.12)]"
+          style={isStatic ? undefined : { opacity: lit, scale: lit }}
+        />
+      </span>
+
+      <motion.div style={isStatic ? undefined : { opacity: textOpacity }}>
+        <span className="t-label tabular-nums text-white/45">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <h3 className="mt-2 text-[clamp(24px,2.1vw,36px)] font-semibold leading-[1.05] tracking-[-0.03em]">
+          {step.title}
+        </h3>
+        <p className="mt-3 max-w-[30ch] t-body fg-muted">{step.description}</p>
+        <div className="mt-5 border-t border-dashed border-[var(--rule)] pt-3">
+          <span className="t-label fg-faint">Output</span>
+          <p className="mt-1.5 max-w-[30ch] text-[14px] leading-relaxed text-white/80">{step.outputs}</p>
+        </div>
+      </motion.div>
+    </li>
+  );
+}
+
+/**
+ * The operating loop as a single drawn line. Scrolling draws it through the
+ * five steps — across on desktop, down on phones — and each step lights as the
+ * line reaches it. The sequence is the content, so the motion follows it.
+ */
+export function ProcessSection({ steps }: ProcessSectionProps) {
+  const listRef = useRef<HTMLOListElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({ target: listRef, offset: ["start 0.8", "end 0.55"] });
+  const progress = useSpring(scrollYProgress, SCROLL_SPRING);
+  const line = prefersReducedMotion ? 1 : progress;
+
+  return (
+    <section className="tone-ink py-[14vh]">
       <div className="rail">
         <p className="t-label text-white/45">(Our process)</p>
-        <MaskReveal
-          as="h2"
-          lines={["GrowingUp", "Marketing OS"]}
-          className="mt-3 t-display text-white"
-        />
-        <p className="mt-5 max-w-[54ch] t-lead text-white/70">
-          5단계 운영 루프로 런칭의 불확실성을 체계적으로 관리하며, 각 단계마다
-          명확한 산출물과 의사결정 기준을 제공합니다.
-        </p>
-      </div>
+        <div className="mt-3 flex flex-wrap items-end justify-between gap-8">
+          <MaskReveal as="h2" lines={["GrowingUp", "Marketing OS"]} className="t-display" />
+          <p className="max-w-[40ch] pb-2 t-lead fg-muted">
+            5단계 운영 루프로 런칭의 불확실성을 관리합니다. 단계마다 산출물과
+            의사결정 기준이 남습니다.
+          </p>
+        </div>
 
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
-        {steps.map((step, i) => (
-          <article
-            key={step.title}
-            className="relative flex min-h-[46vh] flex-col justify-between overflow-hidden border-b border-dashed border-[var(--rule)] bg-[var(--ink-soft)] p-6 lg:min-h-[58vh] lg:border-b-0 lg:border-l lg:first:border-l-0"
-          >
-            {/* Cover lifts away to expose the panel it was hiding. */}
-            <motion.div
-              aria-hidden
-              className="absolute inset-0 z-10 origin-top bg-[var(--ink)]"
-              initial={prefersReducedMotion ? false : { scaleY: 1 }}
-              whileInView={{ scaleY: 0 }}
-              viewport={{ once: false, margin: "-10% 0px -10% 0px" }}
-              transition={{ duration: 0.9, ease: EASE, delay: 0.1 + i * 0.11 }}
-            />
-
-            <header>
-              <span className="t-label text-white/45">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-4 text-[clamp(22px,2vw,34px)] font-semibold leading-[1.05] tracking-[-0.02em]">
-                {step.title}
-              </h3>
-              <p className="mt-4 t-body text-white/60">{step.description}</p>
-            </header>
-
-            {/* Fills the gap between the step and its output the way the
-                reference does — the run of verticals ties the panels together. */}
-            <div aria-hidden className="my-8 w-px flex-1 border-l border-dashed border-[var(--rule)]" />
-
-            <footer className="border-t border-dashed border-[var(--rule)] pt-4">
-              <span className="t-label text-white/45">Output</span>
-              <p className="mt-2 t-body text-white/75">{step.outputs}</p>
-            </footer>
-          </article>
-        ))}
-      </div>
-
-      <div className="mt-12 rail">
-        <Link
-          href="/apply"
-          className="group inline-flex items-center gap-2 bg-white px-7 py-4 text-[13px] font-semibold uppercase text-[var(--ink)] transition-colors hover:bg-white/85"
+        <ol
+          ref={listRef}
+          className="relative mt-14 grid border-l border-dashed border-white/25 lg:mt-20 lg:grid-cols-5 lg:border-l-0 lg:border-t"
         >
-          외주 파트너 등록
-          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-        </Link>
+          {/* The drawn line, laid over the dashed rail it is tracing. */}
+          <motion.span
+            aria-hidden
+            className="absolute -left-px top-0 h-full w-px origin-top bg-white/80 lg:hidden"
+            style={{ scaleY: line }}
+          />
+          <motion.span
+            aria-hidden
+            className="absolute -top-px left-0 hidden h-px w-full origin-left bg-white/80 lg:block"
+            style={{ scaleX: line }}
+          />
+
+          {steps.map((step, i) => (
+            <Step
+              key={step.title}
+              step={step}
+              index={i}
+              count={steps.length}
+              progress={progress}
+              isStatic={prefersReducedMotion}
+            />
+          ))}
+        </ol>
+
+        <div className="mt-14 lg:mt-20">
+          <Magnetic strength={0.25} className="inline-block w-full sm:w-auto">
+            <Link
+              href="/arena"
+              className="group inline-flex h-12 w-full items-center justify-center gap-2 bg-white px-7 text-[14px] font-semibold text-[var(--ink)] transition-colors duration-300 hover:bg-white/85 sm:w-auto"
+            >
+              외주 파트너로 참여하기
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </Magnetic>
+        </div>
       </div>
     </section>
   );

@@ -14,6 +14,7 @@ import { ArrowUpRight } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { CAPABILITY_GLYPHS } from "@/components/home/autopilot-glyphs";
+import { DURATION, EASE, REVEAL_VIEWPORT, SCROLL_SPRING } from "@/lib/motion";
 
 const AUTOPILOT_URL = "https://www.autopilot.it.kr/";
 
@@ -62,7 +63,6 @@ const FACES = CAPABILITIES.length;
 const STEP = 360 / FACES;
 /** 외접 반지름 = (면 높이 / 2) / tan(30°). 면이 서로 정확히 맞물리는 유일한 값. */
 const RADIUS = "calc(var(--face-h) * 0.8660254)";
-const EASE = [0.16, 1, 0.3, 1] as const;
 
 /**
  * 면마다 "멈춤 → 회전"을 반복하도록 스크럽 구간을 만듭니다. 등속으로 300°를
@@ -93,7 +93,7 @@ function FaceCard({ capability, index }: { capability: Capability; index: number
       {/* 기능별 라인 그래픽. currentColor라 면이 물러날 때 함께 어두워집니다. */}
       <Glyph
         aria-hidden
-        className="pointer-events-none absolute right-5 top-1/2 h-[clamp(88px,11vw,148px)] w-[clamp(88px,11vw,148px)] -translate-y-1/2 text-white/30 md:right-8"
+        className="pointer-events-none absolute right-5 top-5 h-14 w-14 text-white/25 md:right-8 md:top-1/2 md:h-[clamp(88px,11vw,148px)] md:w-[clamp(88px,11vw,148px)] md:-translate-y-1/2 md:text-white/30"
       />
 
       <div className="relative flex items-start justify-between gap-4">
@@ -104,11 +104,11 @@ function FaceCard({ capability, index }: { capability: Capability; index: number
       </div>
 
       {/* 글리프 폭만큼 비워 둡니다 — 좁은 카드에서 본문이 그래픽 위로 흘러갑니다. */}
-      <div className="relative pr-[clamp(100px,12vw,168px)]">
+      <div className="relative md:pr-[clamp(100px,12vw,168px)]">
         <h3 className="text-[clamp(26px,2.8vw,52px)] font-semibold leading-none tracking-[-0.03em] text-white">
           {capability.title}
         </h3>
-        <p className="mt-3 t-body text-white/60">{capability.description}</p>
+        <p className="mt-3 t-body text-white/70">{capability.description}</p>
       </div>
     </div>
   );
@@ -183,17 +183,12 @@ export function AutopilotSection() {
   });
 
   const rawRotate = useTransform(scrollYProgress, SCRUB.input, SCRUB.output);
-  const rotateX = useSpring(rawRotate, {
-    stiffness: 78,
-    damping: 22,
-    mass: 0.5,
-    restDelta: 0.01,
-  });
+  const rotateX = useSpring(rawRotate, SCROLL_SPRING);
 
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
-    // +0.21은 회전 구간의 중간점. 이게 없으면 프리즘이 이미 다음 면을 보여주는
-    // 동안에도 왼쪽 목록은 직전 면을 짚고 있습니다.
-    const i = Math.floor(value * FACES + 0.21);
+  // 목록은 스크롤 원값이 아니라 실제로 화면에 보이는 프리즘 각도를 따릅니다.
+  // 원값을 쓰면 스프링 지연만큼 목록이 프리즘보다 먼저 넘어갑니다.
+  useMotionValueEvent(rotateX, "change", (deg) => {
+    const i = Math.round(-deg / STEP);
     setActive(Math.min(FACES - 1, Math.max(0, i)));
   });
 
@@ -201,6 +196,7 @@ export function AutopilotSection() {
   const cta = (
     <a
       href={AUTOPILOT_URL}
+      data-cursor="열기"
       target="_blank"
       rel="noreferrer noopener"
       className="group img-gray flex items-center gap-5 border border-dashed border-[var(--rule)] p-3 transition-colors duration-500 hover:border-white/70"
@@ -238,7 +234,7 @@ export function AutopilotSection() {
         감으로 하던 마케팅을 자동 운항으로. 제품 하나만 넣으면 시장 판단, 추적 세팅,
         상세페이지 진단, 데이터 퍼포먼스가 한 흐름으로 이어집니다.
       </p>
-      <p className="mt-3 max-w-[44ch] t-body text-white/50">
+      <p className="mt-3 max-w-[44ch] t-body text-white/70">
         그로윙업이 현장에서 검증한 마케팅 실행 방법론을 협력사 AOP와 함께 제품으로
         옮겼습니다.
       </p>
@@ -261,7 +257,7 @@ export function AutopilotSection() {
             {String(i + 1).padStart(2, "0")}
           </span>
           <span
-            className="t-body transition-all duration-500"
+            className="t-body transition-[color,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
             style={{
               color: i === active ? "#fff" : "rgba(255,255,255,0.4)",
               transform: i === active ? "translateX(6px)" : "none",
@@ -306,7 +302,7 @@ export function AutopilotSection() {
                 style={{ rotateX }}
                 initial={{ opacity: 0, scale: 0.94 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: false, margin: "-15% 0px -15% 0px" }}
+                viewport={REVEAL_VIEWPORT}
                 transition={{ duration: 1, ease: EASE }}
               >
                 {CAPABILITIES.map((capability, i) => (
@@ -331,8 +327,8 @@ export function AutopilotSection() {
                 className="h-full"
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: "-10% 0px -10% 0px" }}
-                transition={{ duration: 0.85, ease: EASE, delay: i * 0.06 }}
+                viewport={REVEAL_VIEWPORT}
+                transition={{ duration: DURATION, ease: EASE, delay: i * 0.06 }}
               >
                 <FaceCard capability={capability} index={i} />
               </motion.li>

@@ -5,8 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { MaskReveal } from "@/components/motion/mask-reveal";
 import { updatesData } from "@/components/insights/insightsData";
-
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { DURATION, EASE, REVEAL_VIEWPORT } from "@/lib/motion";
 
 /** Only entries with a written excerpt earn a slot on the front page. */
 const FEATURED = updatesData.filter((update) => update.excerpt).slice(0, 3);
@@ -28,7 +27,7 @@ export function UpdatesSection() {
           />
           <Link
             href="/insights"
-            className="group inline-flex items-center gap-2 border-b border-white pb-1 text-[13px] font-semibold uppercase"
+            className="group inline-flex items-center gap-2 relative after:absolute after:inset-x-0 after:-inset-y-2.5 after:content-[''] border-b border-white pb-1 text-[13px] font-semibold uppercase"
           >
             All updates
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -42,8 +41,8 @@ export function UpdatesSection() {
               className="border-b border-dashed border-[var(--rule)]"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-10% 0px -10% 0px" }}
-              transition={{ duration: 0.85, ease: EASE, delay: i * 0.08 }}
+              viewport={REVEAL_VIEWPORT}
+              transition={{ duration: DURATION, ease: EASE, delay: i * 0.08 }}
             >
               <Link
                 href={update.href}
@@ -55,7 +54,7 @@ export function UpdatesSection() {
                   <h3 className="text-[clamp(18px,1.9vw,30px)] font-semibold leading-tight tracking-[-0.02em] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2">
                     {update.title}
                   </h3>
-                  <p className="mt-2 max-w-[60ch] t-body text-white/55">
+                  <p className="mt-2 max-w-[60ch] t-body text-white/70">
                     {update.excerpt}
                   </p>
                 </div>
@@ -68,7 +67,7 @@ export function UpdatesSection() {
                       </span>
                     ))}
                   </span>
-                  <ArrowUpRight className="h-5 w-5 shrink-0 -translate-x-2 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100" />
+                  <ArrowUpRight className="h-5 w-5 shrink-0 -translate-x-2 opacity-0 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0 group-hover:opacity-100" />
                 </div>
               </Link>
             </motion.li>

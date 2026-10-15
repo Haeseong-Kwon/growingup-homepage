@@ -1,52 +1,23 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { MaskReveal } from "@/components/motion/mask-reveal";
-import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { ParallaxPlate } from "@/components/motion/parallax-plate";
 
 /**
  * The thesis, set as large as the grid allows over a plate that drifts against
  * the scroll. Scrubbed rather than triggered, so it tracks in both directions.
  */
 export function StatementBand() {
-  const ref = useRef<HTMLElement>(null);
-  const prefersReducedMotion = useReducedMotion();
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const smooth = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 24,
-    mass: 0.4,
-    restDelta: 0.0005,
-  });
-
-  const plateY = useTransform(smooth, [0, 1], ["-12%", "12%"]);
-  const plateScale = useTransform(smooth, [0, 0.5, 1], [1.14, 1.02, 1.14]);
-
   return (
     <section
-      ref={ref}
       className="relative flex min-h-[92svh] items-center overflow-hidden bg-[var(--ink)] py-[14vh] text-white"
     >
-      <motion.div
-        aria-hidden
-        className="absolute inset-0"
-        style={
-          prefersReducedMotion ? undefined : { y: plateY, scale: plateScale }
-        }
-      >
-        <div
-          className="h-full w-full bg-cover bg-center opacity-25 grayscale"
-          style={{
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&h=1280&fit=crop)",
-          }}
-        />
-      </motion.div>
+      {/* Oversized plate: its edge can never drift into frame, which the old
+          scale-and-shift pair allowed near both ends of the scroll. */}
+      <ParallaxPlate
+        src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&h=1280&fit=crop"
+        className="opacity-25"
+      />
       <div aria-hidden className="absolute inset-0 bg-[var(--ink)]/45" />
 
       <div className="relative rail">

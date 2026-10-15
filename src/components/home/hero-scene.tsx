@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   motion,
   useMotionValue,
@@ -12,8 +12,10 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { DrawnFrame } from "@/components/motion/line-draw";
+import { Magnetic } from "@/components/motion/magnetic";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { useIntroDone } from "@/lib/intro-store";
+import { EASE, EASE_IN_OUT, SCROLL_SPRING } from "@/lib/motion";
 
 interface Cta {
   label: string;
@@ -84,58 +86,54 @@ const PANEL_SPECS: PanelSpec[] = [
   { left: 68, top: 42, rotFrom: 40, rotTo: -46, tiltFrom: -10, tiltTo: 10, rollFrom: -4, rollTo: 4 },
 ];
 
-const INTRO_MS = 2200;
-const EASE = [0.16, 1, 0.3, 1] as const;
-
-function useIntroProgress(active: boolean) {
-  const [value, setValue] = useState(active ? 0 : 100);
-
-  useEffect(() => {
-    if (!active) return;
-    let frame = 0;
-    let start: number | null = null;
-
-    const tick = (now: number) => {
-      start ??= now;
-      const p = Math.min((now - start) / INTRO_MS, 1);
-      setValue(Math.round(p * 100));
-      if (p < 1) frame = requestAnimationFrame(tick);
-    };
-
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [active]);
-
-  return value;
-}
-
 function HeroHeadline({
   lines,
+  isReady,
   delay,
-  stagger,
 }: {
   lines: string[];
+  isReady: boolean;
   delay: number;
-  stagger: number;
 }) {
   const prefersReducedMotion = useReducedMotion();
+  let charIndex = 0;
 
   return (
-    <h1 className="t-display max-w-[20ch] normal-case text-white [line-height:1.04] md:[line-height:1]">
-      {lines.map((line, i) => (
-        <motion.span
-          key={line}
-          className="block text-pretty"
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
-          animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.95,
-            ease: EASE,
-            delay: delay + i * stagger,
-          }}
-        >
-          {line}
-        </motion.span>
+    // Display size tracks the viewport so the longer line spans the rail; the
+    // characters rise in sequence, so the sentence is read in as it lands.
+    <h1
+      aria-label={lines.join(" ")}
+      className="text-[clamp(2.6rem,7.3vw,9rem)] font-semibold leading-[1.02] tracking-[-0.045em] text-white"
+    >
+      {lines.map((line) => (
+        <span key={line} aria-hidden className="mask-line">
+          {line.split(" ").map((word, w, words) => (
+            <span key={w} className="inline-block whitespace-nowrap">
+              {Array.from(word).map((char) => {
+                const i = charIndex++;
+                return (
+                  <motion.span
+                    key={i}
+                    className="inline-block"
+                    // Always animate to a defined state: the reduced-motion flag
+                    // resolves after hydration, and an undefined target would
+                    // strand the SSR'd glyph below its mask.
+                    initial={{ y: "112%" }}
+                    animate={{ y: isReady ? "0%" : "112%" }}
+                    transition={
+                      prefersReducedMotion
+                        ? { duration: 0 }
+                        : { duration: 1.05, ease: EASE, delay: delay + i * 0.028 }
+                    }
+                  >
+                    {char}
+                  </motion.span>
+                );
+              })}
+              {w < words.length - 1 && "\u00A0"}
+            </span>
+          ))}
+        </span>
       ))}
     </h1>
   );
@@ -181,10 +179,11 @@ function DepthPanel({
 
   return (
     <motion.div
-      className="absolute h-[38vh] w-[30vw] max-w-[430px] overflow-hidden will-change-transform md:h-[46vh]"
+      className="absolute h-[22vh] w-[44vw] max-w-[430px] overflow-hidden will-change-transform md:h-[34vh] md:w-[24vw]"
       style={{
         left: `${spec.left}%`,
-        top: `${spec.top}%`,
+        // Phones lift the deck clear of the four-line headline below it.
+        top: `calc(${spec.top}% - var(--panel-lift, 0%))`,
         x: "-50%",
         y: "-50%",
         z,
@@ -237,9 +236,9 @@ export function HeroScene({
   const videoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  const runIntro = intro && !prefersReducedMotion;
-  const progress = useIntroProgress(runIntro);
-  const introDone = progress >= 100;
+  // The front door waits for the preloader's curtain; inner pages start at once.
+  const introDone = useIntroDone();
+  const isReady = !intro || introDone;
 
   // Pinned for a viewport and a half past the fold, which is the room the
   // flight needs to read as travel. Inner pages skip the pin entirely.
@@ -250,12 +249,7 @@ export function HeroScene({
     offset: pinned ? ["start start", "end end"] : ["start start", "end start"],
   });
 
-  const flight = useSpring(scrollYProgress, {
-    stiffness: 64,
-    damping: 22,
-    mass: 0.45,
-    restDelta: 0.0002,
-  });
+  const flight = useSpring(scrollYProgress, SCROLL_SPRING);
 
   // Rig attitude: a slow roll through the flight, plus pointer tilt on top.
   const pointerX = useMotionValue(0);
@@ -300,15 +294,17 @@ export function HeroScene({
     return () => window.removeEventListener("pointermove", onMove);
   }, [pointerX, pointerY, prefersReducedMotion]);
 
-  const revealDelay = runIntro ? INTRO_MS / 1000 + 0.1 : 0.25;
+  // Starts as the curtain begins to part, so the type rises out of the split.
+  const revealDelay = intro ? 0.2 : 0.25;
+  const backdropDepth = SPACING * (plates.length + 2);
 
   return (
     <section
       ref={trackRef}
-      className="relative z-0 w-full bg-[var(--ink)] text-white"
-      // 190svh gives the flight ~90vh of scroll — long enough to read as travel,
-      // short enough that the pin never sits on an emptied-out frame.
-      style={{ height: pinned ? "190svh" : "100svh" }}
+      // 190svh gives the flight ~90vh of scroll on desktop — long enough to read
+      // as travel. Phones get 150svh: a thumb covers distance faster, and a long
+      // pin there feels like the page is stuck.
+      className={`relative z-0 w-full bg-[var(--ink)] text-white ${pinned ? "h-[150svh] md:h-[190svh]" : "h-[100svh]"}`}
     >
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
         {/* Depth rig */}
@@ -317,7 +313,7 @@ export function HeroScene({
           style={{ perspective: `${PERSPECTIVE}px`, perspectiveOrigin: "50% 45%" }}
         >
           <motion.div
-            className="absolute inset-0 [transform-style:preserve-3d]"
+            className="absolute inset-0 [--panel-lift:16%] [transform-style:preserve-3d] md:[--panel-lift:12%]"
             style={
               prefersReducedMotion ? undefined : { rotateX, rotateY }
             }
@@ -328,7 +324,10 @@ export function HeroScene({
               className="absolute overflow-hidden"
               style={{
                 inset: "-30%",
-                transform: `translateZ(-${SPACING * (plates.length + 2)}px)`,
+                // Pushed back in depth, the plate would shrink to a quarter of
+                // the frame; scaling by the same perspective ratio restores it to
+                // full bleed while keeping it behind every panel.
+                transform: `translateZ(-${backdropDepth}px) scale(${(PERSPECTIVE + backdropDepth) / PERSPECTIVE})`,
               }}
             >
               <video
@@ -366,14 +365,6 @@ export function HeroScene({
           style={prefersReducedMotion ? { opacity: 0.25 } : { opacity: vignette }}
         />
 
-        {runIntro && (
-          <motion.div
-            className="absolute inset-[var(--gut)] z-10 hidden text-white/30 md:block"
-            style={{ opacity: contentOpacity }}
-          >
-            <DrawnFrame duration={INTRO_MS / 1000} delay={0.1} />
-          </motion.div>
-        )}
 
         {/* Two layers: the outer carries the scroll fade (left standing, this
             collides with the header's copy as the pin releases), the inner
@@ -386,8 +377,8 @@ export function HeroScene({
           <motion.p
             className="t-label text-white/60"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.9, delay: revealDelay - 0.2 }}
+            animate={{ opacity: isReady ? 1 : 0 }}
+            transition={{ duration: 0.9, delay: revealDelay }}
           >
             {eyebrow.map((line) => (
               <span key={line} className="block">
@@ -399,7 +390,7 @@ export function HeroScene({
 
         {/* Headline block — given its own z so it floats clear of the plates */}
         <motion.div
-          className="absolute inset-x-0 bottom-0 z-10 rail pb-[calc(var(--gut)+4.5rem)]"
+          className="absolute inset-x-0 bottom-0 z-10 rail pb-[calc(var(--gut)+3rem+env(safe-area-inset-bottom))] md:pb-[calc(var(--gut)+4rem)]"
           style={
             prefersReducedMotion
               ? undefined
@@ -408,45 +399,50 @@ export function HeroScene({
         >
           <HeroHeadline
             lines={line2 ? [line1, line2] : [line1]}
+            isReady={isReady}
             delay={revealDelay}
-            stagger={0.11}
           />
 
-          <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="mt-7 flex flex-col gap-6 md:mt-9 md:flex-row md:items-end md:justify-between">
             <motion.p
-              className="max-w-[38ch] t-body text-white/60"
+              className="max-w-[38ch] t-body text-white/70"
               initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: revealDelay + 0.3, ease: EASE }}
+              animate={isReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+              transition={{ duration: 1, delay: revealDelay + 0.55, ease: EASE }}
             >
               {subtitle}
             </motion.p>
 
             <motion.div
-              className="flex flex-wrap items-center gap-3"
+              className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3"
               initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: revealDelay + 0.42, ease: EASE }}
+              animate={isReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+              transition={{ duration: 1, delay: revealDelay + 0.65, ease: EASE }}
             >
               {primaryCta && (
-                <Link
-                  href={primaryCta.href}
-                  className="group inline-flex items-center gap-2 bg-white px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.01em] text-[var(--ink)] transition-colors hover:bg-white/85"
-                >
-                  {primaryCta.label}
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
+                <Magnetic strength={0.25} className="w-full sm:w-auto">
+                  <Link
+                    href={primaryCta.href}
+                    className="group inline-flex h-12 w-full items-center justify-center gap-2 bg-white px-6 text-[14px] font-semibold tracking-[-0.01em] text-[var(--ink)] transition-colors duration-300 hover:bg-white/85 sm:w-auto"
+                  >
+                    {primaryCta.label}
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
+                </Magnetic>
               )}
               {secondaryCta && (
-                <Link
-                  href={secondaryCta.href}
-                  className="inline-flex items-center gap-2 rule-box px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.01em] text-white transition-colors hover:bg-white hover:text-[var(--ink)]"
-                >
-                  {secondaryCta.label}
-                </Link>
+                <Magnetic strength={0.25} className="w-full sm:w-auto">
+                  <Link
+                    href={secondaryCta.href}
+                    className="inline-flex h-12 w-full items-center justify-center gap-2 border border-white/40 px-6 text-[14px] font-semibold tracking-[-0.01em] text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-[var(--ink)] sm:w-auto"
+                  >
+                    {secondaryCta.label}
+                  </Link>
+                </Magnetic>
               )}
             </motion.div>
           </div>
+
         </motion.div>
 
         {/* Foot rule: nested so the scroll retract and the intro draw don't
@@ -457,28 +453,18 @@ export function HeroScene({
         >
           <motion.div
             className="h-px w-full origin-left bg-white/45"
-            initial={runIntro ? { scaleX: 0 } : { scaleX: 1 }}
-            animate={{ scaleX: 1 }}
-            transition={{
-              duration: runIntro ? INTRO_MS / 1000 : 1.1,
-              ease: [0.65, 0, 0.35, 1],
-            }}
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: isReady ? 1 : 0 }}
+            transition={{ duration: 1.4, ease: EASE_IN_OUT, delay: revealDelay + 0.3 }}
           />
         </motion.div>
 
-        <motion.span
-          className="pointer-events-none absolute bottom-[calc(var(--gut)+0.6rem)] left-1/2 z-20 -translate-x-1/2 t-label tabular-nums text-white/70"
-          animate={{ opacity: introDone ? 0 : 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          {String(progress).padStart(3, "0")}
-        </motion.span>
 
         <motion.span
           className="pointer-events-none absolute bottom-[calc(var(--gut)+0.6rem)] right-[var(--gut)] z-20 t-label text-white/50"
           initial={{ opacity: 0 }}
-          animate={{ opacity: introDone ? 1 : 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          animate={{ opacity: isReady ? 1 : 0 }}
+          transition={{ duration: 0.6, delay: revealDelay + 1.2 }}
         >
           Scroll
         </motion.span>
